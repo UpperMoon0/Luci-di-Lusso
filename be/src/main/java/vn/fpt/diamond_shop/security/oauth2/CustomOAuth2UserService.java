@@ -1,8 +1,8 @@
 package vn.fpt.diamond_shop.security.oauth2;
 
 import vn.fpt.diamond_shop.security.exception.OAuth2AuthenticationProcessingException;
-import vn.fpt.diamond_shop.security.model.AuthProvider;
-import vn.fpt.diamond_shop.security.model.User;
+import vn.fpt.diamond_shop.security.EAuthProvider;
+import vn.fpt.diamond_shop.entity.User;
 import vn.fpt.diamond_shop.repository.UserRepository;
 import vn.fpt.diamond_shop.security.UserPrincipal;
 import vn.fpt.diamond_shop.security.oauth2.user.OAuth2UserInfo;
@@ -49,7 +49,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         User user;
         if(userOptional.isPresent()) {
             user = userOptional.get();
-            if(!user.getProvider().equals(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()))) {
+            if(!user.getProvider().equals(EAuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()))) {
                 throw new OAuth2AuthenticationProcessingException("Looks like you're signed up with " +
                         user.getProvider() + " account. Please use your " + user.getProvider() +
                         " account to login.");
@@ -65,8 +65,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     private User registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
         User user = new User();
 
-        user.setProvider(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()));
-        user.setProviderId(oAuth2UserInfo.getId());
+        user.setProvider(EAuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()));
+        //user.setProviderId(oAuth2UserInfo.getId());
         user.setName(oAuth2UserInfo.getName());
         user.setEmail(oAuth2UserInfo.getEmail());
         user.setImageUrl(oAuth2UserInfo.getImageUrl());

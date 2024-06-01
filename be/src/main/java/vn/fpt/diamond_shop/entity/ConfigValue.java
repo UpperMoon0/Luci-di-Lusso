@@ -1,15 +1,8 @@
-package vn.fpt.diamond_shop.model;
-
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
-import java.time.OffsetDateTime;
-import java.util.UUID;
+/*
+package vn.fpt.diamond_shop.entity;
 
 @Entity
-@Table(name = "DIAMOND_SHOP_CONFIG_VALUE")
+@Table(name = "diamond_config_value")
 @Data
 @NoArgsConstructor
 public class ConfigValue {
@@ -36,3 +29,4 @@ public class ConfigValue {
         this.createAt = OffsetDateTime.now();
     }
 }
+*/

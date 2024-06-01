@@ -1,10 +1,10 @@
+/*
 package vn.fpt.diamond_shop;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 import vn.fpt.diamond_shop.constants.*;
-import vn.fpt.diamond_shop.model.*;
+import vn.fpt.diamond_shop.entity.*;
 import vn.fpt.diamond_shop.repository.*;
 
 //@Component
@@ -46,3 +46,4 @@ public class InitialJob implements CommandLineRunner {
 
 
 }
+*/

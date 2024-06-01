@@ -1,6 +1,6 @@
 package vn.fpt.diamond_shop.security;
 
-import vn.fpt.diamond_shop.security.model.User;
+import vn.fpt.diamond_shop.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

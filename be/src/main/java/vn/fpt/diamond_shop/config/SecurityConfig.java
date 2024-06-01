@@ -1,5 +1,6 @@
 package vn.fpt.diamond_shop.config;
 
+import org.springframework.security.web.SecurityFilterChain;
 import vn.fpt.diamond_shop.security.oauth2.CustomOAuth2UserService;
 import vn.fpt.diamond_shop.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import vn.fpt.diamond_shop.security.oauth2.OAuth2AuthenticationFailureHandler;
@@ -30,21 +31,39 @@ import vn.fpt.diamond_shop.security.TokenAuthenticationFilter;
         prePostEnabled = true
 )
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
-    @Autowired
     private CustomOAuth2UserService customOAuth2UserService;
 
-    @Autowired
     private OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
 
-    @Autowired
     private OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
 
-    @Autowired
     private HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
+
+    @Autowired
+    public SecurityConfig(CustomUserDetailsService customUserDetailsService,
+                          CustomOAuth2UserService customOAuth2UserService,
+                          OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler,
+                          OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler,
+                          HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository) {
+        this.customUserDetailsService = customUserDetailsService;
+        this.customOAuth2UserService = customOAuth2UserService;
+        this.oAuth2AuthenticationSuccessHandler = oAuth2AuthenticationSuccessHandler;
+        this.oAuth2AuthenticationFailureHandler = oAuth2AuthenticationFailureHandler;
+        this.httpCookieOAuth2AuthorizationRequestRepository = httpCookieOAuth2AuthorizationRequestRepository;
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .csrf().disable()
+            .authorizeRequests()
+            .antMatchers("/auth/signup", "/auth/signin").permitAll()
+            .anyRequest().authenticated();
+            //.and()
+            //.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
 
     @Bean
     public TokenAuthenticationFilter tokenAuthenticationFilter() {
@@ -54,13 +73,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public HttpCookieOAuth2AuthorizationRequestRepository cookieAuthorizationRequestRepository() {
         return new HttpCookieOAuth2AuthorizationRequestRepository();
-    }
-
-    @Override
-    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder
-                .userDetailsService(customUserDetailsService)
-                .passwordEncoder(passwordEncoder());
     }
 
     @Bean
@@ -73,57 +85,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .cors()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .csrf()
-                .disable()
-                .formLogin()
-                .disable()
-                .httpBasic()
-                .disable()
-                .exceptionHandling()
-                .authenticationEntryPoint(new RestAuthenticationEntryPoint())
-                .and()
-                .authorizeRequests()
-                .antMatchers("/",
-                        "/error",
-                        "/favicon.ico",
-                        "/**/*.png",
-                        "/**/*.gif",
-                        "/**/*.svg",
-                        "/**/*.jpg",
-                        "/**/*.html",
-                        "/**/*.css",
-                        "/**/*.js")
-                .permitAll()
-                .antMatchers("/shop/auth/**", "/oauth2/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .oauth2Login()
-                .authorizationEndpoint()
-                .baseUri("/shop/oauth2/authorize")
-                .authorizationRequestRepository(cookieAuthorizationRequestRepository())
-                .and()
-                .redirectionEndpoint()
-                .baseUri("/shop/oauth2/callback/*")
-                .and()
-                .userInfoEndpoint()
-                .userService(customOAuth2UserService)
-                .and()
-                .successHandler(oAuth2AuthenticationSuccessHandler)
-                .failureHandler(oAuth2AuthenticationFailureHandler);
-
-        // Add our custom Token based authentication filter
-        http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }

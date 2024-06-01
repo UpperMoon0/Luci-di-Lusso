@@ -1,7 +1,6 @@
-package vn.fpt.diamond_shop.model;
+package vn.fpt.diamond_shop.entity;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import vn.fpt.diamond_shop.constants.DiamondShapeEnum;
 
@@ -9,16 +8,16 @@ import javax.persistence.*;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
+@ToString
 @Entity
-@Table(name = "SHAPE")
-@NoArgsConstructor
+@Table(name = "shape")
 public class Shape {
 
     @Id
-    @GeneratedValue(generator = "uuid-hibernate-generator")
-    @GenericGenerator(name = "uuid-hibernate-generator", strategy = "org.hibernate.id.UUIDGenerator")
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "shape", unique = true)
     private DiamondShapeEnum shape;
@@ -31,5 +30,4 @@ public class Shape {
 
     @Column(name = "update_at")
     private OffsetDateTime updateAt;
-
 }
