@@ -1,5 +1,6 @@
 package vn.fpt.diamond_shop.controller;
 
+import org.springframework.http.HttpStatus;
 import vn.fpt.diamond_shop.dto.CommonResponse;
 import vn.fpt.diamond_shop.dto.LoginResponse;
 import vn.fpt.diamond_shop.security.exception.BadRequestException;
@@ -45,7 +46,19 @@ public class AuthController implements IAuthController {
     @Override
     public ResponseEntity<CommonResponse> register(@Valid @RequestBody RegisterRequest signUpRequest) throws BadRequestException {
         // TODO: Implement this method
-        return null;
+        if(userRepository.existsByEmail(signUpRequest.getEmail())) {
+            throw new BadRequestException("Email has already existed!");
+        } else {
+            User user = new User();
+            user.setName(signUpRequest.getName());
+            user.setEmail(signUpRequest.getEmail());
+            user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
+            user.setProvider(EAuthProvider.valueOf(signUpRequest.getProvider()));
+            userRepository.save(user);
+        }
+        CommonResponse cr = new CommonResponse();
+        cr.setMessage( "Successfully!");
+        return ResponseEntity.ok(cr);
     }
 
     /**
