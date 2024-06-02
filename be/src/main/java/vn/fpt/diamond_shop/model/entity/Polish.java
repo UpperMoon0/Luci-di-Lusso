@@ -1,4 +1,4 @@
-package vn.fpt.diamond_shop.entity;
+package vn.fpt.diamond_shop.model.entity;
 
 import lombok.*;
 import vn.fpt.diamond_shop.constant.EPolish;

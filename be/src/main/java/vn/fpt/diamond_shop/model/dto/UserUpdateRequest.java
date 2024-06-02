@@ -1,10 +1,15 @@
-package vn.fpt.diamond_shop.dto;
+package vn.fpt.diamond_shop.model.dto;
 
 import lombok.Getter;
+
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 @Getter
-public class UserSelfUpdateRequest {
+public class UserUpdateRequest {
+    @NotBlank
+    private Long id;
+
     private String name;
 
     @Email

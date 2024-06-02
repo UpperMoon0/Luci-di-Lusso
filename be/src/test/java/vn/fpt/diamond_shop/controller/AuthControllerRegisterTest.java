@@ -12,8 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import vn.fpt.diamond_shop.AbstractTest;
-import vn.fpt.diamond_shop.dto.RegisterRequest;
-import vn.fpt.diamond_shop.entity.User;
+import vn.fpt.diamond_shop.model.dto.RegisterRequest;
+import vn.fpt.diamond_shop.model.entity.User;
 import vn.fpt.diamond_shop.repository.UserRepository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

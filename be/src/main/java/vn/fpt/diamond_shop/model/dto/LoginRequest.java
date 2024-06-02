@@ -1,4 +1,4 @@
-package vn.fpt.diamond_shop.dto;
+package vn.fpt.diamond_shop.model.dto;
 
 import lombok.Getter;
 import lombok.Setter;

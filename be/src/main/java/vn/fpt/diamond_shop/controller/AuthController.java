@@ -5,13 +5,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import vn.fpt.diamond_shop.dto.CommonResponse;
-import vn.fpt.diamond_shop.dto.LoginResponse;
+import vn.fpt.diamond_shop.model.dto.CommonResponse;
+import vn.fpt.diamond_shop.model.dto.LoginResponse;
 import vn.fpt.diamond_shop.security.exception.BadRequestException;
 import vn.fpt.diamond_shop.constant.EAuthProvider;
-import vn.fpt.diamond_shop.entity.User;
-import vn.fpt.diamond_shop.dto.LoginRequest;
-import vn.fpt.diamond_shop.dto.RegisterRequest;
+import vn.fpt.diamond_shop.model.entity.User;
+import vn.fpt.diamond_shop.model.dto.LoginRequest;
+import vn.fpt.diamond_shop.model.dto.RegisterRequest;
 import vn.fpt.diamond_shop.repository.UserRepository;
 import vn.fpt.diamond_shop.security.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ import javax.validation.Valid;
 @RequestMapping("/auth")
 @RestController
 public class AuthController implements IAuthController {
-    private static final Logger log = LoggerFactory.getLogger(AuthController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;

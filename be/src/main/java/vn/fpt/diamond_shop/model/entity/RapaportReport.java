@@ -1,4 +1,4 @@
-package vn.fpt.diamond_shop.entity;
+package vn.fpt.diamond_shop.model.entity;
 
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -12,32 +12,27 @@ import java.util.UUID;
 @Setter
 @ToString
 @Entity
-@Table(name = "diamond")
-public class Diamond {
+@Table(name = "rapaport_report")
+@NoArgsConstructor
+public class RapaportReport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "carat")
-    private int carat;
-
-    @Column(name = "quantity")
-    private int quantity;
-
     @Column(name = "clarity_id")
     private Long clarityId;
-
-    @Column(name = "cut_id")
-    private Long cutId;
-
-    @Column(name = "polish_id")
-    private Long polishId;
 
     @Column(name = "color_id")
     private Long colorId;
 
-    @Column(name = "shape_id")
-    private Long shapeId;
+    @Column(name = "is_active")
+    private Boolean isActive;
+
+    @Column(name = "cara_from")
+    private Integer caraF;
+
+    @Column(name = "cara_to")
+    private Integer caraT;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;

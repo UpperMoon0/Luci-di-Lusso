@@ -1,18 +1,19 @@
 package vn.fpt.diamond_shop.controller;
 
 import org.springframework.web.bind.annotation.*;
-import vn.fpt.diamond_shop.dto.UserSelfUpdateRequest;
+import vn.fpt.diamond_shop.model.dto.UserSelfUpdateRequest;
 import vn.fpt.diamond_shop.security.exception.ResourceNotFoundException;
-import vn.fpt.diamond_shop.entity.User;
+import vn.fpt.diamond_shop.model.entity.User;
 import vn.fpt.diamond_shop.repository.UserRepository;
 import vn.fpt.diamond_shop.security.CurrentUser;
 import vn.fpt.diamond_shop.security.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import vn.fpt.diamond_shop.dto.UserUpdateRequest;
+import vn.fpt.diamond_shop.model.dto.UserUpdateRequest;
 
 import javax.validation.Valid;
 
+@RequestMapping("/shop/user")
 @RestController
 public class UserController implements IUserController {
     private final UserRepository userRepository;
