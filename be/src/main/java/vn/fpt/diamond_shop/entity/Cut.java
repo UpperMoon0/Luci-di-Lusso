@@ -3,11 +3,10 @@ package vn.fpt.diamond_shop.entity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import vn.fpt.diamond_shop.constants.DiamondCutEnum;
+import vn.fpt.diamond_shop.constant.ECut;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 
 @Getter
 @Setter
@@ -21,14 +20,8 @@ public class Cut {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "cut", unique = true)
-    private DiamondCutEnum cut;
-
-    @Column(name = "point")
-    private Integer point;
+    private ECut cut;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;
-
-    @Column(name = "update_at")
-    private LocalDateTime updateAt;
 }

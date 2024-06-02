@@ -1,5 +1,6 @@
 package vn.fpt.diamond_shop.security;
 
+import lombok.Getter;
 import vn.fpt.diamond_shop.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,7 +13,9 @@ import java.util.List;
 import java.util.Map;
 
 public class UserPrincipal implements OAuth2User, UserDetails {
+    @Getter
     private Long id;
+    @Getter
     private String email;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
@@ -41,14 +44,6 @@ public class UserPrincipal implements OAuth2User, UserDetails {
         UserPrincipal userPrincipal = UserPrincipal.create(user);
         userPrincipal.setAttributes(attributes);
         return userPrincipal;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     @Override

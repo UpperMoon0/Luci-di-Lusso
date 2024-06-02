@@ -2,10 +2,12 @@ package vn.fpt.diamond_shop.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import vn.fpt.diamond_shop.constant.ECut;
 import vn.fpt.diamond_shop.entity.Cut;
 
 import java.util.UUID;
 
 @Repository
-public interface CutRepository extends JpaRepository<Cut, UUID> {
+public interface CutRepository extends JpaRepository<Cut, Long> {
+    Cut findByCut(ECut cut);
 }

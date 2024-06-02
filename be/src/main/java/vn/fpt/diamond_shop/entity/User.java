@@ -1,43 +1,44 @@
 package vn.fpt.diamond_shop.entity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-import vn.fpt.diamond_shop.security.EAuthProvider;
+import vn.fpt.diamond_shop.constant.EAuthProvider;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
 
 @Setter
 @Getter
 @Entity
 @Table(name = "`user`", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "email")
+        @UniqueConstraint(columnNames = "email"),
+        @UniqueConstraint(columnNames = "username")
 })
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column(nullable = false)
-    private String name;
+    @Column(name = "username", nullable = false)
+    private String username;
 
-    @Email
-    @Column(nullable = false)
-    private String email;
-
-    @Column
-    private String imageUrl;
-
-    @Column(nullable = false)
-    private Boolean emailVerified = false;
-
-    @JsonIgnore
-    @Column
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @NotNull
+    @Column(name = "full_name", nullable = false)
+    private String fullName;
+
+    @Email
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    @Column(name = "image_url")
+    private String imageUrl;
+
+    @Column(name = "email_verified", nullable = false)
+    private Boolean emailVerified = false;
+
     @Enumerated(EnumType.STRING)
-    @Column
+    @Column(name = "provider", nullable = false)
     private EAuthProvider provider;
 }

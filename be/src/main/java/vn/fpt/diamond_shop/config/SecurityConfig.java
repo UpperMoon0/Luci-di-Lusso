@@ -1,6 +1,5 @@
 package vn.fpt.diamond_shop.config;
 
-import org.springframework.security.web.SecurityFilterChain;
 import vn.fpt.diamond_shop.security.oauth2.CustomOAuth2UserService;
 import vn.fpt.diamond_shop.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import vn.fpt.diamond_shop.security.oauth2.OAuth2AuthenticationFailureHandler;
@@ -10,17 +9,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import vn.fpt.diamond_shop.security.CustomUserDetailsService;
-import vn.fpt.diamond_shop.security.RestAuthenticationEntryPoint;
+import vn.fpt.diamond_shop.security.UserDetailServiceImpl;
 import vn.fpt.diamond_shop.security.TokenAuthenticationFilter;
 
 @Configuration
@@ -31,7 +26,7 @@ import vn.fpt.diamond_shop.security.TokenAuthenticationFilter;
         prePostEnabled = true
 )
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private CustomUserDetailsService customUserDetailsService;
+    private UserDetailServiceImpl userDetailServiceImpl;
 
     private CustomOAuth2UserService customOAuth2UserService;
 
@@ -42,12 +37,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
     @Autowired
-    public SecurityConfig(CustomUserDetailsService customUserDetailsService,
+    public SecurityConfig(UserDetailServiceImpl userDetailServiceImpl,
                           CustomOAuth2UserService customOAuth2UserService,
                           OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler,
                           OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler,
                           HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository) {
-        this.customUserDetailsService = customUserDetailsService;
+        this.userDetailServiceImpl = userDetailServiceImpl;
         this.customOAuth2UserService = customOAuth2UserService;
         this.oAuth2AuthenticationSuccessHandler = oAuth2AuthenticationSuccessHandler;
         this.oAuth2AuthenticationFailureHandler = oAuth2AuthenticationFailureHandler;
