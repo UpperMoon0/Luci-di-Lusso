@@ -1,13 +1,10 @@
 package vn.fpt.diamond_shop.entity;
 
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
-import vn.fpt.diamond_shop.constants.DiamondClarityEnum;
+import vn.fpt.diamond_shop.constant.EClarity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -21,11 +18,8 @@ public class Clarity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "clarity", unique = true)
-    private DiamondClarityEnum clarity;
+    private EClarity clarity;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;
-
-    @Column(name = "update_at")
-    private LocalDateTime updateAt;
 }

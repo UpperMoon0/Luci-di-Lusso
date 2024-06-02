@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Getter
@@ -12,8 +11,7 @@ import javax.validation.constraints.NotBlank;
 @ToString
 public class LoginRequest {
     @NotBlank
-    @Email
-    private String email;
+    private String principal;
     @NotBlank
-    private String password;
+    private String credential;
 }

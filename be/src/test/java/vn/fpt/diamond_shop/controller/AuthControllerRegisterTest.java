@@ -1,6 +1,5 @@
 package vn.fpt.diamond_shop.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -12,6 +11,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
+import vn.fpt.diamond_shop.AbstractTest;
 import vn.fpt.diamond_shop.dto.RegisterRequest;
 import vn.fpt.diamond_shop.entity.User;
 import vn.fpt.diamond_shop.repository.UserRepository;
@@ -23,12 +23,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 /**
  * Author: Vo Nguyen Minh Nhat
- * This class is used to test the AuthController.
- * Testers should not edit this class.
+ * This class is used to test the register feature.
+ * Testers do not edit this class.
  */
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AuthControllerTest {
+public class AuthControllerRegisterTest extends AbstractTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -42,43 +42,74 @@ public class AuthControllerTest {
     @Captor
     private ArgumentCaptor<User> userCaptor;
 
-    /**
-     * Set up the test environment before each test.
-     */
     @BeforeEach
     public void setUp() {
         when(userRepository.existsByEmail("existing@test.com")).thenReturn(true);
+        when(userRepository.existsByEmail("test@test.com")).thenReturn(false);
+        when(userRepository.existsByUsername("ExistingUser")).thenReturn(true);
+        when(userRepository.existsByUsername("TestUser")).thenReturn(false);
+
+        when(passwordEncoder.encode(any(CharSequence.class))).thenAnswer(invocation -> "encoded_" + invocation.getArgument(0));
     }
 
-    /**
-     * Test the register method with an email that is already in use.
-     */
     @Test
     public void testRegisterEmailAlreadyInUse() throws Exception {
         RegisterRequest registerRequest = new RegisterRequest();
         registerRequest.setEmail("existing@test.com");
-        registerRequest.setName("Test User");
+        registerRequest.setUsername("TestUser");
         registerRequest.setPassword("password");
-        registerRequest.setProvider("LOCAL");
+        registerRequest.setFullName("Test User");
+        registerRequest.setProvider("GITHUB");
 
         mockMvc.perform(post("/auth/signup")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(registerRequest)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(registerRequest)))
                 .andExpect(status().isBadRequest());
 
-        // Verify that userRepository.save() was never called
         verify(userRepository, never()).save(any(User.class));
     }
 
-    /**
-     * Test the register method with valid input.
-     */
+    @Test
+    public void testRegisterUsernameAlreadyInUse() throws Exception {
+        RegisterRequest registerRequest = new RegisterRequest();
+        registerRequest.setEmail("test@test.com");
+        registerRequest.setUsername("ExistingUser");
+        registerRequest.setPassword("password");
+        registerRequest.setFullName("Test User");
+        registerRequest.setProvider("LOCAL");
+
+        mockMvc.perform(post("/auth/signup")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(registerRequest)))
+                .andExpect(status().isBadRequest());
+
+        verify(userRepository, never()).save(any(User.class));
+    }
+
+    @Test
+    public void testRegisterEmailAndUsernameAlreadyInUse() throws Exception {
+        RegisterRequest registerRequest = new RegisterRequest();
+        registerRequest.setEmail("existing@test.com");
+        registerRequest.setUsername("ExistingUser");
+        registerRequest.setPassword("password");
+        registerRequest.setFullName("Test User");
+        registerRequest.setProvider("GOOGLE");
+
+        mockMvc.perform(post("/auth/signup")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(registerRequest)))
+                .andExpect(status().isBadRequest());
+
+        verify(userRepository, never()).save(any(User.class));
+    }
+
     @Test
     public void testRegisterSuccess() throws Exception {
         RegisterRequest registerRequest = new RegisterRequest();
         registerRequest.setEmail("test@test.com");
-        registerRequest.setName("Test User");
+        registerRequest.setUsername("TestUser");
         registerRequest.setPassword("password");
+        registerRequest.setFullName("Test User");
         registerRequest.setProvider("LOCAL");
 
         mockMvc.perform(post("/auth/signup")
@@ -86,28 +117,12 @@ public class AuthControllerTest {
                         .content(asJsonString(registerRequest)))
                 .andExpect(status().isOk());
 
-        // Capture the User object passed to userRepository.save()
         verify(userRepository).save(userCaptor.capture());
 
-        // Assert that the fields of the captured User object match the fields of the RegisterRequest
         User savedUser = userCaptor.getValue();
         assertEquals(registerRequest.getEmail(), savedUser.getEmail());
-        assertEquals(registerRequest.getName(), savedUser.getName());
+        assertEquals(registerRequest.getUsername(), savedUser.getUsername());
         assertEquals(registerRequest.getProvider(), savedUser.getProvider().toString());
-        assertEquals(passwordEncoder.encode(registerRequest.getPassword()), savedUser.getPassword());
-    }
-
-    /**
-     * Convert an object to a JSON string.
-     *
-     * @param obj the object to convert
-     * @return the JSON string representation of the object
-     */
-    public static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        assertEquals("encoded_" + registerRequest.getPassword(), savedUser.getPassword());
     }
 }

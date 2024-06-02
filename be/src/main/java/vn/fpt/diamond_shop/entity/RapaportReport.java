@@ -15,7 +15,6 @@ import java.util.UUID;
 @Table(name = "rapaport_report")
 @NoArgsConstructor
 public class RapaportReport {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,7 +36,4 @@ public class RapaportReport {
 
     @Column(name = "create_at")
     private LocalDateTime createAt;
-
-    @Column(name = "update_at")
-    private LocalDateTime updateAt;
 }

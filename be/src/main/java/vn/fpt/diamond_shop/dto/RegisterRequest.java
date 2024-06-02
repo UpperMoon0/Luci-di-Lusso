@@ -13,14 +13,17 @@ import javax.validation.constraints.NotNull;
 @ToString
 public class RegisterRequest {
     @NotBlank
-    private String name;
+    private String username;
+
+    @NotBlank
+    private String password;
 
     @NotBlank
     @Email
     private String email;
 
     @NotBlank
-    private String password;
+    private String fullName;
 
     @NotNull
     private String provider;

@@ -1,6 +1,6 @@
-package vn.fpt.diamond_shop.constants;
+package vn.fpt.diamond_shop.constant;
 
-public enum DiamondShapeEnum {
+public enum EShape {
     ROUND,
     PRINCESS,
     OVAL,

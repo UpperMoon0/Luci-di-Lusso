@@ -1,6 +1,5 @@
 package vn.fpt.diamond_shop.security;
 
-
 import vn.fpt.diamond_shop.security.exception.ResourceNotFoundException;
 import vn.fpt.diamond_shop.entity.User;
 import vn.fpt.diamond_shop.repository.UserRepository;
@@ -11,24 +10,23 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * Created by rajeevkumarsingh on 02/08/17.
- */
-
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class UserDetailServiceImpl implements UserDetailsService {
+    private final UserRepository userRepository;
 
     @Autowired
-    UserRepository userRepository;
+    public UserDetailServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String email)
+    public UserDetails loadUserByUsername(String identifier)
             throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email)
+        User user = userRepository.findByUsernameOrEmail(identifier, identifier)
                 .orElseThrow(() ->
-                        new UsernameNotFoundException("User not found with email : " + email)
-        );
+                        new UsernameNotFoundException("User not found with username or email : " + identifier)
+                );
 
         return UserPrincipal.create(user);
     }
@@ -36,7 +34,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserById(Long id) {
         User user = userRepository.findById(id).orElseThrow(
-            () -> new ResourceNotFoundException("User", "id", id)
+                () -> new ResourceNotFoundException("User", "id", id)
         );
 
         return UserPrincipal.create(user);

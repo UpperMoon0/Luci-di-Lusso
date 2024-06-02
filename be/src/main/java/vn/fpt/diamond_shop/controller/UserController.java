@@ -36,7 +36,7 @@ public class UserController implements IUserController {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
 
         if (userUpdateRequest.getName() != null) {
-            user.setName(userUpdateRequest.getName());
+            user.setUsername(userUpdateRequest.getName());
         }
         if (userUpdateRequest.getEmail() != null) {
             user.setEmail(userUpdateRequest.getEmail());
@@ -57,7 +57,7 @@ public class UserController implements IUserController {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 
         if (userUpdateRequest.getName() != null) {
-            user.setName(userUpdateRequest.getName());
+            user.setUsername(userUpdateRequest.getName());
         }
         if (userUpdateRequest.getEmail() != null) {
             user.setEmail(userUpdateRequest.getEmail());

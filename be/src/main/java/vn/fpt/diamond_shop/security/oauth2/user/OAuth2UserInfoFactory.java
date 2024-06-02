@@ -1,7 +1,7 @@
 package vn.fpt.diamond_shop.security.oauth2.user;
 
 import vn.fpt.diamond_shop.security.exception.OAuth2AuthenticationProcessingException;
-import vn.fpt.diamond_shop.security.EAuthProvider;
+import vn.fpt.diamond_shop.constant.EAuthProvider;
 
 import java.util.Map;
 
