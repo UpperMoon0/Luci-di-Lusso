@@ -7,12 +7,13 @@ import vn.fpt.diamond_shop.constant.*;
 import vn.fpt.diamond_shop.model.entity.*;
 import vn.fpt.diamond_shop.repository.*;
 
+import java.security.AuthProvider;
 import java.time.LocalDateTime;
 
 @Configuration
 public class StartupConfig {
     @Bean
-    public CommandLineRunner initTables(CutRepository cutRepository, ColorRepository colorRepository, PolishRepository polishRepository, ShapeRepository shapeRepository, ClarityRepository clarityRepository) {
+    public CommandLineRunner initTables(ICutRepository cutRepository, IColorRepository colorRepository, IPolishRepository polishRepository, IShapeRepository shapeRepository, IClarityRepository clarityRepository) {
         return args -> {
             for (ECut cutValue : ECut.values()) {
                 Cut cut = cutRepository.findByCut(cutValue);

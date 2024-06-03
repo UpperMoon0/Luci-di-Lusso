@@ -6,6 +6,6 @@ import vn.fpt.diamond_shop.constant.ECut;
 import vn.fpt.diamond_shop.model.entity.Cut;
 
 @Repository
-public interface CutRepository extends JpaRepository<Cut, Long> {
+public interface ICutRepository extends JpaRepository<Cut, Long> {
     Cut findByCut(ECut cut);
 }

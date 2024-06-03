@@ -3,7 +3,7 @@ package vn.fpt.diamond_shop.security.oauth2;
 import vn.fpt.diamond_shop.security.exception.OAuth2AuthenticationProcessingException;
 import vn.fpt.diamond_shop.constant.EAuthProvider;
 import vn.fpt.diamond_shop.model.entity.User;
-import vn.fpt.diamond_shop.repository.UserRepository;
+import vn.fpt.diamond_shop.repository.IUserRepository;
 import vn.fpt.diamond_shop.security.UserPrincipal;
 import vn.fpt.diamond_shop.security.oauth2.user.OAuth2UserInfo;
 import vn.fpt.diamond_shop.security.oauth2.user.OAuth2UserInfoFactory;
@@ -23,7 +23,7 @@ import java.util.Optional;
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private IUserRepository userRepository;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {

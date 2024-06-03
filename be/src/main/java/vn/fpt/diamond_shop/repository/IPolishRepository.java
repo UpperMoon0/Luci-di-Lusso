@@ -6,6 +6,6 @@ import vn.fpt.diamond_shop.constant.EPolish;
 import vn.fpt.diamond_shop.model.entity.Polish;
 
 @Repository
-public interface PolishRepository extends JpaRepository<Polish, Long> {
+public interface IPolishRepository extends JpaRepository<Polish, Long> {
     Polish findByPolish(EPolish polishValue);
 }

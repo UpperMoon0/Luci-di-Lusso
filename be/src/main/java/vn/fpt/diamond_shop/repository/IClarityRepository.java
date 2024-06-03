@@ -6,6 +6,6 @@ import vn.fpt.diamond_shop.constant.EClarity;
 import vn.fpt.diamond_shop.model.entity.Clarity;
 
 @Repository
-public interface ClarityRepository extends JpaRepository<Clarity, Long> {
+public interface IClarityRepository extends JpaRepository<Clarity, Long> {
     Clarity findByClarity(EClarity clarityValue);
 }

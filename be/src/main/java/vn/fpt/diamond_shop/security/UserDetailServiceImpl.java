@@ -2,7 +2,7 @@ package vn.fpt.diamond_shop.security;
 
 import vn.fpt.diamond_shop.security.exception.ResourceNotFoundException;
 import vn.fpt.diamond_shop.model.entity.User;
-import vn.fpt.diamond_shop.repository.UserRepository;
+import vn.fpt.diamond_shop.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,10 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
-    private final UserRepository userRepository;
+    private final IUserRepository userRepository;
 
     @Autowired
-    public UserDetailServiceImpl(UserRepository userRepository) {
+    public UserDetailServiceImpl(IUserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
