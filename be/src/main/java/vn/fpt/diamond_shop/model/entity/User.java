@@ -45,7 +45,7 @@ public class User {
 
     @Column(name = "create_at")
     private LocalDateTime createAt;
-
+  
     @Enumerated(EnumType.STRING)
     @Column(name = "provider", nullable = false)
     private EAuthProvider provider;

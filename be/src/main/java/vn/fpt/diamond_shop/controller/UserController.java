@@ -13,6 +13,7 @@ import vn.fpt.diamond_shop.model.dto.UserUpdateRequest;
 
 import javax.validation.Valid;
 
+@RequestMapping("/shop/user")
 @RestController
 public class UserController implements IUserController {
     private final UserRepository userRepository;

@@ -28,7 +28,7 @@ import javax.validation.Valid;
 @RequestMapping("/auth")
 @RestController
 public class AuthController implements IAuthController {
-    private static final Logger log = LoggerFactory.getLogger(AuthController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;

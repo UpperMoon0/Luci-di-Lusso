@@ -1,8 +1,8 @@
 package vn.fpt.diamond_shop.model.entity;
 
 import lombok.*;
-import vn.fpt.diamond_shop.constant.EJewelryType;
 
+import vn.fpt.diamond_shop.constant.EJewelryType;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
