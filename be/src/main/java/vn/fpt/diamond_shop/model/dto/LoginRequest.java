@@ -13,5 +13,5 @@ public class LoginRequest {
     @NotBlank
     private String principal;
     @NotBlank
-    private String credential;
+    private String credentials;
 }

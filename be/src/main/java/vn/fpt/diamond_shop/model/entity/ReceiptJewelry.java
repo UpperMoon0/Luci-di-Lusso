@@ -1,5 +1,6 @@
 package vn.fpt.diamond_shop.model.entity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "receipt_jewelry")
 public class ReceiptJewelry {
+    @Setter(value = AccessLevel.NONE)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,9 +22,6 @@ public class ReceiptJewelry {
 
     @Column(name = "jewelry_id")
     private Long jewelryId;
-
-    @Column(name = "quantity")
-    private Integer quantity;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;

@@ -6,6 +6,6 @@ import vn.fpt.diamond_shop.constant.EShape;
 import vn.fpt.diamond_shop.model.entity.Shape;
 
 @Repository
-public interface ShapeRepository extends JpaRepository<Shape, Long> {
+public interface IShapeRepository extends JpaRepository<Shape, Long> {
     Shape findByShape(EShape shapeValue);
 }

@@ -6,6 +6,6 @@ import vn.fpt.diamond_shop.constant.EColor;
 import vn.fpt.diamond_shop.model.entity.Color;
 
 @Repository
-public interface ColorRepository extends JpaRepository<Color, Long> {
+public interface IColorRepository extends JpaRepository<Color, Long> {
     Color findByColor(EColor color);
 }
