@@ -2,7 +2,7 @@ package vn.fpt.diamond_shop.security.oauth2;
 
 import vn.fpt.diamond_shop.security.exception.OAuth2AuthenticationProcessingException;
 import vn.fpt.diamond_shop.constant.EAuthProvider;
-import vn.fpt.diamond_shop.entity.User;
+import vn.fpt.diamond_shop.model.entity.User;
 import vn.fpt.diamond_shop.repository.UserRepository;
 import vn.fpt.diamond_shop.security.UserPrincipal;
 import vn.fpt.diamond_shop.security.oauth2.user.OAuth2UserInfo;

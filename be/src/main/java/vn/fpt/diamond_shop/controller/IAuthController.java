@@ -1,10 +1,10 @@
 package vn.fpt.diamond_shop.controller;
 
 import org.springframework.http.ResponseEntity;
-import vn.fpt.diamond_shop.dto.CommonResponse;
-import vn.fpt.diamond_shop.dto.LoginRequest;
-import vn.fpt.diamond_shop.dto.LoginResponse;
-import vn.fpt.diamond_shop.dto.RegisterRequest;
+import vn.fpt.diamond_shop.model.dto.CommonResponse;
+import vn.fpt.diamond_shop.model.dto.LoginRequest;
+import vn.fpt.diamond_shop.model.dto.LoginResponse;
+import vn.fpt.diamond_shop.model.dto.RegisterRequest;
 import vn.fpt.diamond_shop.security.exception.BadRequestException;
 
 import javax.validation.Valid;
