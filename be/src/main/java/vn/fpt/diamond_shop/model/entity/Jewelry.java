@@ -1,6 +1,8 @@
 package vn.fpt.diamond_shop.model.entity;
 
 import lombok.*;
+
+import vn.fpt.diamond_shop.constant.EJewelryType;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -29,6 +31,9 @@ public class Jewelry {
 
     @Column(name = "need_sizing")
     private Boolean needSizing;
+
+    @Column(name = "type")
+    private EJewelryType type;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;

@@ -5,6 +5,8 @@ import vn.fpt.diamond_shop.constant.EAuthProvider;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Setter
 @Getter
@@ -38,6 +40,12 @@ public class User {
     @Column(name = "email_verified", nullable = false)
     private Boolean emailVerified = false;
 
+    @Column(name = "dob")
+    private LocalDate dob;
+
+    @Column(name = "create_at")
+    private LocalDateTime createAt;
+  
     @Enumerated(EnumType.STRING)
     @Column(name = "provider", nullable = false)
     private EAuthProvider provider;
