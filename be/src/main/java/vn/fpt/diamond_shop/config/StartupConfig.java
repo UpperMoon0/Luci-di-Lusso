@@ -13,7 +13,12 @@ import java.time.LocalDateTime;
 @Configuration
 public class StartupConfig {
     @Bean
-    public CommandLineRunner initTables(ICutRepository cutRepository, IColorRepository colorRepository, IPolishRepository polishRepository, IShapeRepository shapeRepository, IClarityRepository clarityRepository) {
+    public CommandLineRunner initTables(ICutRepository cutRepository,
+                                        IColorRepository colorRepository,
+                                        IPolishRepository polishRepository,
+                                        IShapeRepository shapeRepository,
+                                        IClarityRepository clarityRepository,
+                                        IJewelryTagRepository jewelryTagRepository) {
         return args -> {
             for (ECut cutValue : ECut.values()) {
                 Cut cut = cutRepository.findByCut(cutValue);
@@ -62,6 +67,16 @@ public class StartupConfig {
                     clarity.setClarity(clarityValue);
                     clarity.setCreateAt(LocalDateTime.now());
                     clarityRepository.save(clarity);
+                }
+            }
+
+            for (EJewelryTag jewelryTagValue : EJewelryTag.values()) {
+                JewelryTag jewelryTag = jewelryTagRepository.findByTag(jewelryTagValue);
+                if (jewelryTag == null) {
+                    jewelryTag = new JewelryTag();
+                    jewelryTag.setTag(jewelryTagValue);
+                    jewelryTag.setCreateAt(LocalDateTime.now());
+                    jewelryTagRepository.save(jewelryTag);
                 }
             }
         };
