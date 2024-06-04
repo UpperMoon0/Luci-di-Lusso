@@ -1,8 +1,10 @@
 package vn.fpt.diamond_shop.model.entity;
 
-import lombok.*;
-
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import vn.fpt.diamond_shop.constant.EJewelryTag;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -10,23 +12,15 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @Entity
-@Table(name = "jewelry")
-public class Jewelry {
+@Table(name = "jewelry_tag")
+public class JewelryTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "price")
-    private Double price;
-
-    @Column(name = "description")
-    private String description;
-
-    @Column(name = "diamond_id")
-    private Long diamondId;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tag", unique = true)
+    private EJewelryTag tag;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;
