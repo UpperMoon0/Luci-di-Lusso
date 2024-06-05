@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface IJewelryJewelryTagRepository extends JpaRepository<JewelryJewelryTag, Long> {
     @Query("SELECT j.jewelryTagId FROM JewelryJewelryTag j WHERE j.jewelryId = ?1")
-    List<Long> findJewelryTagIdsByJewelryId(Long jewelryId);
+
+    List<JewelryJewelryTag> findByJewelryTagId(Long id);
 }

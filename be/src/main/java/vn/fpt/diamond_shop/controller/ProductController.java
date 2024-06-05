@@ -3,19 +3,18 @@ package vn.fpt.diamond_shop.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import vn.fpt.diamond_shop.constant.EJewelryTag;
 import vn.fpt.diamond_shop.model.dto.CommonResponse;
+import vn.fpt.diamond_shop.model.dto.JewelriesRequest;
 import vn.fpt.diamond_shop.model.dto.JewelriesResponse;
 import vn.fpt.diamond_shop.model.dto.ReceiptRequest;
-import vn.fpt.diamond_shop.model.entity.Jewelry;
-import vn.fpt.diamond_shop.model.entity.JewelryTag;
-import vn.fpt.diamond_shop.model.entity.Receipt;
-import vn.fpt.diamond_shop.model.entity.ReceiptJewelry;
+import vn.fpt.diamond_shop.model.entity.*;
 import vn.fpt.diamond_shop.repository.*;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @RequestMapping("/product")
 @RestController
@@ -67,18 +66,30 @@ public class ProductController implements IProductController {
 
     @Override
     @GetMapping("/get-all-jewelries")
-    public ResponseEntity<JewelriesResponse> getAllJewelries() {
+    public ResponseEntity<JewelriesResponse> getAllJewelries(@RequestBody @Valid JewelriesRequest jr) {
         JewelriesResponse response = new JewelriesResponse();
 
-        List<Jewelry> jewelryList = jewelryRepository.findAll();
-        jewelryList.forEach((jewelry) -> {
-            List<Long> tagIdList = jewelryJewelryTagRepository.findJewelryTagIdsByJewelryId(jewelry.getId());
-            List<JewelryTag> tagList = jewelryTagRepository.findByIds(tagIdList);
-            Map.Entry<Jewelry, List<JewelryTag>> entry = Map.entry(jewelry, tagList);
-            response.getJewelriesMap().put(jewelry, tagList);
-        });
+        List<Jewelry> jewelryList;
+        if (jr.getTags().isEmpty()) {
+            // If tag list is empty, return all jewelries
+            jewelryList = jewelryRepository.findAll();
+        } else {
+            // If tag list is not empty, return jewelries that match the tags
+            jewelryList = new ArrayList<>();
+            for (EJewelryTag tag : jr.getTags()) {
+                JewelryTag jewelryTag = jewelryTagRepository.findByTag(tag);
+                List<JewelryJewelryTag> jewelryJewelryTags = jewelryJewelryTagRepository.findByJewelryTagId(jewelryTag.getId());
+                for (JewelryJewelryTag jjt : jewelryJewelryTags) {
+                    Jewelry jewelry = jewelryRepository.findById(jjt.getJewelryId()).orElse(null);
+                    if (jewelry != null && !jewelryList.contains(jewelry)) {
+                        jewelryList.add(jewelry);
+                    }
+                }
+            }
+        }
 
-        response.setMessage("Get all jewelries successfully");
+        response.setJewelries(jewelryList);
+        response.setMessage("Get jewelries successfully");
 
         return ResponseEntity.ok(response);
     }
