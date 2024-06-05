@@ -28,6 +28,9 @@ public class Jewelry {
     @Column(name = "diamond_id")
     private Long diamondId;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @Column(name = "create_at")
     private LocalDateTime createAt;
 }
