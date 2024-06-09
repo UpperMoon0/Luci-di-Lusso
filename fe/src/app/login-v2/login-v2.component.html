@@ -1,6 +1,6 @@
 <div class="login-page">
   <mat-card class="mat-elevation-z12">
-    <mat-card-title style="text-align:center;">SignIn/SignUp</mat-card-title>
+    <mat-card-title style="text-align: center">SignIn/SignUp</mat-card-title>
     <mat-tab-group mat-stretch-tabs class="example-stretched-tabs">
       <mat-tab label="Sign In">
         <mat-card-content>
@@ -10,8 +10,11 @@
                 matInput
                 placeholder="Email"
                 required
-                formControlName="email">
-              <mat-error *ngIf="callLogin['email'].invalid">Email is required</mat-error>
+                formControlName="email"
+              />
+              <mat-error *ngIf="callLogin['email'].invalid"
+                >Email is required</mat-error
+              >
               <mat-icon matSuffix>email</mat-icon>
             </mat-form-field>
             <mat-form-field>
@@ -22,32 +25,35 @@
                 required
                 minlength="6"
                 formControlName="password"
-              >
+              />
               <mat-error
-                *ngIf="callLogin['password'].errors && callLogin['password'].errors['required']">
+                *ngIf="
+                  callLogin['password'].errors &&
+                  callLogin['password'].errors['required']
+                "
+              >
                 Password is required
               </mat-error>
               <mat-error
-                *ngIf="callLogin['password'].errors && callLogin['password'].errors['minlength']">
+                *ngIf="
+                  callLogin['password'].errors &&
+                  callLogin['password'].errors['minlength']
+                "
+              >
                 Password must be of length 6
               </mat-error>
               <mat-icon matSuffix>lock</mat-icon>
             </mat-form-field>
             <mat-checkbox>Remember Me!</mat-checkbox>
-            <button
-              mat-raised-button
-              color="primary"
-              class="login-button">
+            <button mat-raised-button color="primary" class="login-button">
               Sign In
             </button>
 
-            <button
-              mat-raised-button
-              class="login-button">
+            <button mat-raised-button class="login-button">
               Login with Google
-              <a href="https://www.google.com/" ></a>
+              <a href="https://www.google.com/"></a>
             </button>
-<!--            https://devapibhs.k-media.vn/shop/oauth2/authorize/google?redirect_uri=http://localhost:3000-->
+            <!--            https:  //devapibhs.k-media.vn/shop/oauth2/authorize/google?redirect_uri=http://localhost:3000-->
           </form>
         </mat-card-content>
       </mat-tab>
@@ -59,21 +65,23 @@
                 matInput
                 placeholder="User Name"
                 required
-                formControlName="username">
+                formControlName="username"
+              />
               <mat-icon matSuffix>perm_identity</mat-icon>
-              <mat-error
-                *ngIf="callRegister['username'].invalid">
+              <mat-error *ngIf="callRegister['username'].invalid">
                 Username is required
               </mat-error>
-
             </mat-form-field>
             <mat-form-field>
               <input
                 matInput
                 placeholder="Email"
                 required
-                formControlName="email">
-              <mat-error *ngIf="callRegister['email'].invalid">Email is required</mat-error>
+                formControlName="email"
+              />
+              <mat-error *ngIf="callRegister['email'].invalid"
+                >Email is required</mat-error
+              >
               <mat-icon matSuffix>email</mat-icon>
             </mat-form-field>
             <mat-form-field>
@@ -83,17 +91,25 @@
                 type="password"
                 required
                 minlength="6"
-                formControlName="password">
+                formControlName="password"
+              />
               <mat-error
-                *ngIf="callRegister['password'].errors && callRegister['password'].errors['required']">
+                *ngIf="
+                  callRegister['password'].errors &&
+                  callRegister['password'].errors['required']
+                "
+              >
                 Password is required
               </mat-error>
               <mat-error
-                *ngIf="callRegister['password'].errors && callRegister['password'].errors['minlength']">
+                *ngIf="
+                  callRegister['password'].errors &&
+                  callRegister['password'].errors['minlength']
+                "
+              >
                 Password must be of length 6
               </mat-error>
               <mat-icon matSuffix>lock</mat-icon>
-
             </mat-form-field>
             <mat-form-field>
               <input
@@ -102,17 +118,19 @@
                 type="password"
                 required
                 minlength="6"
-                formControlName="rePassword">
+                formControlName="rePassword"
+              />
               <mat-error
-                *ngIf="callRegister['rePassword'].errors && callRegister['rePassword'].errors['required']">
+                *ngIf="
+                  callRegister['rePassword'].errors &&
+                  callRegister['rePassword'].errors['required']
+                "
+              >
                 Re-Enter Password is required
               </mat-error>
               <mat-icon matSuffix>lock</mat-icon>
             </mat-form-field>
-            <button
-              mat-raised-button
-              color="primary"
-              class="login-button">
+            <button mat-raised-button color="primary" class="login-button">
               Sign Up
             </button>
           </form>
