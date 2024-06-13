@@ -1,10 +1,14 @@
 package vn.fpt.diamond_shop.constant;
 
-public enum EJewelryType {
+public enum EJewelryTag {
     RING,
     NECKLACE,
     BRACELET,
     EARRING,
     PENDANT,
-    BROOCH
+    BROOCH,
+    MAN,
+    WOMAN,
+    CHILDREN,
+    NEED_SIZING
 }

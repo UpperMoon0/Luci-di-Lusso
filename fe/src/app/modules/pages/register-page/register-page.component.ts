@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {AccountService} from "../../auth/services/account.service";
 import {AuthGoogleService} from "../../../core/shared/auth-google.service";
 import {ToastrService} from "ngx-toastr";
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-register-page',
@@ -26,7 +27,8 @@ export class RegisterPageComponent implements OnInit{
   };
   isDisableButton:boolean = false;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private http: HttpClient,
+              private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
               private accountService: AccountService,
@@ -36,18 +38,12 @@ export class RegisterPageComponent implements OnInit{
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      name: ['', Validators.required],
-      email: ['', Validators.required],
+      username: ['', Validators.required],
       password: ['', Validators.required],
-      rePassword: ['', Validators.required],
-      province: [''],
-      district: [''],
-      city: [''],
-      ward: [''],
-      extra: [''],
-      phoneNumber: [''],
-      otp:[''],
-
+      email: ['', [Validators.required, Validators.email]],
+      fullName: ['', Validators.required],
+      dob: ['', Validators.required],
+      provider: ['LOCAL']
     });
   }
 
@@ -57,22 +53,24 @@ export class RegisterPageComponent implements OnInit{
 
   onRegister() {
     if (this.form.invalid) {
-      this.toastrService.error("Xem lại thông tin vừa nhập");
+      for (const field in this.form.controls) {
+        if (this.form.controls[field].invalid) {
+          this.toastrService.error(`Please check your ${field}`);
+        }
+      }
       return;
     }
-    if (this.form.controls['password'].value !== this.form.controls['rePassword'].value) {
-      this.toastrService.error("Mật khẩu nhập không khớp");
-      return;
-    }
-    this.isDisableButton = true;
-    this.accountService.getOtp(this.form.controls['email'].value).subscribe((res) => {
-      this.toastrService.success(`Gửi mã Otp đến ${this.form.controls['email'].value} thành công`)
-      this.onOpenModal("otp");
-    }, error => {
-      this.toastrService.error("Không gửi được mã OTP")
-      this.isDisableButton = false;
-    });
 
+    const formValue = {...this.form.value};
+
+    this.http.post('http://localhost:8081/auth/signup', formValue).subscribe({
+      next: () => {
+        this.toastrService.success("Registration successful");
+      },
+      error: () => {
+        this.toastrService.error("Registration failed");
+      }
+    });
   }
 
   callRegister() {
@@ -105,6 +103,7 @@ export class RegisterPageComponent implements OnInit{
         this.isDisableButton = false;
       })
   }
+
   public onOpenModal( mode: string): void{
     const container = document.getElementById('main-container')!;
     const button = document.createElement('button');

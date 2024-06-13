@@ -86,3 +86,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Node modules
+fe/node_modules/
+/fe/.angular/cache
