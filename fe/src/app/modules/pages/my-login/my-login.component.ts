@@ -5,6 +5,7 @@ import {AccountService} from "../../auth/services/account.service";
 import {AuthGoogleService} from "../../../core/shared/auth-google.service";
 import {ToastrService} from "ngx-toastr";
 import {first} from "rxjs/operators";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-my-login',
@@ -24,7 +25,8 @@ export class MyLoginComponent {
     private router: Router,
     private accountService: AccountService,
     private authGoogleService: AuthGoogleService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private http: HttpClient
   ) { }
 
   ngOnInit() {
@@ -52,8 +54,6 @@ export class MyLoginComponent {
   onSingIn() {
     this.submitted = true;
 
-    // reset alerts on submit
-
     // stop here if form is invalid
     if (this.loginForm.invalid) {
       console.log("loois klklkjlk");
@@ -61,22 +61,29 @@ export class MyLoginComponent {
     }
     this.loading = true;
     console.log(this.callLogin['email'].value, this.callLogin['password'].value);
-    this.accountService.login(this.callLogin['email'].value, this.callLogin['password'].value)
-      .pipe(first())
-      .subscribe({
-        next: () => {
-          this.toastrService.success("login sucescss");
-          const returnUrl = this.route.snapshot.queryParams['/home-page'] || '/home-page';
-          this.router.navigateByUrl(returnUrl);
-        },
-        error: error => {
-          console.log(error);
-          this.toastrService.error(error.error?.error);
-          console.log("login error");
-          this.loading = false;
-        }
-      });
+
+    // Create a JSON object with the principal and credentials
+    const loginData = {
+      principal: this.callLogin['email'].value,
+      credentials: this.callLogin['password'].value
+    };
+
+    // Send the JSON object to the specified URL
+    this.http.post('http://localhost:8081/auth/signin', loginData).subscribe({
+      next: () => {
+        this.toastrService.success("login sucess");
+        const returnUrl = this.route.snapshot.queryParams['/home-page'] || '/home-page';
+        this.router.navigateByUrl(returnUrl);
+      },
+      error: error => {
+        console.log(error);
+        this.toastrService.error(error.error?.error);
+        console.log("login error");
+        this.loading = false;
+      }
+    });
   }
+
   signInWithGoogle(): void {
     this.authGoogleService.login();
     this.toastrService.success("login sucescss");
