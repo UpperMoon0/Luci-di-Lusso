@@ -2,7 +2,7 @@ package vn.fpt.diamond_shop.model.entity;
 
 import lombok.*;
 
-import vn.fpt.diamond_shop.constant.EJewelryType;
+import vn.fpt.diamond_shop.constant.EJewelryTag;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @ToString
 @Entity
 @Table(name = "jewelry")
-@NoArgsConstructor
 public class Jewelry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,11 +28,8 @@ public class Jewelry {
     @Column(name = "diamond_id")
     private Long diamondId;
 
-    @Column(name = "need_sizing")
-    private Boolean needSizing;
-
-    @Column(name = "type")
-    private EJewelryType type;
+    @Column(name = "image_url")
+    private String imageUrl;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;
