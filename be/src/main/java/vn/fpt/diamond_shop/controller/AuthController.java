@@ -67,6 +67,8 @@ public class AuthController implements IAuthController {
             user.setUsername(signUpRequest.getUsername());
             user.setEmail(signUpRequest.getEmail());
             user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
+            user.setPhone(signUpRequest.getPhone());
+            user.setAddress(signUpRequest.getAddress());
             user.setFullName(signUpRequest.getFullName());
             user.setDob(signUpRequest.getDob());
             user.setProvider(signUpRequest.getProvider());
