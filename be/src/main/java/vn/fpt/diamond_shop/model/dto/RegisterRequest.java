@@ -1,4 +1,4 @@
-package vn.fpt.diamond_shop.dto;
+package vn.fpt.diamond_shop.model.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,6 +9,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -25,8 +26,17 @@ public class RegisterRequest {
     @Email
     private String email;
 
+    @Pattern(regexp = "^[0-9]*$",
+            message = "Phone number can only contain numbers")
+    private String phone;
+
+    private String address;
+
     @NotBlank
     private String fullName;
+
+    @NotBlank
+    private LocalDate dob;
 
     @NotNull
     private EAuthProvider provider;
