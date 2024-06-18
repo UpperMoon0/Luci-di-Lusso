@@ -1,4 +1,4 @@
-package com.anhntv.ecom.config;
+package com.anhntv.ecom.filters;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,7 +17,7 @@ import java.util.Map;
 public class SimpleCorsFilter implements Filter {
 
     @Value("${app.client.url}")
-    private String clientAppUrl = " ";
+    private String clientAppUrl;
 
     public SimpleCorsFilter() {
     }
@@ -26,12 +26,12 @@ public class SimpleCorsFilter implements Filter {
             throws ServletException, IOException {
         HttpServletResponse response = (HttpServletResponse) res;
         HttpServletRequest request = (HttpServletRequest) req;
-        Map<String, String> map = new HashMap<>();
-        String originHeader = request.getHeader("Origin");
-        response.setHeader("Access-Control-Allow-Origin", originHeader);
+
+        response.setHeader("Access-Control-Allow-Origin", clientAppUrl);
         response.setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
         response.setHeader("Access-Control-Allow-Headers", "*");
         response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);
         } else {

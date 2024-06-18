@@ -45,6 +45,7 @@ public class AuthController {
     private static final String TOKEN_PREFIX = "Bearer ";
 
     private final AuthService authService;
+    private final JwtUtils jwtUtils;
 
 
     @PostMapping("/authenticate")
@@ -60,7 +61,7 @@ public class AuthController {
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         Optional<User> optionalUser = userRepository.findFirstByEmail(userDetails.getUsername());
-        final String jwt = jwtutils.generateToken(userDetails.getUsername());
+        final String jwt = jwtutils.generateToken(userDetails);
         if(optionalUser.isPresent()) {
             response.getWriter().write(new JSONObject()
                     .put("userId",optionalUser.get().getId())

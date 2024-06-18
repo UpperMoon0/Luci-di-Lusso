@@ -33,7 +33,7 @@ public class ManagerProductController {
         return ResponseEntity.ok(dtos);
     }
 
-    @DeleteMapping("/products/{productId}")
+    @DeleteMapping("/product/{productId}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long productId) {
         boolean deleted = productService.deleteProduct(productId);
         if (deleted) {

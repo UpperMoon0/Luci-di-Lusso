@@ -20,7 +20,7 @@ public class Product {
 
     private Double price;
 
-    @Lob
+    @Column(columnDefinition = "VARCHAR(255)")
     private String description;
 
     @Lob
