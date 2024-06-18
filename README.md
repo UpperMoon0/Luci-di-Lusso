@@ -11,11 +11,11 @@ Update_01 in June 12, 2024
 Update_02 in June 18,2024
 
 - About this update: 
- + Fix problems appear in JWT security
- + Fix issues when DELETE product function
- + Fix description length appear exception if input is out of character required.
- + Fix 'Add an product image' works not properly.
- + Fix issues happened in ProductServiceImpl
+   + Fix problems appear in JWT security
+   + Fix issues when DELETE product function
+   + Fix description length appear exception if input is out of character required.
+   + Fix 'Add an product image' works not properly.
+   + Fix issues happened in ProductServiceImpl
 
 * Next update will coming soon...
 
