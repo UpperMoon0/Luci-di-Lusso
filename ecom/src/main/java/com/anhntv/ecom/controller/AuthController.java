@@ -1,6 +1,6 @@
 package com.anhntv.ecom.controller;
-import com.anhntv.ecom.dto.AuthenRequest;
-import com.anhntv.ecom.dto.SignupRequest;
+import com.anhntv.ecom.request.AuthenRequest;
+import com.anhntv.ecom.request.SignupRequest;
 import com.anhntv.ecom.dto.UserDTO;
 import com.anhntv.ecom.entities.User;
 import com.anhntv.ecom.repository.UserRepository;
@@ -20,11 +20,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import io.jsonwebtoken.JwtException;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 

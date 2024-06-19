@@ -1,4 +1,4 @@
-package com.anhntv.ecom.dto;
+package com.anhntv.ecom.request;
 
 import lombok.Data;
 

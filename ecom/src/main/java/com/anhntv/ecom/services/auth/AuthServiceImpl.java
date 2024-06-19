@@ -2,7 +2,7 @@ package com.anhntv.ecom.services.auth;
 
 import com.anhntv.ecom.constants.OrderStatus;
 import com.anhntv.ecom.constants.UserRole;
-import com.anhntv.ecom.dto.SignupRequest;
+import com.anhntv.ecom.request.SignupRequest;
 import com.anhntv.ecom.dto.UserDTO;
 import com.anhntv.ecom.entities.Order;
 import com.anhntv.ecom.entities.User;
