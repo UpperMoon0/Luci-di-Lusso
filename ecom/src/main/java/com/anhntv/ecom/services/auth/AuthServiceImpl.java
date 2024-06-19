@@ -35,13 +35,13 @@ public class AuthServiceImpl implements AuthService{
             user.setRole(UserRole.CUSTOMER);
             User createdUser = userRepository.save(user);
 
-        Order order = new Order();
-        order.setAmount(0L);
-        order.setTotalAmount(0L);
-        order.setDiscount(0L);
-        order.setUser(createdUser);
-        order.setOrderStatus(OrderStatus.PENDING);
-        orderRepository.save(order);
+            Order order = new Order();
+            order.setAmount(0L);
+            order.setTotalAmount(0L);
+            order.setDiscount(0L);
+            order.setUser(createdUser);
+            order.setOrderStatus(OrderStatus.PENDING);
+            orderRepository.save(order);
 
             UserDTO dto = new UserDTO();
             dto.setId(createdUser.getId());
