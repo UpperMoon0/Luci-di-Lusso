@@ -1,7 +1,6 @@
 package com.anhntv.ecom.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
@@ -15,7 +14,6 @@ public class Category {
     
     private String name;
 
-    @Size(max = 255, message = "Description must be less than 255 characters")
-    @Column(columnDefinition = "VARCHAR(255)")
+    @Column(columnDefinition = "NVARCHAR(10000)")
     private String description;
 }

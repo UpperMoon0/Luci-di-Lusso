@@ -18,8 +18,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
-
 @Component
 @RequiredArgsConstructor
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -28,7 +26,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private final UserDetailsServiceImpl userDetailService;
 
     @Autowired
-    private final JwtUtils jwtutils;
+    private final JwtUtils jwtUtils;
 
     @Override
     protected void doFilterInternal(
@@ -43,18 +41,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
-            if (jwtutils.isTokenExpired(token)) {
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                response.getWriter().write("Token expired");
-                return;
-            }
-            username = jwtutils.extractUsername(token);
+            username = jwtUtils.extractUsername(token);
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailService.loadUserByUsername(username);
 
-            if (jwtutils.validateToken(token, userDetails)) {
+            if (jwtUtils.validateToken(token, userDetails)) {
 
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());

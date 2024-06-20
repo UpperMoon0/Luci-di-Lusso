@@ -35,13 +35,12 @@ public class AuthController {
 
     private final UserRepository userRepository;
 
-    private final JwtUtils jwtutils;
+    public static final String HEADER_STRING = "Authorization";
 
-    private static final String HEADER_STRING = "Authorization";
-
-    private static final String TOKEN_PREFIX = "Bearer ";
+    public static final String TOKEN_PREFIX = "Bearer ";
 
     private final AuthService authService;
+
     private final JwtUtils jwtUtils;
 
 
@@ -58,7 +57,8 @@ public class AuthController {
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         Optional<User> optionalUser = userRepository.findFirstByEmail(userDetails.getUsername());
-        final String jwt = jwtutils.generateToken(userDetails);
+        final String jwt = jwtUtils.generateToken(userDetails.getUsername());
+
         if(optionalUser.isPresent()) {
             response.getWriter().write(new JSONObject()
                     .put("userId",optionalUser.get().getId())

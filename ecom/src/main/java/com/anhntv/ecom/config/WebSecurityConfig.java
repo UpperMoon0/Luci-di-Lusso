@@ -5,7 +5,6 @@ import com.anhntv.ecom.filters.JwtRequestFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -22,8 +21,6 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class WebSecurityConfig {
 
     private final JwtRequestFilter authFilter;
-
-    private final AuthenticationProvider authenticationProvider;
 
 
     @Bean
@@ -51,7 +48,6 @@ public class WebSecurityConfig {
                         .anyRequest()
                         .authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authenticationProvider)
                 .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
