@@ -18,9 +18,9 @@ public class Product {
 
     private String name;
 
-    private Double price;
+    private Long price;
 
-    @Column(columnDefinition = "VARCHAR(255)")
+    @Column(columnDefinition = "NVARCHAR(10000)")
     private String description;
 
     @Lob
