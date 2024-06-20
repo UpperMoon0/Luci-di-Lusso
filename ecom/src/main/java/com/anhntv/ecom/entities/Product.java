@@ -18,7 +18,7 @@ public class Product {
 
     private String name;
 
-    private Double price;
+    private Long price;
 
     @Column(columnDefinition = "NVARCHAR(10000)")
     private String description;

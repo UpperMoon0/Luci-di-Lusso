@@ -12,7 +12,7 @@ public class ProductDTO {
 
     private String description;
 
-    private Double price;
+    private Long price;
 
     private byte[] byteImg;
 
