@@ -1,27 +1,26 @@
 package vn.fpt.diamond_shop.model.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@ToString
+@Data
 @Entity
-@Table(name = "size")
-public class Size {
+@Table(name = "order")
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "size_index")
-    private Integer sizeIndex;
+    @Column(name = "user_id")
+    private Long userId;
 
-    @Column(name = "size")
-    private Float size;
+    @Column(name = "total_price")
+    private Double totalPrice;
+
+    @Column(name = "confirmed")
+    private Boolean confirmed;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;

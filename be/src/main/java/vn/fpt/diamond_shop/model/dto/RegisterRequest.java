@@ -24,6 +24,7 @@ public class RegisterRequest {
     private String password;
 
     @Email
+    @NotBlank
     private String email;
 
     @Pattern(regexp = "^[0-9]*$",
@@ -35,7 +36,7 @@ public class RegisterRequest {
     @NotBlank
     private String fullName;
 
-    @NotBlank
+    @NotNull
     private LocalDate dob;
 
     @NotNull

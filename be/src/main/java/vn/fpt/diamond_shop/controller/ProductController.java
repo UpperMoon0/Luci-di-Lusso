@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.fpt.diamond_shop.constant.EJewelryTag;
-import vn.fpt.diamond_shop.model.dto.CommonResponse;
-import vn.fpt.diamond_shop.model.dto.JewelriesRequest;
-import vn.fpt.diamond_shop.model.dto.JewelriesResponse;
-import vn.fpt.diamond_shop.model.dto.ReceiptRequest;
+import vn.fpt.diamond_shop.model.dto.*;
 import vn.fpt.diamond_shop.model.entity.*;
 import vn.fpt.diamond_shop.repository.*;
 
@@ -19,15 +16,15 @@ import java.util.List;
 @RequestMapping("/product")
 @RestController
 public class ProductController implements IProductController {
-    private final IReceiptRepository receiptRepository;
-    private final IReceiptJewelryRepository receiptJewelryRepository;
+    private final IOrderRepository receiptRepository;
+    private final IOrderJewelryRepository receiptJewelryRepository;
     private final IJewelryRepository jewelryRepository;
     private final IJewelryTagRepository jewelryTagRepository;
     private final IJewelryJewelryTagRepository jewelryJewelryTagRepository;
 
     @Autowired
-    public ProductController(IReceiptRepository receiptRepository,
-                             IReceiptJewelryRepository receiptJewelryRepository,
+    public ProductController(IOrderRepository receiptRepository,
+                             IOrderJewelryRepository receiptJewelryRepository,
                              IJewelryRepository jewelryRepository,
                              IJewelryTagRepository jewelryTagRepository,
                              IJewelryJewelryTagRepository jewelryJewelryTagRepository) {
@@ -40,10 +37,10 @@ public class ProductController implements IProductController {
 
     @Override
     @PostMapping("/add-receipt")
-    public ResponseEntity<CommonResponse> addReceipt(@Valid @RequestBody ReceiptRequest receiptRequest) {
+    public ResponseEntity<CommonResponse> addReceipt(@RequestBody @Valid OrderRequest receiptRequest) {
         // Save receipt
         List<Long> jewelryIdList = receiptRequest.getJewelryIdList();
-        Receipt receipt = new Receipt();
+        Order receipt = new Order();
         receipt.setUserId(receiptRequest.getUserId());
         receipt.setTotalPrice(jewelryRepository.getTotalPriceByIdList(jewelryIdList));
         receipt.setCreateAt(LocalDateTime.now());
@@ -51,7 +48,7 @@ public class ProductController implements IProductController {
 
         // Save receipt-jewelry
         jewelryIdList.forEach((jewelryId) -> {
-            ReceiptJewelry receiptJewelry = new ReceiptJewelry();
+            OrderJewelry receiptJewelry = new OrderJewelry();
             receiptJewelry.setReceiptId(receipt.getId());
             receiptJewelry.setJewelryId(jewelryId);
             receiptJewelry.setCreateAt(LocalDateTime.now());
@@ -61,6 +58,36 @@ public class ProductController implements IProductController {
         // Return response
         CommonResponse response = new CommonResponse();
         response.setMessage("Receipt added successfully");
+        return ResponseEntity.ok(response);
+    }
+
+    @Override
+    @GetMapping("/set-jewelry-size")
+    public ResponseEntity<CommonResponse> setJewelrySize(@RequestBody @Valid SetJewelrySizeRequest req) {
+        CommonResponse response = new CommonResponse();
+        Jewelry jewelry = jewelryRepository.findById(req.getJewelryId()).orElse(null);
+        if (jewelry != null) {
+            jewelry.setSizeId(req.getSizeId());
+            jewelryRepository.save(jewelry);
+            response.setMessage("Set jewelry size successfully");
+        } else {
+            response.setMessage("Jewelry not found");
+        }
+        return ResponseEntity.ok(response);
+    }
+
+    @Override
+    @GetMapping("/confirm-order")
+    public ResponseEntity<CommonResponse> confirmOrder(@RequestBody @Valid ConfirmOrder req) {
+        CommonResponse response = new CommonResponse();
+        Order receipt = receiptRepository.findById(req.getOrderId()).orElse(null);
+        if (receipt != null) {
+            receipt.setConfirmed(req.isConfirm());
+            receiptRepository.save(receipt);
+            response.setMessage("Confirm order successfully");
+        } else {
+            response.setMessage("Receipt not found");
+        }
         return ResponseEntity.ok(response);
     }
 
