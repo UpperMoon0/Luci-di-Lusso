@@ -6,9 +6,7 @@ import vn.fpt.diamond_shop.constant.EJewelryTag;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@ToString
+@Data
 @Entity
 @Table(name = "jewelry")
 public class Jewelry {
@@ -27,6 +25,9 @@ public class Jewelry {
 
     @Column(name = "diamond_id")
     private Long diamondId;
+
+    @Column(name = "size_id")
+    private Long sizeId;
 
     @Column(name = "image_url")
     private String imageUrl;

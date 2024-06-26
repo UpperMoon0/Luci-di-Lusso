@@ -17,11 +17,11 @@ public class Size {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "size_index")
+    private Integer sizeIndex;
+
     @Column(name = "size")
     private Float size;
-
-    @Column(name = "jewelry_id")
-    private Long jewelryId;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;

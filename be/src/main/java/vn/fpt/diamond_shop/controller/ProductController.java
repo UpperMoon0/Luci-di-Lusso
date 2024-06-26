@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.fpt.diamond_shop.constant.EJewelryTag;
-import vn.fpt.diamond_shop.model.dto.CommonResponse;
-import vn.fpt.diamond_shop.model.dto.JewelriesRequest;
-import vn.fpt.diamond_shop.model.dto.JewelriesResponse;
-import vn.fpt.diamond_shop.model.dto.ReceiptRequest;
+import vn.fpt.diamond_shop.model.dto.*;
 import vn.fpt.diamond_shop.model.entity.*;
 import vn.fpt.diamond_shop.repository.*;
 
@@ -61,6 +58,21 @@ public class ProductController implements IProductController {
         // Return response
         CommonResponse response = new CommonResponse();
         response.setMessage("Receipt added successfully");
+        return ResponseEntity.ok(response);
+    }
+
+    @Override
+    @GetMapping("/set-jewelry-size")
+    public ResponseEntity<CommonResponse> setJewelrySize(@RequestBody @Valid SetJewelrySizeRequest req) {
+        CommonResponse response = new CommonResponse();
+        Jewelry jewelry = jewelryRepository.findById(req.getJewelryId()).orElse(null);
+        if (jewelry != null) {
+            jewelry.setSizeId(req.getSizeId());
+            jewelryRepository.save(jewelry);
+            response.setMessage("Set jewelry size successfully");
+        } else {
+            response.setMessage("Jewelry not found");
+        }
         return ResponseEntity.ok(response);
     }
 
