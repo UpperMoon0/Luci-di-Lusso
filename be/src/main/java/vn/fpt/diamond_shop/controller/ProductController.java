@@ -37,7 +37,7 @@ public class ProductController implements IProductController {
 
     @Override
     @PostMapping("/add-receipt")
-    public ResponseEntity<CommonResponse> addReceipt(@Valid @RequestBody ReceiptRequest receiptRequest) {
+    public ResponseEntity<CommonResponse> addReceipt(@RequestBody @Valid ReceiptRequest receiptRequest) {
         // Save receipt
         List<Long> jewelryIdList = receiptRequest.getJewelryIdList();
         Receipt receipt = new Receipt();
@@ -72,6 +72,21 @@ public class ProductController implements IProductController {
             response.setMessage("Set jewelry size successfully");
         } else {
             response.setMessage("Jewelry not found");
+        }
+        return ResponseEntity.ok(response);
+    }
+
+    @Override
+    @GetMapping("/confirm-order")
+    public ResponseEntity<CommonResponse> confirmOrder(@RequestBody @Valid ConfirmOrder req) {
+        CommonResponse response = new CommonResponse();
+        Receipt receipt = receiptRepository.findById(req.getOrderId()).orElse(null);
+        if (receipt != null) {
+            receipt.setConfirmed(req.isConfirm());
+            receiptRepository.save(receipt);
+            response.setMessage("Confirm order successfully");
+        } else {
+            response.setMessage("Receipt not found");
         }
         return ResponseEntity.ok(response);
     }
