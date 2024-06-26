@@ -1,23 +1,19 @@
 package vn.fpt.diamond_shop.model.entity;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
 @Entity
-@Table(name = "receipt_jewelry")
-public class ReceiptJewelry {
-    @Setter(value = AccessLevel.NONE)
+@Table(name = "order_jewelry")
+public class OrderJewelry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "receipt_id")
+    @Column(name = "order_id")
     private Long receiptId;
 
     @Column(name = "jewelry_id")

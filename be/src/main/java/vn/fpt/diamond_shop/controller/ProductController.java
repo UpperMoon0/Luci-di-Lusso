@@ -16,15 +16,15 @@ import java.util.List;
 @RequestMapping("/product")
 @RestController
 public class ProductController implements IProductController {
-    private final IReceiptRepository receiptRepository;
-    private final IReceiptJewelryRepository receiptJewelryRepository;
+    private final IOrderRepository receiptRepository;
+    private final IOrderJewelryRepository receiptJewelryRepository;
     private final IJewelryRepository jewelryRepository;
     private final IJewelryTagRepository jewelryTagRepository;
     private final IJewelryJewelryTagRepository jewelryJewelryTagRepository;
 
     @Autowired
-    public ProductController(IReceiptRepository receiptRepository,
-                             IReceiptJewelryRepository receiptJewelryRepository,
+    public ProductController(IOrderRepository receiptRepository,
+                             IOrderJewelryRepository receiptJewelryRepository,
                              IJewelryRepository jewelryRepository,
                              IJewelryTagRepository jewelryTagRepository,
                              IJewelryJewelryTagRepository jewelryJewelryTagRepository) {
@@ -37,10 +37,10 @@ public class ProductController implements IProductController {
 
     @Override
     @PostMapping("/add-receipt")
-    public ResponseEntity<CommonResponse> addReceipt(@RequestBody @Valid ReceiptRequest receiptRequest) {
+    public ResponseEntity<CommonResponse> addReceipt(@RequestBody @Valid OrderRequest receiptRequest) {
         // Save receipt
         List<Long> jewelryIdList = receiptRequest.getJewelryIdList();
-        Receipt receipt = new Receipt();
+        Order receipt = new Order();
         receipt.setUserId(receiptRequest.getUserId());
         receipt.setTotalPrice(jewelryRepository.getTotalPriceByIdList(jewelryIdList));
         receipt.setCreateAt(LocalDateTime.now());
@@ -48,7 +48,7 @@ public class ProductController implements IProductController {
 
         // Save receipt-jewelry
         jewelryIdList.forEach((jewelryId) -> {
-            ReceiptJewelry receiptJewelry = new ReceiptJewelry();
+            OrderJewelry receiptJewelry = new OrderJewelry();
             receiptJewelry.setReceiptId(receipt.getId());
             receiptJewelry.setJewelryId(jewelryId);
             receiptJewelry.setCreateAt(LocalDateTime.now());
@@ -80,7 +80,7 @@ public class ProductController implements IProductController {
     @GetMapping("/confirm-order")
     public ResponseEntity<CommonResponse> confirmOrder(@RequestBody @Valid ConfirmOrder req) {
         CommonResponse response = new CommonResponse();
-        Receipt receipt = receiptRepository.findById(req.getOrderId()).orElse(null);
+        Order receipt = receiptRepository.findById(req.getOrderId()).orElse(null);
         if (receipt != null) {
             receipt.setConfirmed(req.isConfirm());
             receiptRepository.save(receipt);

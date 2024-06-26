@@ -7,7 +7,7 @@ import vn.fpt.diamond_shop.model.dto.*;
 import javax.validation.Valid;
 
 public interface IProductController {
-    ResponseEntity<CommonResponse> addReceipt(@RequestBody @Valid ReceiptRequest receiptRequest);
+    ResponseEntity<CommonResponse> addReceipt(@RequestBody @Valid OrderRequest receiptRequest);
     ResponseEntity<CommonResponse> setJewelrySize(@RequestBody @Valid SetJewelrySizeRequest req);
     ResponseEntity<CommonResponse> confirmOrder(@RequestBody @Valid ConfirmOrder req);
     ResponseEntity<JewelriesResponse> getAllJewelries(@RequestBody @Valid JewelriesRequest jr);
