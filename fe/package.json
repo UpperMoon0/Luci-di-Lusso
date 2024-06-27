@@ -1,12 +1,13 @@
 {
-  "name": "lte-angular",
+  "name": "fe",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 3000",
+    "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "serve:ssr:fe": "node dist/fe/server/server.mjs"
   },
   "private": true,
   "dependencies": {
