@@ -55,17 +55,16 @@ export class AccountService {
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
-        }),
-        "Access-Control-Allow-Origin": `*`,
-        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+        })
       };
-      return this.http.post<any>(`${environment.apiUrl}/shop/auth/login`,jsonString,httpOptions)
-            .pipe(map(user => {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user', JSON.stringify(user));
-                this.userSubject.next(user);
-                return user;
-            }));
+      return this.http.get<any>(`${environment.apiUrl}/shop/auth/login?data=${encodeURIComponent(jsonString)}`, httpOptions)
+        .pipe(map(user => {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.setItem('user', JSON.stringify(user));
+          this.userSubject.next(user);
+          return user;
+        }));
+
     }
 
     logout() {

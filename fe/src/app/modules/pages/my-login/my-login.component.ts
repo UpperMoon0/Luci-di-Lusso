@@ -62,26 +62,8 @@ export class MyLoginComponent {
     this.loading = true;
     console.log(this.callLogin['email'].value, this.callLogin['password'].value);
 
-    // Create a JSON object with the principal and credentials
-    const loginData = {
-      principal: this.callLogin['email'].value,
-      credentials: this.callLogin['password'].value
-    };
-
     // Send the JSON object to the specified URL
-    this.http.post('http://localhost:8081/auth/signin', loginData).subscribe({
-      next: () => {
-        this.toastrService.success("login sucess");
-        const returnUrl = this.route.snapshot.queryParams['/home-page'] || '/home-page';
-        this.router.navigateByUrl(returnUrl);
-      },
-      error: error => {
-        console.log(error);
-        this.toastrService.error(error.error?.error);
-        console.log("login error");
-        this.loading = false;
-      }
-    });
+    this.accountService.login(this.callLogin['email'].value, this.callLogin['password'].value);
   }
 
   signInWithGoogle(): void {
