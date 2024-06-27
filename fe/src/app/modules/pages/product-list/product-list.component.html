@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <body>
 <!--header start here-->
 <header class="site-header header-style-one">
@@ -515,76 +515,21 @@
                   <li class="filter-listing">
                     <ul>
                       <li class="has-children">
-                        <a href="javascript:;" class="acnav-label">new</a>
+                        <a href="javascript:;" class="acnav-label">category</a>
                         <ul class="acnav-list">
-                          <li><a href="#">Necklaces </a></li>
-                          <li><a href="#">Rings</a></li>
-                          <li><a href="#">bracelat</a></li>
-                          <li><a href="#">Bangles</a></li>
-                          <li><a href="#">Earring</a></li>
-                          <li><a href="#">Chains</a></li>
-                          <li><a href="#">Rings</a></li>
-                          <li><a href="#">bracelat</a></li>
-                          <li><a href="#">Bangles</a></li>
-                          <li><a href="#">Earring</a></li>
-                        </ul>
-                      </li>
-                      <li class="has-children">
-                        <a href="javascript:;" class="acnav-label">Accessories </a>
-                        <ul class="acnav-list">
-                          <li><a href="#">bracelat</a></li>
-                          <li><a href="#">Bangles</a></li>
-                          <li><a href="#">Earring</a></li>
-                        </ul>
-                      </li>
-                      <li class="has-children">
-                        <a href="javascript:;" class="acnav-label"> Sets</a>
-                        <ul class="acnav-list">
-                          <li><a href="#">bracelat</a></li>
-                          <li><a href="#">Bangles</a></li>
-                          <li><a href="#">Earring</a></li>
+                          <div *ngFor="let tag of tagsList">
+                            <label class="check-label">
+                              <span class="custom-checkbox">
+                                <span id="{{tag}}" style="cursor: pointer; font-weight: normal; padding: 5px 10px; margin-top: 5px; margin-bottom: 5px; border-radius: 5px;" (click)="getSelectedTags(tag);">{{ tag }}</span>
+                              </span>
+                            </label>
+                          </div>
+                          {{ selectedTags | json }}
                         </ul>
                       </li>
                     </ul>
                   </li>
                 </ul>
-              </div>
-            </div>
-            <div class="product-widget product-tag-widget">
-              <div class="pro-itm has-children">
-                <a href="javascript:;" class="acnav-label">
-                  tags
-                </a>
-                <div class="pro-itm-inner acnav-list">
-                  <ul class="">
-                    <li class="tags-list">
-                      <label>
-                        <input type="checkbox" value="Accessories" checked=""><span>product</span>
-                      </label>
-                    </li>
-                    <li class="tags-list">
-                      <label>
-                        <input type="checkbox" value="Accessories"><span>Jewellery </span>
-                      </label>
-                    </li>
-                    <li class="tags-list">
-                      <label>
-                        <input type="checkbox" value="Accessories"><span>Jewellery</span>
-                      </label>
-                    </li>
-                    <li class="tags-list">
-                      <label>
-                        <input type="checkbox" value="Accessories"><span>Jewellery</span>
-                      </label>
-                    </li>
-                  </ul>
-                  <div class="delete-all">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M6.43285 1.01177C6.59919 0.845434 6.86887 0.845434 7.03521 1.01177C7.20154 1.1781 7.20154 1.44779 7.03521 1.61412L4.62579 4.02354L7.03521 6.43295C7.20154 6.59929 7.20154 6.86897 7.03521 7.03531C6.86887 7.20164 6.59919 7.20164 6.43285 7.03531L4.02344 4.62589L1.61402 7.03531C1.44769 7.20164 1.178 7.20164 1.01167 7.03531C0.845333 6.86897 0.845333 6.59929 1.01167 6.43295L3.42108 4.02354L1.01167 1.61412C0.845333 1.44779 0.845332 1.17811 1.01167 1.01177C1.178 0.845434 1.44769 0.845434 1.61402 1.01177L4.02344 3.42119L6.43285 1.01177Z" fill="#183A40"/>
-                    </svg>
-                    Delete all
-                  </div>
-                </div>
               </div>
             </div>
             <div class="product-widget product-price-widget">
@@ -596,94 +541,18 @@
                   <div class="price-select d-flex">
                     <div class="select-col">
                       <p>min price:</p>
-                      <select>
-                        <option value="$ 100">$ 100</option>
-                        <option value="$ 200">$ 200</option>
-                        <option value="$ 300">$ 300</option>
-                        <option value="$ 400">$ 400</option>
-                      </select>
-                    </div>
-                    <div class="select-col">
-                      <p>max price:</p>
-                      <select>
-                        <option value="$ 500">$ 500</option>
-                        <option value="$ 600">$ 600</option>
-                        <option value="$ 700">$ 700</option>
-                        <option value="$ 800">$ 800</option>
-                      </select>
+                        <select style="width: auto" [(ngModel)]="selectedRangePrice" (ngModelChange)="getProducts()">
+                          <option value="Show all price">Show all price</option>
+                          <option value="$ 0 - 100">$ 0 - 100</option>
+                          <option value="$ 100 - 500">$ 100 - 500</option>
+                          <option value="$ 500 - 1000">$ 500 - 1000</option>
+                          <option value="$ 1000 - 4000">$ 1000 - 4000</option>
+                          <option value="More than $ 4000">More than $ 4000</option>
+                        </select>
                     </div>
                   </div>
                   <div id="range-slider">
                     <div id="slider-range"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="product-widget product-colors-widget">
-              <div class="pro-itm has-children">
-                <a href="javascript:;" class="acnav-label">
-                  Colors
-                </a>
-                <div class="pro-itm-inner acnav-list">
-                  <div class="colors-checkbox">
-                    <label class="check-label" for="color1">
-                                              <span class="custom-checkbox">
-                                                  <input id="color1"   type="checkbox">
-                                                  <span class="color" style="background-color:#CFC4A6;"></span>
-                                              </span>
-                      <div class="color-name">
-                        Taupe
-                        <span class="color-count">(1)</span>
-                      </div>
-                    </label>
-                  </div>
-                  <div class="colors-checkbox">
-                    <label class="check-label" for="color2">
-                                              <span class="custom-checkbox">
-                                                  <input id="color2"   type="checkbox">
-                                                  <span class="color" style="background-color:#f5f5dc;"></span>
-                                              </span>
-                      <div class="color-name">
-                        Beige
-                        <span class="color-count">(1)</span>
-                      </div>
-                    </label>
-                  </div>
-                  <div class="colors-checkbox">
-                    <label class="check-label" for="color3">
-                                              <span class="custom-checkbox">
-                                                  <input id="color3"   type="checkbox">
-                                                  <span class="color" style="background-color:#faebd7;"></span>
-                                              </span>
-                      <div class="color-name">
-                        Off White
-                        <span class="color-count">(4)</span>
-                      </div>
-                    </label>
-                  </div>
-                  <div class="colors-checkbox">
-                    <label class="check-label" for="color4">
-                                              <span class="custom-checkbox">
-                                                  <input id="color4"   type="checkbox">
-                                                  <span class="color" style="background-color:#E84C3D;"></span>
-                                              </span>
-                      <div class="color-name">
-                        Red
-                        <span class="color-count">(15)</span>
-                      </div>
-                    </label>
-                  </div>
-                  <div class="colors-checkbox">
-                    <label class="check-label" for="color5">
-                                              <span class="custom-checkbox">
-                                                  <input id="color5"   type="checkbox">
-                                                  <span class="color" style="background-color:#F39C11;"></span>
-                                              </span>
-                      <div class="color-name">
-                        Orange
-                        <span class="color-count">(10)</span>
-                      </div>
-                    </label>
                   </div>
                 </div>
               </div>
