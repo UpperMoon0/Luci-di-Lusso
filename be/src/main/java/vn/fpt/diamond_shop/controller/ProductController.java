@@ -82,7 +82,9 @@ public class ProductController implements IProductController {
                 for (JewelryJewelryTag jjt : jewelryJewelryTags) {
                     Jewelry jewelry = jewelryRepository.findById(jjt.getJewelryId()).orElse(null);
                     if (jewelry != null && !jewelryList.contains(jewelry)) {
-                        jewelryList.add(jewelry);
+                        if (jewelry.getPrice() >= jr.getMinPrice() && jewelry.getPrice() <= jr.getMaxPrice()) {
+                            jewelryList.add(jewelry);
+                        }
                     }
                 }
             }
