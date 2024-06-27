@@ -56,8 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers("/auth/signup",
                     "/auth/signin",
-                    "/tags/get-all-tags",
-                    "product/get-all-jewelries").permitAll()
+                    "/tags/get-all-tags").permitAll()
             .anyRequest().authenticated();
             //.and()
             //.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

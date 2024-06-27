@@ -84,7 +84,7 @@ public class AuthController implements IAuthController {
      * @return a ResponseEntity with the login response
      */
     @Override
-    @PostMapping("/signin")
+    @GetMapping("/signin")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(

@@ -21,16 +21,7 @@ public class TagsController implements ITagsController {
     public ResponseEntity<Object> getAllTags() {
         List<String> tags = new ArrayList<>();
         for (EJewelryTag e : EJewelryTag.values()) {
-            String temp = "";
-            String tagString = "";
-            if (e.toString().contains("_")) {
-                temp = e.toString().split("_")[0] + " " + e.toString().split("_")[1];
-                System.out.println(temp);
-            } else {
-                temp = e.toString();
-            }
-            tagString = temp.substring(0, 1).toUpperCase() + temp.substring(1).toLowerCase();
-            tags.add(tagString);
+            tags.add(e.toString());
         }
         return ok(tags);
     }
