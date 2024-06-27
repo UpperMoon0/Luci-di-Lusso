@@ -14,4 +14,8 @@ import java.util.List;
 public class JewelriesRequest {
     @NotNull
     List<EJewelryTag> tags;
+    @NotNull
+    int minPrice;
+    @NotNull
+    int maxPrice;
 }
