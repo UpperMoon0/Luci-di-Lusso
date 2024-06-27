@@ -7,8 +7,5 @@ public enum EJewelryTag {
     EARRING,
     PENDANT,
     BROOCH,
-    MAN,
-    WOMAN,
-    CHILDREN,
     NEED_SIZING
 }
