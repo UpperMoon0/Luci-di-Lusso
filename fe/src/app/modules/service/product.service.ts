@@ -46,6 +46,13 @@ export class ProductService {
   }
   public getProductDetail(ProductId : number): Observable<any>{
     const body = {id_jewelry:ProductId};
-    return  this.http.post<Object>(`${this.apiUrl}/${this.BASIC_JEWELRY_URL}detail`,body, this.httpOptions);
+    return this.http.post<Object>(`${this.apiUrl}/${this.BASIC_JEWELRY_URL}detail`,body, this.httpOptions);
+  }
+  public getAllJewelries(request: any): Observable<any>{
+    return this.http.post<Object>(`${this.apiUrl}/product/get-all-jewelries`, request, this.httpOptions);
+  }
+  public getAllTags(): Observable<any> {
+    return this.http.get<any[]>(`${this.apiUrl}/tags/get-all-tags`, this.httpOptions);
+
   }
 }
