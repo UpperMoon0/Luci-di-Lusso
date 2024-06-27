@@ -54,7 +54,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .csrf().disable()
             .authorizeRequests()
-            .antMatchers("/auth/signup", "/auth/signin").permitAll()
+            .antMatchers("/auth/signup",
+                    "/auth/signin",
+                    "/tags/get-all-tags",
+                    "product/get-all-jewelries").permitAll()
             .anyRequest().authenticated();
             //.and()
             //.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
