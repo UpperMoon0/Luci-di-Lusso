@@ -4,6 +4,8 @@ import { NgOtpInputModule } from  'ng-otp-input';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { RegisterPageComponent } from './register-page/register-page.component';
+import { RegisterFormComponent } from './register-page/register-form.component';
 import { DefaultLayoutModule } from './core/default-layout/default-layout.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { LoginComponent } from './modules/auth/login/login.component';
@@ -41,7 +43,6 @@ import { OrderSummeryComponent } from './modules/pages/order-summery/order-summe
 import { PrivacyPolicyComponent } from './modules/pages/privacy-policy/privacy-policy.component';
 import { ProductListComponent } from './modules/pages/product-list/product-list.component';
 import { ProductComponent } from './modules/pages/product/product.component';
-import { RegisterPageComponent } from './modules/pages/register-page/register-page.component';
 import { WishListComponent } from './modules/pages/wish-list/wish-list.component';
 import { MyHeaderComponent } from './modules/pages/layout/my-header/my-header.component';
 import { MyFooterComponent } from './modules/pages/layout/my-footer/my-footer.component';
@@ -51,6 +52,11 @@ import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-
 
 @NgModule({
   declarations: [
+    // Register page
+    RegisterPageComponent,
+    RegisterFormComponent,
+
+    //
     AppComponent,
     LoginComponent,
     RegisterComponent,
@@ -78,7 +84,6 @@ import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-
     PrivacyPolicyComponent,
     ProductListComponent,
     ProductComponent,
-    RegisterPageComponent,
     WishListComponent,
     MyHeaderComponent,
     MyFooterComponent,
