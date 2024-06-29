@@ -313,10 +313,10 @@ const routes: Routes = [
     }
   },
   {
-    path: 'my-login',
+    path: 'login',
     component: LoginPageComponent,
     data: {
-      title: 'Login Page'
+      title: 'Login'
     }
   },
   {
@@ -355,10 +355,10 @@ const routes: Routes = [
     }
   },
   {
-    path: 'register-page',
+    path: 'register',
     component: RegisterPageComponent,
     data: {
-      title: 'Register Page'
+      title: 'Register'
     }
   },
   {
