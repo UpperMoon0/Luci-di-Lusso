@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
-import { HttpClient } from '@angular/common/http';
+import { RegisterService } from './register-service';
 
 @Component({
   selector: 'register-form',
@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 export class RegisterFormComponent implements OnInit {
   form!: FormGroup;
 
-  constructor(private http: HttpClient,
+  constructor(private registerService: RegisterService,
               private formBuilder: FormBuilder,
               private toastrService: ToastrService) {
   }
@@ -39,7 +39,7 @@ export class RegisterFormComponent implements OnInit {
       return;
     }
 
-    this.http.post('http://localhost:8081/auth/register', this.form.value).subscribe({
+    this.registerService.register(this.form.value).subscribe({
       next: (res) => {
         this.toastrService.success("Register successfully");
       },

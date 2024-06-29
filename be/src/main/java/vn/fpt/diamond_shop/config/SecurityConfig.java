@@ -52,10 +52,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .csrf().disable()
+            .csrf()
+                .disable()
             .authorizeRequests()
-            .antMatchers("/auth/signup", "/auth/signin").permitAll()
-            .anyRequest().authenticated();
+            .antMatchers("/auth/register",
+                        "/auth/login")
+                .permitAll()
+            .anyRequest()
+                .authenticated();
             //.and()
             //.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
