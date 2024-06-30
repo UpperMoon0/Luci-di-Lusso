@@ -12,5 +12,5 @@ import javax.validation.Valid;
 
 public interface IAuthController {
     ResponseEntity<CommonResponse> register(@Valid RegisterRequest signUpRequest) throws BadRequestException;
-    ResponseEntity<LoginResponse> login(LoginRequest loginRequest);
+    ResponseEntity<LoginResponse> login(@Valid LoginRequest loginRequest);
 }

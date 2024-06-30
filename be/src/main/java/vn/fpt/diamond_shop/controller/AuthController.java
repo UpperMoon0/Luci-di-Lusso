@@ -50,7 +50,7 @@ public class AuthController implements IAuthController {
      * @throws BadRequestException if the email is already in use
      */
     @Override
-    @PostMapping("/signup")
+    @PostMapping("/register")
     public ResponseEntity<CommonResponse> register(@Valid @RequestBody RegisterRequest signUpRequest) throws BadRequestException {
         CommonResponse cr = new CommonResponse();
 
@@ -86,7 +86,7 @@ public class AuthController implements IAuthController {
      * @return a ResponseEntity with the login response
      */
     @Override
-    @PostMapping("/signin")
+    @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
