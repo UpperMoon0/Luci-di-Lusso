@@ -2,9 +2,9 @@ package vn.fpt.diamond_shop.model.entity;
 
 import lombok.*;
 
-import vn.fpt.diamond_shop.constant.EJewelryTag;
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -23,15 +23,25 @@ public class Jewelry {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "diamond_id")
-    private Long diamondId;
+    @OneToOne
+    @JoinColumn(name = "diamond_id")
+    private Diamond diamond;
 
-    @Column(name = "size_id")
-    private Long sizeId;
+    @ManyToOne
+    @JoinColumn(name = "jewelry_size_id")
+    private JewelrySize jewelrySize;
 
     @Column(name = "image_url")
     private String imageUrl;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;
+
+    @ManyToMany
+    @JoinTable(
+        name = "jewelry_jewelry_tag",
+        joinColumns = @JoinColumn(name = "jewelry_id"),
+        inverseJoinColumns = @JoinColumn(name = "jewelry_tag_id")
+    )
+    private List<JewelryTag> jewelryTags;
 }

@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @Entity
-@Table(name = "size")
-public class Size {
+@Table(name = "jewelry_size")
+public class JewelrySize {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
