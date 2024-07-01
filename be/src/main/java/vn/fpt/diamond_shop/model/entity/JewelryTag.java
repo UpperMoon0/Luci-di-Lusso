@@ -7,6 +7,7 @@ import vn.fpt.diamond_shop.constant.EJewelryTag;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,4 +25,7 @@ public class JewelryTag {
 
     @Column(name = "create_at")
     private LocalDateTime createAt;
+
+    @ManyToMany(mappedBy = "jewelryTags")
+    private List<Jewelry> jewelries;
 }

@@ -18,26 +18,31 @@ public class Diamond {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "carat")
+    @Column
     private int carat;
 
-    @Column(name = "quantity")
+    @Column
     private int quantity;
 
-    @Column(name = "clarity_id")
-    private Long clarityId;
+    @ManyToOne
+    @JoinColumn(name = "clarity_id")
+    private Clarity clarity;
 
-    @Column(name = "cut_id")
-    private Long cutId;
+    @ManyToOne
+    @JoinColumn(name = "cut_id")
+    private Cut cut;
 
-    @Column(name = "polish_id")
-    private Long polishId;
+    @ManyToOne
+    @JoinColumn(name = "polish_id")
+    private Polish polish;
 
-    @Column(name = "color_id")
-    private Long colorId;
+    @ManyToOne
+    @JoinColumn(name = "color_id")
+    private Color color;
 
-    @Column(name = "shape_id")
-    private Long shapeId;
+    @ManyToOne
+    @JoinColumn(name = "shape_id")
+    private Shape shape;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;

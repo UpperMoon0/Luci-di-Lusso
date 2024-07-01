@@ -12,27 +12,25 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @RequestMapping("/product")
 @RestController
 public class ProductController implements IProductController {
     private final IOrderRepository receiptRepository;
-    private final IOrderJewelryRepository receiptJewelryRepository;
     private final IJewelryRepository jewelryRepository;
     private final IJewelryTagRepository jewelryTagRepository;
-    private final IJewelryJewelryTagRepository jewelryJewelryTagRepository;
+    private final IJewelrySizeRepository jewelrySizeRepository;
 
     @Autowired
     public ProductController(IOrderRepository receiptRepository,
-                             IOrderJewelryRepository receiptJewelryRepository,
                              IJewelryRepository jewelryRepository,
                              IJewelryTagRepository jewelryTagRepository,
-                             IJewelryJewelryTagRepository jewelryJewelryTagRepository) {
+                             IJewelrySizeRepository jewelrySizeRepository) {
         this.receiptRepository = receiptRepository;
-        this.receiptJewelryRepository = receiptJewelryRepository;
         this.jewelryRepository = jewelryRepository;
         this.jewelryTagRepository = jewelryTagRepository;
-        this.jewelryJewelryTagRepository = jewelryJewelryTagRepository;
+        this.jewelrySizeRepository = jewelrySizeRepository;
     }
 
     @Override
@@ -40,20 +38,15 @@ public class ProductController implements IProductController {
     public ResponseEntity<CommonResponse> addReceipt(@RequestBody @Valid OrderRequest receiptRequest) {
         // Save receipt
         List<Long> jewelryIdList = receiptRequest.getJewelryIdList();
-        Order receipt = new Order();
-        receipt.setUserId(receiptRequest.getUserId());
-        receipt.setTotalPrice(jewelryRepository.getTotalPriceByIdList(jewelryIdList));
-        receipt.setCreateAt(LocalDateTime.now());
-        receiptRepository.save(receipt);
-
-        // Save receipt-jewelry
-        jewelryIdList.forEach((jewelryId) -> {
-            OrderJewelry receiptJewelry = new OrderJewelry();
-            receiptJewelry.setReceiptId(receipt.getId());
-            receiptJewelry.setJewelryId(jewelryId);
-            receiptJewelry.setCreateAt(LocalDateTime.now());
-            receiptJewelryRepository.save(receiptJewelry);
-        });
+        Order order = new Order();
+        order.setUserId(receiptRequest.getUserId());
+        order.setTotalPrice(jewelryRepository.getTotalPriceByIdList(jewelryIdList));
+        order.setCreateAt(LocalDateTime.now());
+        order.setConfirmed(false);
+        for (Long jewelryId : jewelryIdList) {
+            jewelryRepository.findById(jewelryId).ifPresent(jewelry -> order.getJewelries().add(jewelry));
+        }
+        receiptRepository.save(order);
 
         // Return response
         CommonResponse response = new CommonResponse();
@@ -67,9 +60,14 @@ public class ProductController implements IProductController {
         CommonResponse response = new CommonResponse();
         Jewelry jewelry = jewelryRepository.findById(req.getJewelryId()).orElse(null);
         if (jewelry != null) {
-            jewelry.setSizeId(req.getSizeId());
-            jewelryRepository.save(jewelry);
-            response.setMessage("Set jewelry size successfully");
+            JewelrySize jewelrySize = jewelrySizeRepository.findById(req.getSizeId());
+            if (jewelrySize != null) {
+                jewelry.setJewelrySize(jewelrySize);
+                jewelryRepository.save(jewelry);
+                response.setMessage("Set jewelry size successfully");
+            } else {
+                response.setMessage("Size not found");
+            }
         } else {
             response.setMessage("Jewelry not found");
         }
@@ -105,13 +103,10 @@ public class ProductController implements IProductController {
             jewelryList = new ArrayList<>();
             for (EJewelryTag tag : jr.getTags()) {
                 JewelryTag jewelryTag = jewelryTagRepository.findByTag(tag);
-                List<JewelryJewelryTag> jewelryJewelryTags = jewelryJewelryTagRepository.findByJewelryTagId(jewelryTag.getId());
-                for (JewelryJewelryTag jjt : jewelryJewelryTags) {
-                    Jewelry jewelry = jewelryRepository.findById(jjt.getJewelryId()).orElse(null);
-                    if (jewelry != null && !jewelryList.contains(jewelry)) {
-                        jewelryList.add(jewelry);
-                    }
-                }
+                List<Jewelry> jewelries = jewelryRepository.findAllByJewelryTags(jewelryTag);
+                jewelryList.addAll(jewelries);
+                // Remove duplicate jewelries
+
             }
         }
 
