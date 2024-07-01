@@ -4,10 +4,11 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
-@Table(name = "order")
+@Table(name = "customer_order")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,4 +25,12 @@ public class Order {
 
     @Column(name = "create_at")
     private LocalDateTime createAt;
+
+    @ManyToMany
+    @JoinTable(
+        name = "order_jewelry",
+        joinColumns = @JoinColumn(name = "order_id"),
+        inverseJoinColumns = @JoinColumn(name = "jewelry_id")
+    )
+    private List<Jewelry> jewelries;
 }
