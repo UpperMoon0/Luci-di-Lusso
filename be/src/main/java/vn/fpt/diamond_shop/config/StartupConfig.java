@@ -7,76 +7,64 @@ import vn.fpt.diamond_shop.constant.*;
 import vn.fpt.diamond_shop.model.entity.*;
 import vn.fpt.diamond_shop.repository.*;
 
-import java.security.AuthProvider;
 import java.time.LocalDateTime;
 
 @Configuration
 public class StartupConfig {
     @Bean
-    public CommandLineRunner initTables(ICutRepository cutRepository,
-                                        IColorRepository colorRepository,
-                                        IPolishRepository polishRepository,
-                                        IShapeRepository shapeRepository,
-                                        IClarityRepository clarityRepository,
-                                        IJewelryTagRepository jewelryTagRepository) {
+    public CommandLineRunner initTables(IDiamondCutRepository cutRepository,
+                                        IDiamondPolishRepository polishRepository,
+                                        IDiamondShapeRepository shapeRepository,
+                                        IDiamondClarityRepository clarityRepository,
+                                        IJewelryTypeRepository jewelryTagRepository) {
         return args -> {
-            for (ECut cutValue : ECut.values()) {
-                Cut cut = cutRepository.findByCut(cutValue);
+            for (EDiamondCut cutValue : EDiamondCut.values()) {
+                DiamondCut cut = cutRepository.findByCut(cutValue);
                 if (cut == null) {
-                    cut = new Cut();
+                    cut = new DiamondCut();
                     cut.setCut(cutValue);
                     cut.setCreateAt(LocalDateTime.now());
                     cutRepository.save(cut);
                 }
             }
 
-            for (EColor colorValue : EColor.values()) {
-                Color color = colorRepository.findByColor(colorValue);
-                if (color == null) {
-                    color = new Color();
-                    color.setColor(colorValue);
-                    color.setCreateAt(LocalDateTime.now());
-                    colorRepository.save(color);
-                }
-            }
-
-            for (EPolish polishValue : EPolish.values()) {
-                Polish polish = polishRepository.findByPolish(polishValue);
+            for (EDiamondPolish polishValue : EDiamondPolish.values()) {
+                DiamondPolish polish = polishRepository.findByPolish(polishValue);
                 if (polish == null) {
-                    polish = new Polish();
+                    polish = new DiamondPolish();
                     polish.setPolish(polishValue);
                     polish.setCreateAt(LocalDateTime.now());
                     polishRepository.save(polish);
                 }
             }
 
-            for (EShape shapeValue : EShape.values()) {
-                Shape shape = shapeRepository.findByShape(shapeValue);
+            for (EDiamondShape shapeValue : EDiamondShape.values()) {
+                DiamondShape shape = shapeRepository.findByShape(shapeValue);
                 if (shape == null) {
-                    shape = new Shape();
+                    shape = new DiamondShape();
                     shape.setShape(shapeValue);
                     shape.setCreateAt(LocalDateTime.now());
                     shapeRepository.save(shape);
                 }
             }
 
-            for (EClarity clarityValue : EClarity.values()) {
-                Clarity clarity = clarityRepository.findByClarity(clarityValue);
+            for (EDiamondClarity clarityValue : EDiamondClarity.values()) {
+                DiamondClarity clarity = clarityRepository.findByClarity(clarityValue);
                 if (clarity == null) {
-                    clarity = new Clarity();
+                    clarity = new DiamondClarity();
                     clarity.setClarity(clarityValue);
                     clarity.setCreateAt(LocalDateTime.now());
                     clarityRepository.save(clarity);
                 }
             }
 
-            for (EJewelryTag jewelryTagValue : EJewelryTag.values()) {
-                JewelryTag jewelryTag = jewelryTagRepository.findByTag(jewelryTagValue);
-                if (jewelryTag == null) {
-                    jewelryTag = new JewelryTag();
-                    jewelryTag.setTag(jewelryTagValue);
-                    jewelryTag.setCreateAt(LocalDateTime.now());
-                    jewelryTagRepository.save(jewelryTag);
+            for (EJewelryType jewelryTagValue : EJewelryType.values()) {
+                JewelryType jewelryType = jewelryTagRepository.findByType(jewelryTagValue);
+                if (jewelryType == null) {
+                    jewelryType = new JewelryType();
+                    jewelryType.setType(jewelryTagValue);
+                    jewelryType.setCreateAt(LocalDateTime.now());
+                    jewelryTagRepository.save(jewelryType);
                 }
             }
         };

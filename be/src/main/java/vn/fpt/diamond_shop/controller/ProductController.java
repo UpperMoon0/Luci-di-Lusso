@@ -3,7 +3,7 @@ package vn.fpt.diamond_shop.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vn.fpt.diamond_shop.constant.EJewelryTag;
+import vn.fpt.diamond_shop.constant.EJewelryType;
 import vn.fpt.diamond_shop.model.dto.*;
 import vn.fpt.diamond_shop.model.entity.*;
 import vn.fpt.diamond_shop.repository.*;
@@ -12,20 +12,19 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @RequestMapping("/product")
 @RestController
 public class ProductController implements IProductController {
     private final IOrderRepository receiptRepository;
     private final IJewelryRepository jewelryRepository;
-    private final IJewelryTagRepository jewelryTagRepository;
+    private final IJewelryTypeRepository jewelryTagRepository;
     private final IJewelrySizeRepository jewelrySizeRepository;
 
     @Autowired
     public ProductController(IOrderRepository receiptRepository,
                              IJewelryRepository jewelryRepository,
-                             IJewelryTagRepository jewelryTagRepository,
+                             IJewelryTypeRepository jewelryTagRepository,
                              IJewelrySizeRepository jewelrySizeRepository) {
         this.receiptRepository = receiptRepository;
         this.jewelryRepository = jewelryRepository;
@@ -101,9 +100,9 @@ public class ProductController implements IProductController {
         } else {
             // If tag list is not empty, return jewelries that match the tags
             jewelryList = new ArrayList<>();
-            for (EJewelryTag tag : jr.getTags()) {
-                JewelryTag jewelryTag = jewelryTagRepository.findByTag(tag);
-                List<Jewelry> jewelries = jewelryRepository.findAllByJewelryTags(jewelryTag);
+            for (EJewelryType tag : jr.getTags()) {
+                JewelryType jewelryTag = jewelryTagRepository.findByType(tag);
+                List<Jewelry> jewelries = jewelryRepository.findAllByJewelryType(jewelryTag);
                 jewelryList.addAll(jewelries);
                 // Remove duplicate jewelries
 

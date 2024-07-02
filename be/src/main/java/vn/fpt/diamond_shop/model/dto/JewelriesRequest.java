@@ -3,7 +3,7 @@ package vn.fpt.diamond_shop.model.dto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import vn.fpt.diamond_shop.constant.EJewelryTag;
+import vn.fpt.diamond_shop.constant.EJewelryType;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -13,5 +13,5 @@ import java.util.List;
 @ToString
 public class JewelriesRequest {
     @NotNull
-    List<EJewelryTag> tags;
+    List<EJewelryType> tags;
 }
