@@ -3,7 +3,7 @@ package vn.fpt.diamond_shop.model.entity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import vn.fpt.diamond_shop.constant.EJewelryTag;
+import vn.fpt.diamond_shop.constant.EJewelryType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,19 +13,16 @@ import java.util.List;
 @Setter
 @ToString
 @Entity
-@Table(name = "jewelry_tag")
-public class JewelryTag {
+@Table(name = "jewelry_type")
+public class JewelryType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "tag", unique = true)
-    private EJewelryTag tag;
+    @Column(name = "type", unique = true)
+    private EJewelryType type;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;
-
-    @ManyToMany(mappedBy = "jewelryTags")
-    private List<Jewelry> jewelries;
 }
