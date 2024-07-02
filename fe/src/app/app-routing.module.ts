@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {DefaultLayoutComponent} from './core/default-layout/default-layout.component';
+import {DefaultLayoutComponent} from './core/default-layout';
 import {DashboardComponent} from './modules/dashboard/dashboard.component';
 import {HomeComponent} from "./modules/home/home.component";
 import {IntroductionComponent} from "./modules/default-page/introduction/introduction.component";
