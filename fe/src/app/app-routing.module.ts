@@ -1,13 +1,8 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {authGuard} from './modules/auth/guards/auth.guard';
 import {DefaultLayoutComponent} from './core/default-layout/default-layout.component';
 import {DashboardComponent} from './modules/dashboard/dashboard.component';
-import {LoginComponent} from './modules/auth/login/login.component';
-import {RegisterComponent} from './modules/auth/register/register.component';
-// import {ResetPasswordComponent} from './modules/auth/reset-password/reset-password.component';
 import {HomeComponent} from "./modules/home/home.component";
-import {LoginV3Component} from "./modules/login-v3/login-v3.component";
 import {IntroductionComponent} from "./modules/default-page/introduction/introduction.component";
 import {PriceDimondTableComponent} from "./modules/default-page/price-dimond-table/price-dimond-table.component";
 import {MeasureJewelrySizeComponent} from "./modules/default-page/measure-jewelry-size/measure-jewelry-size.component";
@@ -22,13 +17,13 @@ import {CartComponent} from "./modules/pages/cart/cart.component";
 import {CheckoutComponent} from "./modules/pages/checkout/checkout.component";
 import {ContactUsComponent} from "./modules/pages/contact-us/contact-us.component";
 import {FaqsComponent} from "./modules/pages/faqs/faqs.component";
-import {MyLoginComponent} from "./modules/pages/my-login/my-login.component";
+import {LoginPageComponent} from "./login-page/login-page.component";
 import {MyAccountComponent} from "./modules/pages/my-account/my-account.component";
 import {OrderSummeryComponent} from "./modules/pages/order-summery/order-summery.component";
 import {PrivacyPolicyComponent} from "./modules/pages/privacy-policy/privacy-policy.component";
 import {ProductListComponent} from "./modules/pages/product-list/product-list.component";
 import {ProductComponent} from "./modules/pages/product/product.component";
-import {RegisterPageComponent} from "./modules/pages/register-page/register-page.component";
+import {RegisterPageComponent} from "./register-page/register-page.component";
 import {WishListComponent} from "./modules/pages/wish-list/wish-list.component";
 import {ResetPasswordComponent} from "./modules/pages/reset-password/reset-password.component";
 import {ForgetPasswordComponent} from "./modules/pages/forget-password/forget-password.component";
@@ -205,14 +200,6 @@ const routes: Routes = [
     loadChildren: () => import('./modules/common/pages/ecommerce/ecommerce.module').then(m => m.EcommerceModule)
   },
   {
-    path: 'login',
-    // canActivate: [authGuard],
-    component: LoginComponent,
-    data: {
-      title: 'Login Page'
-    }
-  },
-  {
     path: 'dashboard',
     // canActivate: [authGuard],
     component: DashboardComponent,
@@ -225,21 +212,6 @@ const routes: Routes = [
     component: HomeComponent,
     data: {
       title: 'home Page'
-    }
-  },
-  {
-    path: 'login-v3',
-    component: LoginV3Component,
-    data: {
-      title: 'Login Page'
-    }
-  },
-
-  {
-    path: 'register',
-    component: RegisterComponent,
-    data: {
-      title: 'Register Page'
     }
   },
   {
@@ -341,10 +313,10 @@ const routes: Routes = [
     }
   },
   {
-    path: 'my-login',
-    component: MyLoginComponent,
+    path: 'login',
+    component: LoginPageComponent,
     data: {
-      title: 'Login Page'
+      title: 'Login'
     }
   },
   {
@@ -383,10 +355,10 @@ const routes: Routes = [
     }
   },
   {
-    path: 'register-page',
+    path: 'register',
     component: RegisterPageComponent,
     data: {
-      title: 'Register Page'
+      title: 'Register'
     }
   },
   {

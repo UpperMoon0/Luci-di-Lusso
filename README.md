@@ -1,2 +1,1 @@
-Test123
-hello world
+Diamond shop system - Group 6

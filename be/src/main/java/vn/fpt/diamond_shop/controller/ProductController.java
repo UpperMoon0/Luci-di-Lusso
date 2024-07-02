@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.fpt.diamond_shop.constant.EJewelryTag;
-import vn.fpt.diamond_shop.model.dto.CommonResponse;
-import vn.fpt.diamond_shop.model.dto.JewelriesRequest;
-import vn.fpt.diamond_shop.model.dto.JewelriesResponse;
-import vn.fpt.diamond_shop.model.dto.ReceiptRequest;
+import vn.fpt.diamond_shop.model.dto.*;
 import vn.fpt.diamond_shop.model.entity.*;
 import vn.fpt.diamond_shop.repository.*;
 
@@ -15,52 +12,80 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @RequestMapping("/product")
 @RestController
 public class ProductController implements IProductController {
-    private final IReceiptRepository receiptRepository;
-    private final IReceiptJewelryRepository receiptJewelryRepository;
+    private final IOrderRepository receiptRepository;
     private final IJewelryRepository jewelryRepository;
     private final IJewelryTagRepository jewelryTagRepository;
-    private final IJewelryJewelryTagRepository jewelryJewelryTagRepository;
+    private final IJewelrySizeRepository jewelrySizeRepository;
 
     @Autowired
-    public ProductController(IReceiptRepository receiptRepository,
-                             IReceiptJewelryRepository receiptJewelryRepository,
+    public ProductController(IOrderRepository receiptRepository,
                              IJewelryRepository jewelryRepository,
                              IJewelryTagRepository jewelryTagRepository,
-                             IJewelryJewelryTagRepository jewelryJewelryTagRepository) {
+                             IJewelrySizeRepository jewelrySizeRepository) {
         this.receiptRepository = receiptRepository;
-        this.receiptJewelryRepository = receiptJewelryRepository;
         this.jewelryRepository = jewelryRepository;
         this.jewelryTagRepository = jewelryTagRepository;
-        this.jewelryJewelryTagRepository = jewelryJewelryTagRepository;
+        this.jewelrySizeRepository = jewelrySizeRepository;
     }
 
     @Override
     @PostMapping("/add-receipt")
-    public ResponseEntity<CommonResponse> addReceipt(@Valid @RequestBody ReceiptRequest receiptRequest) {
+    public ResponseEntity<CommonResponse> addReceipt(@RequestBody @Valid OrderRequest receiptRequest) {
         // Save receipt
         List<Long> jewelryIdList = receiptRequest.getJewelryIdList();
-        Receipt receipt = new Receipt();
-        receipt.setUserId(receiptRequest.getUserId());
-        receipt.setTotalPrice(jewelryRepository.getTotalPriceByIdList(jewelryIdList));
-        receipt.setCreateAt(LocalDateTime.now());
-        receiptRepository.save(receipt);
-
-        // Save receipt-jewelry
-        jewelryIdList.forEach((jewelryId) -> {
-            ReceiptJewelry receiptJewelry = new ReceiptJewelry();
-            receiptJewelry.setReceiptId(receipt.getId());
-            receiptJewelry.setJewelryId(jewelryId);
-            receiptJewelry.setCreateAt(LocalDateTime.now());
-            receiptJewelryRepository.save(receiptJewelry);
-        });
+        Order order = new Order();
+        order.setUserId(receiptRequest.getUserId());
+        order.setTotalPrice(jewelryRepository.getTotalPriceByIdList(jewelryIdList));
+        order.setCreateAt(LocalDateTime.now());
+        order.setConfirmed(false);
+        for (Long jewelryId : jewelryIdList) {
+            jewelryRepository.findById(jewelryId).ifPresent(jewelry -> order.getJewelries().add(jewelry));
+        }
+        receiptRepository.save(order);
 
         // Return response
         CommonResponse response = new CommonResponse();
         response.setMessage("Receipt added successfully");
+        return ResponseEntity.ok(response);
+    }
+
+    @Override
+    @GetMapping("/set-jewelry-size")
+    public ResponseEntity<CommonResponse> setJewelrySize(@RequestBody @Valid SetJewelrySizeRequest req) {
+        CommonResponse response = new CommonResponse();
+        Jewelry jewelry = jewelryRepository.findById(req.getJewelryId()).orElse(null);
+        if (jewelry != null) {
+            JewelrySize jewelrySize = jewelrySizeRepository.findById(req.getSizeId());
+            if (jewelrySize != null) {
+                jewelry.setJewelrySize(jewelrySize);
+                jewelryRepository.save(jewelry);
+                response.setMessage("Set jewelry size successfully");
+            } else {
+                response.setMessage("Size not found");
+            }
+        } else {
+            response.setMessage("Jewelry not found");
+        }
+        return ResponseEntity.ok(response);
+    }
+
+    @Override
+    @GetMapping("/confirm-order")
+    public ResponseEntity<CommonResponse> confirmOrder(@RequestBody @Valid ConfirmOrder req) {
+        CommonResponse response = new CommonResponse();
+        Order receipt = receiptRepository.findById(req.getOrderId()).orElse(null);
+        if (receipt != null) {
+            receipt.setConfirmed(req.isConfirm());
+            receiptRepository.save(receipt);
+            response.setMessage("Confirm order successfully");
+        } else {
+            response.setMessage("Receipt not found");
+        }
         return ResponseEntity.ok(response);
     }
 
@@ -78,25 +103,10 @@ public class ProductController implements IProductController {
             jewelryList = new ArrayList<>();
             for (EJewelryTag tag : jr.getTags()) {
                 JewelryTag jewelryTag = jewelryTagRepository.findByTag(tag);
-                List<JewelryJewelryTag> jewelryJewelryTags = jewelryJewelryTagRepository.findByJewelryTagId(jewelryTag.getId());
-                for (JewelryJewelryTag jjt : jewelryJewelryTags) {
-                    Jewelry jewelry = jewelryRepository.findById(jjt.getJewelryId()).orElse(null);
-                    if (jewelry != null && !jewelryList.contains(jewelry)) {
-                        if (jr.getMinPrice() == 0 && jr.getMaxPrice() == 0) {
-                            jewelryList.add(jewelry);
-                        } else {
-                            if (jr.getMaxPrice() == 0) {
-                                if (jewelry.getPrice() >= jr.getMinPrice()) {
-                                    jewelryList.add(jewelry);
-                                }
-                            } else {
-                                if (jewelry.getPrice() >= jr.getMinPrice() && jewelry.getPrice() <= jr.getMaxPrice()) {
-                                    jewelryList.add(jewelry);
-                                }
-                            }
-                        }
-                    }
-                }
+                List<Jewelry> jewelries = jewelryRepository.findAllByJewelryTags(jewelryTag);
+                jewelryList.addAll(jewelries);
+                // Remove duplicate jewelries
+
             }
         }
 

@@ -7,10 +7,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import vn.fpt.diamond_shop.model.dto.CommonResponse;
 import vn.fpt.diamond_shop.model.dto.LoginResponse;
+import vn.fpt.diamond_shop.model.dto.RegisterRequest;
 import vn.fpt.diamond_shop.security.exception.BadRequestException;
 import vn.fpt.diamond_shop.model.entity.User;
 import vn.fpt.diamond_shop.model.dto.LoginRequest;
-import vn.fpt.diamond_shop.model.dto.RegisterRequest;
 import vn.fpt.diamond_shop.repository.IUserRepository;
 import vn.fpt.diamond_shop.security.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +50,7 @@ public class AuthController implements IAuthController {
      * @throws BadRequestException if the email is already in use
      */
     @Override
-    @PostMapping("/signup")
+    @PostMapping("/register")
     public ResponseEntity<CommonResponse> register(@Valid @RequestBody RegisterRequest signUpRequest) throws BadRequestException {
         CommonResponse cr = new CommonResponse();
 
@@ -67,6 +67,8 @@ public class AuthController implements IAuthController {
             user.setUsername(signUpRequest.getUsername());
             user.setEmail(signUpRequest.getEmail());
             user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
+            user.setPhone(signUpRequest.getPhone());
+            user.setAddress(signUpRequest.getAddress());
             user.setFullName(signUpRequest.getFullName());
             user.setDob(signUpRequest.getDob());
             user.setProvider(signUpRequest.getProvider());
@@ -84,7 +86,7 @@ public class AuthController implements IAuthController {
      * @return a ResponseEntity with the login response
      */
     @Override
-    @GetMapping("/signin")
+    @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(

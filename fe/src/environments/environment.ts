@@ -9,7 +9,7 @@ export const environment = {
   companyId:'1254863933218p0ppp',
   // apiUrl: 'https://devapibhs.k-media.vn',
   //apiUrl:'http://178.128.111.191:8091',
-  apiUrl: 'http://localhost:8081',
+  apiUrl: 'http://localhost:8080',
   pageApi:'http://localhost:3000',
 };
 

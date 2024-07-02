@@ -49,9 +49,6 @@ spring-boot-devtools.log
 /out-tsc
 /bazel-out
 
-# Dependencies
-/node_modules
-
 # Profiling files
 chrome-profiler-events*.json
 
@@ -86,7 +83,3 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-
-# Node modules
-fe/node_modules/
-/fe/.angular/cache

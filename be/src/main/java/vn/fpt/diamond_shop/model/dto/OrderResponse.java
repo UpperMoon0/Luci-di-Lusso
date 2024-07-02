@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class ReceiptResponse extends CommonResponse {
+public class OrderResponse extends CommonResponse {
     @NotNull
     private List<Long> jewelryIdList;
 }
