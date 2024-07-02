@@ -27,7 +27,6 @@ import { AddProductComponent } from './modules/add-product/add-product.component
 import { CartComponent } from './modules/cart/cart.component';
 import { UserProfileComponent } from './modules/user-profile/user-profile.component';
 import {CommonModule} from "@angular/common";
-import { HeaderComponent } from './modules/header/header.component';
 import { FileUploadComponent } from './modules/file-upload/file-upload.component';
 import { HomePageComponent } from './modules/pages/home-page/home-page.component';
 import { AboutComponent } from './modules/pages/about/about.component';
@@ -42,7 +41,7 @@ import { PrivacyPolicyComponent } from './modules/pages/privacy-policy/privacy-p
 import { ProductListComponent } from './modules/pages/product-list/product-list.component';
 import { ProductComponent } from './modules/pages/product/product.component';
 import { WishListComponent } from './modules/pages/wish-list/wish-list.component';
-import { MyHeaderComponent } from './modules/pages/layout/my-header/my-header.component';
+import { HeaderComponent } from './header/header.component';
 import { MyFooterComponent } from './modules/pages/layout/my-footer/my-footer.component';
 import { MyMiniCartComponent } from './modules/pages/layout/my-mini-cart/my-mini-cart.component';
 import {ResetPasswordComponent} from "./modules/pages/reset-password/reset-password.component";
@@ -51,6 +50,9 @@ import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-
 @NgModule({
   declarations: [
     AppComponent,
+
+    // Header
+    HeaderComponent,
 
     // Register page
     RegisterPageComponent,
@@ -69,7 +71,6 @@ import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-
     AddProductComponent,
     CartComponent,
     UserProfileComponent,
-    HeaderComponent,
     FileUploadComponent,
     HomePageComponent,
     AboutComponent,
@@ -85,7 +86,6 @@ import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-
     ProductListComponent,
     ProductComponent,
     WishListComponent,
-    MyHeaderComponent,
     MyFooterComponent,
     MyMiniCartComponent,
     ForgetPasswordComponent

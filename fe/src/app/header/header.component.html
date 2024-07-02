@@ -41,7 +41,7 @@
         <div class="menu-items-col">
           <div class="logo-col mobile-only">
             <div class="h2">
-              <a href="index.html"> Jewellery </a>
+              <a href="../../index.html"> Luci di Lusso </a>
             </div>
           </div>
           <ul class="main-nav">
@@ -103,7 +103,7 @@
                     </li>
                     <li class="col-md-3 col-12">
                       <a href="/product">
-                        <img src="assets/images/menu-product.png" alt="product" />
+                        <img src="../../assets/images/menu-product.png" alt="product" />
                       </a>
                     </li>
                   </ul>
@@ -132,7 +132,7 @@
           </ul>
           <div class="logo-col desk-only">
             <div class="h2">
-              <a href="/home-page"> Jewellery </a>
+              <a href="/home-page"> Luci di Lusso </a>
             </div>
           </div>
           <ul class="menu-right">
@@ -148,7 +148,8 @@
               </a>
             </li>
             <li class="profile-header menu-lnk has-item">
-              <a href="javascript:">
+              <a *ngIf="!isLoggedIn" href="/login">Login</a>
+              <a *ngIf="isLoggedIn" href="javascript:">
                 <span>My Profile</span>
                 <svg class="myprofile-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="22"
                      viewBox="0 0 16 22" fill="none">
@@ -157,16 +158,14 @@
                         fill="#183A40"></path>
                 </svg>
               </a>
-              <div class="menu-dropdown">
+              <div *ngIf="isLoggedIn" class="menu-dropdown">
                 <ul>
-                  <li><a href="/login">log In</a></li>
-                  <li><a href="/register-page">Create Account</a></li>
                   <li><a href="/wish-list">wishlist</a></li>
                   <li><a (click)="logOut()">logOut</a></li>
                 </ul>
               </div>
             </li>
-            <div *ngIf="isLoginUser" class="cart-header">
+            <div *ngIf="isLoggedIn" class="cart-header">
               <a href="javascript:;" class="btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="13" viewBox="0 0 15 13"
                      fill="none">

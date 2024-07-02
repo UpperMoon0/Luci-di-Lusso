@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginService } from "./login-service";
 import {ToastrService} from "ngx-toastr";
+import {AccountService} from "../service/account-service";
 
 @Component({
   selector: 'login-form',
@@ -11,7 +11,7 @@ import {ToastrService} from "ngx-toastr";
 export class LoginFormComponent implements OnInit {
   form!: FormGroup;
 
-  constructor(private loginService: LoginService,
+  constructor(private accountService: AccountService,
               private formBuilder: FormBuilder,
               private toastrService: ToastrService) {
   }
@@ -33,7 +33,7 @@ export class LoginFormComponent implements OnInit {
       return;
     }
 
-    this.loginService.login(this.form.value).subscribe({
+    this.accountService.login(this.form.value).subscribe({
       next: (res) => {
         this.toastrService.success("Login successfully");
       },
