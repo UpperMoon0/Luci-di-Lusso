@@ -44,7 +44,6 @@ export class UserProfileComponent implements OnInit {
         'ward': new FormControl('', ),
         'extra': new FormControl('', ),
       }
-
     );
   }
   get f(){

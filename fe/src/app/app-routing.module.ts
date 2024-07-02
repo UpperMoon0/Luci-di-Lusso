@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {DefaultLayoutComponent} from './core/default-layout/default-layout.component';
+import {DefaultLayoutComponent} from './core/default-layout';
 import {DashboardComponent} from './modules/dashboard/dashboard.component';
 import {HomeComponent} from "./modules/home/home.component";
 import {IntroductionComponent} from "./modules/default-page/introduction/introduction.component";
@@ -21,12 +21,12 @@ import {LoginPageComponent} from "./login-page/login-page.component";
 import {MyAccountComponent} from "./modules/pages/my-account/my-account.component";
 import {OrderSummeryComponent} from "./modules/pages/order-summery/order-summery.component";
 import {PrivacyPolicyComponent} from "./modules/pages/privacy-policy/privacy-policy.component";
-import {ProductListComponent} from "./modules/pages/product-list/product-list.component";
-import {ProductComponent} from "./modules/pages/product/product.component";
+import {ProductListPageComponent} from "./product-list-page/product-list-page.component";
 import {RegisterPageComponent} from "./register-page/register-page.component";
 import {WishListComponent} from "./modules/pages/wish-list/wish-list.component";
 import {ResetPasswordComponent} from "./modules/pages/reset-password/reset-password.component";
 import {ForgetPasswordComponent} from "./modules/pages/forget-password/forget-password.component";
+import {ProductComponent} from "./modules/pages/product/product.component";
 
 const routes: Routes = [
   {
@@ -341,8 +341,8 @@ const routes: Routes = [
     }
   },
   {
-    path: 'product-list',
-    component: ProductListComponent,
+    path: 'product-list-page',
+    component: ProductListPageComponent,
     data: {
       title: 'Product List Page'
     }

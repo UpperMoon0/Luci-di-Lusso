@@ -38,7 +38,7 @@ import { FaqsComponent } from './modules/pages/faqs/faqs.component';
 import { MyAccountComponent } from './modules/pages/my-account/my-account.component';
 import { OrderSummeryComponent } from './modules/pages/order-summery/order-summery.component';
 import { PrivacyPolicyComponent } from './modules/pages/privacy-policy/privacy-policy.component';
-import { ProductListComponent } from './modules/pages/product-list/product-list.component';
+import { ProductListPageComponent} from "./product-list-page/product-list-page.component";
 import { ProductComponent } from './modules/pages/product/product.component';
 import { WishListComponent } from './modules/pages/wish-list/wish-list.component';
 import { HeaderComponent } from './header/header.component';
@@ -54,13 +54,16 @@ import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-
     // Header
     HeaderComponent,
 
+    // Login page
+    LoginPageComponent,
+    LoginFormComponent,
+
     // Register page
     RegisterPageComponent,
     RegisterFormComponent,
 
-    // Login page
-    LoginPageComponent,
-    LoginFormComponent,
+    // Product list page
+    ProductListPageComponent,
 
     //
     ResetPasswordComponent,
@@ -83,7 +86,6 @@ import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-
     MyAccountComponent,
     OrderSummeryComponent,
     PrivacyPolicyComponent,
-    ProductListComponent,
     ProductComponent,
     WishListComponent,
     MyFooterComponent,
