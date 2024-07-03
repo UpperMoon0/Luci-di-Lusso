@@ -2,9 +2,10 @@ server:
   port: 8081
 spring:
   datasource:
-    url: ${DIAMOND_DB_CONNECTION}
+    url: jdbc:sqlserver://localhost:1433;databaseName=Diamond;encrypt=true;trustServerCertificate=true;
+    username: sa
+    password: 12345
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-
   jpa:
     show-sql: true
     hibernate:
