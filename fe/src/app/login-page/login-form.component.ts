@@ -27,18 +27,18 @@ export class LoginFormComponent implements OnInit {
     if (this.form.invalid) {
       for (const field in this.form.controls) {
         if (this.form.controls[field].invalid) {
-          this.toastrService.error(`Please check your ${field}`);
+          this.toastrService.error();
         }
       }
       return;
     }
 
     this.accountService.login(this.form.value).subscribe({
-      next: (res) => {
+      next: () => {
         this.toastrService.success("Login successfully");
       },
-      error: (err) => {
-        this.toastrService.error("Login failed: " + err.message);
+      error: () => {
+        this.toastrService.error();
       }
     });
   }

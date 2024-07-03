@@ -1,10 +1,19 @@
 package vn.fpt.diamond_shop.constant;
 
+import lombok.Getter;
+
+@Getter
 public enum EJewelryType {
-    RING,
-    NECKLACE,
-    BRACELET,
-    EARRING,
-    PENDANT,
-    BROOCH,
+    RING("Ring"),
+    NECKLACE("Necklace"),
+    BRACELET("Bracelet"),
+    EARRING("Earring"),
+    PENDANT("Pendant"),
+    BROOCH("Brooch");
+
+    private final String value;
+
+    EJewelryType(String value) {
+        this.value = value;
+    }
 }

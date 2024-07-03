@@ -2,22 +2,23 @@ package vn.fpt.diamond_shop.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import vn.fpt.diamond_shop.exception.BadRequestException;
 import vn.fpt.diamond_shop.model.dto.CommonResponse;
 import vn.fpt.diamond_shop.model.dto.LoginResponse;
 import vn.fpt.diamond_shop.model.dto.RegisterRequest;
-import vn.fpt.diamond_shop.security.exception.BadRequestException;
 import vn.fpt.diamond_shop.model.entity.User;
 import vn.fpt.diamond_shop.model.dto.LoginRequest;
 import vn.fpt.diamond_shop.repository.IUserRepository;
-import vn.fpt.diamond_shop.security.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import vn.fpt.diamond_shop.security.JwtTokenProvider;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -27,15 +28,15 @@ import java.time.LocalDateTime;
  */
 @RequestMapping("/auth")
 @RestController
-public class AuthController implements IAuthController {
+public class AuthController {
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
     private final AuthenticationManager authenticationManager;
     private final IUserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final TokenProvider tokenProvider;
+    private final JwtTokenProvider tokenProvider;
 
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager, IUserRepository userRepository, PasswordEncoder passwordEncoder, TokenProvider tokenProvider) {
+    public AuthController(AuthenticationManager authenticationManager, IUserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenProvider tokenProvider) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -49,7 +50,6 @@ public class AuthController implements IAuthController {
      * @return a ResponseEntity with the registration response
      * @throws BadRequestException if the email is already in use
      */
-    @Override
     @PostMapping("/register")
     public ResponseEntity<CommonResponse> register(@Valid @RequestBody RegisterRequest signUpRequest) throws BadRequestException {
         CommonResponse cr = new CommonResponse();
@@ -85,7 +85,6 @@ public class AuthController implements IAuthController {
      * @param loginRequest the login request
      * @return a ResponseEntity with the login response
      */
-    @Override
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
@@ -97,11 +96,22 @@ public class AuthController implements IAuthController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String jwt = tokenProvider.createToken(authentication);
+        String jwt = tokenProvider.generateToken(authentication);
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setAccessToken(jwt);
         loginResponse.setMessage("Login successfully");
 
         return ResponseEntity.ok(loginResponse);
+    }
+
+    @PostMapping("/validate-token")
+    public ResponseEntity<CommonResponse> ping(@RequestBody String jwt) {
+        CommonResponse cr = new CommonResponse();
+        if (tokenProvider.validateToken(jwt)) {
+            cr.setMessage("Valid token");
+        } else {
+            cr.setMessage("Invalid token");
+        }
+        return ResponseEntity.ok(cr);
     }
 }

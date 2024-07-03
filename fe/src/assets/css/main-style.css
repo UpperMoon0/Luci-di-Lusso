@@ -16,7 +16,7 @@
 9.  Blog                       -
 10. Article                    -
 11. Wishlist                   -
-12. Cart                       - 
+12. Cart                       -
 /* =========================== */
 /* ============================================= */
 /* !!!!         VARIABLES STYLE CSS         !!!! */
@@ -2899,7 +2899,7 @@ del {
 .service-tag-div .service-tag svg {
     margin-right: 10px;
 }
-/* product card  */
+/* product-page card  */
 .product-card {
     background-color: var(--white);
     -webkit-border-radius: 12px;
@@ -3051,7 +3051,7 @@ del {
 .card-slider-main .product-card {
     margin-bottom: 10px;
 }
-/*********  product-ring-slider  start  ********/
+/*********  product-page-ring-slider  start  ********/
 .product-ring-slider .pro-ring-div {
     display: flex;
     align-items: center;
@@ -3423,7 +3423,7 @@ del {
     fill: var(--theme-color);
 }
 /* ============================================= */
-/* !!!!          product page start          !!!! */
+/* !!!!          product-page page start          !!!! */
 /* ============================================= */
 .product-sec {
     background-color: var(--second-color);

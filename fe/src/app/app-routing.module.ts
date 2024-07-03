@@ -26,7 +26,7 @@ import {RegisterPageComponent} from "./register-page/register-page.component";
 import {WishListComponent} from "./modules/pages/wish-list/wish-list.component";
 import {ResetPasswordComponent} from "./modules/pages/reset-password/reset-password.component";
 import {ForgetPasswordComponent} from "./modules/pages/forget-password/forget-password.component";
-import {ProductComponent} from "./modules/pages/product/product.component";
+import {ProductPageComponent} from "./product-page/product-page.component";
 
 const routes: Routes = [
   {
@@ -236,7 +236,7 @@ const routes: Routes = [
     }
   },
     {
-    path: 'add-product',
+    path: 'add-product-page',
     component: AddProductComponent,
     data: {
       title: 'Add Product Page'
@@ -341,7 +341,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'product-list-page',
+    path: 'product-page-list-page',
     component: ProductListPageComponent,
     data: {
       title: 'Product List Page'
@@ -349,7 +349,7 @@ const routes: Routes = [
   },
   {
     path: 'product',
-    component: ProductComponent,
+    component: ProductPageComponent,
     data: {
       title: 'Product Page'
     }

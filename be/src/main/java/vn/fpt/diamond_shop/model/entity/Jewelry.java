@@ -28,10 +28,6 @@ public class Jewelry {
     private Diamond diamond;
 
     @ManyToOne
-    @JoinColumn(name = "size_id")
-    private JewelrySize jewelrySize;
-
-    @ManyToOne
     @JoinColumn(name = "type_id")
     private JewelryType jewelryType;
 

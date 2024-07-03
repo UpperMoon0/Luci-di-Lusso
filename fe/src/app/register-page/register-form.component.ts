@@ -4,7 +4,7 @@ import {ToastrService} from "ngx-toastr";
 import {AccountService} from "../service/account-service";
 
 @Component({
-  selector: 'register-form',
+  selector: 'app-register-form',
   templateUrl: './register-form.component.html',
   styleUrls: ['./register-form.component.css']
 })
@@ -33,7 +33,7 @@ export class RegisterFormComponent implements OnInit {
     if (this.form.invalid) {
       for (const field in this.form.controls) {
         if (this.form.controls[field].invalid) {
-          this.toastrService.error(`Please check your ${field}`);
+          this.toastrService.error();
         }
       }
       return;
@@ -44,7 +44,7 @@ export class RegisterFormComponent implements OnInit {
         this.toastrService.success("Register successfully");
       },
       error: (err) => {
-        this.toastrService.error("Register failed: " + err.message);
+        this.toastrService.error();
       }
     });
   }

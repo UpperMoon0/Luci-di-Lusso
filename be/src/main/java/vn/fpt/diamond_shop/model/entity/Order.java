@@ -25,12 +25,4 @@ public class Order {
 
     @Column(name = "create_at")
     private LocalDateTime createAt;
-
-    @ManyToMany
-    @JoinTable(
-        name = "order_jewelry",
-        joinColumns = @JoinColumn(name = "order_id"),
-        inverseJoinColumns = @JoinColumn(name = "jewelry_id")
-    )
-    private List<Jewelry> jewelries;
 }
