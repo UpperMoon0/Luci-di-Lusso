@@ -12,6 +12,9 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import static org.springframework.http.ResponseEntity.ok;
 
 @RequestMapping("/product")
 @RestController
@@ -89,7 +92,7 @@ public class ProductController implements IProductController {
     }
 
     @Override
-    @GetMapping("/get-all-jewelries")
+    @PostMapping("/get-all-jewelries")
     public ResponseEntity<JewelriesResponse> getAllJewelries(@RequestBody @Valid JewelriesRequest jr) {
         JewelriesResponse response = new JewelriesResponse();
 
@@ -103,9 +106,27 @@ public class ProductController implements IProductController {
             for (EJewelryType tag : jr.getTags()) {
                 JewelryType jewelryTag = jewelryTagRepository.findByType(tag);
                 List<Jewelry> jewelries = jewelryRepository.findAllByJewelryType(jewelryTag);
-                jewelryList.addAll(jewelries);
-                // Remove duplicate jewelries
-
+                //remove duplicates
+                for (Jewelry temp1 : jewelries) {
+                    for (Jewelry temp2 : jewelries.subList(jewelries.indexOf(temp1)+1, jewelries.toArray().length-1)) {
+                        if (Objects.equals(temp1.getId(), temp2.getId())) {
+                            jewelries.remove(temp2);
+                        }
+                    }
+                }
+                for (Jewelry jewelry : jewelries) {
+                    if (!(jr.getMinPrice() == 0 && jr.getMaxPrice() == 0)) {
+                        if (jr.getMaxPrice() == 0) {
+                            if (jewelry.getPrice() < jr.getMinPrice()) {
+                                jewelries.remove(jewelry);
+                            }
+                        } else {
+                            if (jewelry.getPrice() < jr.getMinPrice() || jewelry.getPrice() > jr.getMaxPrice()) {
+                                jewelries.remove(jewelry);
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -113,5 +134,15 @@ public class ProductController implements IProductController {
         response.setMessage("Get jewelries successfully");
 
         return ResponseEntity.ok(response);
+    }
+
+    //get tags to screen
+    @GetMapping("/get-all-tags")
+    public ResponseEntity<Object> getAllTags() {
+        List<String> tags = new ArrayList<>();
+        for (EJewelryType e : EJewelryType.values()) {
+            tags.add(e.toString());
+        }
+        return ResponseEntity.ok(tags);
     }
 }
