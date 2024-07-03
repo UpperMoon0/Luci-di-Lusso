@@ -21,7 +21,7 @@ import {LoginPageComponent} from "./login-page/login-page.component";
 import {MyAccountComponent} from "./modules/pages/my-account/my-account.component";
 import {OrderSummeryComponent} from "./modules/pages/order-summery/order-summery.component";
 import {PrivacyPolicyComponent} from "./modules/pages/privacy-policy/privacy-policy.component";
-import {ProductListComponent} from "./modules/pages/product-list/product-list.component";
+import {ProductListComponent} from "./product-list/product-list.component";
 import {ProductComponent} from "./modules/pages/product/product.component";
 import {RegisterPageComponent} from "./register-page/register-page.component";
 import {WishListComponent} from "./modules/pages/wish-list/wish-list.component";
