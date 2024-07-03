@@ -4,6 +4,7 @@ import {ToastrService} from "ngx-toastr";
 import {ProductService} from "../service/product.service";
 import {CartService} from "../service/cart.service";
 import {NumberService} from "../modules/service/number.service";
+import * as string_decoder from "node:string_decoder";
 
 @Component({
   selector: 'app-product-list',
@@ -14,8 +15,8 @@ export class ProductListComponent {
 
   selectedRangePrice: string = "";
   productsList: any[];
-  selectedTags: any[] = [];
-  public tagsList: any[] = [];
+  selectedTags: string[] = [];
+  public tagsList: string[] = [];
   isLoginUser: boolean = false;
 
   public priceRange: string[] = [
@@ -40,18 +41,18 @@ export class ProductListComponent {
   }
 
   private getAllTags(): void {
-    this.productService.getAllTags().subscribe((res : String[])=> {
+    this.productService.getAllTags().subscribe((res : string[])=> {
       this.tagsList = res;
     }, error => {
       this.toastrService.error(error.message);
-    })
+    });
   }
 
   //Get Products after selecting tags
   public getSelectedTags(tag : string) {
-    if (this.selectedTags.includes(tag)) {
+    if (this.selectedTags.includes(tag.toUpperCase())) {
       for (let i = 0; i < this.selectedTags.length; i++) {
-        if (this.selectedTags[i] == tag) {
+        if (this.selectedTags[i] == tag.toUpperCase()) {
           this.selectedTags.splice(i, 1);
         }
       }
@@ -60,7 +61,7 @@ export class ProductListComponent {
       id.style.backgroundColor = "white";
       id.style.color = "black";
     } else {
-      this.selectedTags.push(tag);
+      this.selectedTags.push(tag.toUpperCase());
       const id = document.getElementById(tag);
       id.style.width = "100%";
       id.style.fontWeight = "bold";
