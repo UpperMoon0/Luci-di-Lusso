@@ -8,6 +8,7 @@ import vn.fpt.diamond_shop.model.entity.Jewelry;
 import vn.fpt.diamond_shop.model.entity.JewelryType;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface IJewelryRepository extends JpaRepository<Jewelry, Long> {
@@ -15,4 +16,5 @@ public interface IJewelryRepository extends JpaRepository<Jewelry, Long> {
     Double getTotalPriceByIdList(@Param("ids") List<Long> ids);
     List<Jewelry> findAll();
     List<Jewelry> findAllByJewelryType(JewelryType jewelryTag);
+
 }

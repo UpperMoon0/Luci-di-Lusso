@@ -1,6 +1,7 @@
 package vn.fpt.diamond_shop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.fpt.diamond_shop.constant.EJewelryType;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @RequestMapping("/product")
 @RestController
-public class ProductController implements IProductController {
+public class ProductController {
     private final IOrderRepository receiptRepository;
     private final IJewelryRepository jewelryRepository;
     private final IJewelryTypeRepository jewelryTagRepository;
@@ -32,7 +33,6 @@ public class ProductController implements IProductController {
         this.jewelrySizeRepository = jewelrySizeRepository;
     }
 
-    @Override
     @PostMapping("/add-receipt")
     public ResponseEntity<CommonResponse> addReceipt(@RequestBody @Valid OrderRequest receiptRequest) {
         // Save receipt
@@ -53,7 +53,6 @@ public class ProductController implements IProductController {
         return ResponseEntity.ok(response);
     }
 
-    @Override
     @GetMapping("/set-jewelry-size")
     public ResponseEntity<CommonResponse> setJewelrySize(@RequestBody @Valid SetJewelrySizeRequest req) {
         CommonResponse response = new CommonResponse();
@@ -73,7 +72,6 @@ public class ProductController implements IProductController {
         return ResponseEntity.ok(response);
     }
 
-    @Override
     @GetMapping("/confirm-order")
     public ResponseEntity<CommonResponse> confirmOrder(@RequestBody @Valid ConfirmOrder req) {
         CommonResponse response = new CommonResponse();
@@ -88,7 +86,6 @@ public class ProductController implements IProductController {
         return ResponseEntity.ok(response);
     }
 
-    @Override
     @GetMapping("/get-all-jewelries")
     public ResponseEntity<JewelriesResponse> getAllJewelries(@RequestBody @Valid JewelriesRequest jr) {
         JewelriesResponse response = new JewelriesResponse();
@@ -113,5 +110,21 @@ public class ProductController implements IProductController {
         response.setMessage("Get jewelries successfully");
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/get-jewelry")
+    public ResponseEntity<JewelryResponse> getJewelryById(@RequestParam Long id) {
+        Jewelry jewelry = jewelryRepository.findById(id).orElse(null);
+        if (jewelry != null) {
+            JewelryResponse response = new JewelryResponse();
+            response.setName(jewelry.getName());
+            response.setDescription(jewelry.getDescription());
+            response.setType(jewelry.getJewelryType().getType().name());
+            response.setImageUrl(jewelry.getImageUrl());
+            response.setMessage("Jewelry retrieved successfully");
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 }

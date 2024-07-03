@@ -10,7 +10,7 @@ import vn.fpt.diamond_shop.model.dto.GetCartResponse;
 
 @RequestMapping("/customer")
 @RestController
-public class CustomerController implements ICustomerController {
+public class CustomerController {
     Cart shoppingCart;
 
     @Autowired
@@ -18,25 +18,21 @@ public class CustomerController implements ICustomerController {
         this.shoppingCart = shoppingCart;
     }
 
-    @Override
     @PostMapping("/cart/add")
     public ResponseEntity<CommonResponse> addToCart(CartRequest cr) {
         return null;
     }
 
-    @Override
     @DeleteMapping("/cart/remove")
     public ResponseEntity<CommonResponse> removeFromCart(CartRequest cr) {
         return null;
     }
 
-    @Override
     @DeleteMapping("/cart/removeAll")
     public ResponseEntity<CommonResponse> removeAllFromCart(CartRequest cr) {
         return null;
     }
 
-    @Override
     @GetMapping("/cart/get")
     public ResponseEntity<GetCartResponse> getCart(CartRequest cr) {
         // Copy the content of the Cart to the 'cart' hashmap in the GetCartResponse object before returning

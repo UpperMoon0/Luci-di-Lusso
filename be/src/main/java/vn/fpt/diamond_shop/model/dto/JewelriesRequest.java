@@ -12,6 +12,5 @@ import java.util.List;
 @Setter
 @ToString
 public class JewelriesRequest {
-    @NotNull
     List<EJewelryType> tags;
 }

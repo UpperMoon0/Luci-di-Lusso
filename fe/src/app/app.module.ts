@@ -11,6 +11,11 @@ import { RegisterFormComponent } from './register-page/register-form.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { LoginFormComponent } from './login-page/login-form.component';
 
+import { ProductListPageComponent} from "./product-list-page/product-list-page.component";
+
+import { ProductDetailsComponent } from './product-page/product-details.component';
+import { ProductPageComponent } from './product-page/product-page.component';
+
 import { DefaultLayoutModule } from './core/default-layout/default-layout.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { SharedAppModule } from './core/shared/shared.module';
@@ -20,13 +25,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './modules/home/home.component';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { IntroductionComponent } from './modules/default-page/introduction/introduction.component';
-import {ToastrModule} from "ngx-toastr";
+import { ToastrModule } from "ngx-toastr";
 import { PriceDimondTableComponent } from './modules/default-page/price-dimond-table/price-dimond-table.component';
 import { MeasureJewelrySizeComponent } from './modules/default-page/measure-jewelry-size/measure-jewelry-size.component';
 import { AddProductComponent } from './modules/add-product/add-product.component';
 import { CartComponent } from './modules/cart/cart.component';
 import { UserProfileComponent } from './modules/user-profile/user-profile.component';
-import {CommonModule} from "@angular/common";
+import {CommonModule, NgOptimizedImage} from "@angular/common";
 import { FileUploadComponent } from './modules/file-upload/file-upload.component';
 import { HomePageComponent } from './modules/pages/home-page/home-page.component';
 import { AboutComponent } from './modules/pages/about/about.component';
@@ -38,8 +43,8 @@ import { FaqsComponent } from './modules/pages/faqs/faqs.component';
 import { MyAccountComponent } from './modules/pages/my-account/my-account.component';
 import { OrderSummeryComponent } from './modules/pages/order-summery/order-summery.component';
 import { PrivacyPolicyComponent } from './modules/pages/privacy-policy/privacy-policy.component';
-import { ProductListPageComponent} from "./product-list-page/product-list-page.component";
-import { ProductComponent } from './modules/pages/product/product.component';
+
+
 import { WishListComponent } from './modules/pages/wish-list/wish-list.component';
 import { HeaderComponent } from './header/header.component';
 import { MyFooterComponent } from './modules/pages/layout/my-footer/my-footer.component';
@@ -65,6 +70,10 @@ import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-
     // Product list page
     ProductListPageComponent,
 
+    // Product page
+    ProductDetailsComponent,
+    ProductPageComponent,
+
     //
     ResetPasswordComponent,
     HomeComponent,
@@ -82,11 +91,9 @@ import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-
     CheckoutComponent,
     ContactUsComponent,
     FaqsComponent,
-    LoginPageComponent,
     MyAccountComponent,
     OrderSummeryComponent,
     PrivacyPolicyComponent,
-    ProductComponent,
     WishListComponent,
     MyFooterComponent,
     MyMiniCartComponent,
@@ -108,7 +115,8 @@ import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-
       closeButton: true,
       progressBar: true,
     }),
-    NgOtpInputModule
+    NgOtpInputModule,
+    NgOptimizedImage
 
 
   ],
