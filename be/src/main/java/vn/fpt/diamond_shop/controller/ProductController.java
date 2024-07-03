@@ -141,7 +141,7 @@ public class ProductController implements IProductController {
     public ResponseEntity<Object> getAllTags() {
         List<String> tags = new ArrayList<>();
         for (EJewelryType e : EJewelryType.values()) {
-            tags.add(e.toString());
+            tags.add(e.toString().substring(0,1).toUpperCase() + e.toString().substring(1).toLowerCase());
         }
         return ResponseEntity.ok(tags);
     }
