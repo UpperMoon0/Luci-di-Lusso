@@ -27,7 +27,10 @@ import {WishListComponent} from "./modules/pages/wish-list/wish-list.component";
 import {ResetPasswordComponent} from "./modules/pages/reset-password/reset-password.component";
 import {ForgetPasswordComponent} from "./modules/pages/forget-password/forget-password.component";
 import {ProductPageComponent} from "./product-page/product-page.component";
-
+import {DiscoverComponent}  from "./components/blog/discover/discover.component";
+import {Fashion01Component} from "./components/blog/fashion01/fashion01.component";
+import {Fashion02Component} from "./components/blog/fashion02/fashion02.component";
+import {NewsComponent} from "./components/blog/news/news.component";
 const routes: Routes = [
   {
     path: '',
@@ -221,18 +224,38 @@ const routes: Routes = [
       title: 'Introduction Page'
     }
   },
+
+  //Blog's content pages
+
   {
-    path: 'bang-gia-kim-cuong',
-    component: PriceDimondTableComponent,
+    path: 'top-jewelry-trend-for-2024',
+    component: Fashion01Component,
     data: {
-      title: 'Price diamond Page'
+      title: 'Top Jewelry Trend For 2024'
     }
   },
+
   {
-    path: 'huong-dan-do-size-trang-suc-day-chuyen',
-    component: MeasureJewelrySizeComponent,
+    path: 'top-jewelry-trend-for-2024',
+    component: Fashion02Component,
     data: {
-      title: 'Measure Jewelry Size Page'
+      title: 'Top Jewelry Trend For 2024'
+    }
+  },
+
+  {
+    path: 'bracelet-and-ring-size-guide',
+    component: DiscoverComponent,
+    data: {
+      title: 'Bracelet And Ring Size Guide'
+    }
+  },
+
+  {
+    path: 'diamond-prices',
+    component: NewsComponent,
+    data: {
+      title: 'Diamond Prices Chart to Calculate 2024 Worth & Value'
     }
   },
     {

@@ -52,6 +52,10 @@ import { MyMiniCartComponent } from './modules/pages/layout/my-mini-cart/my-mini
 import {ResetPasswordComponent} from "./modules/pages/reset-password/reset-password.component";
 import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-password.component';
 import { CustomerComponent } from './customer/customer.component';
+import { DiscoverComponent } from './components/blog/discover/discover.component';
+import { Fashion01Component } from './components/blog/fashion01/fashion01.component';
+import { Fashion02Component } from './components/blog/fashion02/fashion02.component';
+import { NewsComponent } from './components/blog/news/news.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +103,11 @@ import { CustomerComponent } from './customer/customer.component';
     MyFooterComponent,
     MyMiniCartComponent,
     ForgetPasswordComponent,
-    CustomerComponent
+    CustomerComponent,
+    DiscoverComponent,
+    Fashion01Component,
+    Fashion02Component,
+    NewsComponent
   ],
   imports: [
     BrowserModule,
