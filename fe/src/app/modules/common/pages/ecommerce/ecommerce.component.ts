@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NumberService} from "../../../service/number.service";
-import {ProductService} from "../../../service/product.service";
+import {ProductService} from "../../../../service/product.service";
 import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute} from "@angular/router";
 
