@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { ProductDTO } from "../_models/productDTO";
-import { StorageService } from './storage.service';
+import { environment } from '../../environments/environment';
+import { ProductDTO } from "../modules/_models/productDTO";
+import { StorageService } from '../modules/service/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -47,5 +47,11 @@ export class ProductService {
   public getProductDetail(ProductId : number): Observable<any>{
     const body = {id_jewelry:ProductId};
     return  this.http.post<Object>(`${this.apiUrl}/${this.BASIC_JEWELRY_URL}detail`,body, this.httpOptions);
+  }
+  public getAllJewelries(request: any): Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/product/get-all-jewelries`, request, this.httpOptions);
+  }
+  public getAllTags(): Observable<any> {
+    return this.http.get<any[]>(`${this.apiUrl}/product/get-all-tags`, this.httpOptions);
   }
 }
