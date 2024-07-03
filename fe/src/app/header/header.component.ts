@@ -11,12 +11,13 @@ export class HeaderComponent implements OnInit {
   constructor(private accountService: AccountService) { }
 
   ngOnInit() {
+    this.accountService.checkToken();
     this.accountService.isLoggedIn.subscribe(value => {
       this.isLoggedIn = value;
     });
   }
 
   logOut() {
-    this.accountService.isLoggedIn.next(false);
+    this.accountService.logout();
   }
 }

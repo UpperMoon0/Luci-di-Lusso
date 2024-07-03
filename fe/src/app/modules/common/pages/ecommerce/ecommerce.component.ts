@@ -27,7 +27,7 @@ export class EcommerceComponent implements OnInit {
   }
   changeTotalProduct(number:number) {
     if(this.totalProduct == 1 && number <0){
-      this.toastrService.error("số lượng không thể nhỏ hơn 1");
+      this.toastrService.error();
 
     } else {
       this.totalProduct +=number

@@ -898,7 +898,7 @@ ZipFileWorker.prototype.registerPrevious = function (previous) {
         }
     });
     previous.on('error', function (e) {
-        self.error(e);
+        self.error();
     });
     return this;
 };
@@ -931,7 +931,7 @@ ZipFileWorker.prototype.error = function (e) {
     }
     for(var i = 0; i < sources.length; i++) {
         try {
-            sources[i].error(e);
+            sources[i].error();
         } catch(e) {
             // the `error` exploded, nothing to do
         }
@@ -1005,7 +1005,7 @@ exports.generateWorker = function (zip, options, comment) {
         });
         zipFileWorker.entriesCount = entriesCount;
     } catch (e) {
-        zipFileWorker.error(e);
+        zipFileWorker.error();
     }
 
     return zipFileWorker;
@@ -1193,7 +1193,7 @@ NodejsStreamInputAdapter.prototype._bindStream = function (stream) {
         if(self.isPaused) {
             this.generatedError = e;
         } else {
-            self.error(e);
+            self.error();
         }
     })
     .on("end", function () {
@@ -1696,7 +1696,7 @@ var out = {
           worker = generate.generateWorker(this, opts, comment);
       } catch (e) {
         worker = new GenericWorker("error");
-        worker.error(e);
+        worker.error();
       }
       return new StreamHelper(worker, opts.type || "string", opts.mimeType);
     },
@@ -2153,7 +2153,7 @@ function DataWorker(dataP) {
             self._tickAndRepeat();
         }
     }, function (e) {
-        self.error(e);
+        self.error();
     });
 }
 
@@ -2326,7 +2326,7 @@ GenericWorker.prototype = {
             // the error event will go downward but we also need to notify
             // workers upward that there has been an error.
             if(this.previous) {
-                this.previous.error(e);
+                this.previous.error();
             }
 
             this.cleanUp();
@@ -2396,7 +2396,7 @@ GenericWorker.prototype = {
             self.end();
         });
         previous.on('error', function (e) {
-            self.error(e);
+            self.error();
         });
         return this;
     },
@@ -2428,7 +2428,7 @@ GenericWorker.prototype = {
         // if true, the worker tried to resume but failed
         var withError = false;
         if(this.generatedError) {
-            this.error(this.generatedError);
+            this.error();
             withError = true;
         }
         if(this.previous) {
@@ -2641,7 +2641,7 @@ function StreamHelper(worker, outputType, mimeType) {
         worker.lock();
     } catch(e) {
         this._worker = new GenericWorker("error");
-        this._worker.error(e);
+        this._worker.error();
     }
 }
 
@@ -4132,7 +4132,7 @@ ZipObject.prototype = {
             }
         } catch (e) {
             result = new GenericWorker("error");
-            result.error(e);
+            result.error();
         }
 
         return new StreamHelper(result, outputType, "");

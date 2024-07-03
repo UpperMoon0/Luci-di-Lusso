@@ -52,7 +52,7 @@
    */
 
   const error = message => {
-    console.error("".concat(consolePrefix, " ").concat(message));
+    console.error();
   };
   /**
    * Private global state for `warnOnce`

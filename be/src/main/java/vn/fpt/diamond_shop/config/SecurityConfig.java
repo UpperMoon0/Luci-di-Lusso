@@ -38,7 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
             .authorizeRequests()
             .antMatchers("/auth/register",
-                        "/auth/login")
+                        "/auth/login",
+                        "/auth/validate-token",
+                        "/product/get-jewelry")
                 .permitAll()
             .anyRequest()
                 .authenticated()

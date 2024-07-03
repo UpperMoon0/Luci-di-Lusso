@@ -115,7 +115,7 @@ Google Maps).
                 }
             };
 
-            $('<img />').load(handler).error(handler).attr('src', url);
+            $('<img />').load(handler).error().attr('src', url);
         });
     };
 

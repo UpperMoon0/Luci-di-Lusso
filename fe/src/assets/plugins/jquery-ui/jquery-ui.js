@@ -5,7 +5,7 @@
 
 ( function( factory ) {
 	"use strict";
-	
+
 	if ( typeof define === "function" && define.amd ) {
 
 		// AMD. Register as an anonymous module.
@@ -242,15 +242,12 @@ $.widget.bridge = function( name, object ) {
 					}
 
 					if ( !instance ) {
-						return $.error( "cannot call methods on " + name +
-							" prior to initialization; " +
-							"attempted to call method '" + options + "'" );
+						return $.error( );
 					}
 
 					if ( typeof instance[ options ] !== "function" ||
 						options.charAt( 0 ) === "_" ) {
-						return $.error( "no such method '" + options + "' for " + name +
-							" widget instance" );
+						return $.error( );
 					}
 
 					methodValue = instance[ options ].apply( instance, args );
@@ -6641,7 +6638,7 @@ $.widget( "ui.checkboxradio", [ $.ui.formResetMixin, {
 		// If there are multiple labels, use the last one
 		this.label = $( labels[ labels.length - 1 ] );
 		if ( !this.label.length ) {
-			$.error( "No label found for checkboxradio widget" );
+			$.error( );
 		}
 
 		this.originalLabel = "";
@@ -6711,8 +6708,7 @@ $.widget( "ui.checkboxradio", [ $.ui.formResetMixin, {
 		var nodeName = this.element[ 0 ].nodeName.toLowerCase();
 		this.type = this.element[ 0 ].type;
 		if ( nodeName !== "input" || !/radio|checkbox/.test( this.type ) ) {
-			$.error( "Can't create checkboxradio on element.nodeName=" + nodeName +
-				" and element.type=" + this.type );
+			$.error( );
 		}
 	},
 
@@ -7209,15 +7205,12 @@ if ( $.uiBackCompat !== false ) {
 						}
 
 						if ( !instance ) {
-							return $.error( "cannot call methods on button" +
-								" prior to initialization; " +
-								"attempted to call method '" + options + "'" );
+							return $.error( );
 						}
 
 						if ( typeof instance[ options ] !== "function" ||
 							options.charAt( 0 ) === "_" ) {
-							return $.error( "no such method '" + options + "' for button" +
-								" widget instance" );
+							return $.error( );
 						}
 
 						methodValue = instance[ options ].apply( instance, args );
@@ -7264,7 +7257,7 @@ if ( $.uiBackCompat !== false ) {
 
 	$.fn.buttonset = function() {
 		if ( !$.ui.controlgroup ) {
-			$.error( "Controlgroup widget missing" );
+			$.error( );
 		}
 		if ( arguments[ 0 ] === "option" && arguments[ 1 ] === "items" && arguments[ 2 ] ) {
 			return this.controlgroup.apply( this,
@@ -18246,7 +18239,7 @@ $.widget( "ui.tabs", {
 		}
 
 		if ( !toHide.length && !toShow.length ) {
-			$.error( "jQuery UI Tabs: Mismatching fragment identifier." );
+			$.error( );
 		}
 
 		if ( toShow.length ) {

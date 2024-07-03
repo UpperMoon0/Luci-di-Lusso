@@ -55,7 +55,7 @@ export class ForgetPasswordComponent {
   }
   onForgetPassWord() {
     if (this.formForget.invalid) {
-      this.toastrService.error("Xem lại thông tin vừa nhập");
+      this.toastrService.error();
       return;
     }
     this.isDisableForgetButton = true;
@@ -63,7 +63,7 @@ export class ForgetPasswordComponent {
       this.toastrService.success(`Gửi mã Otp đến ${this.formForget.controls['email'].value} thành công`)
       this.onOpenModal("otp");
     }, error => {
-      this.toastrService.error("Không gửi được mã OTP")
+      this.toastrService.error()
       this.isDisableButton = false;
     });
   }
@@ -85,9 +85,9 @@ export class ForgetPasswordComponent {
       },
       error => {
         if (error.data) {
-          this.toastrService.error(error.data);
+          this.toastrService.error();
         } else {
-          this.toastrService.error("Reset mật khẩu thất bại");
+          this.toastrService.error();
         }
 
         this.isDisableButton = false;

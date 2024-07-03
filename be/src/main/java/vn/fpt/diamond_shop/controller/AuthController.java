@@ -2,6 +2,7 @@ package vn.fpt.diamond_shop.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -101,5 +102,16 @@ public class AuthController {
         loginResponse.setMessage("Login successfully");
 
         return ResponseEntity.ok(loginResponse);
+    }
+
+    @PostMapping("/validate-token")
+    public ResponseEntity<CommonResponse> ping(@RequestBody String jwt) {
+        CommonResponse cr = new CommonResponse();
+        if (tokenProvider.validateToken(jwt)) {
+            cr.setMessage("Valid token");
+        } else {
+            cr.setMessage("Invalid token");
+        }
+        return ResponseEntity.ok(cr);
     }
 }

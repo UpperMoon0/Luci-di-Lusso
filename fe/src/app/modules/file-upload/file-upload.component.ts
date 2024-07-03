@@ -90,7 +90,7 @@ export class FileUploadComponent implements OnInit{
             } else {
               this.message = 'Upload file thất bại!';
             }
-            this.toastrService.error(this.message);
+            this.toastrService.error();
 
             this.currentFile = undefined;
           },

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from "../service/product-service";
+import {AccountService} from "../service/account-service";
 
 @Component({
   selector: 'app-product-details',
@@ -8,11 +9,17 @@ import {ProductService} from "../service/product-service";
 })
 export class ProductDetailsComponent implements OnInit {
   product: any;
+  isLoggedIn: boolean;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService,
+              private accountService: AccountService) { }
 
   ngOnInit(): void {
     this.getJewelry(2);
+    this.accountService.checkToken();
+    this.accountService.isLoggedIn.subscribe(value => {
+      this.isLoggedIn = value;
+    });
   }
 
   getJewelry(id: number) {
