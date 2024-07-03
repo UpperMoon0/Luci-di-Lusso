@@ -15,4 +15,5 @@ public interface IJewelryRepository extends JpaRepository<Jewelry, Long> {
     Double getTotalPriceByIdList(@Param("ids") List<Long> ids);
     List<Jewelry> findAll();
     List<Jewelry> findAllByJewelryType(JewelryType jewelryTag);
+
 }

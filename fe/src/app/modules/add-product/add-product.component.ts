@@ -3,12 +3,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { ProductDTO } from "../_models/productDTO";
 import { HelperService } from "../service/helper.service";
-import { ProductService } from "../service/product.service";
+import { ProductService} from "../../service/product-service";
 import { StorageService } from "../service/storage.service";
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-add-product',
+  selector: 'app-add-product-page',
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.css']
 })
@@ -25,32 +25,10 @@ export class AddProductComponent {
     throw new Error('Method not implemented.');
   }
   public getProducts(): void{
-    let request = {
-      jewelry_type_id:1,
-      limit:10,
-      offset:0,
-      requestId:''
-    }
-    this.ProductService.getProducts(request).subscribe(
-      (response:ProductDTO[]) =>{
-        this.Products = response;
-      },
-      (error: HttpErrorResponse)=>{alert(error.message);}
-    );
+
   }
   public onAddProduct(addForm: NgForm): void {
-    document.getElementById('add-Product-form')!.click();
-    this.ProductService.addProduct(addForm.value).subscribe(
-      (response: ProductDTO) => {
-        console.log(response);
-        this.getProducts();
-        addForm.reset();
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-        addForm.reset();
-      }
-    );
+
   }
   public logoutPage():void{
     this.storageService.clean();
@@ -59,33 +37,11 @@ export class AddProductComponent {
   }
 
   public onUpdateProduct(Product: ProductDTO): void {
-    this.ProductService.updateProduct(Product).subscribe(
-      (response: ProductDTO) => {
-        console.log(response);
-        this.getProducts();
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
+
   }
 
   public onDeleteEmloyee(ProductId: any): void {
-    if(ProductId !== undefined){
-      ProductId = Number(ProductId);
-      this.ProductService.deleteProduct(ProductId).subscribe(
-        (response: void) => {
-          console.log(response);
-          this.getProducts();
-        },
-        (error: HttpErrorResponse) => {
-          alert(error.message);
-        }
-      );
 
-    }else{
-      console.log("error type ID");
-    }
   }
 
   public searchProducts(key: string): void {

@@ -29,7 +29,7 @@ export class SocketService {
         if (data) {
           observer.next(data);
         } else {
-          observer.error('Unable To Reach Server');
+          observer.error();
         }
       });
       return () => {
@@ -46,7 +46,7 @@ export class SocketService {
         if (data) {
           observer.next(data);
         } else {
-          observer.error('Unable To Reach Server');
+          observer.error();
         }
       });
       return () => {

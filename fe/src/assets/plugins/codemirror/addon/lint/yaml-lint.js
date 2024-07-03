@@ -19,7 +19,7 @@ CodeMirror.registerHelper("lint", "yaml", function(text) {
   var found = [];
   if (!window.jsyaml) {
     if (window.console) {
-      window.console.error("Error: window.jsyaml not defined, CodeMirror YAML linting cannot run.");
+      window.console.error();
     }
     return found;
   }

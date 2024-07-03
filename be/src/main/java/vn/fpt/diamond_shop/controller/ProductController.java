@@ -1,6 +1,7 @@
 package vn.fpt.diamond_shop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.fpt.diamond_shop.constant.EJewelryType;
@@ -15,26 +16,28 @@ import java.util.List;
 
 @RequestMapping("/product")
 @RestController
-public class ProductController implements IProductController {
-    private final IOrderRepository receiptRepository;
+public class ProductController {
+    private final IOrderRepository orderRepository;
     private final IJewelryRepository jewelryRepository;
     private final IJewelryTypeRepository jewelryTagRepository;
     private final IJewelrySizeRepository jewelrySizeRepository;
+    private final IJewelryOrderRepository jewelryOrderRepository;
 
     @Autowired
     public ProductController(IOrderRepository receiptRepository,
                              IJewelryRepository jewelryRepository,
                              IJewelryTypeRepository jewelryTagRepository,
-                             IJewelrySizeRepository jewelrySizeRepository) {
-        this.receiptRepository = receiptRepository;
+                             IJewelrySizeRepository jewelrySizeRepository,
+                             IJewelryOrderRepository jewelryOrderRepository) {
+        this.orderRepository = receiptRepository;
         this.jewelryRepository = jewelryRepository;
         this.jewelryTagRepository = jewelryTagRepository;
         this.jewelrySizeRepository = jewelrySizeRepository;
+        this.jewelryOrderRepository = jewelryOrderRepository;
     }
 
-    @Override
-    @PostMapping("/add-receipt")
-    public ResponseEntity<CommonResponse> addReceipt(@RequestBody @Valid OrderRequest receiptRequest) {
+    @PostMapping("/add-order")
+    public ResponseEntity<CommonResponse> addOrder(@RequestBody @Valid OrderRequest receiptRequest) {
         // Save receipt
         List<Long> jewelryIdList = receiptRequest.getJewelryIdList();
         Order order = new Order();
@@ -42,10 +45,16 @@ public class ProductController implements IProductController {
         order.setTotalPrice(jewelryRepository.getTotalPriceByIdList(jewelryIdList));
         order.setCreateAt(LocalDateTime.now());
         order.setConfirmed(false);
+        orderRepository.save(order);
+
+        // Save jewelry order
         for (Long jewelryId : jewelryIdList) {
-            jewelryRepository.findById(jewelryId).ifPresent(jewelry -> order.getJewelries().add(jewelry));
+            JewelryOrder jewelryOrder = new JewelryOrder();
+            jewelryOrder.setJewelry(jewelryRepository.findById(jewelryId).orElse(null));
+            jewelryOrder.setOrder(order);
+            jewelryOrder.setSize(null);
+            jewelryOrderRepository.save(jewelryOrder);
         }
-        receiptRepository.save(order);
 
         // Return response
         CommonResponse response = new CommonResponse();
@@ -53,34 +62,29 @@ public class ProductController implements IProductController {
         return ResponseEntity.ok(response);
     }
 
-    @Override
     @GetMapping("/set-jewelry-size")
     public ResponseEntity<CommonResponse> setJewelrySize(@RequestBody @Valid SetJewelrySizeRequest req) {
         CommonResponse response = new CommonResponse();
         Jewelry jewelry = jewelryRepository.findById(req.getJewelryId()).orElse(null);
-        if (jewelry != null) {
-            JewelrySize jewelrySize = jewelrySizeRepository.findById(req.getSizeId());
-            if (jewelrySize != null) {
-                jewelry.setJewelrySize(jewelrySize);
-                jewelryRepository.save(jewelry);
-                response.setMessage("Set jewelry size successfully");
-            } else {
-                response.setMessage("Size not found");
-            }
+        JewelryOrder jewelryOrder = jewelryOrderRepository.findByJewelry(jewelry).orElse(null);
+        if (jewelryOrder != null) {
+            JewelrySize size = jewelrySizeRepository.findById(req.getSizeId()).orElse(null);
+            jewelryOrder.setSize(size);
+            jewelryOrderRepository.save(jewelryOrder);
+            response.setMessage("Set jewelry size successfully");
         } else {
-            response.setMessage("Jewelry not found");
+            response.setMessage("Jewelry order not found");
         }
         return ResponseEntity.ok(response);
     }
 
-    @Override
     @GetMapping("/confirm-order")
     public ResponseEntity<CommonResponse> confirmOrder(@RequestBody @Valid ConfirmOrder req) {
         CommonResponse response = new CommonResponse();
-        Order receipt = receiptRepository.findById(req.getOrderId()).orElse(null);
+        Order receipt = orderRepository.findById(req.getOrderId()).orElse(null);
         if (receipt != null) {
             receipt.setConfirmed(req.isConfirm());
-            receiptRepository.save(receipt);
+            orderRepository.save(receipt);
             response.setMessage("Confirm order successfully");
         } else {
             response.setMessage("Receipt not found");
@@ -88,7 +92,6 @@ public class ProductController implements IProductController {
         return ResponseEntity.ok(response);
     }
 
-    @Override
     @GetMapping("/get-all-jewelries")
     public ResponseEntity<JewelriesResponse> getAllJewelries(@RequestBody @Valid JewelriesRequest jr) {
         JewelriesResponse response = new JewelriesResponse();
@@ -113,5 +116,26 @@ public class ProductController implements IProductController {
         response.setMessage("Get jewelries successfully");
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/get-jewelry")
+    public ResponseEntity<JewelryResponse> getJewelryById(@RequestParam Long id) {
+        Jewelry jewelry = jewelryRepository.findById(id).orElse(null);
+        if (jewelry != null) {
+            JewelryResponse response = new JewelryResponse();
+            response.setName(jewelry.getName());
+            response.setDescription(jewelry.getDescription());
+            response.setType(jewelry.getJewelryType().getType().getValue());
+            response.setImageUrl(jewelry.getImageUrl());
+            response.setPrice(jewelry.getPrice());
+            response.setDiamondCut(jewelry.getDiamond().getCut().getCut().getValue());
+            response.setDiamondClarity(jewelry.getDiamond().getClarity().getClarity().name());
+            response.setDiamondPolish(jewelry.getDiamond().getPolish().getPolish().name());
+            response.setDiamondShape(jewelry.getDiamond().getShape().getShape().getValue());
+            response.setMessage("Jewelry retrieved successfully");
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 }
