@@ -51,11 +51,11 @@ export class ResetPasswordComponent {
 
   onResetPassWord() {
     if (this.form.invalid) {
-      this.toastrService.error("Xem lại thông tin vừa nhập");
+      this.toastrService.error();
       return;
     }
     if (this.form.controls['password'].value !== this.form.controls['rePassword'].value) {
-      this.toastrService.error("Mật khẩu nhập không khớp");
+      this.toastrService.error();
       return;
     }
     this.isDisableButton = true;
@@ -64,7 +64,7 @@ export class ResetPasswordComponent {
       this.toastrService.success(`Gửi mã Otp đến ${this.user?.email} thành công`)
       this.onOpenModal("otp");
     }, error => {
-      this.toastrService.error("Không gửi được mã OTP")
+      this.toastrService.error()
       this.isDisableButton = false;
     });
 
@@ -85,9 +85,9 @@ export class ResetPasswordComponent {
       },
       error => {
         if (error.data) {
-          this.toastrService.error(error.data);
+          this.toastrService.error();
         } else {
-          this.toastrService.error("Reset mật khẩu thất bại");
+          this.toastrService.error();
         }
 
         this.isDisableButton = false;
@@ -110,7 +110,7 @@ export class ResetPasswordComponent {
          this.user = res?.data;
       },
       error => {
-        this.toastrService.error("lỗi lấy thông tin user");
+        this.toastrService.error();
         console.log(error);
       });
 

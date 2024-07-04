@@ -67,7 +67,7 @@ export class UserComponent implements OnInit {
     this.accountService.getAllUser().subscribe((res) => {
       this.allUsers = res?.data;
     }, error => {
-      this.toastrService.error("lỗi không lấy được users");
+      this.toastrService.error();
     });
 
     // this.allUsers = [

@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {NgIf} from "@angular/common";
-import {ProductService} from "../service/product.service";
 import {ToastrService} from "ngx-toastr";
 import {NumberService} from "../service/number.service";
 import {AccountService} from "../auth/services/account.service";
 import {AuthGoogleService} from "../../core/shared/auth-google.service";
+import {ProductService} from "../../service/product.service";
 
 @Component({
   selector: 'app-home',
@@ -60,18 +59,6 @@ export class HomeComponent implements OnInit{
   }
 
   getProducts() {
-    let request = {
-      jewelry_type_id:1,
-      limit:10,
-      offset:0,
-      requestId:''
-    }
-    this.productService.getProducts(request).subscribe((res) => {
-      this.listProduct = res.data;
 
-    }, error => {
-
-
-    });
   }
 }

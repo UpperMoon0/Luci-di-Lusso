@@ -1,12 +1,9 @@
 package vn.fpt.diamond_shop.model.entity;
 
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -26,23 +23,19 @@ public class Diamond {
 
     @ManyToOne
     @JoinColumn(name = "clarity_id")
-    private Clarity clarity;
+    private DiamondClarity clarity;
 
     @ManyToOne
     @JoinColumn(name = "cut_id")
-    private Cut cut;
+    private DiamondCut cut;
 
     @ManyToOne
     @JoinColumn(name = "polish_id")
-    private Polish polish;
-
-    @ManyToOne
-    @JoinColumn(name = "color_id")
-    private Color color;
+    private DiamondPolish polish;
 
     @ManyToOne
     @JoinColumn(name = "shape_id")
-    private Shape shape;
+    private DiamondShape shape;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;

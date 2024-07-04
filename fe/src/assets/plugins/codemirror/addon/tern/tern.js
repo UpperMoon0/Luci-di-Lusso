@@ -197,7 +197,7 @@
 
   function sendDoc(ts, doc) {
     ts.server.request({files: [{type: "full", name: doc.name, text: docValue(ts, doc)}]}, function(error) {
-      if (error) window.console.error(error);
+      if (error) window.console.error();
       else doc.changed = null;
     });
   }

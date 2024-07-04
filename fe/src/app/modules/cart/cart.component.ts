@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CartService } from "../service/cart.service";
+import { CartService } from "../../service/cart.service";
 // import {MatDialog,MAT_DIALOG_DATA,MatDialogRef} from '@angular/material/dialog';
 // import { OrderComponen } from '../order/order.component';
 

@@ -1,6 +1,13 @@
 import {NgModule} from '@angular/core';
+
+import {RegisterPageComponent} from "./register-page/register-page.component";
+
+import {LoginPageComponent} from "./login-page/login-page.component";
+
+import {ProductPageComponent} from "./product-page/product-page.component";
+
 import {RouterModule, Routes} from '@angular/router';
-import {DefaultLayoutComponent} from './core/default-layout/default-layout.component';
+import {DefaultLayoutComponent} from './core/default-layout';
 import {DashboardComponent} from './modules/dashboard/dashboard.component';
 import {HomeComponent} from "./modules/home/home.component";
 import {IntroductionComponent} from "./modules/default-page/introduction/introduction.component";
@@ -17,16 +24,16 @@ import {CartComponent} from "./modules/pages/cart/cart.component";
 import {CheckoutComponent} from "./modules/pages/checkout/checkout.component";
 import {ContactUsComponent} from "./modules/pages/contact-us/contact-us.component";
 import {FaqsComponent} from "./modules/pages/faqs/faqs.component";
-import {LoginPageComponent} from "./login-page/login-page.component";
+
 import {MyAccountComponent} from "./modules/pages/my-account/my-account.component";
 import {OrderSummeryComponent} from "./modules/pages/order-summery/order-summery.component";
 import {PrivacyPolicyComponent} from "./modules/pages/privacy-policy/privacy-policy.component";
-import {ProductListComponent} from "./modules/pages/product-list/product-list.component";
-import {ProductComponent} from "./modules/pages/product/product.component";
-import {RegisterPageComponent} from "./register-page/register-page.component";
+import {ProductListPageComponent} from "./product-list-page/product-list-page.component";
+
 import {WishListComponent} from "./modules/pages/wish-list/wish-list.component";
 import {ResetPasswordComponent} from "./modules/pages/reset-password/reset-password.component";
 import {ForgetPasswordComponent} from "./modules/pages/forget-password/forget-password.component";
+
 
 const routes: Routes = [
   {
@@ -342,14 +349,14 @@ const routes: Routes = [
   },
   {
     path: 'product-list',
-    component: ProductListComponent,
+    component: ProductListPageComponent,
     data: {
       title: 'Product List Page'
     }
   },
   {
-    path: 'product',
-    component: ProductComponent,
+    path: 'product/:id',
+    component: ProductPageComponent,
     data: {
       title: 'Product Page'
     }
@@ -382,7 +389,7 @@ const routes: Routes = [
       title: 'Forget Password Page'
     }
   },
-  {path: '**', redirectTo: 'dashboard'}
+  {path: '**', redirectTo: 'home-page'}
 ];
 
 @NgModule({

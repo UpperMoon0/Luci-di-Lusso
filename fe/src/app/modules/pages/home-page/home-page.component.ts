@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {ProductService} from "../../service/product.service";
+import {ProductService} from "../../../service/product.service";
 import {ToastrService} from "ngx-toastr";
 import {NumberService} from "../../service/number.service";
 import {AccountService} from "../../auth/services/account.service";
@@ -59,19 +59,7 @@ export class HomePageComponent {
   }
 
   getProducts() {
-    let request = {
-      jewelry_type_id:1,
-      limit:4,
-      offset:0,
-      requestId:''
-    }
-    this.productService.getProducts(request).subscribe((res) => {
-      this.listProduct = res.data;
 
-    }, error => {
-
-
-    });
   }
 
 }

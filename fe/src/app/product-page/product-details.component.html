@@ -1,0 +1,23 @@
+<div class="container product-details">
+  <div class="additional-info border border-dark">
+    <div class="row">
+      <div class="col-md-6">
+        <img ngSrc="{{product.imageUrl}}" class="img-fluid" alt="Product Image" width="500" height="500">
+      </div>
+      <div class="col-md-6">
+        <div class="product-info">
+          <h2>{{product.name}}</h2>
+          <h3 class="price">${{product.price}}</h3>
+          <p class="description">{{product.description}}</p>
+          <p class="type">Type: {{product.type}}</p>
+          <h3>Diamond properties</h3>
+          <p>Shape: {{product.diamondShape}}</p>
+          <p>Cut: {{product.diamondCut}}</p>
+          <p>Polish: {{product.diamondPolish}}</p>
+          <p>Clarity: {{product.diamondClarity}}</p>
+          <button *ngIf="isLoggedIn" class="btn btn-primary" (click)="addToCart(product)">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

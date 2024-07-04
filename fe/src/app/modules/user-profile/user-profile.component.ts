@@ -44,7 +44,6 @@ export class UserProfileComponent implements OnInit {
         'ward': new FormControl('', ),
         'extra': new FormControl('', ),
       }
-
     );
   }
   get f(){
@@ -79,7 +78,7 @@ export class UserProfileComponent implements OnInit {
         this.router.navigateByUrl(returnUrl);
     },
       error => {
-        this.toastrService.error("Cập nhập thông tin user thất bại");
+        this.toastrService.error();
       })
 
   }
@@ -101,7 +100,7 @@ export class UserProfileComponent implements OnInit {
         this.urlImg = (data?.avatar != null?data?.avatar :'');
       },
       error => {
-        this.toastrService.error("lỗi lấy thông tin user");
+        this.toastrService.error();
         console.log(error);
       });
 
@@ -184,7 +183,7 @@ export class UserProfileComponent implements OnInit {
             } else {
               this.message = 'Upload file thất bại!';
             }
-            this.toastrService.error(this.message);
+            this.toastrService.error();
 
             this.currentFile = undefined;
           },

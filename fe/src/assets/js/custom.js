@@ -100,8 +100,8 @@ $(document).ready(function () {
       list.slideDown('fast');
       parent.addClass('is-open');
     }
-  });  
-  // card slider 
+  });
+  // card slider
   $('.card-slider-main').slick({
     dots: false,
     infinite: true,
@@ -132,7 +132,7 @@ $(document).ready(function () {
       }
     ]
   });
-  //   pro ring slider 
+  //   pro ring slider
   $('.pro-ring-main').slick({
     dots: false,
     infinite: true,
@@ -151,7 +151,7 @@ $(document).ready(function () {
       }
     ]
   });
-  // card slider 
+  // card slider
   $('.logo-slider-main').slick({
     dots: false,
     infinite: true,
@@ -188,7 +188,7 @@ $(document).ready(function () {
       }
     ]
   });
-  // testimonials slider 
+  // testimonials slider
   $('.testi-main').slick({
     dots: false,
     infinite: true,
@@ -207,7 +207,7 @@ $(document).ready(function () {
       }
     ]
   });
-  // blog slider 
+  // blog slider
   $('.main-blog').slick({
     dots: false,
     infinite: true,
@@ -239,8 +239,8 @@ $(document).ready(function () {
       }
     ]
   });
-  // product slider 
-  $('.product-main-slider').slick({
+  // product-page slider
+  $('.product-page-main-slider').slick({
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
@@ -248,7 +248,7 @@ $(document).ready(function () {
     infinite: true,
     speed: 1500,
     loop: true,
-    asNavFor: '.product-thumb-slider',
+    asNavFor: '.product-page-thumb-slider',
     autoplay: false,
     prevArrow: '<button class="slide-arrow slick-prev"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M22.7071 12.7071C22.8946 12.5196 23 12.2652 23 12C23 11.7348 22.8946 11.4804 22.7071 11.2929L11.7071 0.292894C11.3166 -0.0976306 10.6834 -0.0976306 10.2929 0.292894C9.90237 0.683418 9.90237 1.31658 10.2929 1.70711L20.5858 12L10.2929 22.2929C9.90237 22.6834 9.90237 23.3166 10.2929 23.7071C10.6834 24.0976 11.3166 24.0976 11.7071 23.7071L22.7071 12.7071ZM13.7071 12.7071C13.8946 12.5196 14 12.2652 14 12C14 11.7348 13.8946 11.4804 13.7071 11.2929L2.70711 0.292894C2.31658 -0.0976302 1.68342 -0.0976302 1.29289 0.292894C0.902369 0.683419 0.902369 1.31658 1.29289 1.70711L11.5858 12L1.29289 22.2929C0.90237 22.6834 0.90237 23.3166 1.29289 23.7071C1.68342 24.0976 2.31658 24.0976 2.70711 23.7071L13.7071 12.7071Z" fill="#fff"/></svg></button>',
     nextArrow: '<button class="slide-arrow slick-next"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M22.7071 12.7071C22.8946 12.5196 23 12.2652 23 12C23 11.7348 22.8946 11.4804 22.7071 11.2929L11.7071 0.292894C11.3166 -0.0976306 10.6834 -0.0976306 10.2929 0.292894C9.90237 0.683418 9.90237 1.31658 10.2929 1.70711L20.5858 12L10.2929 22.2929C9.90237 22.6834 9.90237 23.3166 10.2929 23.7071C10.6834 24.0976 11.3166 24.0976 11.7071 23.7071L22.7071 12.7071ZM13.7071 12.7071C13.8946 12.5196 14 12.2652 14 12C14 11.7348 13.8946 11.4804 13.7071 11.2929L2.70711 0.292894C2.31658 -0.0976302 1.68342 -0.0976302 1.29289 0.292894C0.902369 0.683419 0.902369 1.31658 1.29289 1.70711L11.5858 12L1.29289 22.2929C0.90237 22.6834 0.90237 23.3166 1.29289 23.7071C1.68342 24.0976 2.31658 24.0976 2.70711 23.7071L13.7071 12.7071Z" fill="#fff"/></svg></button>',
@@ -260,10 +260,10 @@ $(document).ready(function () {
       }
     }]
   });
-  $('.product-thumb-slider').slick({
+  $('.product-page-thumb-slider').slick({
     slidesToShow: 5,
     arrows: false,
-    asNavFor: '.product-main-slider',
+    asNavFor: '.product-page-main-slider',
     dots: false,
     speed: 1500,
     slidesToScroll: 1,
@@ -281,7 +281,7 @@ $(document).ready(function () {
       }
     }]
   });
-      // Slick lightbox 
+      // Slick lightbox
       if($('.lightbox').length>0) {
       $('.lightbox').slickLightbox({
           itemSelector: 'a.open-lightbox',
@@ -294,7 +294,7 @@ $(document).ready(function () {
           }
       });
   }
-  // product desc slider 
+  // product-page desc slider
   $('.desc-slider-main  ').slick({
     dots: false,
     infinite: true,
@@ -305,7 +305,7 @@ $(document).ready(function () {
     prevArrow: '<button class="slide-arrow slick-prev"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M22.7071 12.7071C22.8946 12.5196 23 12.2652 23 12C23 11.7348 22.8946 11.4804 22.7071 11.2929L11.7071 0.292894C11.3166 -0.0976306 10.6834 -0.0976306 10.2929 0.292894C9.90237 0.683418 9.90237 1.31658 10.2929 1.70711L20.5858 12L10.2929 22.2929C9.90237 22.6834 9.90237 23.3166 10.2929 23.7071C10.6834 24.0976 11.3166 24.0976 11.7071 23.7071L22.7071 12.7071ZM13.7071 12.7071C13.8946 12.5196 14 12.2652 14 12C14 11.7348 13.8946 11.4804 13.7071 11.2929L2.70711 0.292894C2.31658 -0.0976302 1.68342 -0.0976302 1.29289 0.292894C0.902369 0.683419 0.902369 1.31658 1.29289 1.70711L11.5858 12L1.29289 22.2929C0.90237 22.6834 0.90237 23.3166 1.29289 23.7071C1.68342 24.0976 2.31658 24.0976 2.70711 23.7071L13.7071 12.7071Z" fill="#fff"/></svg></button>',
     nextArrow: '<button class="slide-arrow slick-next"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M22.7071 12.7071C22.8946 12.5196 23 12.2652 23 12C23 11.7348 22.8946 11.4804 22.7071 11.2929L11.7071 0.292894C11.3166 -0.0976306 10.6834 -0.0976306 10.2929 0.292894C9.90237 0.683418 9.90237 1.31658 10.2929 1.70711L20.5858 12L10.2929 22.2929C9.90237 22.6834 9.90237 23.3166 10.2929 23.7071C10.6834 24.0976 11.3166 24.0976 11.7071 23.7071L22.7071 12.7071ZM13.7071 12.7071C13.8946 12.5196 14 12.2652 14 12C14 11.7348 13.8946 11.4804 13.7071 11.2929L2.70711 0.292894C2.31658 -0.0976302 1.68342 -0.0976302 1.29289 0.292894C0.902369 0.683419 0.902369 1.31658 1.29289 1.70711L11.5858 12L1.29289 22.2929C0.90237 22.6834 0.90237 23.3166 1.29289 23.7071C1.68342 24.0976 2.31658 24.0976 2.70711 23.7071L13.7071 12.7071Z" fill="#fff"/></svg></button>',
   });
-  // tab js 
+  // tab js
   $('ul.tabs li').click(function(){
     var $this = $(this);
     var $theTab = $(this).attr('data-tab');
@@ -417,9 +417,9 @@ $(document).ready(function () {
       }
     });
   }
-}); 
+});
 $(document).ready(function () {
-  // home slider 
+  // home slider
   var $slider = $('.home-main-slider');
   var $progressBar = $('.progress');
   var $progressBarLabel = $('.slider__label');
@@ -467,4 +467,4 @@ $slickElement.on('init reInit afterChange', function (event, slick, currentSlide
   //currentSlide is undefined on init -- set it to 0 in this case (currentSlide is 0 based)
   var i = (currentSlide ? currentSlide : 0) + 1;
   $status.text(i + '/' + slick.slideCount);
-}); 
+});

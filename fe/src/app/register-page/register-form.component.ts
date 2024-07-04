@@ -1,17 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
-import { RegisterService } from './register-service';
+import {AccountService} from "../service/account.service";
 
 @Component({
-  selector: 'register-form',
+  selector: 'app-register-form',
   templateUrl: './register-form.component.html',
   styleUrls: ['./register-form.component.css']
 })
 export class RegisterFormComponent implements OnInit {
   form!: FormGroup;
 
-  constructor(private registerService: RegisterService,
+  constructor(private accountService: AccountService,
               private formBuilder: FormBuilder,
               private toastrService: ToastrService) {
   }
@@ -33,18 +33,18 @@ export class RegisterFormComponent implements OnInit {
     if (this.form.invalid) {
       for (const field in this.form.controls) {
         if (this.form.controls[field].invalid) {
-          this.toastrService.error(`Please check your ${field}`);
+          this.toastrService.error();
         }
       }
       return;
     }
 
-    this.registerService.register(this.form.value).subscribe({
+    this.accountService.register(this.form.value).subscribe({
       next: (res) => {
         this.toastrService.success("Register successfully");
       },
       error: (err) => {
-        this.toastrService.error("Register failed: " + err.message);
+        this.toastrService.error();
       }
     });
   }

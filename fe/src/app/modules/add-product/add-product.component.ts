@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
-import { ProductDTO } from "../_models/productDTO";
 import { HelperService } from "../service/helper.service";
-import { ProductService } from "../service/product.service";
+import { ProductService } from "../../service/product.service";
 import { StorageService } from "../service/storage.service";
 import { Router } from '@angular/router';
 
@@ -31,8 +30,8 @@ export class AddProductComponent {
       offset:0,
       requestId:''
     }
-    this.ProductService.getProducts(request).subscribe(
-      (response:ProductDTO[]) =>{
+    this.ProductService.getJewelries(request).subscribe(
+      (response:any[]) =>{
         this.Products = response;
       },
       (error: HttpErrorResponse)=>{alert(error.message);}
@@ -41,7 +40,7 @@ export class AddProductComponent {
   public onAddProduct(addForm: NgForm): void {
     document.getElementById('add-Product-form')!.click();
     this.ProductService.addProduct(addForm.value).subscribe(
-      (response: ProductDTO) => {
+      (response: any) => {
         console.log(response);
         this.getProducts();
         addForm.reset();
@@ -58,9 +57,9 @@ export class AddProductComponent {
 
   }
 
-  public onUpdateProduct(Product: ProductDTO): void {
+  public onUpdateProduct(Product: any): void {
     this.ProductService.updateProduct(Product).subscribe(
-      (response: ProductDTO) => {
+      (response: any) => {
         console.log(response);
         this.getProducts();
       },
@@ -90,7 +89,7 @@ export class AddProductComponent {
 
   public searchProducts(key: string): void {
     console.log(key);
-    const results: ProductDTO[] = [];
+    const results: any[] = [];
     for (const Product of this.Products) {
       if (Product.name?.toLowerCase().indexOf(key.toLowerCase()) !== -1
         // || Product.mail?.toLowerCase().indexOf(key.toLowerCase()) !== -1

@@ -28,20 +28,12 @@ public class Jewelry {
     private Diamond diamond;
 
     @ManyToOne
-    @JoinColumn(name = "jewelry_size_id")
-    private JewelrySize jewelrySize;
+    @JoinColumn(name = "type_id")
+    private JewelryType jewelryType;
 
     @Column(name = "image_url")
     private String imageUrl;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;
-
-    @ManyToMany
-    @JoinTable(
-        name = "jewelry_jewelry_tag",
-        joinColumns = @JoinColumn(name = "jewelry_id"),
-        inverseJoinColumns = @JoinColumn(name = "jewelry_tag_id")
-    )
-    private List<JewelryTag> jewelryTags;
 }
