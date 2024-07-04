@@ -22,6 +22,8 @@ import {MyAccountComponent} from "./modules/pages/my-account/my-account.componen
 import {OrderSummeryComponent} from "./modules/pages/order-summery/order-summery.component";
 import {PrivacyPolicyComponent} from "./modules/pages/privacy-policy/privacy-policy.component";
 import {ProductListPageComponent} from "./product-list-page/product-list-page.component";
+import {ProductListComponent} from "./product-list/product-list.component";
+import {ProductComponent} from "./modules/pages/product/product.component";
 import {RegisterPageComponent} from "./register-page/register-page.component";
 import {WishListComponent} from "./modules/pages/wish-list/wish-list.component";
 import {ResetPasswordComponent} from "./modules/pages/reset-password/reset-password.component";
@@ -236,7 +238,7 @@ const routes: Routes = [
     }
   },
     {
-    path: 'add-product-page',
+    path: 'add-product',
     component: AddProductComponent,
     data: {
       title: 'Add Product Page'
@@ -341,15 +343,15 @@ const routes: Routes = [
     }
   },
   {
-    path: 'product-page-list-page',
-    component: ProductListPageComponent,
+    path: 'product-list',
+    component: ProductListComponent,
     data: {
       title: 'Product List Page'
     }
   },
   {
     path: 'product',
-    component: ProductPageComponent,
+    component: ProductComponent,
     data: {
       title: 'Product Page'
     }

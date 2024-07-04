@@ -31,7 +31,7 @@ import { MeasureJewelrySizeComponent } from './modules/default-page/measure-jewe
 import { AddProductComponent } from './modules/add-product/add-product.component';
 import { CartComponent } from './modules/cart/cart.component';
 import { UserProfileComponent } from './modules/user-profile/user-profile.component';
-import {CommonModule, NgOptimizedImage} from "@angular/common";
+import {CommonModule} from "@angular/common";
 import { FileUploadComponent } from './modules/file-upload/file-upload.component';
 import { HomePageComponent } from './modules/pages/home-page/home-page.component';
 import { AboutComponent } from './modules/pages/about/about.component';
@@ -45,6 +45,8 @@ import { OrderSummeryComponent } from './modules/pages/order-summery/order-summe
 import { PrivacyPolicyComponent } from './modules/pages/privacy-policy/privacy-policy.component';
 
 
+import { ProductListComponent } from './product-list/product-list.component';
+import { ProductComponent } from './modules/pages/product/product.component';
 import { WishListComponent } from './modules/pages/wish-list/wish-list.component';
 import { HeaderComponent } from './header/header.component';
 import { MyFooterComponent } from './modules/pages/layout/my-footer/my-footer.component';
@@ -115,8 +117,7 @@ import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-
       closeButton: true,
       progressBar: true,
     }),
-    NgOtpInputModule,
-    NgOptimizedImage
+    NgOtpInputModule
 
 
   ],

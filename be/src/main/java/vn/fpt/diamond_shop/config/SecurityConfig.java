@@ -40,7 +40,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/auth/register",
                         "/auth/login",
                         "/auth/validate-token",
-                        "/product/get-jewelry")
+                        "/product/get-jewelry",
+                        "/product/get-all-jewelries",
+                        "/product/get-all-tags")
                 .permitAll()
             .anyRequest()
                 .authenticated()

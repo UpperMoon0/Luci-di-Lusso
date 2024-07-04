@@ -13,4 +13,6 @@ import java.util.List;
 @ToString
 public class JewelriesRequest {
     List<EJewelryType> tags;
+    int minPrice;
+    int maxPrice;
 }

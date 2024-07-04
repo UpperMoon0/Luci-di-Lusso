@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
+import {environment} from "../../environments/environment";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Injectable({
@@ -35,7 +35,7 @@ export class CartService {
     this.cartItemList.push(...product);
     this.productList.next(product);
   }
-  addtoCart(product : any){
+  addToCart(product : any){
     product.quantity = 1
     console.log(product.quantity)
     this.cartItemList.push(product);
