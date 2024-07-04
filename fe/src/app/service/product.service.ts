@@ -9,8 +9,6 @@ import {environment} from "../../environments/environment";
 export class ProductService {
   private apiUrl = environment.apiUrl;
   httpOptions: any;
-  BASIC_JEWELRY_URL = "jewelry/";
-
   constructor(private http: HttpClient) {
     const token = localStorage.getItem('accessToken');
 

@@ -13,7 +13,6 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -53,7 +52,7 @@ public class ProductController {
             response.setPrice(jewelry.getPrice());
             response.setDiamondCut(jewelry.getDiamond().getCut().getCut().getValue());
             response.setDiamondClarity(jewelry.getDiamond().getClarity().getClarity().name());
-            response.setDiamondPolish(jewelry.getDiamond().getPolish().getPolish().name());
+            response.setDiamondColor(jewelry.getDiamond().getColor().getColor().name());
             response.setDiamondShape(jewelry.getDiamond().getShape().getShape().getValue());
             response.setMessage("Jewelry retrieved successfully");
             return ResponseEntity.ok(response);

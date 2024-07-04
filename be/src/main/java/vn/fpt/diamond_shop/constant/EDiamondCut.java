@@ -4,7 +4,6 @@ import lombok.Getter;
 
 @Getter
 public enum EDiamondCut {
-    IDEAL("Ideal"),
     EXCELLENT("Excellent"),
     VERY_GOOD("Very Good"),
     GOOD("Good"),

@@ -13,6 +13,6 @@ public class JewelryResponse extends CommonResponse {
     private String type;
     private String diamondCut;
     private String diamondClarity;
-    private String diamondPolish;
+    private String diamondColor;
     private String diamondShape;
 }

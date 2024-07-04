@@ -1,7 +1,7 @@
 package vn.fpt.diamond_shop.model.entity;
 
 import lombok.*;
-import vn.fpt.diamond_shop.constant.EDiamondPolish;
+import vn.fpt.diamond_shop.constant.EDiamondColor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,16 +10,16 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @Entity
-@Table(name = "diamond_polish")
+@Table(name = "diamond_color")
 @NoArgsConstructor
-public class DiamondPolish {
+public class DiamondColor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "polish", unique = true)
-    private EDiamondPolish polish;
+    @Column(name = "color", unique = true)
+    private EDiamondColor color;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;

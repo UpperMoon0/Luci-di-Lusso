@@ -11,9 +11,11 @@ public enum EDiamondShape {
     HEART("Heart"),
     EMERALD("Emerald"),
     PEAR("Pear"),
-    ASSHER("Assher"),
+    ASSCHER("Asscher"),
     CUSHION("Cushion"),
-    RADIANT("Radiant");
+    RADIANT("Radiant"),
+    TRILLION("Trillion"),
+    BAGUETTE("Baguette");
 
     private final String value;
 
