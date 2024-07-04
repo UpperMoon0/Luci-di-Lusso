@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -37,6 +39,75 @@ public class ProductController {
         this.jewelryTagRepository = jewelryTagRepository;
         this.jewelrySizeRepository = jewelrySizeRepository;
         this.jewelryOrderRepository = jewelryOrderRepository;
+    }
+
+    @GetMapping("/get-jewelry")
+    public ResponseEntity<JewelryResponse> getJewelry(@RequestParam Long id) {
+        Jewelry jewelry = jewelryRepository.findById(id).orElse(null);
+        if (jewelry != null) {
+            JewelryResponse response = new JewelryResponse();
+            response.setName(jewelry.getName());
+            response.setDescription(jewelry.getDescription());
+            response.setType(jewelry.getJewelryType().getType().getValue());
+            response.setImageUrl(jewelry.getImageUrl());
+            response.setPrice(jewelry.getPrice());
+            response.setDiamondCut(jewelry.getDiamond().getCut().getCut().getValue());
+            response.setDiamondClarity(jewelry.getDiamond().getClarity().getClarity().name());
+            response.setDiamondPolish(jewelry.getDiamond().getPolish().getPolish().name());
+            response.setDiamondShape(jewelry.getDiamond().getShape().getShape().getValue());
+            response.setMessage("Jewelry retrieved successfully");
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    @GetMapping("/get-all-jewelries")
+    public ResponseEntity<JewelriesResponse> getAllJewelries() {
+        JewelriesResponse response = new JewelriesResponse();
+        List<Jewelry> jewelries = jewelryRepository.findAll();
+        for (Jewelry jewelry : jewelries) {
+            response.addJewelry(jewelry);
+        }
+        response.setMessage("Get all jewelries successfully");
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/get-jewelries")
+    public ResponseEntity<JewelriesResponse> getJewelries(@RequestBody @Valid JewelriesRequest jr) {
+        JewelriesResponse response = new JewelriesResponse();
+
+        Stream<Jewelry> jewelryStream;
+        if (jr.getTags().isEmpty()) {
+            // If tag list is empty, return all jewelries
+            jewelryStream = jewelryRepository.findAll().stream();
+        } else {
+            // If tag list is not empty, return jewelries that match the tags
+            jewelryStream = jr.getTags().stream()
+                .map(jewelryTagRepository::findByType)
+                .flatMap(jewelryTag -> jewelryRepository.findAllByJewelryType(jewelryTag).stream())
+                .distinct(); // Remove duplicates based on Jewelry's equals() and hashCode() methods
+        }
+
+        // Apply price filter if necessary
+        if (!(jr.getMinPrice() == 0 && jr.getMaxPrice() == 0)) {
+            jewelryStream = jewelryStream.filter(jewelry -> {
+                double price = jewelry.getPrice();
+                if (jr.getMaxPrice() == 0) {
+                    return price >= jr.getMinPrice();
+                } else {
+                    return price >= jr.getMinPrice() && price <= jr.getMaxPrice();
+                }
+            });
+        }
+
+        List<Jewelry> filteredJewelries = jewelryStream.collect(Collectors.toList());
+        for (Jewelry jewelry : filteredJewelries) {
+            response.addJewelry(jewelry);
+        }
+        response.setMessage("Get jewelries successfully");
+
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/add-order")
@@ -93,71 +164,6 @@ public class ProductController {
             response.setMessage("Receipt not found");
         }
         return ResponseEntity.ok(response);
-    }
-
-    @PostMapping("/get-all-jewelries")
-    public ResponseEntity<JewelriesResponse> getAllJewelries(@RequestBody @Valid JewelriesRequest jr) {
-        JewelriesResponse response = new JewelriesResponse();
-
-        List<Jewelry> jewelryList;
-        if (jr.getTags().isEmpty()) {
-            // If tag list is empty, return all jewelries
-            jewelryList = jewelryRepository.findAll();
-        } else {
-            // If tag list is not empty, return jewelries that match the tags
-            jewelryList = new ArrayList<>();
-            for (EJewelryType tag : jr.getTags()) {
-                JewelryType jewelryTag = jewelryTagRepository.findByType(tag);
-                List<Jewelry> jewelries = jewelryRepository.findAllByJewelryType(jewelryTag);
-                //remove duplicates
-                for (Jewelry temp1 : jewelries) {
-                    for (Jewelry temp2 : jewelries.subList(jewelries.indexOf(temp1)+1, jewelries.toArray().length-1)) {
-                        if (Objects.equals(temp1.getId(), temp2.getId())) {
-                            jewelries.remove(temp2);
-                        }
-                    }
-                }
-                for (Jewelry jewelry : jewelries) {
-                    if (!(jr.getMinPrice() == 0 && jr.getMaxPrice() == 0)) {
-                        if (jr.getMaxPrice() == 0) {
-                            if (jewelry.getPrice() < jr.getMinPrice()) {
-                                jewelries.remove(jewelry);
-                            }
-                        } else {
-                            if (jewelry.getPrice() < jr.getMinPrice() || jewelry.getPrice() > jr.getMaxPrice()) {
-                                jewelries.remove(jewelry);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        response.setJewelries(jewelryList);
-        response.setMessage("Get jewelries successfully");
-
-        return ResponseEntity.ok(response);
-    }
-
-    @GetMapping("/get-jewelry")
-    public ResponseEntity<JewelryResponse> getJewelryById(@RequestParam Long id) {
-        Jewelry jewelry = jewelryRepository.findById(id).orElse(null);
-        if (jewelry != null) {
-            JewelryResponse response = new JewelryResponse();
-            response.setName(jewelry.getName());
-            response.setDescription(jewelry.getDescription());
-            response.setType(jewelry.getJewelryType().getType().getValue());
-            response.setImageUrl(jewelry.getImageUrl());
-            response.setPrice(jewelry.getPrice());
-            response.setDiamondCut(jewelry.getDiamond().getCut().getCut().getValue());
-            response.setDiamondClarity(jewelry.getDiamond().getClarity().getClarity().name());
-            response.setDiamondPolish(jewelry.getDiamond().getPolish().getPolish().name());
-            response.setDiamondShape(jewelry.getDiamond().getShape().getShape().getValue());
-            response.setMessage("Jewelry retrieved successfully");
-            return ResponseEntity.ok(response);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
     }
 
     //get tags to screen

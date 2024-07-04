@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import {NumberService} from "../../../service/number.service";
 import {AccountService} from "../../../auth/services/account.service";
-import {ProductService} from "../../../../service/product-service";
+import {ProductService} from "../../../../service/product.service";
 import {CartService} from "../../../../service/cart.service";
 
 @Component({

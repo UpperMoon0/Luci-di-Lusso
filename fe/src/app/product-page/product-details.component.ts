@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductService} from "../service/product-service";
-import {AccountService} from "../service/account-service";
+import {ProductService} from "../service/product.service";
+import {AccountService} from "../service/account.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-product-details',
@@ -11,11 +12,16 @@ export class ProductDetailsComponent implements OnInit {
   product: any;
   isLoggedIn: boolean;
 
-  constructor(private productService: ProductService,
-              private accountService: AccountService) { }
+  constructor(
+    private productService: ProductService,
+    private accountService: AccountService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
-    this.getJewelry(2);
+    const id = +this.route.snapshot.paramMap.get('id');
+
+    this.getJewelry(id);
     this.accountService.checkToken();
     this.accountService.isLoggedIn.subscribe(value => {
       this.isLoggedIn = value;
