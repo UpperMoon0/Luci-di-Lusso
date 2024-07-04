@@ -496,74 +496,7 @@
       <h2>First-Time Buyers Price Guide</h2>
     </div>
 
-    <p>
-      For first-time buyers, the following quick diamond budget scenarios and illustrative examples are valuable tools for making a well-considered choice.
-      <br>
-      Building on our framework of prioritizing the 4Cs, the table below illustrates three options for a buyer within a given budget. Option 1 shows the types of diamonds a shopper would buy based on the highest quality; Option 2 highlights diamonds for both quality and optimal value; and Option 3 shows diamonds with the biggest carat weight and acceptable quality within a given budget.
-    </p>
 
-    <br>
-
-    <table class="table-01">
-      <thead>
-      <tr>
-        <th>Budget</th>
-        <th>Factors</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let data of diamondPriceData" class="center-column">
-        <td>{{ data.budget }}</td>
-        <td [innerHTML]="data.factor"></td>
-      </tr>
-      </tbody>
-    </table>
-    <p>Note: avoid fluorescence in high color grades and prioritize cut.</p>
-    <br>
-    <br>
-    <div class="section-title">
-      <h2>1 Carat Diamond Prices</h2>
-    </div>
-    <p>Considering the economic downturn and additional pressure from lab-grown diamonds, 1 carat natural diamonds in the SI/VS range below G color might be traded 5-10% below the chart prices. However, we believe this is a temporary demand-related issue, and we urge diamond buyers to take advantage of this opportunity if they are in the market for a diamond.</p>
-  <br>
-    <table class="table-02">
-      <thead>
-      <tr>
-        <th>Clarity</th>
-        <th colspan="2">D Color</th>
-      </tr>
-      <tr>
-        <th>1 Carat</th>
-        <th>Wholesome</th>
-        <th>Retail</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let data of diamondPriceData01" class="center-column">
-        <td>{{ data.carat }}</td>
-        <td>{{ data.wholesome }}</td>
-        <td>{{ data.retail }}</td>
-      </tr>
-      </tbody>
-      <thead>
-      <tr>
-        <th>Clarity</th>
-        <th colspan="2">E Color</th>
-      </tr>
-      <tr>
-        <th>1 Carat</th>
-        <th>Wholesome</th>
-        <th>Retail</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let data of diamondPriceData01" class="center-column">
-        <td>{{ data.carat }}</td>
-        <td>{{ data.wholesome }}</td>
-        <td>{{ data.retail }}</td>
-      </tr>
-      </tbody>
-    </table>
   </div>
 </section>
 <!--footer start here-->
