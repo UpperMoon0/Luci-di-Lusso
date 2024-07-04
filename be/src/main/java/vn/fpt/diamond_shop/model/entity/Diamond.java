@@ -16,9 +16,6 @@ public class Diamond {
     private Long id;
 
     @Column
-    private int carat;
-
-    @Column
     private int quantity;
 
     @ManyToOne
@@ -30,8 +27,11 @@ public class Diamond {
     private DiamondCut cut;
 
     @ManyToOne
-    @JoinColumn(name = "polish_id")
-    private DiamondPolish polish;
+    @JoinColumn(name = "color_id")
+    private DiamondColor color;
+
+    @Column(name = "carat")
+    private Float carat;
 
     @ManyToOne
     @JoinColumn(name = "shape_id")

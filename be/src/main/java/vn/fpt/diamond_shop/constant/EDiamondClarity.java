@@ -1,8 +1,12 @@
 package vn.fpt.diamond_shop.constant;
 
 public enum EDiamondClarity {
-    IF_VVS,
-    VS,
+    FL,
+    IF,
+    VVS1,
+    VVS2,
+    VS1,
+    VS2,
     SI1,
     SI2,
     I1,
