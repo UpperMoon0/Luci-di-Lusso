@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import {CartService} from "../service/cart.service";
 
 @Component({
   selector: 'app-cart-product-card',
@@ -6,7 +7,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./cart-product-card.component.css']
 })
 export class CartProductCardComponent {
-  @Input() product: { imageUrl: string; name: string; size: string, price: number, quantity: number; createAt: string; } = {
+  @Input() product: { id: number, imageUrl: string; name: string; size: string, price: number, quantity: number; createAt: string; } = {
+    id: 0,
     imageUrl: '',
     name: '',
     price: 0,
@@ -15,22 +17,44 @@ export class CartProductCardComponent {
     createAt: ''
   };
 
-  decreaseQuantity(product: any) {
+  constructor(private cartService: CartService) { }
+
+  decreaseQuantity() {
     // Decrease the quantity of the product
-    if (product.quantity > 1) {
-      product.quantity -= 1;
-      // Update the cart service or local storage as needed
+    if (this.product.quantity > 1) {
+      this.product.quantity -= 1;
+      this.cartService.updateQuantity(this.product.id, this.product.quantity).subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      });
     }
   }
 
-  increaseQuantity(product: any) {
+  increaseQuantity() {
     // Increase the quantity of the product
-    product.quantity += 1;
-    // Update the cart service or local storage as needed
+    this.product.quantity += 1;
+    this.cartService.updateQuantity(this.product.id, this.product.quantity).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   }
 
-  remove(product: any) {
-    // Remove the product from the cart
-    // Update the cart service or local storage as needed
+  remove() {
+    this.cartService.deleteItem(this.product.id).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
   }
 }

@@ -11,10 +11,10 @@
         <p class="card-text">Price: {{product.price}}</p>
         <p class="card-text">Size: {{product.size}}</p>
         <div class="d-flex align-items-center">
-          <button (click)="decreaseQuantity(product)" class="btn btn-secondary btn-sm">-</button>
+          <button (click)="decreaseQuantity()" class="btn btn-secondary btn-sm">-</button>
           <span class="mx-2">{{product.quantity}}</span>
-          <button (click)="increaseQuantity(product)" class="btn btn-secondary btn-sm">+</button>
-          <button (click)="remove(product)" class="btn btn-danger btn-sm ml-2">
+          <button (click)="increaseQuantity()" class="btn btn-secondary btn-sm">+</button>
+          <button (click)="remove()" class="btn btn-danger btn-sm ml-2">
             <i class="fa fa-trash"></i>
           </button>
         </div>

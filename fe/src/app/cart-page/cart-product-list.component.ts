@@ -20,4 +20,15 @@ export class CartProductListComponent implements OnInit {
   get totalPrice() {
     return this.cartService.totalPrice;
   }
+
+  clearCart() {
+    this.cartService.clearCart().subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
+  }
 }

@@ -29,8 +29,28 @@ export class CartService {
     );
   }
 
+  updateQuantity(itemId: number, quantity: number) {
+    console.log('Updating quantity:', itemId, quantity);
+    let body = { itemId: itemId, quantity: quantity };
+    return this.http.put<any>(`${environment.apiUrl}/cart/update-item`, body, this.httpOptions).pipe(
+      tap(() => this.getCartItems())
+    );
+  }
+
+  deleteItem(itemId: number) {
+    return this.http.delete<any>(`${environment.apiUrl}/cart/delete-item?itemId=${itemId}`, this.httpOptions).pipe(
+      tap(() => this.getCartItems())
+    );
+  }
+
+  clearCart() {
+    return this.http.delete<any>(`${environment.apiUrl}/cart/delete-cart`, this.httpOptions).pipe(
+      tap(() => this.getCartItems())
+    );
+  }
+
   getCartItems() {
-    this.http.get(`${environment.apiUrl}/cart/get-cart`, this.httpOptions).subscribe({
+    this.http.get<any>(`${environment.apiUrl}/cart/get-cart`, this.httpOptions).subscribe({
       next: (res: any) => {
         this.cartItemList = res.cartItems;
         this.totalPrice.next(res.totalPrice);
