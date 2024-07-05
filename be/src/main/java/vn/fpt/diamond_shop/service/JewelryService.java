@@ -37,27 +37,25 @@ public class JewelryService implements IJewelryService {
     public List<Jewelry> getJewelriesByFilter(List<EJewelryType> types, Double minPrice, Double maxPrice) {
         Stream<Jewelry> jewelryStream;
         if (types.isEmpty()) {
-            // If type list is empty, return all jewelries
-            return getAllJewelries();
+            // Initialize stream with all jewelries if type list is empty
+            jewelryStream = jewelryRepository.findAll().stream();
         } else {
-            // If type list is not empty, return jewelries that match the tags
+            // If type list is not empty, initialize stream with jewelries that match the types
             jewelryStream = types.stream()
                     .map(jewelryTypeRepository::findByType)
                     .flatMap(jewelryTag -> jewelryRepository.findAllByType(jewelryTag).stream())
                     .distinct(); // Remove duplicates based on Jewelry's equals() and hashCode() methods
         }
 
-        // Apply price filter if necessary
-        if (!(minPrice == 0 && maxPrice == 0)) {
-            jewelryStream = jewelryStream.filter(jewelry -> {
-                double price = jewelry.getPrice();
-                if (maxPrice == 0) {
-                    return price >= minPrice;
-                } else {
-                    return price >= minPrice && price <= maxPrice;
-                }
-            });
-        }
+        // Apply price filter to the stream
+        jewelryStream = jewelryStream.filter(jewelry -> {
+            double price = jewelry.getPrice();
+            if (maxPrice == 0) {
+                return price >= minPrice;
+            } else {
+                return price >= minPrice && price <= maxPrice;
+            }
+        });
 
         return jewelryStream.toList();
     }

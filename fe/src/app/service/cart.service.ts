@@ -22,8 +22,8 @@ export class CartService {
     this.getCartItems();
   }
 
-  addToCart(id: number) {
-    let body = { productId: id, quantity: 1 };
+  addToCart(id: number, quantity: number, sizeId: number) {
+    let body = { jewelryId: id, quantity: quantity, sizeId: sizeId };
     return this.http.post<any>(`${environment.apiUrl}/cart/add`, body, this.httpOptions).pipe(
       tap(() => this.getCartItems())
     );

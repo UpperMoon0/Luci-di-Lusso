@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -23,8 +25,12 @@ public class JewelrySize {
     private Float size;
 
     @ManyToOne
-    @JoinColumn(name = "type_id")
+    @JoinColumn(name = "type_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private JewelryType type;
+
+    @Column(name = "unit", length = 10, nullable = false)
+    private String unit;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;

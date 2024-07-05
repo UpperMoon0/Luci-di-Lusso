@@ -3,11 +3,8 @@ package vn.fpt.diamond_shop.model.dto;
 import lombok.*;
 import vn.fpt.diamond_shop.model.entity.CartItem;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
@@ -26,6 +23,7 @@ public class GetCartResponse extends CommonResponse {
                             cartItem.getId(),
                             cartItem.getJewelry().getName(),
                             cartItem.getJewelry().getImageUrl(),
+                            cartItem.getSize().getSize() + " " + cartItem.getSize().getUnit(),
                             cartItem.getJewelry().getPrice(),
                             cartItem.getQuantity(),
                             cartItem.getCreateAt().format(formatter)
@@ -39,26 +37,4 @@ public class GetCartResponse extends CommonResponse {
     }
 }
 
-@Getter
-class CartItemDTO {
-    private final Long id;
-    private final String name;
-    private final String imageUrl;
-    private final Double price;
-    private final Integer quantity;
-    private final String createAt;
-
-    public CartItemDTO(Long id,
-                       String name,
-                       String imageUrl,
-                       Double price,
-                       Integer quantity,
-                       String createAt) {
-        this.id = id;
-        this.name = name;
-        this.imageUrl = imageUrl;
-        this.price = price;
-        this.quantity = quantity;
-        this.createAt = createAt;
-    }
-}
+record CartItemDTO(Long id, String name, String imageUrl, String size, Double price, Integer quantity, String createAt) {}

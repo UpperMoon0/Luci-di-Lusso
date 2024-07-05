@@ -34,11 +34,11 @@ public class JewelryResponse extends CommonResponse {
         this.diamondShape = jewelry.getDiamond().getShape().getShape().getValue();
         List<SizeDTO> list = new ArrayList<>();
         for (JewelrySize size : sizes) {
-            SizeDTO sizeDTO = new SizeDTO(size.getSizeIndex(), size.getSize());
+            SizeDTO sizeDTO = new SizeDTO(size.getId(), size.getSize(), size.getUnit());
             list.add(sizeDTO);
         }
         this.sizes = list;
     }
 }
 
-record SizeDTO(Integer index, Float size) {}
+record SizeDTO(Long id, Float size, String unit) {}

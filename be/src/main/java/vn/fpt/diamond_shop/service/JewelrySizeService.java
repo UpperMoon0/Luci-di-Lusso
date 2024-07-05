@@ -5,21 +5,26 @@ import org.springframework.stereotype.Service;
 import vn.fpt.diamond_shop.model.entity.JewelrySize;
 import vn.fpt.diamond_shop.model.entity.JewelryType;
 import vn.fpt.diamond_shop.repository.IJewelrySizeRepository;
-import vn.fpt.diamond_shop.repository.IJewelryTypeRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class SizeService implements IJewelrySizeService {
+public class JewelrySizeService implements IJewelrySizeService {
     private final IJewelrySizeRepository jewelrySizeService;
 
     @Autowired
-    public SizeService(IJewelrySizeRepository jewelrySizeService) {
+    public JewelrySizeService(IJewelrySizeRepository jewelrySizeService) {
         this.jewelrySizeService = jewelrySizeService;
     }
 
     @Override
     public List<JewelrySize> getJewelrySizesByJewelryType(JewelryType type) {
         return jewelrySizeService.findAllByType(type);
+    }
+
+    @Override
+    public Optional<JewelrySize> getDefaultSizeByJewelryType(JewelryType type) {
+        return jewelrySizeService.findFirstByType(type);
     }
 }

@@ -2,7 +2,7 @@
   <div class="additional-info border border-dark">
     <div class="row">
       <div class="col-md-6">
-        <img ngSrc="{{product.imageUrl}}" class="img-fluid" alt="Product Image" width="500" height="500">
+        <img src="{{product.imageUrl}}" class="img-fluid" alt="Product Image">
       </div>
       <div class="col-md-6">
         <div class="product-info">
@@ -10,12 +10,26 @@
           <h3 class="price">${{product.price}}</h3>
           <p class="description">{{product.description}}</p>
           <p class="type">Type: {{product.type}}</p>
+          <div class="dropdown d-flex align-items-center">
+            <span class="mr-2">Size:</span>
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{selectedSize}}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" *ngFor="let size of product.sizes" (click)="selectSize(size)">{{size.size}} {{size.unit}}</a>
+            </div>
+          </div>
           <h3>Diamond properties</h3>
           <p>Shape: {{product.diamondShape}}</p>
           <p>Cut: {{product.diamondCut}}</p>
           <p>Color: {{product.diamondColor}}</p>
           <p>Clarity: {{product.diamondClarity}}</p>
-          <button *ngIf="isLoggedIn" class="btn btn-primary" (click)="addToCart(product)">Add to Cart</button>
+          <button *ngIf="isLoggedIn" class="btn btn-primary" (click)="addToCart()">Add to Cart</button>
+          <div class="quantity-selector d-flex align-items-center">
+            <button class="btn btn-secondary" (click)="decrementQuantity()">-</button>
+            <input type="number" class="form-control text-center" [(ngModel)]="selectedQuantity" min="1">
+            <button class="btn btn-secondary" (click)="incrementQuantity()">+</button>
+          </div>
         </div>
       </div>
     </div>

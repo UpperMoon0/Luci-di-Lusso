@@ -10,8 +10,10 @@ import vn.fpt.diamond_shop.model.dto.GetCartResponse;
 import vn.fpt.diamond_shop.model.entity.CartItem;
 import vn.fpt.diamond_shop.service.ICartService;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/cart")
@@ -25,16 +27,19 @@ public class CartController {
 
     @PostMapping("/add")
     public ResponseEntity<CommonResponse> add(@RequestHeader("Authorization") String authorizationHeader,
-                                              @RequestBody AddToCartRequest request) {
+                                              @Valid @RequestBody AddToCartRequest request) {
         CommonResponse cr = new CommonResponse();
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             String token = authorizationHeader.substring(7);
+            Long jewelryId = request.getJewelryId();
+            Integer quantity = request.getQuantity();
+            Long sizeId = request.getSizeId();
 
             try {
-                cartService.addToCart(token, request);
+                cartService.addToCart(token, jewelryId, quantity, sizeId);
                 cr.setMessage("Added to cart successfully");
                 return ResponseEntity.ok(cr);
-            } catch (RuntimeException e) {
+            } catch (NoSuchElementException e) {
                 cr.setMessage(e.getMessage());
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(cr);
             }
@@ -49,10 +54,18 @@ public class CartController {
             String token = authorizationHeader.substring(7);
 
             // Use the updated getCartByUserId method
-            List<CartItem> cartItems = cartService.getCartByUserId(token);
-            GetCartResponse response = new GetCartResponse(cartItems);
-            response.setMessage("Cart retrieved successfully");
-            return ResponseEntity.ok(response);
+            try {
+                List<CartItem> cartItems = cartService.getCartByUserId(token);
+                GetCartResponse response = new GetCartResponse(cartItems);
+                response.setMessage("Cart retrieved successfully");
+                return ResponseEntity.ok(response);
+            } catch (NoSuchElementException e) {
+                GetCartResponse response = new GetCartResponse(new ArrayList<>());
+                response.setMessage("No user found with the given token");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            } catch (RuntimeException e) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GetCartResponse(new ArrayList<>()));
+            }
         } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GetCartResponse(new ArrayList<>()));
         }

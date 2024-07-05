@@ -6,10 +6,11 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./cart-product-card.component.css']
 })
 export class CartProductCardComponent {
-  @Input() product: { imageUrl: string; name: string; price: number; quantity: number; createAt: string; } = {
+  @Input() product: { imageUrl: string; name: string; size: string, price: number, quantity: number; createAt: string; } = {
     imageUrl: '',
     name: '',
     price: 0,
+    size: '',
     quantity: 0,
     createAt: ''
   };
