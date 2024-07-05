@@ -1,0 +1,8 @@
+<div class="container mt-for-header">
+  <div *ngIf="products.length > 0; else emptyCart">
+    <app-cart-product-card *ngFor="let product of products" [product]="product"></app-cart-product-card>
+  </div>
+  <ng-template #emptyCart>
+    <p>Cart is empty</p>
+  </ng-template>
+</div>

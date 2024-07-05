@@ -1,0 +1,20 @@
+.card {
+  display: flex;
+  flex-direction: row;
+  width: 36rem;
+}
+
+.image-container {
+  flex: 0 0 300px;
+}
+
+.card-img-top {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.details-container {
+  flex: 1;
+  padding: 1rem;
+}

@@ -1,0 +1,25 @@
+.card-body .product-name,
+.card-body .product-price,
+.card-footer .add-to-cart-btn {
+  font-size: 1.25rem;
+}
+
+.card-body, .card-footer, card-title {
+  text-align: center;
+}
+
+.product-name, .product-price {
+  margin: 0.5rem 0;
+}
+
+.product-name {
+  display: block;
+  text-align: center;
+  margin: 0.5rem auto;
+  font-size: 1.25rem;
+}
+
+.card img {
+  height: auto;
+  width: auto;
+}

@@ -1,0 +1,20 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    url: ${DIAMOND_DB_URL};database=LucidiLusso;user=${DIAMOND_DB_USER};password=${DIAMOND_DB_PASSWORD};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLServer2012Dialect
+        id:
+          new_generator_mappings: false
+app:
+  jwt:
+    secret: 92991697411b171dabd791e0bcffcba1813c45d4ff89ea25578126918fe3601638563eceea5a9e2694ba74e4fd5132a31a0b629b8c33eefe12c0d1da62facbdca2583a3546b4e11d4eb9ca4c8ace9c9d05a196dfb64bdda43722ea2e23b0e0569476f607176939ef441a9d99138e9d04792333d37b1091c90e7248834a5446e3ba904020a5c625e4a3e51490aeafbb973de8cad9c53ae0430abbf45925d2334131e0b0c39ab9898b90b0a3e4183051f60179fcf78358c26cec7d79d3cefebbd8b2b2a5dc6fd44c44511d82f78db72775565880b9e397112d6f38f6582b6a59ef14dc08281a829fc1948ea51d3a90f2081f0f4cc2721d3ed0bce44b3b35dbfbb2
+    expiration: 3600000

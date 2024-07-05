@@ -1,0 +1,18 @@
+<div class="form-wrapper login-form p-2">
+  <form [formGroup]="form" (ngSubmit)="onLogin()">
+    <div class="form-group d-flex flex-column align-items-center">
+      <div class="field d-flex flex-column align-items-start w-50">
+        <label class="mb-1">Username:</label>
+        <input type="text" class="form-control" formControlName="principal" required />
+      </div>
+      <div class="field d-flex flex-column align-items-start w-50">
+        <label class="mb-1">Password:</label>
+        <input type="password" class="form-control" formControlName="credentials" required />
+      </div>
+      <div class="field d-flex align-items-center w-50">
+        <a class="mr-auto" routerLink="/register">Don't have an account yet?</a>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </div>
+    </div>
+  </form>
+</div>
