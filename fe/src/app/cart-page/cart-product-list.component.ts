@@ -13,8 +13,11 @@ export class CartProductListComponent implements OnInit {
     this.cartService.getCartItems();
   }
 
-  // Helper getter to simplify template access
   get products() {
     return this.cartService.cartItemList;
+  }
+
+  get totalPrice() {
+    return this.cartService.totalPrice;
   }
 }

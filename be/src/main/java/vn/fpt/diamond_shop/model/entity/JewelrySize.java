@@ -22,6 +22,10 @@ public class JewelrySize {
     @Column(name = "size")
     private Float size;
 
+    @ManyToOne
+    @JoinColumn(name = "type_id")
+    private JewelryType type;
+
     @Column(name = "create_at")
     private LocalDateTime createAt;
 }

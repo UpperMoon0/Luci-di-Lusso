@@ -1,20 +1,35 @@
 .card {
   display: flex;
   flex-direction: row;
-  width: 36rem;
+  min-width: 36rem;
 }
 
 .image-container {
-  flex: 0 0 300px;
+  position: relative;
+  height: 200px;
+  width: 200px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0; /* Prevents the image container from shrinking */
 }
 
-.card-img-top {
-  width: 300px;
-  height: 300px;
-  object-fit: cover;
+.d-flex.align-items-center {
+  flex-wrap: nowrap;
+  gap: 0.5rem;
 }
 
-.details-container {
-  flex: 1;
-  padding: 1rem;
+.btn {
+  flex-shrink: 0;
+}
+
+.remove-btn {
+  /* Add your styles for the remove button here */
+  cursor: pointer; /* Suggests an action can be taken */
+  background-color: #dc3545; /* Bootstrap danger color for consistency */
+  color: white; /* Text color for better readability */
+  border: none; /* Removes the default border */
+  padding: 0.25rem 0.5rem; /* Adjust padding */
+  border-radius: 0.25rem; /* Rounded corners */
 }

@@ -15,10 +15,11 @@ import java.util.List;
 @ToString
 public class GetCartResponse extends CommonResponse {
     private final List<CartItemDTO> cartItems;
+    private final Double totalPrice;
 
     public GetCartResponse(List<CartItem> cartItems) {
         this.cartItems = new ArrayList<>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
         for (CartItem cartItem : cartItems) {
             this.cartItems.add(
                     new CartItemDTO(
@@ -31,6 +32,10 @@ public class GetCartResponse extends CommonResponse {
                     )
             );
         }
+
+        totalPrice = cartItems.stream()
+                .mapToDouble(cartItem -> cartItem.getJewelry().getPrice() * cartItem.getQuantity())
+                .sum();
     }
 }
 

@@ -1,8 +1,12 @@
 <div class="container mt-for-header">
   <div *ngIf="products.length > 0; else emptyCart">
     <app-cart-product-card *ngFor="let product of products" [product]="product"></app-cart-product-card>
+    <p>Total Price: {{ totalPrice | async }}</p>
+    <!-- Proceed to Checkout Button with Bootstrap classes -->
+    <button type="button" class="btn btn-primary">Proceed to Checkout</button>
   </div>
   <ng-template #emptyCart>
     <p>Cart is empty</p>
+    <p>Total Price: 0</p>
   </ng-template>
 </div>

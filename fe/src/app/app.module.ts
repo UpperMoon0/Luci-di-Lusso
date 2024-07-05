@@ -49,7 +49,7 @@ import { OrderSummeryComponent } from './modules/pages/order-summery/order-summe
 import { PrivacyPolicyComponent } from './modules/pages/privacy-policy/privacy-policy.component';
 import { WishListComponent } from './modules/pages/wish-list/wish-list.component';
 import { HeaderComponent } from './header/header.component';
-import { MyFooterComponent } from './footer/my-footer.component';
+import { FooterComponent } from './footer/footer.component';
 import {ResetPasswordComponent} from "./modules/pages/reset-password/reset-password.component";
 import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-password.component';
 
@@ -101,7 +101,7 @@ import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-
     OrderSummeryComponent,
     PrivacyPolicyComponent,
     WishListComponent,
-    MyFooterComponent,
+    FooterComponent,
     ForgetPasswordComponent
   ],
   imports: [

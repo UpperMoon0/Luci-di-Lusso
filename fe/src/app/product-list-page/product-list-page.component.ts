@@ -38,7 +38,7 @@ export class ProductListPageComponent {
   }
 
   private getAllTags(): void {
-    this.productService.getAllTags().subscribe({
+    this.productService.getAllTypes().subscribe({
       next: (res: string[]) => {
         this.tagsList = res;
       },
@@ -116,7 +116,7 @@ export class ProductListPageComponent {
       }
       this.selectedTags[i].toUpperCase();
     }
-    let tags: String[] = this.selectedTags;
+    let types: String[] = this.selectedTags;
     let minPrice: number = 0;
     let maxPrice: number = 0;
     switch (this.selectedRangePrice) {
@@ -145,7 +145,7 @@ export class ProductListPageComponent {
         maxPrice = 0;
     }
     const request = {
-      tags : tags,
+      types : types,
       minPrice : minPrice,
       maxPrice : maxPrice
     } as any;

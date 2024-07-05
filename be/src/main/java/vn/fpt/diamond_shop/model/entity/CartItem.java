@@ -19,9 +19,14 @@ public class CartItem {
     private Integer quantity;
 
     @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
+    @JoinColumn(name = "jewelry_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Jewelry jewelry;
+
+    @ManyToOne
+    @JoinColumn(name = "size_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private JewelrySize size;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

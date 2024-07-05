@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @Entity
@@ -29,7 +28,7 @@ public class Jewelry {
 
     @ManyToOne
     @JoinColumn(name = "type_id")
-    private JewelryType jewelryType;
+    private JewelryType type;
 
     @Column(name = "image_url")
     private String imageUrl;
