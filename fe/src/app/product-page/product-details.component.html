@@ -1,16 +1,15 @@
 <div class="container product-details">
-  <div class="additional-info border border-dark">
+  <div class="additional-info border rounded shadow p-4">
     <div class="row">
       <div class="col-md-6">
-        <img src="{{product.imageUrl}}" class="img-fluid" alt="Product Image">
+        <img src="{{product.imageUrl}}" class="img-fluid rounded" alt="Product Image">
       </div>
       <div class="col-md-6">
         <div class="product-info">
-          <h2>{{product.name}}</h2>
-          <h3 class="price">${{product.price}}</h3>
-          <p class="description">{{product.description}}</p>
+          <h2 class="product-name">{{product.name}}</h2>
+          <h3 class="price text-dark">${{product.price}}</h3>
           <p class="type">Type: {{product.type}}</p>
-          <div class="dropdown d-flex align-items-center">
+          <div class="dropdown d-flex align-items-center my-3">
             <span class="mr-2">Size:</span>
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               {{selectedSize}}
@@ -19,17 +18,32 @@
               <a class="dropdown-item" *ngFor="let size of product.sizes" (click)="selectSize(size)">{{size.size}} {{size.unit}}</a>
             </div>
           </div>
-          <h3>Diamond properties</h3>
-          <p>Shape: {{product.diamondShape}}</p>
-          <p>Cut: {{product.diamondCut}}</p>
-          <p>Color: {{product.diamondColor}}</p>
-          <p>Clarity: {{product.diamondClarity}}</p>
-          <button *ngIf="isLoggedIn" class="btn btn-primary" (click)="addToCart()">Add to Cart</button>
           <div class="quantity-selector d-flex align-items-center">
             <button class="btn btn-secondary" (click)="decrementQuantity()">-</button>
-            <input type="number" class="form-control text-center" [(ngModel)]="selectedQuantity" min="1">
+            <input type="number" class="form-control text-center mx-2" [(ngModel)]="selectedQuantity" min="1">
             <button class="btn btn-secondary" (click)="incrementQuantity()">+</button>
           </div>
+          <ul class="nav nav-tabs my-3" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link" [class.active]="activeTab === 'description'" (click)="changeTab('description')" id="description-tab" role="tab" aria-controls="description" aria-selected="true">Description</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [class.active]="activeTab === 'diamond-properties'" (click)="changeTab('diamond-properties')" id="diamond-properties-tab" role="tab" aria-controls="diamond-properties" aria-selected="false">Diamond Properties</a>
+            </li>
+          </ul>
+          <div>
+            <div *ngIf="activeTab === 'description'">
+              <p>{{product.description}}</p>
+            </div>
+            <div *ngIf="activeTab === 'diamond-properties'">
+              <p>Carat: {{product.diamondCarat}}</p>
+              <p>Color: {{product.diamondColor}}</p>
+              <p>Clarity: {{product.diamondClarity}}</p>
+              <p>Cut: {{product.diamondCut}}</p>
+              <p>Shape: {{product.diamondShape}}</p>
+            </div>
+          </div>
+          <button *ngIf="isLoggedIn" class="btn btn-primary my-3" (click)="addToCart()">Add to Cart</button>
         </div>
       </div>
     </div>

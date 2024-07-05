@@ -10,6 +10,7 @@ import { tap } from "rxjs/operators";
 export class CartService {
   public cartItemList: any[] = [];
   public totalPrice: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  public totalItems: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   private httpOptions: any;
 
   constructor(private http: HttpClient) {
@@ -54,6 +55,7 @@ export class CartService {
       next: (res: any) => {
         this.cartItemList = res.cartItems;
         this.totalPrice.next(res.totalPrice);
+        this.totalItems.next(res.totalItems);
       },
       error: (error) => {
         console.error('Error getting cart items:', error);

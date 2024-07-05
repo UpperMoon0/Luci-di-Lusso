@@ -10,6 +10,7 @@ import { Subscription } from "rxjs";
 export class HeaderComponent implements OnInit, OnDestroy {
   isLoggedIn: boolean = false;
   totalCartPrice: number = 0;
+  totalItems: number = 0;
   private totalPriceSubscription: Subscription;
 
   constructor(private accountService: AccountService,
@@ -21,9 +22,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.isLoggedIn = value;
     });
 
-    // Subscribe to totalPrice from CartService
-    this.totalPriceSubscription = this.cartService.totalPrice.subscribe(newTotalPrice => {
+    this.cartService.totalPrice.subscribe(newTotalPrice => {
       this.totalCartPrice = newTotalPrice;
+    });
+
+    this.cartService.totalItems.subscribe(newTotalItems => {
+      this.totalItems = newTotalItems;
     });
   }
 

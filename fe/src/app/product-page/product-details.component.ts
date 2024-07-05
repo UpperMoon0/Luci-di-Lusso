@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductService} from "../service/product.service";
-import {AccountService} from "../service/account.service";
-import {ActivatedRoute} from "@angular/router";
-import {CartService} from "../service/cart.service";
+import { ProductService } from "../service/product.service";
+import { AccountService } from "../service/account.service";
+import { ActivatedRoute } from "@angular/router";
+import { CartService } from "../service/cart.service";
 
 interface ProductDetailsDTO {
   id: number;
@@ -11,6 +11,7 @@ interface ProductDetailsDTO {
   description: string;
   imageUrl: string;
   type: string;
+  diamondCarat: number
   diamondShape: string;
   diamondCut: string;
   diamondColor: string;
@@ -29,6 +30,7 @@ export class ProductDetailsComponent implements OnInit {
   selectedSize: string;
   selectedSizeId: number;
   selectedQuantity: number = 1;
+  activeTab: string = 'description';
 
   constructor(
     private productService: ProductService,
@@ -86,5 +88,9 @@ export class ProductDetailsComponent implements OnInit {
     if (this.selectedQuantity > 1) {
       this.selectedQuantity--;
     }
+  }
+
+  changeTab(tabName: string): void {
+    this.activeTab = tabName;
   }
 }

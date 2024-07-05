@@ -13,6 +13,7 @@ import java.util.List;
 public class GetCartResponse extends CommonResponse {
     private final List<CartItemDTO> cartItems;
     private final Double totalPrice;
+    private final Integer totalItems;
 
     public GetCartResponse(List<CartItem> cartItems) {
         this.cartItems = new ArrayList<>();
@@ -33,6 +34,10 @@ public class GetCartResponse extends CommonResponse {
 
         totalPrice = cartItems.stream()
                 .mapToDouble(cartItem -> cartItem.getJewelry().getPrice() * cartItem.getQuantity())
+                .sum();
+
+        totalItems = cartItems.stream()
+                .mapToInt(CartItem::getQuantity)
                 .sum();
     }
 }

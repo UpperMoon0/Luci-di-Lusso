@@ -15,6 +15,7 @@ public class JewelryResponse extends CommonResponse {
     private final String imageUrl;
     private final Double price;
     private final String type;
+    private final Float diamondCarat;
     private final String diamondCut;
     private final String diamondClarity;
     private final String diamondColor;
@@ -28,6 +29,7 @@ public class JewelryResponse extends CommonResponse {
         this.imageUrl = jewelry.getImageUrl();
         this.price = jewelry.getPrice();
         this.type = jewelry.getType().getType().getValue();
+        this.diamondCarat = jewelry.getDiamond().getCarat();
         this.diamondCut = jewelry.getDiamond().getCut().getCut().getValue();
         this.diamondClarity = jewelry.getDiamond().getClarity().getClarity().name();
         this.diamondColor = jewelry.getDiamond().getColor().getColor().name();
