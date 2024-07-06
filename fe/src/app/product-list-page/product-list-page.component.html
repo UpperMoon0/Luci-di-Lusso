@@ -69,55 +69,33 @@
             </div>
             <div class="product-widget product-cat-widget">
               <div class="pro-itm has-children">
-                <a href="javascript:;" class="acnav-label">
-                  products
+                <a href="javascript:" class="acnav-label">
+                  jewelry types
                 </a>
-                <ul class="pro-itm-inner acnav-list">
-                  <li class="filter-listing">
-                    <ul>
-                      <li class="has-children">
-                        <a href="javascript:;" class="acnav-label">category</a>
-                        <ul class="acnav-list">
-                          <div *ngFor="let tag of tagsList">
-                            <label class="check-label">
-                              <span class="custom-checkbox">
-                                <span id="{{tag}}" style="cursor: pointer;
-                                                          font-weight: normal;
-                                                          padding: 5px 10px;
-                                                          margin-top: 5px;
-                                                          margin-bottom: 5px;
-                                                          border-radius: 5px;"
-                                      (click)="getSelectedTags(tag);">{{ tag }}</span>
-                              </span>
-                            </label>
-                          </div>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
+                <div class="pro-itm-inner acnav-list">
+                  <div *ngFor="let tag of typeLists">
+                    <label class="check-label">
+                      <span class="custom-checkbox">
+                        <span id="{{tag}}" class="filter-button" (click)="getSelectedTypes(tag);">{{ tag }}</span>
+                      </span>
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="product-widget product-price-widget">
               <div class="pro-itm has-children">
-                <a href="javascript:;" class="acnav-label">
+                <a href="javascript:" class="acnav-label">
                   price
                 </a>
                 <div class="pro-itm-inner acnav-list">
                   <div class="price-select d-flex">
                     <div class="select-col">
-                      <p>price:</p>
                       <div *ngFor="let price of priceRange">
                         <label class="check-label">
-                              <span class="custom-checkbox">
-                                <span id="{{price}}" style="cursor: pointer;
-                                                          font-weight: normal;
-                                                          padding: 5px 10px;
-                                                          margin-top: 5px;
-                                                          margin-bottom: 5px;
-                                                          border-radius: 5px;"
-                                      (click)="getSelectedPriceRange(price);">{{ price }}</span>
-                              </span>
+                          <span class="custom-checkbox">
+                            <span id="{{price}}" class="filter-button" (click)="getSelectedPriceRange(price);">{{ price }}</span>
+                          </span>
                         </label>
                       </div>
                     </div>
@@ -134,7 +112,7 @@
           <div class="row">
             <div *ngFor="let product of productsList">
               <div class="col-lg-4 col-md-6 col-sm-6 col-12 product-col">
-                <app-product-card [product]="product"></app-product-card>
+                <app-product-card [product]="product" [typeColors]="getTypeGradient(product.type)"></app-product-card>
               </div>
             </div>
           </div>
@@ -191,15 +169,8 @@
     </div>
   </section>
 </div>
-<!---wrapper end here-->
-<!--footer start here-->
-<app-my-footer></app-my-footer>
-<!--footer end here-->
+<app-footer></app-footer>
 <div class="overlay"></div>
-<!--cart popup start here-->
-<app-my-mini-cart></app-my-mini-cart>
-<!--cart popup ends here-->
-<!--scripts start here-->
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/slick.min.js" defer="defer"></script>
 <script src="assets/js/custom.js" defer="defer"></script>

@@ -6,9 +6,7 @@ import vn.fpt.diamond_shop.constant.EDiamondShape;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@ToString
+@Data
 @Entity
 @Table(name = "diamond_shape")
 public class DiamondShape {

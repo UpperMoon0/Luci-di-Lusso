@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 
 @Configuration
 public class StartupConfig {
+    private final boolean generateData = false;
     @Bean
     public CommandLineRunner initTables(IDiamondCutRepository cutRepository,
                                         IDiamondColorRepository polishRepository,
@@ -18,7 +19,10 @@ public class StartupConfig {
                                         IDiamondClarityRepository clarityRepository,
                                         IJewelryTypeRepository jewelryTagRepository) {
         return args -> {
-            /*
+            if (!generateData) {
+                return;
+            }
+
             for (EDiamondCut cutValue : EDiamondCut.values()) {
                 DiamondCut cut = cutRepository.findByCut(cutValue);
                 if (cut == null) {
@@ -68,7 +72,6 @@ public class StartupConfig {
                     jewelryTagRepository.save(jewelryType);
                 }
             }
-            */
         };
     }
 }

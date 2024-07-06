@@ -33,6 +33,7 @@ export class AccountService {
   logout(): void {
     this.isLoggedIn.next(false);
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('userId');
     this.router.navigate(['/home-page']).then(r => {});
   }
 

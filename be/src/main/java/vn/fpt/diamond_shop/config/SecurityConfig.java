@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import vn.fpt.diamond_shop.security.JwtAuthenticationFilter;
 import vn.fpt.diamond_shop.security.JwtTokenProvider;
-import vn.fpt.diamond_shop.security.UserDetailsServiceImpl;
+import vn.fpt.diamond_shop.service.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/product/get-all-tags")
                 .permitAll()
             .anyRequest()
-                .authenticated()
+                .permitAll()
             .and()
             .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }

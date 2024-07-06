@@ -4,7 +4,11 @@ import {RegisterPageComponent} from "./register-page/register-page.component";
 
 import {LoginPageComponent} from "./login-page/login-page.component";
 
+import {ProductListPageComponent} from "./product-list-page/product-list-page.component";
+
 import {ProductPageComponent} from "./product-page/product-page.component";
+
+import {CartPageComponent} from "./cart-page/cart-page.component";
 
 import {RouterModule, Routes} from '@angular/router';
 import {DefaultLayoutComponent} from './core/default-layout';
@@ -13,14 +17,13 @@ import {HomeComponent} from "./modules/home/home.component";
 import {IntroductionComponent} from "./modules/default-page/introduction/introduction.component";
 import {PriceDimondTableComponent} from "./modules/default-page/price-dimond-table/price-dimond-table.component";
 import {MeasureJewelrySizeComponent} from "./modules/default-page/measure-jewelry-size/measure-jewelry-size.component";
-import {AddProductComponent} from "./modules/add-product/add-product.component";
 import {UserProfileComponent} from "./modules/user-profile/user-profile.component";
 import {FileUploadComponent} from "./modules/file-upload/file-upload.component";
 import {HomePageComponent} from "./modules/pages/home-page/home-page.component";
 import {AboutComponent} from "./modules/pages/about/about.component";
 import {ArticleComponent} from "./modules/pages/article/article.component";
 import {BlogComponent} from "./modules/pages/blog/blog.component";
-import {CartComponent} from "./modules/pages/cart/cart.component";
+
 import {CheckoutComponent} from "./modules/pages/checkout/checkout.component";
 import {ContactUsComponent} from "./modules/pages/contact-us/contact-us.component";
 import {FaqsComponent} from "./modules/pages/faqs/faqs.component";
@@ -28,7 +31,7 @@ import {FaqsComponent} from "./modules/pages/faqs/faqs.component";
 import {MyAccountComponent} from "./modules/pages/my-account/my-account.component";
 import {OrderSummeryComponent} from "./modules/pages/order-summery/order-summery.component";
 import {PrivacyPolicyComponent} from "./modules/pages/privacy-policy/privacy-policy.component";
-import {ProductListPageComponent} from "./product-list-page/product-list-page.component";
+
 
 import {WishListComponent} from "./modules/pages/wish-list/wish-list.component";
 import {ResetPasswordComponent} from "./modules/pages/reset-password/reset-password.component";
@@ -242,13 +245,6 @@ const routes: Routes = [
       title: 'Measure Jewelry Size Page'
     }
   },
-    {
-    path: 'add-product',
-    component: AddProductComponent,
-    data: {
-      title: 'Add Product Page'
-    }
-  },
   {
     path: 'user-profile',
     component: UserProfileComponent,
@@ -293,9 +289,9 @@ const routes: Routes = [
   },
   {
     path: 'cart',
-    component: CartComponent,
+    component: CartPageComponent,
     data: {
-      title: 'Cart Page'
+      title: 'Shopping cart'
     }
   },
   {

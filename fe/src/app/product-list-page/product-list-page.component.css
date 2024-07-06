@@ -1,0 +1,15 @@
+.filter-button {
+  cursor: pointer;
+  font-weight: normal;
+  padding: 5px 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.filter-button.selected {
+  font-weight: bold;
+  background-color: #173334FF;
+  color: white;
+}

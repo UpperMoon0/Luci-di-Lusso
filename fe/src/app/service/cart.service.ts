@@ -1,78 +1,65 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {environment} from "../../environments/environment";
-import {ActivatedRoute, Router} from "@angular/router";
+import { BehaviorSubject } from 'rxjs';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { environment } from "../../environments/environment";
+import { tap } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
+  public cartItemList: any[] = [];
+  public totalPrice: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  public totalItems: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  private httpOptions: any;
 
-  public cartItemList : any =[]
-  public productList = new BehaviorSubject<any>([]);
-  public search = new BehaviorSubject<string>("");
-  httpOptions: any;
-
-  constructor(private router: Router,
-              private route: ActivatedRoute,
-              private http: HttpClient,) {
+  constructor(private http: HttpClient) {
     this.httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${JSON.parse(localStorage.getItem('user')!)?.accessToken}`,
+        "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
       }),
-      "Access-Control-Allow-Origin": `${environment.apiUrl}`,
-      "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-
     };
-  }
-  getProducts(){
-    return this.productList.asObservable();
+    this.getCartItems();
   }
 
-  setProduct(product : any){
-    this.cartItemList.push(...product);
-    this.productList.next(product);
+  addToCart(id: number, quantity: number, sizeId: number) {
+    let body = { jewelryId: id, quantity: quantity, sizeId: sizeId };
+    return this.http.post<any>(`${environment.apiUrl}/cart/add`, body, this.httpOptions).pipe(
+      tap(() => this.getCartItems())
+    );
   }
-  addToCart(product : any){
-    product.quantity = 1
-    console.log(product.quantity)
-    this.cartItemList.push(product);
-    this.productList.next(this.cartItemList);
-    this.getTotalPrice();
-    console.log(this.cartItemList)
+
+  updateQuantity(itemId: number, quantity: number) {
+    console.log('Updating quantity:', itemId, quantity);
+    let body = { itemId: itemId, quantity: quantity };
+    return this.http.put<any>(`${environment.apiUrl}/cart/update-item`, body, this.httpOptions).pipe(
+      tap(() => this.getCartItems())
+    );
   }
-  getInforCart(): String{
-    let info = "";
-    this.cartItemList.map((a:any)=>{
-      info += '%'+a.name +'-'+a.quantity+'-'+a.price+'%';
-    })
-    return info
+
+  deleteItem(itemId: number) {
+    return this.http.delete<any>(`${environment.apiUrl}/cart/delete-item?itemId=${itemId}`, this.httpOptions).pipe(
+      tap(() => this.getCartItems())
+    );
   }
-  getTotalPrice() : number{
-    let grandTotal = 0;
-    this.cartItemList.map((a:any)=>{
-      grandTotal += a.price*a.quantity;
-    })
-    return grandTotal;
+
+  clearCart() {
+    return this.http.delete<any>(`${environment.apiUrl}/cart/delete-cart`, this.httpOptions).pipe(
+      tap(() => this.getCartItems())
+    );
   }
-  removeCartItem(product: any){
-    this.cartItemList.map((a:any, index:any)=>{
-      if(product.id=== a.id){
-        this.cartItemList.splice(index,1);
+
+  getCartItems() {
+    this.http.get<any>(`${environment.apiUrl}/cart/get-cart`, this.httpOptions).subscribe({
+      next: (res: any) => {
+        this.cartItemList = res.cartItems;
+        this.totalPrice.next(res.totalPrice);
+        this.totalItems.next(res.totalItems);
+      },
+      error: (error) => {
+        console.error('Error getting cart items:', error);
       }
-    })
-    this.productList.next(this.cartItemList);
-  }
-  removeAllCart(){
-    this.cartItemList = []
-    this.productList.next(this.cartItemList);
-  }
-  addToCard(request:any): Observable<any>{
-    return this.http.post(`${environment.apiUrl}/cart/add_card`,request,this.httpOptions);
-  }
-  getProductInCart(request:any): Observable<any>{
-    return this.http.post<any[]>(`${environment.apiUrl}/cart/list`,request,this.httpOptions);
+    });
   }
 }

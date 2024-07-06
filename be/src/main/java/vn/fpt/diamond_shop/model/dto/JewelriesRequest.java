@@ -5,14 +5,13 @@ import lombok.Setter;
 import lombok.ToString;
 import vn.fpt.diamond_shop.constant.EJewelryType;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
 @Setter
 @ToString
 public class JewelriesRequest {
-    List<EJewelryType> tags;
-    int minPrice;
-    int maxPrice;
+    List<EJewelryType> types;
+    Double minPrice;
+    Double maxPrice;
 }
