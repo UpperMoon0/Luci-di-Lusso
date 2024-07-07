@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CartService } from '../service/cart.service';
 
 @Component({
   selector: 'app-product-card',
@@ -7,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ProductCardComponent implements OnInit {
   @Input() product: any;
+  @Input() typeColors: string[];
 
   constructor() { }
 
@@ -17,7 +19,8 @@ export class ProductCardComponent implements OnInit {
     return `$${price.toFixed(2)}`;
   }
 
-  addToCart(product: any): void {
-    console.log('Adding to cart:', product);
+  // Function to get the gradient string for the product type
+  getTypeGradient(type: string): string {
+    return `linear-gradient(45deg, ${this.typeColors[0]}, ${this.typeColors[1]})`;
   }
 }

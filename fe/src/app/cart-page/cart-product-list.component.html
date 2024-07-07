@@ -1,0 +1,14 @@
+<div class="container mt-for-header">
+  <div *ngIf="products.length > 0; else emptyCart">
+    <app-cart-product-card *ngFor="let product of products" [product]="product"></app-cart-product-card>
+    <p>Total Price: {{ totalPrice | async }}</p>
+    <div class="button-group">
+      <button type="button" class="btn btn-danger ml-2" (click)="clearCart()">Clear Shopping Cart</button>
+      <button type="button" class="btn btn-primary" (click)="proceedToCheckout()">Proceed to Checkout</button>
+    </div>
+  </div>
+  <ng-template #emptyCart>
+    <p>Cart is empty</p>
+    <p>Total Price: 0</p>
+  </ng-template>
+</div>

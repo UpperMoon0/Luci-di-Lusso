@@ -11,11 +11,20 @@ import { RegisterFormComponent } from './register-page/register-form.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { LoginFormComponent } from './login-page/login-form.component';
 
-import { ProductCardComponent} from "./product-list-page/product-card.component";
+import { ProductCardComponent } from "./product-list-page/product-card.component";
 import { ProductListPageComponent } from './product-list-page/product-list-page.component';
 
 import { ProductDetailsComponent } from './product-page/product-details.component';
 import { ProductPageComponent } from './product-page/product-page.component';
+
+import { CartProductCardComponent } from "./cart-page/cart-product-card.component";
+import { CartProductListComponent } from "./cart-page/cart-product-list.component";
+import { CartPageComponent } from './cart-page/cart-page.component';
+
+import { PaymentFormComponent} from "./payment-page/payment-form.component";
+import { PaymentPageComponent } from './payment-page/payment-page.component';
+import { NgxStripeModule } from 'ngx-stripe';
+import { FormsModule } from '@angular/forms';
 
 import { DefaultLayoutModule } from './core/default-layout/default-layout.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
@@ -29,8 +38,7 @@ import { IntroductionComponent } from './modules/default-page/introduction/intro
 import { ToastrModule } from "ngx-toastr";
 import { PriceDimondTableComponent } from './modules/default-page/price-dimond-table/price-dimond-table.component';
 import { MeasureJewelrySizeComponent } from './modules/default-page/measure-jewelry-size/measure-jewelry-size.component';
-import { AddProductComponent } from './modules/add-product/add-product.component';
-import { CartComponent } from './modules/cart/cart.component';
+
 import { UserProfileComponent } from './modules/user-profile/user-profile.component';
 import {CommonModule, NgOptimizedImage} from "@angular/common";
 import { FileUploadComponent } from './modules/file-upload/file-upload.component';
@@ -46,10 +54,10 @@ import { OrderSummeryComponent } from './modules/pages/order-summery/order-summe
 import { PrivacyPolicyComponent } from './modules/pages/privacy-policy/privacy-policy.component';
 import { WishListComponent } from './modules/pages/wish-list/wish-list.component';
 import { HeaderComponent } from './header/header.component';
-import { MyFooterComponent } from './modules/pages/layout/my-footer/my-footer.component';
-import { MyMiniCartComponent } from './modules/pages/layout/my-mini-cart/my-mini-cart.component';
+import { FooterComponent } from './footer/footer.component';
 import {ResetPasswordComponent} from "./modules/pages/reset-password/reset-password.component";
 import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-password.component';
+import {StripeCardComponent} from "ngx-stripe";
 
 @NgModule({
   declarations: [
@@ -74,14 +82,22 @@ import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-
     ProductDetailsComponent,
     ProductPageComponent,
 
+    // Cart page
+    CartProductCardComponent,
+    CartProductListComponent,
+    CartPageComponent,
+
+    // Payment page
+    PaymentFormComponent,
+    PaymentPageComponent,
+
     //
     ResetPasswordComponent,
     HomeComponent,
     IntroductionComponent,
     PriceDimondTableComponent,
     MeasureJewelrySizeComponent,
-    AddProductComponent,
-    CartComponent,
+
     UserProfileComponent,
     FileUploadComponent,
     HomePageComponent,
@@ -95,8 +111,7 @@ import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-
     OrderSummeryComponent,
     PrivacyPolicyComponent,
     WishListComponent,
-    MyFooterComponent,
-    MyMiniCartComponent,
+    FooterComponent,
     ForgetPasswordComponent
   ],
   imports: [
@@ -116,9 +131,9 @@ import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-
       progressBar: true,
     }),
     NgOtpInputModule,
-    NgOptimizedImage
-
-
+    NgOptimizedImage,
+    NgxStripeModule.forRoot('pk_test_51PZaB3GvGs3G9mvhzYptSjAz1VvSJwDqt6ZVs1YTi0kU4cMSX5GH0Qms3rQaP5oLqKJgDk17gH9O8PYbEjAfkjbD00qqxTZ7nl'),
+    FormsModule,
   ],
   providers: [
     // FeatureGuard,

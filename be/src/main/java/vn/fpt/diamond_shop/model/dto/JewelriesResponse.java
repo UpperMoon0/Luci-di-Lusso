@@ -13,7 +13,7 @@ public class JewelriesResponse extends CommonResponse {
     private final List<JewelryDTO> jewelries = new ArrayList<>();
 
     public void addJewelry(Jewelry jewelry) {
-        jewelries.add(new JewelryDTO(jewelry.getId(), jewelry.getName(), jewelry.getImageUrl(), jewelry.getPrice(), jewelry.getJewelryType().getType().getValue()));
+        jewelries.add(new JewelryDTO(jewelry.getId(), jewelry.getName(), jewelry.getImageUrl(), jewelry.getPrice(), jewelry.getType().getType().getValue()));
     }
 }
 

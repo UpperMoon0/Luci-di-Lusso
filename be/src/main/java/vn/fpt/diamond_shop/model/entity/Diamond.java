@@ -5,18 +5,13 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@ToString
+@Data
 @Entity
 @Table(name = "diamond")
 public class Diamond {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column
-    private int carat;
 
     @Column
     private int quantity;
@@ -30,8 +25,11 @@ public class Diamond {
     private DiamondCut cut;
 
     @ManyToOne
-    @JoinColumn(name = "polish_id")
-    private DiamondPolish polish;
+    @JoinColumn(name = "color_id")
+    private DiamondColor color;
+
+    @Column(name = "carat")
+    private Float carat;
 
     @ManyToOne
     @JoinColumn(name = "shape_id")

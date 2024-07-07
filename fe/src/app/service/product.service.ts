@@ -8,32 +8,34 @@ import {environment} from "../../environments/environment";
 })
 export class ProductService {
   private apiUrl = environment.apiUrl;
-  httpOptions: any;
-  BASIC_JEWELRY_URL = "jewelry/";
+  private readonly httpOptions: { headers: HttpHeaders };
 
   constructor(private http: HttpClient) {
-    const token = localStorage.getItem('accessToken');
-
     this.httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        Authorization: `Bearer ` + token,
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       }),
     };
   }
 
   getJewelry(id: number): Observable<any> {
-    return this.http.get(this.apiUrl + '/product/get-jewelry?id=' + id);
+    return this.http.get(`${this.apiUrl}/product/get-jewelry?id=` + id);
   }
 
   public getJewelries(request: any): Observable<any>{
     // Get all jewelries by default
-    if (!request.tags && request.minPrice == 0 && request.maxPrice == 0) {
-      return this.http.get(this.apiUrl + '/product/get-all-jewelries');
+    if (!request.types) {
+      return this.http.get(`${this.apiUrl}/product/get-all-jewelries`);
     } else {
-      return this.http.post<any>(this.apiUrl + `/product/get-jewelries`, request);
+      return this.http.post<any>(`${this.apiUrl}/product/get-jewelries`, request);
     }
   }
+
+  public getAllTypes(): Observable<any> {
+    return this.http.get<any[]>(`${this.apiUrl}/product/get-all-jewelry-types`, this.httpOptions);
+  }
+
   public addProduct(Product : any): Observable<any>{
     return this.http.post<any>(`${this.apiUrl}/api/product/addProduct`,Product,this.httpOptions);
   }
@@ -45,8 +47,5 @@ export class ProductService {
   }
   public getTest(): Observable<any>{
     return this.http.get<Object>(`${this.apiUrl}/api/product/test`, this.httpOptions);
-  }
-  public getAllTags(): Observable<any> {
-    return this.http.get<any[]>(`${this.apiUrl}/product/get-all-tags`, this.httpOptions);
   }
 }

@@ -1,161 +1,116 @@
-import {Component} from '@angular/core';
-import {Router} from "@angular/router";
-import {ToastrService} from "ngx-toastr";
-import {ProductService} from "../service/product.service";
-import {CartService} from "../service/cart.service";
-import {NumberService} from "../modules/service/number.service";
+import { Component, OnInit } from '@angular/core';
+import { ToastrService } from "ngx-toastr";
+import { ProductService } from "../service/product.service";
+import { CartService } from "../service/cart.service";
+import { NumberService } from "../modules/service/number.service";
 
 @Component({
   selector: 'app-product-list-page-page',
-  templateUrl: './product-list-page.component.html'
+  templateUrl: './product-list-page.component.html',
+  styleUrls: ['./product-list-page.component.css']
 })
-export class ProductListPageComponent {
+export class ProductListPageComponent implements OnInit {
+  public typeLists: string[] = [];
+  public priceRange: string[] = ["$ 0 - 100", "$ 100 - 500", "$ 500 - 1000", "$ 1000 - 4000", "More than $ 4000"];
+  public typeColors: Map<string, [string, string]> = new Map();
 
+  isLoggedIn: boolean = false;
   selectedRangePrice: string = "";
   productsList: any[] = [];
-  selectedTags: string[] = [];
-  public tagsList: string[] = [];
-  isLoggedIn: boolean = false;
+  selectedTypes: string[] = [];
 
-  public priceRange: string[] = [
-    "$ 0 - 100",
-    "$ 100 - 500",
-    "$ 500 - 1000",
-    "$ 1000 - 4000",
-    "More than $ 4000"
-  ];
-
-  constructor(private productService: ProductService,
-              private toastrService: ToastrService,
-              private numberFormat: NumberService,
-              private cartService: CartService) {
-  }
+  constructor(private productService: ProductService, private toastrService: ToastrService, private numberFormat: NumberService, private cartService: CartService) {}
 
   ngOnInit(): void {
     this.isLoggedIn = localStorage.getItem("user") != null;
-    this.getAllTags();
+    this.getAllTypes();
     this.getProducts();
   }
 
-  private getAllTags(): void {
-    this.productService.getAllTags().subscribe({
+  private getAllTypes(): void {
+    this.productService.getAllTypes().subscribe({
       next: (res: string[]) => {
-        this.tagsList = res;
+        this.typeLists = res;
+        this.typeColors = mapTypesToColors(this.typeLists);
       },
-      error: (error) => {
-        this.toastrService.error(error.message);
-      },
-      complete: () => {
-        console.log('Completed fetching tags');
-      }
+      error: (error) => this.toastrService.error(error.message),
+      complete: () => console.log('Completed fetching tags')
     });
   }
 
-  //Get Products after selecting tags
-  public getSelectedTags(tag : string) {
-    if (this.selectedTags.includes(tag.toUpperCase())) {
-      for (let i = 0; i < this.selectedTags.length; i++) {
-        if (this.selectedTags[i] == tag.toUpperCase()) {
-          this.selectedTags.splice(i, 1);
-        }
-      }
-      const id = document.getElementById(tag);
-      id.style.fontWeight = "normal";
-      id.style.backgroundColor = "white";
-      id.style.color = "black";
-    } else {
-      this.selectedTags.push(tag.toUpperCase());
-      const id = document.getElementById(tag);
-      id.style.width = "100%";
-      id.style.fontWeight = "bold";
-      id.style.backgroundColor = "#173334FF";
-      id.style.color = "white";
-    }
+  public getSelectedTypes(tag: string): void {
+    const index = this.selectedTypes.indexOf(tag.toUpperCase());
+    const isSelected = index > -1;
+    this.toggleSelection(isSelected, tag, this.selectedTypes, index);
     this.getProducts();
   }
 
-  //Get Products after selecting price
-  public getSelectedPriceRange(price : string) {
-    if (this.selectedRangePrice.includes(price)) {
-      this.selectedRangePrice = "";
-      for (let i = 0; i < this.priceRange.length; i++) {
-        let temp = this.priceRange[i];
-        const id = document.getElementById(temp);
-        id.style.fontWeight = "normal";
-        id.style.backgroundColor = "white";
-        id.style.color = "black";
-      }
-    } else {
-      this.selectedRangePrice = price;
-      const id = document.getElementById(price);
-      id.style.width = "100%";
-      id.style.fontWeight = "bold";
-      id.style.backgroundColor = "#173334FF";
-      id.style.color = "white";
-      for (let i = 0; i < this.priceRange.length; i++) {
-        if (this.priceRange[i] != price) {
-          let temp = this.priceRange[i];
-          const id = document.getElementById(temp);
-          id.style.fontWeight = "normal";
-          id.style.backgroundColor = "white";
-          id.style.color = "black";
-        }
-      }
-    }
+  public getSelectedPriceRange(price: string): void {
+    const isSelected = this.selectedRangePrice === price;
+    this.toggleSelection(isSelected, price, this.priceRange);
     this.getProducts();
   }
 
-  convertNumber(number){
-    return this.numberFormat.convertNumber(number);
+  private toggleSelection(isSelected: boolean, value: string, array: string[], index?: number): void {
+    const element = document.getElementById(value);
+    if (isSelected) {
+      if (index !== undefined) array.splice(index, 1);
+      else this.selectedRangePrice = "";
+      element.style.cssText = "font-weight: normal; background-color: white; color: black;";
+    } else {
+      if (array === this.selectedTypes) array.push(value.toUpperCase());
+      else {
+        // Deselect the previously selected price range
+        if (this.selectedRangePrice) {
+          const prevElement = document.getElementById(this.selectedRangePrice);
+          if (prevElement) {
+            prevElement.style.cssText = "font-weight: normal; background-color: white; color: black;";
+          }
+        }
+        this.selectedRangePrice = value;
+        element.style.cssText = "width: 100%; font-weight: bold; background-color: #173334FF; color: white;";
+      }
+    }
   }
 
-  getProducts() {
-    for (let i = 0; i < this.selectedTags.length; i++) {
-      if (this.selectedTags[i].includes(" ")) {
-        this.selectedTags[i] = this.selectedTags[i].split(" ")[0] + "_" + this.selectedTags[i].split(" ")[1];
-      }
-      this.selectedTags[i].toUpperCase();
-    }
-    let tags: String[] = this.selectedTags;
-    let minPrice: number = 0;
-    let maxPrice: number = 0;
-    switch (this.selectedRangePrice) {
-      case "$ 0 - 100":
-        minPrice = 0;
-        maxPrice = 100;
-        break;
-      case "$ 100 - 500":
-        minPrice = 100;
-        maxPrice = 500;
-        break;
-      case "$ 500 - 1000":
-        minPrice = 500;
-        maxPrice = 1000;
-        break;
-      case "$ 1000 - 4000":
-        minPrice = 1000;
-        maxPrice = 4000;
-        break;
-      case "More than $ 4000":
-        minPrice = 4000;
-        maxPrice = 0;
-        break;
-      default:
-        minPrice = 0;
-        maxPrice = 0;
-    }
-    const request = {
-      tags : tags,
-      minPrice : minPrice,
-      maxPrice : maxPrice
-    } as any;
+  getProducts(): void {
+    const types = this.selectedTypes.map(tag => tag.includes(" ") ? tag.replace(" ", "_").toUpperCase() : tag.toUpperCase());
+    const { minPrice, maxPrice } = this.getPriceRange();
+    const request = { types, minPrice, maxPrice };
     this.productService.getJewelries(request).subscribe({
-      next: (res) => {
-        this.productsList = res.jewelries;
-      },
-      error: () => {
-        this.toastrService.error("Error in getting products list");
-      }
+      next: (res) => this.productsList = res.jewelries,
+      error: () => this.toastrService.error("Error in getting products list")
     });
+  }
+
+  private getPriceRange(): { minPrice: number; maxPrice: number } {
+    const range = this.selectedRangePrice.split("-").map(part => parseInt(part.replace(/[^0-9]/g, '').trim()));
+    return { minPrice: range[0] || 0, maxPrice: range[1] || 0 };
+  }
+
+  getTypeGradient(type: string): [string, string] {
+    const colors = this.typeColors.get(type);
+    if (colors) {
+      return colors;
+    } else {
+      // Default color pair if the type is not found
+      return ['rgba(0, 0, 0, 0.7)', 'rgba(255, 255, 255, 0.7)'];
+    }
   }
 }
+
+function generateVibrantColors(index: number): [string, string] {
+  const baseHue = (index * 137) % 360; // Using the golden angle approximation for distribution
+  const color1 = `hsl(${baseHue}, 70%, 55%)`;
+  const color2 = `hsl(${(baseHue + 45) % 360}, 70%, 55%)`; // Offset by 45 degrees for the second color
+  return [color1, color2];
+}
+
+function mapTypesToColors(typeLists: string[]): Map<string, [string, string]> {
+  const typeColors = new Map<string, [string, string]>();
+  typeLists.forEach((type, index) => {
+    typeColors.set(type, generateVibrantColors(index));
+  });
+  return typeColors;
+}
+
