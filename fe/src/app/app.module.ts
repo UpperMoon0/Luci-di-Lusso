@@ -21,6 +21,11 @@ import { CartProductCardComponent } from "./cart-page/cart-product-card.componen
 import { CartProductListComponent } from "./cart-page/cart-product-list.component";
 import { CartPageComponent } from './cart-page/cart-page.component';
 
+import { PaymentFormComponent} from "./payment-page/payment-form.component";
+import { PaymentPageComponent } from './payment-page/payment-page.component';
+import { NgxStripeModule } from 'ngx-stripe';
+import { FormsModule } from '@angular/forms';
+
 import { DefaultLayoutModule } from './core/default-layout/default-layout.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { SharedAppModule } from './core/shared/shared.module';
@@ -52,6 +57,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import {ResetPasswordComponent} from "./modules/pages/reset-password/reset-password.component";
 import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-password.component';
+import {StripeCardComponent} from "ngx-stripe";
 
 @NgModule({
   declarations: [
@@ -80,6 +86,10 @@ import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-
     CartProductCardComponent,
     CartProductListComponent,
     CartPageComponent,
+
+    // Payment page
+    PaymentFormComponent,
+    PaymentPageComponent,
 
     //
     ResetPasswordComponent,
@@ -121,9 +131,9 @@ import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-
       progressBar: true,
     }),
     NgOtpInputModule,
-    NgOptimizedImage
-
-
+    NgOptimizedImage,
+    NgxStripeModule.forRoot('pk_test_51PZaB3GvGs3G9mvhzYptSjAz1VvSJwDqt6ZVs1YTi0kU4cMSX5GH0Qms3rQaP5oLqKJgDk17gH9O8PYbEjAfkjbD00qqxTZ7nl'),
+    FormsModule,
   ],
   providers: [
     // FeatureGuard,

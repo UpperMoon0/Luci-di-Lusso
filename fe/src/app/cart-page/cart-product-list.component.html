@@ -4,7 +4,7 @@
     <p>Total Price: {{ totalPrice | async }}</p>
     <div class="button-group">
       <button type="button" class="btn btn-danger ml-2" (click)="clearCart()">Clear Shopping Cart</button>
-      <button type="button" class="btn btn-primary">Proceed to Checkout</button>
+      <button type="button" class="btn btn-primary" (click)="proceedToCheckout()">Proceed to Checkout</button>
     </div>
   </div>
   <ng-template #emptyCart>

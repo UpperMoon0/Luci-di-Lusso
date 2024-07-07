@@ -3,7 +3,6 @@ package vn.fpt.diamond_shop.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import vn.fpt.diamond_shop.model.dto.AddToCartRequest;
 import vn.fpt.diamond_shop.model.entity.CartItem;
 import vn.fpt.diamond_shop.model.entity.Jewelry;
 import vn.fpt.diamond_shop.model.entity.JewelrySize;
@@ -62,7 +61,7 @@ public class CartService implements ICartService {
                 .orElseThrow(() -> new NoSuchElementException("Size not found"));
 
         // Check if CartItem exists for the given User and Jewelry
-        List<CartItem> existingCartItems = cartItemRepository.findByUserIdAndJewelryIdAndSizeId(user.getId(), jewelry.getId(), sizeId);
+        List<CartItem> existingCartItems = cartItemRepository.findByUserIdAndJewelryIdAndJewelrySizeId(user.getId(), jewelry.getId(), sizeId);
 
         CartItem cartItem;
         if (!existingCartItems.isEmpty()) {
@@ -75,7 +74,7 @@ public class CartService implements ICartService {
             cartItem.setUser(user);
             cartItem.setJewelry(jewelry);
             cartItem.setQuantity(quantity);
-            cartItem.setSize(size);
+            cartItem.setJewelrySize(size);
             cartItem.setCreateAt(LocalDateTime.now());
         }
 

@@ -8,7 +8,8 @@ import {environment} from "../../environments/environment";
 })
 export class ProductService {
   private apiUrl = environment.apiUrl;
-  httpOptions: any;
+  private readonly httpOptions: { headers: HttpHeaders };
+
   constructor(private http: HttpClient) {
     this.httpOptions = {
       headers: new HttpHeaders({

@@ -26,7 +26,7 @@ public class CartItem {
     @ManyToOne
     @JoinColumn(name = "size_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private JewelrySize size;
+    private JewelrySize jewelrySize;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

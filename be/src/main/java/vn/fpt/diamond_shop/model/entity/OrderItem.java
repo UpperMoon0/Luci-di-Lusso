@@ -28,7 +28,13 @@ public class OrderItem {
     @ManyToOne
     @JoinColumn(name = "size_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private JewelrySize size;
+    private JewelrySize jewelrySize;
+
+    @Column(name = "price")
+    private Double price;
+
+    @Column(name = "quantity")
+    private Integer quantity;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;

@@ -4,14 +4,24 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "../../environments/environment";
 import { tap } from "rxjs/operators";
 
+interface CartItemDTO {
+  id: number;
+  name: string;
+  imageUrl: string;
+  size: string;
+  price: number;
+  quantity: number;
+  createAt: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  public cartItemList: any[] = [];
+  public cartItems: CartItemDTO[] = [];
   public totalPrice: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   public totalItems: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  private httpOptions: any;
+  private readonly httpOptions: { headers: HttpHeaders };
 
   constructor(private http: HttpClient) {
     this.httpOptions = {
@@ -53,7 +63,7 @@ export class CartService {
   getCartItems() {
     this.http.get<any>(`${environment.apiUrl}/cart/get-cart`, this.httpOptions).subscribe({
       next: (res: any) => {
-        this.cartItemList = res.cartItems;
+        this.cartItems = res.cartItems;
         this.totalPrice.next(res.totalPrice);
         this.totalItems.next(res.totalItems);
       },

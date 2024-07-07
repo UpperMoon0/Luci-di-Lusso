@@ -10,6 +10,8 @@ import {ProductPageComponent} from "./product-page/product-page.component";
 
 import {CartPageComponent} from "./cart-page/cart-page.component";
 
+import {PaymentPageComponent} from "./payment-page/payment-page.component";
+
 import {RouterModule, Routes} from '@angular/router';
 import {DefaultLayoutComponent} from './core/default-layout';
 import {DashboardComponent} from './modules/dashboard/dashboard.component';
@@ -348,6 +350,13 @@ const routes: Routes = [
     component: ProductListPageComponent,
     data: {
       title: 'Product List Page'
+    }
+  },
+  {
+    path: 'payment',
+    component: PaymentPageComponent,
+    data: {
+      title: 'Payment Page'
     }
   },
   {
