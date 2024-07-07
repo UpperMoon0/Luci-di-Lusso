@@ -21,7 +21,7 @@ export class AccountService {
         if (res && res.accessToken) {
           this.isLoggedIn.next(true);
           localStorage.setItem('accessToken', res.accessToken);
-          this.router.navigate(['/home-page']).then(r => {});
+          this.router.navigate(['/home']).then(r => {});
         }
       })
     );
@@ -35,7 +35,7 @@ export class AccountService {
     this.isLoggedIn.next(false);
     localStorage.removeItem('accessToken');
     localStorage.removeItem('userId');
-    this.router.navigate(['/home-page']).then(r => {});
+    this.router.navigate(['/home']).then(r => {});
   }
 
   checkToken(): void {
