@@ -16,11 +16,11 @@ public class PaymentService implements IPaymentService {
     private String stripeApiKey;
 
     @Override
-    public void createCharge(String token, Integer amount) throws StripeException {
+    public void createCharge(String token, Integer totalPriceInCent) throws StripeException {
         Stripe.apiKey = stripeApiKey;
 
         Map<String, Object> params = new HashMap<>();
-        params.put("amount", amount);
+        params.put("amount", totalPriceInCent);
         params.put("currency", "usd");
         params.put("source", token);
         params.put("description", "My First Test Charge (created for API docs)");

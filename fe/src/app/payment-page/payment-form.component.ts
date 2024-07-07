@@ -26,19 +26,19 @@ export class PaymentFormComponent implements OnInit {
   }
 
   buy() {
-    console.log(this.customerName);
-    this.stripeService
-      .createToken(this.card.getCard(), { name: this.customerName })
-      .subscribe(result => {
-        if (result.token) {
-          console.log(result.token.id);
-          this.paymentService.createCharge(result.token.id, this.totalPrice, this.customerName)
-            .subscribe(res => {
-              console.log(res);
-            });
-        } else if (result.error) {
-          console.log(result.error.message);
-        }
-      });
+    if (this.card.element) {
+      this.stripeService
+        .createToken(this.card.element, { name: this.customerName })
+        .subscribe(result => {
+          if (result.token) {
+            this.paymentService.createCharge(result.token.id)
+              .subscribe(res => {
+                console.log(res);
+              });
+          } else if (result.error) {
+            console.log(result.error.message);
+          }
+        });
+    }
   }
 }

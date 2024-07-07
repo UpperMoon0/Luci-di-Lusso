@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface ICartItemRepository extends JpaRepository<CartItem, Long> {
     List<CartItem> findAllByUserId(Long userId);
-    List<CartItem> findByUserIdAndJewelryIdAndSizeId(Long user_id, Long jewelry_id, Long size_id);
+    List<CartItem> findByUserIdAndJewelryIdAndJewelrySizeId(Long user_id, Long jewelry_id, Long size_id);
     void deleteAllByUserId(Long userId);
 }

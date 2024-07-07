@@ -14,14 +14,9 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id")
-    private Long userId;
-
-    @Column(name = "total_price")
-    private Double totalPrice;
-
-    @Column(name = "confirmed")
-    private Boolean confirmed;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { StripeService } from 'ngx-stripe';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from "../../environments/environment";
 
@@ -8,12 +7,18 @@ import { environment } from "../../environments/environment";
   providedIn: 'root'
 })
 export class PaymentService {
+  private readonly httpOptions: { headers: HttpHeaders };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
+      }),
+    };
+  }
 
-  createCharge(token: string, amount: number, customerName: string): Observable<any> {
-    let amountInCent: number = amount * 100;
-    return this.http.post(`${environment.apiUrl}/payment/create-charge`,
-      { token: token, amount: amountInCent, customerName: customerName});
+  createCharge(stripeToken: string): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/payment/create-charge`, { stripeToken: stripeToken }, this.httpOptions);
   }
 }
