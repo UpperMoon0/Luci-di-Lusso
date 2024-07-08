@@ -24,7 +24,7 @@ public class GetCartResponse extends CommonResponse {
                             cartItem.getId(),
                             cartItem.getJewelry().getName(),
                             cartItem.getJewelry().getImageUrl(),
-                            cartItem.getSize().getSize() + " " + cartItem.getSize().getUnit(),
+                            cartItem.getJewelrySize().getSize() + " " + cartItem.getJewelrySize().getUnit(),
                             cartItem.getJewelry().getPrice(),
                             cartItem.getQuantity(),
                             cartItem.getCreateAt().format(formatter)
@@ -42,4 +42,11 @@ public class GetCartResponse extends CommonResponse {
     }
 }
 
-record CartItemDTO(Long id, String name, String imageUrl, String size, Double price, Integer quantity, String createAt) {}
+record CartItemDTO(Long id,
+                   String name,
+                   String imageUrl,
+                   String size,
+                   Double price,
+                   Integer quantity,
+                   String createAt)
+{}

@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import { Observable, BehaviorSubject } from "rxjs";
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -15,26 +16,26 @@ export class AccountService {
   }
 
   login(formData: any): Observable<any> {
-    return this.http.post('http://localhost:8081/auth/login', formData).pipe(
+    return this.http.post(`${environment.apiUrl}/auth/login`, formData).pipe(
       tap(res => {
         if (res && res.accessToken) {
           this.isLoggedIn.next(true);
           localStorage.setItem('accessToken', res.accessToken);
-          this.router.navigate(['/home-page']).then(r => {});
+          this.router.navigate(['/home']).then(r => {});
         }
       })
     );
   }
 
   register(formData: any): Observable<any> {
-    return this.http.post('http://localhost:8081/auth/register', formData);
+    return this.http.post(`${environment.apiUrl}/auth/register`, formData);
   }
 
   logout(): void {
     this.isLoggedIn.next(false);
     localStorage.removeItem('accessToken');
     localStorage.removeItem('userId');
-    this.router.navigate(['/home-page']).then(r => {});
+    this.router.navigate(['/home']).then(r => {});
   }
 
   checkToken(): void {
@@ -58,6 +59,6 @@ export class AccountService {
   }
 
   private validateToken(token: string): Observable<any> {
-    return this.http.post('http://localhost:8081/auth/validate-token', token);
+    return this.http.post(`${environment.apiUrl}/auth/validate-token`, token);
   }
 }
