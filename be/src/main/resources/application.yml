@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8080
 spring:
   datasource:
     url: ${DIAMOND_DB_URL};database=LucidiLusso;user=${DIAMOND_DB_USER};password=${DIAMOND_DB_PASSWORD};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
