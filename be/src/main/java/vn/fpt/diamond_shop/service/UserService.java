@@ -1,9 +1,6 @@
 package vn.fpt.diamond_shop.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import vn.fpt.diamond_shop.exception.InvalidJwtTokenException;
 import vn.fpt.diamond_shop.model.entity.User;
@@ -11,30 +8,20 @@ import vn.fpt.diamond_shop.repository.IUserRepository;
 import vn.fpt.diamond_shop.security.JwtTokenProvider;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Optional;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserService implements IUserService {
     private final IUserRepository userRepository;
     private final JwtTokenProvider tokenProvider;
 
     @Autowired
-    public UserDetailsServiceImpl(IUserRepository userRepository,
-                                  JwtTokenProvider tokenProvider) {
+    public UserService(IUserRepository userRepository,
+                       JwtTokenProvider tokenProvider) {
         this.userRepository = userRepository;
         this.tokenProvider = tokenProvider;
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findByUsername(username);
-        if (user.isEmpty()) {
-            throw new UsernameNotFoundException("User not found with username: " + username);
-        }
-        return new org.springframework.security.core.userdetails.User(user.get().getUsername(), user.get().getPassword(), new ArrayList<>());
-    }
-
     public User getUserByToken(String jwtToken) throws InvalidJwtTokenException {
         boolean tokenValid = tokenProvider.validateToken(jwtToken);
         if (!tokenValid) {
@@ -44,6 +31,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return userRepository.findByUsername(username).orElse(null);
     }
 
+    @Override
     public void updateCustomerProfile(String jwtToken, String fullName, String address, String phone, String imageUrl, LocalDate dob) {
         User user = getUserByToken(jwtToken);
         user.setFullName(fullName);

@@ -2,6 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { StripeService, StripeCardComponent } from 'ngx-stripe';
 import { PaymentService } from "../service/payment.service";
 import { CartService } from "../service/cart.service";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-payment-form',
@@ -12,6 +13,7 @@ export class PaymentFormComponent implements OnInit {
   @ViewChild(StripeCardComponent) card: StripeCardComponent;
   customerName: string = '';
   totalPrice: number;
+  private cartSubscription: Subscription;
 
   constructor(
     private stripeService: StripeService,
@@ -20,9 +22,17 @@ export class PaymentFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.cartService.totalPrice.subscribe(price => {
-      this.totalPrice = price;
+    // Subscribe to cartState to get totalPrice
+    this.cartSubscription = this.cartService.getCartState().subscribe(cartState => {
+      this.totalPrice = cartState.totalPrice;
     });
+  }
+
+  ngOnDestroy() {
+    // Ensure the subscription is properly unsubscribed when the component is destroyed
+    if (this.cartSubscription) {
+      this.cartSubscription.unsubscribe();
+    }
   }
 
   buy() {

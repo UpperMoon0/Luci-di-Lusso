@@ -5,6 +5,9 @@ import { NgOtpInputModule } from  'ng-otp-input';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { HeaderComponent } from './header/header.component';
+import { HeaderProfileDropdownComponent } from "./header/header-profile-dropdown.component";
+
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { RegisterFormComponent } from './register-page/register-form.component';
 
@@ -25,6 +28,9 @@ import { PaymentFormComponent} from "./payment-page/payment-form.component";
 import { PaymentPageComponent } from './payment-page/payment-page.component';
 import { NgxStripeModule } from 'ngx-stripe';
 import { FormsModule } from '@angular/forms';
+
+import { CustomerProfileFormComponent } from "./customer-profile-page/customer-profile-form.component";
+import { CustomerProfilePageComponent } from './customer-profile-page/customer-profile-page.component';
 
 import { DefaultLayoutModule } from './core/default-layout/default-layout.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
@@ -53,17 +59,18 @@ import { MyAccountComponent } from './modules/pages/my-account/my-account.compon
 import { OrderSummeryComponent } from './modules/pages/order-summery/order-summery.component';
 import { PrivacyPolicyComponent } from './modules/pages/privacy-policy/privacy-policy.component';
 import { WishListComponent } from './modules/pages/wish-list/wish-list.component';
-import { HeaderComponent } from './header/header.component';
+
 import { FooterComponent } from './footer/footer.component';
 import {ResetPasswordComponent} from "./modules/pages/reset-password/reset-password.component";
 import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-password.component';
-import {StripeCardComponent} from "ngx-stripe";
+
 
 @NgModule({
   declarations: [
     AppComponent,
 
     // Header
+    HeaderProfileDropdownComponent,
     HeaderComponent,
 
     // Login page
@@ -90,6 +97,10 @@ import {StripeCardComponent} from "ngx-stripe";
     // Payment page
     PaymentFormComponent,
     PaymentPageComponent,
+
+    // Customer profile page
+    CustomerProfileFormComponent,
+    CustomerProfilePageComponent,
 
     //
     ResetPasswordComponent,

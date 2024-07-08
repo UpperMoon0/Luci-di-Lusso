@@ -8,6 +8,7 @@ import { ProductListPageComponent } from "./product-list-page/product-list-page.
 import { ProductPageComponent } from "./product-page/product-page.component";
 import { CartPageComponent } from "./cart-page/cart-page.component";
 import { PaymentPageComponent } from "./payment-page/payment-page.component";
+import {CustomerProfilePageComponent} from "./customer-profile-page/customer-profile-page.component";
 
 const routes: Routes = [
   { path: 'home', component: HomePageComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'product/:id', component: ProductPageComponent },
   { path: 'cart', component: CartPageComponent },
   { path: 'payment', component: PaymentPageComponent },
+  { path: 'profile', component: CustomerProfilePageComponent },
 
   { path: '**', redirectTo: 'home' }
 ];

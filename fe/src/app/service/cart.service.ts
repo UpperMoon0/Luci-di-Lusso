@@ -1,8 +1,14 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "../../environments/environment";
 import { tap } from "rxjs/operators";
+
+interface CartState {
+  cartItems: CartItemDTO[];
+  totalPrice: number;
+  totalItems: number;
+}
 
 interface CartItemDTO {
   id: number;
@@ -18,19 +24,23 @@ interface CartItemDTO {
   providedIn: 'root'
 })
 export class CartService {
-  public cartItems: CartItemDTO[] = [];
-  public totalPrice: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  public totalItems: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  private readonly httpOptions: { headers: HttpHeaders };
+  private cartState: BehaviorSubject<CartState> = new BehaviorSubject<CartState>({
+    cartItems: [],
+    totalPrice: 0,
+    totalItems: 0
+  });
 
   constructor(private http: HttpClient) {
-    this.httpOptions = {
+    this.getCartItems();
+  }
+
+  private get httpOptions() {
+    return {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
         "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
       }),
     };
-    this.getCartItems();
   }
 
   addToCart(id: number, quantity: number, sizeId: number) {
@@ -63,13 +73,19 @@ export class CartService {
   getCartItems() {
     this.http.get<any>(`${environment.beApiUrl}/cart/get-cart`, this.httpOptions).subscribe({
       next: (res: any) => {
-        this.cartItems = res.cartItems;
-        this.totalPrice.next(res.totalPrice);
-        this.totalItems.next(res.totalItems);
+        this.cartState.next({
+          cartItems: res.cartItems,
+          totalPrice: res.totalPrice,
+          totalItems: res.totalItems
+        });
       },
       error: (error) => {
         console.error('Error getting cart items:', error);
       }
     });
+  }
+
+  getCartState(): Observable<CartState> {
+    return this.cartState.asObservable();
   }
 }

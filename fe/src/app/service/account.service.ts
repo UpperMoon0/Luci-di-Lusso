@@ -4,6 +4,7 @@ import { Observable, BehaviorSubject } from "rxjs";
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import {environment} from "../../environments/environment";
+import {CartService} from "./cart.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,9 @@ import {environment} from "../../environments/environment";
 export class AccountService {
   isLoggedIn = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient,
+              private router: Router,
+              private cartService: CartService) {
     this.checkToken();
   }
 
