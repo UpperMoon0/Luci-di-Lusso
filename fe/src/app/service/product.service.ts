@@ -7,7 +7,7 @@ import {environment} from "../../environments/environment";
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = environment.apiUrl;
+  private apiUrl = environment.beApiUrl;
   private readonly httpOptions: { headers: HttpHeaders };
 
   constructor(private http: HttpClient) {

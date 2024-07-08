@@ -8,7 +8,7 @@ import {environment} from "../../../environments/environment";
   providedIn: 'root',
 })
 export class FileUploadService {
-  private apiUrl =environment.apiUrl;
+  private apiUrl =environment.beApiUrl;
 
   httpOptions: any;
   token : any;
@@ -21,7 +21,7 @@ export class FileUploadService {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${JSON.parse(localStorage.getItem('user')!)?.accessToken}`,
       }),
-      "Access-Control-Allow-Origin": `${environment.apiUrl}`,
+      "Access-Control-Allow-Origin": `${environment.beApiUrl}`,
       "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
       reportProgress: true,
       responseType: 'json',

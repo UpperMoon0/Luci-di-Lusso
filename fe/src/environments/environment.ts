@@ -7,7 +7,7 @@ export const environment = {
   api_url:'http://localhost:3000/api/v1/',
   ws_url:'http://localhost:3000',
   companyId:'1254863933218p0ppp',
-  apiUrl: 'https://luci-di-lusso-be.livelyforest-407b0308.southeastasia.azurecontainerapps.io/8080',
+  beApiUrl: 'http://localhost:8080',
   pageApi:'http://localhost:3000',
 };
 

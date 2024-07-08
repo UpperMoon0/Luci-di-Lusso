@@ -11,13 +11,13 @@ import { environment } from 'src/environments/environment';
 export class HelperService {
   httpOptions: any;
 
-  private apiServerUrl =environment.apiUrl;
+  private apiServerUrl =environment.beApiUrl;
 
   constructor(private http: HttpClient) {this.httpOptions = {
     headers: new HttpHeaders({
         "Content-Type": "application/json",
     }),
-    "Access-Control-Allow-Origin": `${environment.apiUrl}`,
+    "Access-Control-Allow-Origin": `${environment.beApiUrl}`,
     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
 }; }
 

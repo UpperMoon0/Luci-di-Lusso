@@ -16,7 +16,7 @@ export class AccountService {
   }
 
   login(formData: any): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/auth/login`, formData).pipe(
+    return this.http.post(`${environment.beApiUrl}/auth/login`, formData).pipe(
       tap(res => {
         if (res && res.accessToken) {
           this.isLoggedIn.next(true);
@@ -28,7 +28,7 @@ export class AccountService {
   }
 
   register(formData: any): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/auth/register`, formData);
+    return this.http.post(`${environment.beApiUrl}/auth/register`, formData);
   }
 
   logout(): void {
@@ -59,6 +59,6 @@ export class AccountService {
   }
 
   private validateToken(token: string): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/auth/validate-token`, token);
+    return this.http.post(`${environment.beApiUrl}/auth/validate-token`, token);
   }
 }

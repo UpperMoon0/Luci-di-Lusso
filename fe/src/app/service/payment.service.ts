@@ -19,6 +19,6 @@ export class PaymentService {
   }
 
   createCharge(stripeToken: string): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/payment/create-charge`, { stripeToken: stripeToken }, this.httpOptions);
+    return this.http.post(`${environment.beApiUrl}/payment/create-charge`, { stripeToken: stripeToken }, this.httpOptions);
   }
 }
