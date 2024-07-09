@@ -13,8 +13,7 @@ export class AccountService {
   isLoggedIn = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient,
-              private router: Router,
-              private cartService: CartService) {
+              private router: Router) {
     this.checkToken();
   }
 
