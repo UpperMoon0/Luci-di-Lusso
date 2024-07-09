@@ -18,19 +18,19 @@ export class ManagerService {
   }
 
   getDiamondCut(): Observable<any> {
-    return this.http.get(BASIC_URL + 'api/manager',{
+    return this.http.get(BASIC_URL + 'api/manager/diamond',{
       headers: this.createAuthorizationHeader(),
     });
   }
 
   getDiamondColor(): Observable<any> {
-    return this.http.get(BASIC_URL + 'api/manager',{
+    return this.http.get(BASIC_URL + 'api/manager/diamond',{
       headers: this.createAuthorizationHeader(),
     });
   }
 
   getDiamondClarity(): Observable<any> {
-    return this.http.get(BASIC_URL + 'api/manager',{
+    return this.http.get(BASIC_URL + 'api/manager/diamond',{
       headers: this.createAuthorizationHeader(),
     });
   }
@@ -46,6 +46,25 @@ export class ManagerService {
       headers: this.createAuthorizationHeader(),
     });
   }
+
+  addJewelry(jewelryRequest:any): Observable<any> {
+    return this.http.post(BASIC_URL + 'api/manager/jewelry', jewelryRequest,{
+      headers: this.createAuthorizationHeader(),
+    });
+  }
+
+  getAllJewelries(): Observable<any> {
+    return this.http.get(BASIC_URL + 'api/manager/jewelries',{
+      headers: this.createAuthorizationHeader(),
+    });
+  }
+
+  getAllJewelriesByName(name:any): Observable<any> {
+    return this.http.get(BASIC_URL + `api/manager/search/${name}`,{
+      headers: this.createAuthorizationHeader(),
+    });
+  }
+
 
   deleteDiamond(diamondId: any): Observable<any> {
     return this.http.delete(BASIC_URL + `api/manager/diamond/${diamondId}`, {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ApiHandlerService } from '../../../../core/shared/utils/api-handler.service';
 import { API_ENDPOINTS, ApiMethod } from '../../../core/shared/utils/const';
+import {ApiHandlerService} from "../../../core/shared/utils/api-handler.service";
 
 
 @Injectable({
