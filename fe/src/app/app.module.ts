@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {BrowserModule, provideClientHydration} from '@angular/platform-browser';
 import { NgOtpInputModule } from  'ng-otp-input';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,8 +19,8 @@ import { ProductPageComponent } from './product-page/product-page.component';
 import { DefaultLayoutModule } from './core/default-layout/default-layout.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { SharedAppModule } from './core/shared/shared.module';
-import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {HttpClientModule, provideHttpClient, withFetch} from '@angular/common/http';
+import {BrowserAnimationsModule, provideAnimations} from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './modules/home/home.component';
 import { OAuthModule } from 'angular-oauth2-oidc';
@@ -56,6 +56,16 @@ import { DiscoverComponent } from './components/blog/discover/discover.component
 import { Fashion01Component } from './components/blog/fashion01/fashion01.component';
 import { Fashion02Component } from './components/blog/fashion02/fashion02.component';
 import { NewsComponent } from './components/blog/news/news.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatButtonModule} from "@angular/material/button";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatInputModule} from "@angular/material/input";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {DemoMaterialModule} from "./AngularMaterialModule";
+import { ManagerComponent } from './manager/manager.component';
+import { PostDiamondComponent } from './manager/components/post-diamond/post-diamond.component';
 
 @NgModule({
   declarations: [
@@ -104,16 +114,31 @@ import { NewsComponent } from './components/blog/news/news.component';
     MyMiniCartComponent,
     ForgetPasswordComponent,
     CustomerComponent,
+
+    //Blog pages
     DiscoverComponent,
     Fashion01Component,
     Fashion02Component,
-    NewsComponent
+    NewsComponent,
+    ManagerComponent,
+    PostDiamondComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     DefaultLayoutModule,
+    BrowserAnimationsModule,
+    DemoMaterialModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatSidenavModule,
+    ReactiveFormsModule,
+    FormsModule,
     DashboardModule,
     SharedAppModule,
     BrowserAnimationsModule,
@@ -141,6 +166,9 @@ import { NewsComponent } from './components/blog/news/news.component';
     //   useClass: AuthInterceptor,
     //   multi: true,
     // },
+    provideClientHydration(),
+    provideAnimations(),
+    provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]
 })

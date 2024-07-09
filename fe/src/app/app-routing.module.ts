@@ -405,7 +405,9 @@ const routes: Routes = [
       title: 'Forget Password Page'
     }
   },
-  {path: '**', redirectTo: 'dashboard'}
+  {path: '**', redirectTo: 'dashboard'},
+  {path: 'manager', loadChildren: () => import('./manager/manager.module').then(m => m.ManagerModule)},
+
 ];
 
 @NgModule({
