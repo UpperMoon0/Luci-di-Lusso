@@ -24,7 +24,14 @@ export class AccountService {
         if (res && res.accessToken) {
           this.isLoggedIn.next(true);
           localStorage.setItem('accessToken', res.accessToken);
-          this.router.navigate(['/home']).then(r => {});
+          switch (res.role) {
+            case 'Delivery':
+              this.router.navigate(["/delivery-dashboard"]).then(r=> {});
+              break;
+            default:
+              this.router.navigate(['/home']).then(r => {});
+              break;
+          }
         }
       })
     );
