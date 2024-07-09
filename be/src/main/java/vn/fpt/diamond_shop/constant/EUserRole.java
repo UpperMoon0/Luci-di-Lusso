@@ -4,9 +4,13 @@ import lombok.Getter;
 
 @Getter
 public enum EUserRole {
-    ADMIN,
-    MANAGER,
-    SALE,
-    DELIVERY,
-    CUSTOMER
+    ADMIN("Admin"),
+    MANAGER("Manager"),
+    SALE("Sale"),
+    DELIVERY("Delivery"),
+    CUSTOMER("Customer");
+
+    private final String value;
+
+    EUserRole(String value) { this.value = value; }
 }

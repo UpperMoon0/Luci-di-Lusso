@@ -6,4 +6,6 @@ import lombok.*;
 @Data
 public class LoginResponse extends CommonResponse {
     private String accessToken;
+
+    private String role;
 }

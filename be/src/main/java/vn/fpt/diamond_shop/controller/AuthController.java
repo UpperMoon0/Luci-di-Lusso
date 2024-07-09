@@ -19,6 +19,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import vn.fpt.diamond_shop.security.JwtTokenProvider;
+import vn.fpt.diamond_shop.service.UserService;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -34,13 +35,15 @@ public class AuthController {
     private final IUserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider tokenProvider;
+    private final UserService userService;
 
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager, IUserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenProvider tokenProvider) {
+    public AuthController(AuthenticationManager authenticationManager, IUserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenProvider tokenProvider, UserService userService) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.tokenProvider = tokenProvider;
+        this.userService = userService;
     }
 
     /**
@@ -86,7 +89,7 @@ public class AuthController {
      * @return a ResponseEntity with the login response
      */
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getPrincipal(),
@@ -98,8 +101,16 @@ public class AuthController {
 
         String jwt = tokenProvider.generateToken(authentication);
         LoginResponse loginResponse = new LoginResponse();
+
         loginResponse.setAccessToken(jwt);
         loginResponse.setMessage("Login successfully");
+//        try {
+//            User user = userService.getUserByToken(jwt);
+//            loginResponse.setRole(user.getRole().getValue());
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+
 
         return ResponseEntity.ok(loginResponse);
     }
