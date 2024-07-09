@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import vn.fpt.diamond_shop.constant.EUserRole;
 import vn.fpt.diamond_shop.exception.BadRequestException;
 import vn.fpt.diamond_shop.model.dto.CommonResponse;
 import vn.fpt.diamond_shop.model.dto.LoginResponse;
@@ -75,6 +76,7 @@ public class AuthController {
             user.setFullName(signUpRequest.getFullName());
             user.setDob(signUpRequest.getDob());
             user.setProvider(signUpRequest.getProvider());
+            user.setRole(EUserRole.CUSTOMER);
             user.setCreateAt(LocalDateTime.now());
             userRepository.save(user);
         }
@@ -104,13 +106,6 @@ public class AuthController {
 
         loginResponse.setAccessToken(jwt);
         loginResponse.setMessage("Login successfully");
-//        try {
-//            User user = userService.getUserByToken(jwt);
-//            loginResponse.setRole(user.getRole().getValue());
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-
 
         return ResponseEntity.ok(loginResponse);
     }
