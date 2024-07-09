@@ -1,6 +1,7 @@
 package vn.fpt.diamond_shop.model.entity;
 import lombok.Data;
 import vn.fpt.diamond_shop.constant.EAuthProvider;
+import vn.fpt.diamond_shop.constant.EUserRole;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -47,4 +48,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "provider", nullable = false)
     private EAuthProvider provider;
+
+//    @Enumerated(EnumType.STRING)
+//    @Column(name = "role", nullable = false)
+//    private EUserRole role;
+
 }
