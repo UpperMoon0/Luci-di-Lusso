@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpRequest, HttpEvent, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {StorageService} from "./storage.service";
+import {StorageService} from "../../service/storage.service";
 import {environment} from "../../../environments/environment";
 import {ProductDTO} from "../_models/productDTO";
 

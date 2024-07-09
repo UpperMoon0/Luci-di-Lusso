@@ -4,7 +4,7 @@ import { NgForm } from '@angular/forms';
 import { ProductDTO } from "../_models/productDTO";
 import { HelperService } from "../service/helper.service";
 import { ProductService} from "../../service/product-service";
-import { StorageService } from "../service/storage.service";
+import { StorageService } from "../../service/storage.service";
 import { Router } from '@angular/router';
 
 @Component({

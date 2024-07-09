@@ -64,7 +64,6 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {DemoMaterialModule} from "./AngularMaterialModule";
-import { ManagerComponent } from './manager/manager.component';
 import { PostDiamondComponent } from './manager/components/post-diamond/post-diamond.component';
 
 @NgModule({
@@ -120,8 +119,6 @@ import { PostDiamondComponent } from './manager/components/post-diamond/post-dia
     Fashion01Component,
     Fashion02Component,
     NewsComponent,
-    ManagerComponent,
-    PostDiamondComponent
   ],
   imports: [
     BrowserModule,
