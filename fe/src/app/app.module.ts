@@ -63,6 +63,7 @@ import { WishListComponent } from './modules/pages/wish-list/wish-list.component
 import { FooterComponent } from './footer/footer.component';
 import {ResetPasswordComponent} from "./modules/pages/reset-password/reset-password.component";
 import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-password.component';
+import { DeliveryDashboardComponent } from './delivery-dashboard/delivery-dashboard.component';
 
 
 @NgModule({
@@ -123,7 +124,8 @@ import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-
     PrivacyPolicyComponent,
     WishListComponent,
     FooterComponent,
-    ForgetPasswordComponent
+    ForgetPasswordComponent,
+    DeliveryDashboardComponent
   ],
   imports: [
     BrowserModule,
