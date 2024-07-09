@@ -8,8 +8,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
-import {MatToolbar, MatToolbarModule} from "@angular/material/toolbar";
-import {MatButton, MatButtonModule} from "@angular/material/button";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
 import { PostCouponComponent } from './components/post-coupon/post-coupon.component';
 import { CouponsComponent } from './components/coupons/coupons.component';
@@ -18,6 +18,7 @@ import {MatMomentDateModule} from "@angular/material-moment-adapter";
 import {DemoMaterialModule} from "../AngularMaterialModule";
 import {PostDiamondComponent} from "./components/post-diamond/post-diamond.component";
 import { PostJewelryComponent } from './components/post-jewelry/post-jewelry.component';
+import { DiamondsComponent } from './components/diamonds/diamonds.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { PostJewelryComponent } from './components/post-jewelry/post-jewelry.com
     PostJewelryComponent,
     PostCouponComponent,
     CouponsComponent,
-    PostJewelryComponent
+    PostJewelryComponent,
+    DiamondsComponent
   ],
   imports: [
     CommonModule,

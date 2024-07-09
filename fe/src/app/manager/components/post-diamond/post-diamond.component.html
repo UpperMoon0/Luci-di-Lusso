@@ -1,1 +1,96 @@
-<p>post-diamond works!</p>
+<div class="post-diamond">
+  <h2>Create a New Diamond</h2>
+  <form [formGroup]="diamondForm" (ngSubmit)="addDiamond()">
+<!--    diamond cut-->
+      <mat-form-field appearance="outline">
+        <mat-label>Select Diamond Cut</mat-label>
+        <mat-select formControlName="cutId">
+          <mat-option *ngFor="let cut of listOfDiamondCut" [value]="cut.id">
+            {{cut.cut}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="diamondForm.get('cutId')?.hasError('required')">
+          *Please select a diamond cut.
+        </mat-error>
+      </mat-form-field>
+
+<!--    diamond color-->
+      <mat-form-field appearance="outline">
+        <mat-label>Select Diamond Color</mat-label>
+        <mat-select formControlName="colorId">
+          <mat-option *ngFor="let color of listOfDiamondColor" [value]="color.id">
+            {{color.color}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="diamondForm.get('colorId')?.hasError('required')">
+          *Please select a diamond color.
+        </mat-error>
+      </mat-form-field>
+
+<!--    diamond clarity-->
+      <mat-form-field appearance="outline">
+        <mat-label>Select Diamond Clarity</mat-label>
+        <mat-select formControlName="clarityId">
+          <mat-option *ngFor="let clarity of listOfDiamondClarity" [value]="clarity.id">
+            {{clarity.clarity}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="diamondForm.get('clarityId')?.hasError('required')">
+          *Please select a diamond clarity.
+        </mat-error>
+      </mat-form-field>
+
+<!--    diamond shape-->
+      <mat-form-field appearance="outline">
+        <mat-label>Select Diamond Shape</mat-label>
+        <mat-select formControlName="shapeId">
+          <mat-option *ngFor="let shape of listOfDiamondShape" [value]="shape.id">
+            {{shape.shape}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="diamondForm.get('shapeId')?.hasError('required')">
+          *Please select a diamond shape.
+        </mat-error>
+      </mat-form-field>
+
+<!--    diamond carat-->
+      <mat-form-field appearance="outline">
+        <mat-label>Carat</mat-label>
+        <input matInput type="number" formControlName="carat">
+        <mat-error *ngIf="diamondForm.get('carat')?.hasError('required')">
+          *Carat is required.
+        </mat-error>
+        <mat-error *ngIf="diamondForm.get('carat')?.hasError('min')">
+          *Carat must be at least 0.01.
+        </mat-error>
+      </mat-form-field>
+
+<!--    diamond price-->
+      <mat-form-field appearance="outline">
+        <mat-label>Price</mat-label>
+        <input matInput type="number" formControlName="price">
+        <mat-error *ngIf="diamondForm.get('price')?.hasError('required')">
+          *Price is required.
+        </mat-error>
+        <mat-error *ngIf="diamondForm.get('price')?.hasError('min')">
+          *Price must be at least 1.
+        </mat-error>
+      </mat-form-field>
+
+<!--    diamond quantity-->
+    <mat-form-field appearance="outline">
+      <mat-label>Quantity</mat-label>
+      <input matInput type="number" formControlName="quantity">
+      <mat-error *ngIf="diamondForm.get('quantity')?.hasError('required')">
+        *Quantity is required.
+      </mat-error>
+      <mat-error *ngIf="diamondForm.get('quantity')?.hasError('min')">
+        *Quantity must be at least 1.
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="diamondForm.invalid">Create</button>
+
+
+  </form>
+</div>
