@@ -1,15 +1,22 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import { environment } from "../../environments/environment";
+import {tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
+  productTypes: BehaviorSubject<String[]> = new BehaviorSubject<String[]>([]);
+
   private apiUrl = environment.beApiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.getProductTypes().subscribe(res => {
+
+    })
+  }
 
   private get httpOptions() {
     return {
@@ -48,5 +55,9 @@ export class ProductService {
   }
   public getTest(): Observable<any> {
     return this.http.get<Object>(`${this.apiUrl}/api/product/test`, this.httpOptions);
+  }
+
+  public getProductTypes(): Observable<String[]> {
+    return this.productTypes.asObservable();
   }
 }

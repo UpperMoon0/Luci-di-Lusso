@@ -11,6 +11,7 @@ import { HeaderCartComponent } from "./header/header-cart.component";
 
 import { FooterComponent } from './footer/footer.component';
 
+import { HomeProductRowComponent } from "./home-page/home-product-row.component";
 import { HomePageComponent } from './home-page/home-page.component';
 
 import { RegisterPageComponent } from './register-page/register-page.component';
@@ -57,6 +58,7 @@ import {OAuthModule} from "angular-oauth2-oidc";
     FooterComponent,
 
     // Home page
+    HomeProductRowComponent,
     HomePageComponent,
 
     // Login page
