@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import vn.fpt.diamond_shop.model.entity.Delivery;
 
 @Repository
-public interface IDeliveryRepository extends JpaRepository<Delivery, Long>
+public interface IDeliveryRepository extends JpaRepository<Delivery, Long> {
 
 }
