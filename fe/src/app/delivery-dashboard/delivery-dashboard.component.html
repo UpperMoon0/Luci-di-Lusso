@@ -1,0 +1,26 @@
+<div class="task-table">
+  <table>
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Address</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <div *ngFor="let delivery of deliveries">
+        <tr>
+          <td>{{ delivery.id }}</td>
+          <td>{{ delivery.order.user.fullName }}</td>
+          <td>{{ delivery.order.user.email }}</td>
+          <td>{{ delivery.order.user.phone }}</td>
+          <td>{{ delivery.order.user.address }}</td>
+          <td><span (click)="checkDeliveryStatus(delivery.id)"></span></td>
+        </tr>
+      </div>
+    </tbody>
+  </table>
+</div>
