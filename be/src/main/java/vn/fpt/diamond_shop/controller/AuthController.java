@@ -78,6 +78,7 @@ public class AuthController {
             user.setProvider(signUpRequest.getProvider());
             user.setRole(EUserRole.CUSTOMER);
             user.setCreateAt(LocalDateTime.now());
+
             userRepository.save(user);
         }
         cr.setMessage("Register successfully");
@@ -105,6 +106,7 @@ public class AuthController {
         LoginResponse loginResponse = new LoginResponse();
 
         loginResponse.setAccessToken(jwt);
+        loginResponse.setRole(userService.getUserByToken(jwt).getRole().getValue());
         loginResponse.setMessage("Login successfully");
 
         return ResponseEntity.ok(loginResponse);
