@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from "ngx-toastr";
 import { ProductService } from "../service/product.service";
 import { CartService } from "../service/cart.service";
-import { NumberService } from "../modules/service/number.service";
 
 @Component({
   selector: 'app-product-list-page-page',
@@ -19,7 +18,8 @@ export class ProductListPageComponent implements OnInit {
   productsList: any[] = [];
   selectedTypes: string[] = [];
 
-  constructor(private productService: ProductService, private toastrService: ToastrService, private numberFormat: NumberService, private cartService: CartService) {}
+  constructor(private productService: ProductService,
+              private toastrService: ToastrService) {}
 
   ngOnInit(): void {
     this.isLoggedIn = localStorage.getItem("user") != null;
