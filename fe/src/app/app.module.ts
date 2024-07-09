@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 
 import { HeaderComponent } from './header/header.component';
 import { HeaderProfileDropdownComponent } from "./header/header-profile-dropdown.component";
+import { HeaderCartComponent } from "./header/header-cart.component";
 
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { RegisterFormComponent } from './register-page/register-form.component';
@@ -71,6 +72,7 @@ import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-
 
     // Header
     HeaderProfileDropdownComponent,
+    HeaderCartComponent,
     HeaderComponent,
 
     // Login page
