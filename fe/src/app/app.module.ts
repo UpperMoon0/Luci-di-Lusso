@@ -41,6 +41,10 @@ import { DeliverySidebarComponent } from './delivery-page/delivery-sidebar.compo
 import { DeliveryTableComponent } from './delivery-page/delivery-table.component';
 import { DeliveryPageComponent } from './delivery-page/delivery-page.component';
 
+import {PurchaseDetailsComponent} from "./purchase-history-page/purchase-details.component";
+import {PurchaseHistoryListComponent} from "./purchase-history-page/purchase-history-list.component";
+import {PurchaseHistoryPageComponent} from "./purchase-history-page/purchase-history-page.component";
+
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -92,10 +96,15 @@ import {OAuthModule} from "angular-oauth2-oidc";
     CustomerProfileFormComponent,
     CustomerProfilePageComponent,
 
-    // Delivery page
+    // Delivery dashboard page
     DeliverySidebarComponent,
     DeliveryTableComponent,
     DeliveryPageComponent,
+
+    // Purchase history page
+    PurchaseDetailsComponent,
+    PurchaseHistoryListComponent,
+    PurchaseHistoryPageComponent
   ],
   imports: [
     BrowserModule,

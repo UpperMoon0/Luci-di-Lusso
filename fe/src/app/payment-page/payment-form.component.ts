@@ -3,6 +3,8 @@ import { StripeService, StripeCardComponent } from 'ngx-stripe';
 import { PaymentService } from "../service/payment.service";
 import { CartService } from "../service/cart.service";
 import { Subscription } from 'rxjs';
+import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-payment-form',
@@ -18,7 +20,9 @@ export class PaymentFormComponent implements OnInit {
   constructor(
     private stripeService: StripeService,
     private paymentService: PaymentService,
-    private cartService: CartService
+    private cartService: CartService,
+    private toastrService: ToastrService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -43,10 +47,11 @@ export class PaymentFormComponent implements OnInit {
           if (result.token) {
             this.paymentService.createCharge(result.token.id)
               .subscribe(res => {
-                console.log(res);
+                this.toastrService.success("Payment successful!");
+                this.router.navigate(['/home']).then(r => {});
               });
           } else if (result.error) {
-            console.log(result.error.message);
+            this.toastrService.error("Payment failed!");
           }
         });
     }

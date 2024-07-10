@@ -48,4 +48,14 @@ public class OrderService implements IOrderService {
 
         return totalPrice;
     }
+
+    @Override
+    public List<Order> getOrdersByUser(Long userId) {
+        return orderRepository.findAllByUserId(userId);
+    }
+
+    @Override
+    public Order getOrderById(Long orderId) {
+        return orderRepository.findById(orderId).orElse(null);
+    }
 }

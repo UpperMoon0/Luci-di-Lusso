@@ -1,0 +1,17 @@
+<div style="margin-top: 15rem;">
+  <label style="display: block; text-align: center;">Purchase History</label>
+  <div class="flex-container">
+    <!-- Left orders list -->
+    <div class="list-container" style="min-height: 10rem;">
+      <label>Orders</label>
+      <button *ngFor="let order of orders" class="list-item-btn" (click)="onOrderSelect(order.id)">
+        {{ order.firstProductName }} ({{ order.firstProductSize }}) x {{ order.firstProductQuantity }} - ${{ order.price }} - {{ order.timeAgo }}
+      </button>
+    </div>
+
+    <!-- Right panel for purchase details -->
+    <div class="purchase-details-panel" *ngIf="selectedOrderId">
+      <app-purchase-details [orderDetails]="selectedOrderDetails" [productList]="selectedOrderProductList"></app-purchase-details>
+    </div>
+  </div>
+</div>
