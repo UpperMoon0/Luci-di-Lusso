@@ -35,4 +35,8 @@ export class HeaderProfileDropdownComponent implements OnInit, OnDestroy {
   logOut() {
     this.accountService.logout();
   }
+
+  handleImageError(event) {
+    event.target.src = 'assets/images/default_avatar.png';
+  }
 }

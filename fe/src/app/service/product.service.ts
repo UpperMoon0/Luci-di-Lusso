@@ -44,15 +44,6 @@ export class ProductService {
     return this.http.get<any[]>(`${this.apiUrl}/product/get-all-jewelry-types`, this.httpOptions);
   }
 
-  public addProduct(Product: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/api/product/addProduct`, Product, this.httpOptions);
-  }
-  public updateProduct(Product: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/api/product/update`, Product, this.httpOptions);
-  }
-  public deleteProduct(ProductId: number): Observable<any> {
-    return this.http.delete<void>(`${this.apiUrl}/api/product/delete/${ProductId}`, this.httpOptions);
-  }
   public getTest(): Observable<any> {
     return this.http.get<Object>(`${this.apiUrl}/api/product/test`, this.httpOptions);
   }
