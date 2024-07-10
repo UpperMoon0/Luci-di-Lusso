@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductService} from "../service/product.service";
+import {ColorService} from "../service/color.service";
 
 @Component({
   selector: 'app-home-product-row',
@@ -9,8 +10,8 @@ import {ProductService} from "../service/product.service";
 export class HomeProductRowComponent implements OnInit {
   products: any[] = [];
 
-  constructor(private productService: ProductService) {
-
+  constructor(private productService: ProductService,
+              protected colorService: ColorService) {
   }
 
   ngOnInit(): void {

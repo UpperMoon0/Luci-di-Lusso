@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import { environment } from "../../environments/environment";
 import {tap} from "rxjs/operators";
+import {ColorService} from "./color.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,8 @@ export class ProductService {
 
   private apiUrl = environment.beApiUrl;
 
-  constructor(private http: HttpClient) {
-    this.getProductTypes().subscribe(res => {
-
-    })
+  constructor(private http: HttpClient, private colorService: ColorService) {
+    this.getAllTypes().subscribe();
   }
 
   private get httpOptions() {
@@ -41,7 +40,12 @@ export class ProductService {
   }
 
   public getAllTypes(): Observable<any> {
-    return this.http.get<any[]>(`${this.apiUrl}/product/get-all-jewelry-types`, this.httpOptions);
+    return this.http.get<any[]>(`${this.apiUrl}/product/get-all-jewelry-types`, this.httpOptions).pipe(
+      tap(types => {
+        this.productTypes.next(types);
+        this.colorService.mapTypesToColors(types);
+      })
+    );
   }
 
   public getTest(): Observable<any> {

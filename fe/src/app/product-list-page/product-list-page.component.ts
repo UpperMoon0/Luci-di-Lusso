@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from "ngx-toastr";
 import { ProductService } from "../service/product.service";
+import { ColorService } from "../service/color.service";
 
 @Component({
   selector: 'app-product-list-page-page',
@@ -10,7 +11,6 @@ import { ProductService } from "../service/product.service";
 export class ProductListPageComponent implements OnInit {
   public typeLists: string[] = [];
   public priceRange: string[] = ["$ 0 - 100", "$ 100 - 500", "$ 500 - 1000", "$ 1000 - 4000", "More than $ 4000"];
-  public typeColors: Map<string, [string, string]> = new Map();
 
   isLoggedIn: boolean = false;
   selectedRangePrice: string = "";
@@ -18,23 +18,21 @@ export class ProductListPageComponent implements OnInit {
   selectedTypes: string[] = [];
 
   constructor(private productService: ProductService,
-              private toastrService: ToastrService) {}
+              private toastrService: ToastrService,
+              protected colorService: ColorService) {}
 
   ngOnInit(): void {
     this.isLoggedIn = localStorage.getItem("user") != null;
-    this.getAllTypes();
-    this.getProducts();
-  }
-
-  private getAllTypes(): void {
-    this.productService.getAllTypes().subscribe({
-      next: (res: string[]) => {
-        this.typeLists = res;
-        this.typeColors = mapTypesToColors(this.typeLists);
+    // Subscribe to productTypes observable
+    this.productService.getProductTypes().subscribe({
+      next: (types: string[]) => {
+        this.typeLists = types;
+        this.getProducts();
       },
       error: (error) => this.toastrService.error(error.message),
-      complete: () => console.log('Completed fetching tags')
+      complete: () => console.log('Completed fetching product types')
     });
+    this.getProducts();
   }
 
   public getSelectedTypes(tag: string): void {
@@ -97,29 +95,4 @@ export class ProductListPageComponent implements OnInit {
     const range = this.selectedRangePrice.split("-").map(part => parseInt(part.replace(/[^0-9]/g, '').trim()));
     return { minPrice: range[0] || 0, maxPrice: range[1] || 0 };
   }
-
-  getTypeGradient(type: string): [string, string] {
-    const colors = this.typeColors.get(type);
-    if (colors) {
-      return colors;
-    } else {
-      // Default color pair if the type is not found
-      return ['rgba(0, 0, 0, 0.7)', 'rgba(255, 255, 255, 0.7)'];
-    }
-  }
-}
-
-function generateVibrantColors(index: number): [string, string] {
-  const baseHue = (index * 137) % 360; // Using the golden angle approximation for distribution
-  const color1 = `hsl(${baseHue}, 70%, 55%)`;
-  const color2 = `hsl(${(baseHue + 45) % 360}, 70%, 55%)`; // Offset by 45 degrees for the second color
-  return [color1, color2];
-}
-
-function mapTypesToColors(typeLists: string[]): Map<string, [string, string]> {
-  const typeColors = new Map<string, [string, string]>();
-  typeLists.forEach((type, index) => {
-    typeColors.set(type, generateVibrantColors(index));
-  });
-  return typeColors;
 }
