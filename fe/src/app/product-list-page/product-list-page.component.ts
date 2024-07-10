@@ -3,6 +3,7 @@ import { ToastrService } from "ngx-toastr";
 import { ProductService } from "../service/product.service";
 import { CartService } from "../service/cart.service";
 import { NumberService } from "../modules/service/number.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-product-list-page-page',
@@ -41,35 +42,46 @@ export class ProductListPageComponent implements OnInit {
   public getSelectedTypes(tag: string): void {
     const index = this.selectedTypes.indexOf(tag.toUpperCase());
     const isSelected = index > -1;
-    this.toggleSelection(isSelected, tag, this.selectedTypes, index);
+    this.toggleSelectionType(isSelected, tag, this.selectedTypes, index);
     this.getProducts();
   }
 
   public getSelectedPriceRange(price: string): void {
     const isSelected = this.selectedRangePrice === price;
-    this.toggleSelection(isSelected, price, this.priceRange);
+    this.toggleSelectionPrice(isSelected, price);
     this.getProducts();
   }
 
-  private toggleSelection(isSelected: boolean, value: string, array: string[], index?: number): void {
+  private toggleSelectionType(isSelected: boolean, value: string, array: string[], index: number): void {
     const element = document.getElementById(value);
     if (isSelected) {
-      if (index !== undefined) array.splice(index, 1);
-      else this.selectedRangePrice = "";
+      array.splice(index, 1);
+      element.style.backgroundColor = "white";
+      element.style.color = "black";
+      element.style.fontWeight = "normal";
+    } else {
+      array.push(value.toUpperCase());
+      element.style.backgroundColor = "#173334FF";
+      element.style.color = "white";
+      element.style.fontWeight = "bold";
+    }
+  }
+
+  private toggleSelectionPrice(isSelected: boolean, value: string): void {
+    const element = document.getElementById(value);
+    if (isSelected) {
+      this.selectedRangePrice = "";
       element.style.cssText = "font-weight: normal; background-color: white; color: black;";
     } else {
-      if (array === this.selectedTypes) array.push(value.toUpperCase());
-      else {
-        // Deselect the previously selected price range
-        if (this.selectedRangePrice) {
-          const prevElement = document.getElementById(this.selectedRangePrice);
-          if (prevElement) {
-            prevElement.style.cssText = "font-weight: normal; background-color: white; color: black;";
-          }
+      //Remove style from the last Price
+      if (this.selectedRangePrice) {
+        const prevElement = document.getElementById(this.selectedRangePrice);
+        if (prevElement) {
+          prevElement.style.cssText = "font-weight: normal; background-color: white; color: black;";
         }
-        this.selectedRangePrice = value;
-        element.style.cssText = "width: 100%; font-weight: bold; background-color: #173334FF; color: white;";
       }
+      this.selectedRangePrice = value;
+      element.style.cssText = "width: 100%; font-weight: bold; background-color: #173334FF; color: white;";
     }
   }
 
