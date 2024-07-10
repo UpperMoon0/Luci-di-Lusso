@@ -25,7 +25,7 @@ export class AccountService {
           localStorage.setItem('accessToken', res.accessToken);
           switch (res.role) {
             case 'DELIVERER':
-              this.router.navigate(["/delivery-dashboard"]).then(r=> {});
+              this.router.navigate(["/delivery"]).then(r=> {});
               break;
             default:
               this.router.navigate(['/home']).then(r => {});

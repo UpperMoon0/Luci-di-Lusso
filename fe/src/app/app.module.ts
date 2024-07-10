@@ -32,6 +32,9 @@ import { FormsModule } from '@angular/forms';
 import { CustomerProfileFormComponent } from "./customer-profile-page/customer-profile-form.component";
 import { CustomerProfilePageComponent } from './customer-profile-page/customer-profile-page.component';
 
+import { DeliveryTableComponent } from './delivery-page/delivery-table.component';
+import { DeliveryPageComponent } from './delivery-page/delivery-page.component';
+
 import { DefaultLayoutModule } from './core/default-layout/default-layout.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { SharedAppModule } from './core/shared/shared.module';
@@ -63,7 +66,6 @@ import { WishListComponent } from './modules/pages/wish-list/wish-list.component
 import { FooterComponent } from './footer/footer.component';
 import {ResetPasswordComponent} from "./modules/pages/reset-password/reset-password.component";
 import { ForgetPasswordComponent } from './modules/pages/forget-password/forget-password.component';
-import { DeliveryTableComponent } from './delivery-dashboard/delivery-table.component';
 
 
 @NgModule({
@@ -103,6 +105,10 @@ import { DeliveryTableComponent } from './delivery-dashboard/delivery-table.comp
     CustomerProfileFormComponent,
     CustomerProfilePageComponent,
 
+    // Delivery page
+    DeliveryTableComponent,
+    DeliveryPageComponent,
+
     //
     ResetPasswordComponent,
     HomeComponent,
@@ -125,7 +131,6 @@ import { DeliveryTableComponent } from './delivery-dashboard/delivery-table.comp
     WishListComponent,
     FooterComponent,
     ForgetPasswordComponent,
-    DeliveryTableComponent
   ],
   imports: [
     BrowserModule,

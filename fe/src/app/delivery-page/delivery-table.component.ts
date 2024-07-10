@@ -3,7 +3,7 @@ import { DeliveryService } from "../service/delivery.service";
 import {ToastrService} from "ngx-toastr";
 
 @Component({
-  selector: 'app-delivery-dashboard',
+  selector: 'app-delivery-table',
   templateUrl: './delivery-table.component.html',
   styleUrls: ['./delivery-table.component.css']
 })
