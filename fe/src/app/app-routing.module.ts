@@ -9,6 +9,7 @@ import { ProductPageComponent } from "./product-page/product-page.component";
 import { CartPageComponent } from "./cart-page/cart-page.component";
 import { PaymentPageComponent } from "./payment-page/payment-page.component";
 import {CustomerProfilePageComponent} from "./customer-profile-page/customer-profile-page.component";
+import {DeliveryPageComponent} from "./delivery-page/delivery-page.component";
 
 const routes: Routes = [
   { path: 'home', component: HomePageComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'cart', component: CartPageComponent },
   { path: 'payment', component: PaymentPageComponent },
   { path: 'profile', component: CustomerProfilePageComponent },
+  { path: 'delivery', component: DeliveryPageComponent },
 
   { path: '**', redirectTo: 'home' }
 ];

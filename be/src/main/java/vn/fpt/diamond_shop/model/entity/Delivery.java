@@ -1,6 +1,7 @@
 package vn.fpt.diamond_shop.model.entity;
 
 import lombok.Data;
+import vn.fpt.diamond_shop.constant.EOrderStatus;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -21,8 +22,9 @@ public class Delivery {
     @JoinColumn(name = "deliverer_id")
     private User deliverer;
 
-    @Column(name = "status", length = 20, nullable = false)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'PENDING'")
+    private EOrderStatus status;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;

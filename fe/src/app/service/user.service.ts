@@ -26,7 +26,7 @@ export class UserService {
   private init() {
     this.getProfile().pipe(
       catchError(error => {
-        console.error('Initialization error:', error);
+        console.error(error);
         return of(null);
       })
     ).subscribe(data => {
@@ -58,7 +58,7 @@ export class UserService {
       }),
       catchError(error => {
         // Handle the error, log it, and rethrow or return a new Observable
-        console.error('Error updating profile:', error);
+        console.error(error);
         return throwError(error);
       })
     );

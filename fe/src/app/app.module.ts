@@ -37,6 +37,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CustomerProfileFormComponent } from "./customer-profile-page/customer-profile-form.component";
 import { CustomerProfilePageComponent } from './customer-profile-page/customer-profile-page.component';
 
+import { DeliveryTableComponent } from './delivery-page/delivery-table.component';
+import { DeliveryPageComponent } from './delivery-page/delivery-page.component';
+
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -88,7 +91,9 @@ import {OAuthModule} from "angular-oauth2-oidc";
     CustomerProfileFormComponent,
     CustomerProfilePageComponent,
 
-    HomePageComponent,
+    // Delivery page
+    DeliveryTableComponent,
+    DeliveryPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -110,16 +115,6 @@ import {OAuthModule} from "angular-oauth2-oidc";
     ReactiveFormsModule,
   ],
   providers: [
-    // FeatureGuard,
-    // {
-    //   provide: LocationStrategy,
-    //   useClass: HashLocationStrategy
-    // },
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: AuthInterceptor,
-    //   multi: true,
-    // },
   ],
   bootstrap: [AppComponent]
 })
