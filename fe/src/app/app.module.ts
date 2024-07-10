@@ -37,6 +37,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CustomerProfileFormComponent } from "./customer-profile-page/customer-profile-form.component";
 import { CustomerProfilePageComponent } from './customer-profile-page/customer-profile-page.component';
 
+import { DeliverySidebarComponent } from './delivery-page/delivery-sidebar.component';
 import { DeliveryTableComponent } from './delivery-page/delivery-table.component';
 import { DeliveryPageComponent } from './delivery-page/delivery-page.component';
 
@@ -92,6 +93,7 @@ import {OAuthModule} from "angular-oauth2-oidc";
     CustomerProfilePageComponent,
 
     // Delivery page
+    DeliverySidebarComponent,
     DeliveryTableComponent,
     DeliveryPageComponent,
   ],
