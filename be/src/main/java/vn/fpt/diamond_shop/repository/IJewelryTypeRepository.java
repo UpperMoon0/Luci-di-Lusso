@@ -8,8 +8,9 @@ import vn.fpt.diamond_shop.constant.EJewelryType;
 import vn.fpt.diamond_shop.model.entity.JewelryType;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface IJewelryTypeRepository extends JpaRepository<JewelryType, Long>{
-    JewelryType findByType(EJewelryType tag);
+    Optional<JewelryType> findByType(EJewelryType tag);
 }

@@ -1,6 +1,7 @@
 package vn.fpt.diamond_shop.model.entity;
 
 import lombok.*;
+import vn.fpt.diamond_shop.model.dto.DiamondRequest;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -37,4 +38,16 @@ public class Diamond {
 
     @Column(name = "create_at")
     private LocalDateTime createAt;
+
+    public DiamondRequest getDiamondRequest() {
+        DiamondRequest diamondRequest = new DiamondRequest();
+        diamondRequest.setId(this.id);
+        diamondRequest.setQuantity(this.quantity);
+        diamondRequest.setClarityId(this.clarity.getId());
+        diamondRequest.setCutId(this.cut.getId());
+        diamondRequest.setColorId(this.color.getId());
+        diamondRequest.setCarat(this.carat);
+        diamondRequest.setShapeId(this.shape.getId());
+        return diamondRequest;
+    }
 }
