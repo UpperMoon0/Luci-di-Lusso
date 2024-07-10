@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from "ngx-toastr";
 import { ProductService } from "../service/product.service";
-import { CartService } from "../service/cart.service";
-import { NumberService } from "../modules/service/number.service";
-import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-product-list-page-page',
