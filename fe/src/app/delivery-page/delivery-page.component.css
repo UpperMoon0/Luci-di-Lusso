@@ -1,0 +1,13 @@
+/* Reset padding for container-fluid and row */
+.container-fluid, .row {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Ensure sidebar has no margin causing the issue */
+.sidebar {
+  margin-left: 0;
+  padding-left: 0; /* Adjust as necessary */
+}

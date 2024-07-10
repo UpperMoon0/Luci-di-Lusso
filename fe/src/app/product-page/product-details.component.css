@@ -1,4 +1,28 @@
 .product-details {
   margin-top: 15rem;
-  margin-bottom: 10rem;
+  margin-bottom: 5rem;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0 0 20px rgba(0, 255, 255, 0.75), /* Cyan */
+    0 0 30px rgba(25, 100, 255, 0.75), /* Light Blue */
+    0 0 40px rgba(88, 0, 255, 0.75), /* Purple */
+    0 0 50px rgba(0, 200, 255, 0.75); /* Bright Cyan */
+  border-radius: 10px;
+  animation: colorRotate 5s infinite linear;
+}
+
+@keyframes colorRotate {
+  0% {
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.75), 0 0 30px rgba(25, 100, 255, 0.75), 0 0 40px rgba(88, 0, 255, 0.75), 0 0 50px rgba(0, 200, 255, 0.75);
+  }
+  33% {
+    box-shadow: 0 0 20px rgba(0, 200, 255, 0.75), 0 0 30px rgba(0, 255, 255, 0.75), 0 0 40px rgba(25, 100, 255, 0.75), 0 0 50px rgba(88, 0, 255, 0.75);
+  }
+  66% {
+    box-shadow: 0 0 20px rgba(88, 0, 255, 0.75), 0 0 30px rgba(0, 200, 255, 0.75), 0 0 40px rgba(0, 255, 255, 0.75), 0 0 50px rgba(25, 100, 255, 0.75);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(25, 100, 255, 0.75), 0 0 30px rgba(88, 0, 255, 0.75), 0 0 40px rgba(0, 200, 255, 0.75), 0 0 50px rgba(0, 255, 255, 0.75);
+  }
 }

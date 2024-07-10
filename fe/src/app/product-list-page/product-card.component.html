@@ -1,0 +1,10 @@
+<div class="card shadow rounded product-card">
+  <a href="/product/{{product.id}}" aria-label="View product details">
+    <img src="{{product.imageUrl}}" class="card-img-top img-fluid product-image" alt="Product Image">
+  </a>
+  <div class="card-body text-center">
+    <h5 class="h5 mb-2">{{ product.name }}</h5>
+    <h4 class="text-muted font-weight-bold">{{convertNumber(product.price)}} <span class="currency-type"></span></h4>
+  </div>
+  <div class="product-type-bubble" [style.background]="getTypeGradient(product.type)">{{ product.type }}</div>
+</div>

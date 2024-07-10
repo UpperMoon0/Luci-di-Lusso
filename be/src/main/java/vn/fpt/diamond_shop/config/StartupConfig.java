@@ -11,13 +11,18 @@ import java.time.LocalDateTime;
 
 @Configuration
 public class StartupConfig {
+    private final boolean generateData = false;
     @Bean
     public CommandLineRunner initTables(IDiamondCutRepository cutRepository,
-                                        IDiamondPolishRepository polishRepository,
+                                        IDiamondColorRepository polishRepository,
                                         IDiamondShapeRepository shapeRepository,
                                         IDiamondClarityRepository clarityRepository,
                                         IJewelryTypeRepository jewelryTagRepository) {
         return args -> {
+            if (!generateData) {
+                return;
+            }
+
             for (EDiamondCut cutValue : EDiamondCut.values()) {
                 DiamondCut cut = cutRepository.findByCut(cutValue);
                 if (cut == null) {
@@ -28,13 +33,13 @@ public class StartupConfig {
                 }
             }
 
-            for (EDiamondPolish polishValue : EDiamondPolish.values()) {
-                DiamondPolish polish = polishRepository.findByPolish(polishValue);
-                if (polish == null) {
-                    polish = new DiamondPolish();
-                    polish.setPolish(polishValue);
-                    polish.setCreateAt(LocalDateTime.now());
-                    polishRepository.save(polish);
+            for (EDiamondColor polishValue : EDiamondColor.values()) {
+                DiamondColor color = polishRepository.findByColor(polishValue);
+                if (color == null) {
+                    color = new DiamondColor();
+                    color.setColor(polishValue);
+                    color.setCreateAt(LocalDateTime.now());
+                    polishRepository.save(color);
                 }
             }
 
@@ -59,13 +64,18 @@ public class StartupConfig {
             }
 
             for (EJewelryType jewelryTagValue : EJewelryType.values()) {
-                JewelryType jewelryType = jewelryTagRepository.findByType(jewelryTagValue);
-                if (jewelryType == null) {
-                    jewelryType = new JewelryType();
-                    jewelryType.setType(jewelryTagValue);
-                    jewelryType.setCreateAt(LocalDateTime.now());
-                    jewelryTagRepository.save(jewelryType);
-                }
+                jewelryTagRepository.findByType(jewelryTagValue).ifPresentOrElse(
+                        existingJewelryType -> {
+                            // JewelryType exists, no action needed
+                        },
+                        () -> {
+                            // JewelryType not found, create a new one
+                            JewelryType newJewelryType = new JewelryType();
+                            newJewelryType.setType(jewelryTagValue);
+                            newJewelryType.setCreateAt(LocalDateTime.now());
+                            jewelryTagRepository.save(newJewelryType);
+                        }
+                );
             }
         };
     }

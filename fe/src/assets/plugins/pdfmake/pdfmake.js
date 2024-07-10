@@ -37785,7 +37785,7 @@ var global = __webpack_require__(7854);
 module.exports = function (a, b) {
   var console = global.console;
   if (console && console.error) {
-    arguments.length == 1 ? console.error() : console.error(b);
+    arguments.length == 1 ? console.error() : console.error();
   }
 };
 
@@ -71524,7 +71524,7 @@ exports.debuglog = function(set) {
       var pid = process.pid;
       debugs[set] = function() {
         var msg = exports.format.apply(exports, arguments);
-        console.error(set, pid, msg);
+        console.error(pid, msg);
       };
     } else {
       debugs[set] = function() {};
@@ -73711,7 +73711,7 @@ DocMeasure.prototype.measureTable = function (node) {
 			var rowData = node.table.body[row];
 			var data = rowData[col];
 			if (data === undefined) {
-				console.error(rowData, 'in node ', node);
+				console.error('in node ', node);
 				throw 'Malformed table row, a cell is undefined.';
 			}
 			if (data === null) { // transform to object

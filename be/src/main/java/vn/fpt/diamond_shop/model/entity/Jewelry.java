@@ -1,10 +1,10 @@
 package vn.fpt.diamond_shop.model.entity;
 
 import lombok.*;
+import vn.fpt.diamond_shop.model.dto.JewelryRequest;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @Entity
@@ -29,11 +29,23 @@ public class Jewelry {
 
     @ManyToOne
     @JoinColumn(name = "type_id")
-    private JewelryType jewelryType;
+    private JewelryType type;
 
     @Column(name = "image_url")
     private String imageUrl;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;
+
+    public JewelryRequest getJewelryRequest() {
+        JewelryRequest jewelryRequest = new JewelryRequest();
+        jewelryRequest.setId(this.id);
+        jewelryRequest.setName(this.name);
+        jewelryRequest.setJewelryType(this.type.getType());
+        jewelryRequest.setDescription(this.description);
+        jewelryRequest.setImageUrl(this.imageUrl);
+        jewelryRequest.setPrice(this.price);
+        jewelryRequest.setDiamondId(this.diamond.getId());
+        return jewelryRequest;
+    }
 }

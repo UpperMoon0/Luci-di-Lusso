@@ -659,7 +659,7 @@ $.extend( $.validator, {
 				var isContentEditable = typeof $( this ).attr( "contenteditable" ) !== "undefined" && $( this ).attr( "contenteditable" ) !== "false";
 
 				if ( !name && validator.settings.debug && window.console ) {
-					console.error( this );
+					console.error( );
 				}
 
 				// Set form expando on contenteditable

@@ -1,5 +1,6 @@
 package vn.fpt.diamond_shop.model.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,9 +10,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Getter
-@Setter
-@ToString
+@Data
 @Entity
 @Table(name = "jewelry_type")
 public class JewelryType {

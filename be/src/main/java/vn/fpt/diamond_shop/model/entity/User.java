@@ -1,27 +1,23 @@
 package vn.fpt.diamond_shop.model.entity;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import vn.fpt.diamond_shop.constant.EAuthProvider;
+import vn.fpt.diamond_shop.constant.EUserRole;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Setter
-@Getter
+@Data
 @Entity
-@Table(name = "`user`", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "email"),
-        @UniqueConstraint(columnNames = "username")
-})
+@Table(name = "`user`")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "username", nullable = false)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @Column(name = "password", nullable = false)
@@ -31,14 +27,11 @@ public class User {
     private String fullName;
 
     @Email
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @Column(name = "image_url")
     private String imageUrl;
-
-    @Column(name = "email_verified", nullable = false)
-    private Boolean emailVerified = false;
 
     @Column(name = "phone")
     private String phone;
@@ -55,4 +48,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "provider", nullable = false)
     private EAuthProvider provider;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private EUserRole role;
 }

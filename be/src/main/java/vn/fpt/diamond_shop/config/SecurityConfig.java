@@ -40,10 +40,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/auth/register",
                         "/auth/login",
                         "/auth/validate-token",
-                        "/product/get-jewelry")
+                        "/product/get-jewelry",
+                        "/product/get-jewelries",
+                        "/product/get-all-jewelries",
+                        "/product/get-all-tags")
                 .permitAll()
             .anyRequest()
-                .authenticated()
+                .permitAll()
             .and()
             .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
