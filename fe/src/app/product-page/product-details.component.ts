@@ -70,7 +70,7 @@ export class ProductDetailsComponent implements OnInit {
         console.log('Product added to cart:', response);
       },
       error: (error) => {
-        console.error('Error adding product to cart:', error);
+        console.error(error);
       }
     });
   }

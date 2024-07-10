@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "delivery")
 public class Delivery {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -24,10 +23,10 @@ public class Delivery {
     @JoinColumn(name = "order_id")
     private Order order;
 
-    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'PENDING'")
     private EOrderStatus status;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;
-
 }

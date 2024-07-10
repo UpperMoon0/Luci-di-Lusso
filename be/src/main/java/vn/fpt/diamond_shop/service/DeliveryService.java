@@ -20,14 +20,14 @@ public class DeliveryService implements IDeliveryService {
     }
 
     @Override
-    public List<Delivery> getDeliveries(Long delivererID) {
+    public List<Delivery> getDeliveriesByUser(Long delivererID) {
         return deliveryRepository.findAllByDelivererId(delivererID);
     }
 
     @Override
-    public String checkDeliveryStatus(Long deliveryID) {
+    public void completeDelivery(Long deliveryID) {
         Delivery delivery = deliveryRepository.getById(deliveryID);
         delivery.setStatus(EOrderStatus.DONE);
-        return "Order is done!";
+        deliveryRepository.save(delivery);
     }
 }

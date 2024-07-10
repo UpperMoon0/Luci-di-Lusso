@@ -106,7 +106,7 @@ public class AuthController {
         LoginResponse loginResponse = new LoginResponse();
 
         loginResponse.setAccessToken(jwt);
-        loginResponse.setRole(userService.getUserByToken(jwt).getRole().getValue());
+        loginResponse.setRole(userService.getUserByToken(jwt).getRole().name());
         loginResponse.setMessage("Login successfully");
 
         return ResponseEntity.ok(loginResponse);

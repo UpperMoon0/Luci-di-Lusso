@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.fpt.diamond_shop.model.dto.CommonResponse;
-import vn.fpt.diamond_shop.model.dto.DeliveryResponse;
+import vn.fpt.diamond_shop.model.dto.DeliveriesResponse;
 import vn.fpt.diamond_shop.model.entity.Delivery;
 import vn.fpt.diamond_shop.model.entity.User;
 import vn.fpt.diamond_shop.service.IDeliveryService;
@@ -26,28 +26,25 @@ public class DeliveryController {
     }
 
     @GetMapping("/get-deliveries")
-    public ResponseEntity<DeliveryResponse> getDeliveries(@RequestHeader("Authorization") String authorizationHeader) {
+    public ResponseEntity<DeliveriesResponse> getDeliveries(@RequestHeader("Authorization") String authorizationHeader) {
         String jwt = authorizationHeader.substring(7);
         User user = userService.getUserByToken(jwt);
-        DeliveryResponse res = new DeliveryResponse();
 
-        List<Delivery> deliveries = deliveryService.getDeliveries(user.getId());
-        for (Delivery temp : deliveries) {
-            if (temp.getStatus().getValue().equalsIgnoreCase("Done")) {
-                deliveries.remove(temp);
-            }
-        }
+        List<Delivery> deliveries = deliveryService.getDeliveriesByUser(user.getId());
+        System.out.println("Number of deliveries: " + deliveries.size());
+        deliveries.removeIf(temp -> temp.getStatus().name().equals("DONE"));
+        System.out.println("Number of deliveries2 : " + deliveries.size());
 
-        res.setDeliveries(deliveries);
+        DeliveriesResponse res = new DeliveriesResponse(deliveries);
 
         return ResponseEntity.ok(res);
     }
 
-    @PutMapping("/check-status")
-    public ResponseEntity<CommonResponse> checkDeliveryStatus(@RequestParam Long id) {
-        String msg = deliveryService.checkDeliveryStatus(id);
+    @PutMapping("/complete-delivery")
+    public ResponseEntity<CommonResponse> completeDelivery(@RequestParam Long id) {
+        deliveryService.completeDelivery(id);
         CommonResponse res = new CommonResponse();
-        res.setMessage(msg);
+        res.setMessage("Delivery completed successfully");
         return ResponseEntity.ok(res);
     }
 

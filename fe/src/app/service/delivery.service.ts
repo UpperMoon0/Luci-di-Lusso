@@ -7,9 +7,6 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class DeliveryService {
-
-  private apiUrl = environment.beApiUrl;
-
   constructor(private http: HttpClient) {}
 
   private get httpOptions() {
@@ -25,8 +22,7 @@ export class DeliveryService {
     return this.http.get<any[]>(`${environment.beApiUrl}/delivery/get-deliveries`, this.httpOptions);
   }
 
-  public checkDelivery(id: number) {
-    return this.http.put<any>(`${environment.beApiUrl}/delivery/check-status?id=${id}`, this.httpOptions);
+  public completeDelivery(id: number) {
+    return this.http.put<any>(`${environment.beApiUrl}/delivery/complete-delivery?id=${id}`, this.httpOptions);
   }
-
 }

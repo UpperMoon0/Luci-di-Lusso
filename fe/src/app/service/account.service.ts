@@ -24,7 +24,7 @@ export class AccountService {
           this.isLoggedIn.next(true);
           localStorage.setItem('accessToken', res.accessToken);
           switch (res.role) {
-            case 'ROLE_DELIVERY_STAFF':
+            case 'DELIVERER':
               this.router.navigate(["/delivery-dashboard"]).then(r=> {});
               break;
             default:

@@ -80,7 +80,7 @@ export class CartService {
         });
       },
       error: (error) => {
-        console.error('Error getting cart items:', error);
+        console.error(error);
       }
     });
   }

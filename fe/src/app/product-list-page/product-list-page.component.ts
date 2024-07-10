@@ -33,7 +33,7 @@ export class ProductListPageComponent implements OnInit {
         this.typeLists = res;
         this.typeColors = mapTypesToColors(this.typeLists);
       },
-      error: (error) => this.toastrService.error(error.message),
+      error: (error) => this.toastrService.error(),
       complete: () => console.log('Completed fetching tags')
     });
   }
@@ -79,7 +79,7 @@ export class ProductListPageComponent implements OnInit {
     const request = { types, minPrice, maxPrice };
     this.productService.getJewelries(request).subscribe({
       next: (res) => this.productsList = res.jewelries,
-      error: () => this.toastrService.error("Error in getting products list")
+      error: () => this.toastrService.error()
     });
   }
 
