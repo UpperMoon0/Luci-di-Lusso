@@ -20,7 +20,8 @@ export class ProductListPageComponent implements OnInit {
   productsList: any[] = [];
   selectedTypes: string[] = [];
 
-  constructor(private productService: ProductService, private toastrService: ToastrService, private numberFormat: NumberService, private cartService: CartService) {}
+  constructor(private productService: ProductService,
+              private toastrService: ToastrService) {}
 
   ngOnInit(): void {
     this.isLoggedIn = localStorage.getItem("user") != null;

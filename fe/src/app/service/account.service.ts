@@ -24,6 +24,7 @@ export class AccountService {
         if (res && res.accessToken) {
           this.isLoggedIn.next(true);
           localStorage.setItem('accessToken', res.accessToken);
+          this.cartService.getCartItems();
           this.router.navigate(['/home']).then(r => {});
         }
       })
