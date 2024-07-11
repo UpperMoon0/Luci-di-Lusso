@@ -107,7 +107,7 @@
           <div class="row">
             <div *ngFor="let product of productsList">
               <div class="col-lg-4 col-md-6 col-sm-6 col-12 product-col">
-                <app-product-card [product]="product" [typeColors]="getTypeGradient(product.type)"></app-product-card>
+                <app-product-card [product]="product" [typeColors]="colorService.getTypeGradient(product.type)"></app-product-card>
               </div>
             </div>
           </div>
