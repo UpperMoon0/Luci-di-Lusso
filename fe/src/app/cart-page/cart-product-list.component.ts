@@ -1,25 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CartService } from '../service/cart.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cart-product-list',
   templateUrl: './cart-product-list.component.html',
   styleUrls: ['./cart-product-list.component.css']
 })
-export class CartProductListComponent implements OnInit {
+export class CartProductListComponent implements OnInit, OnDestroy {
+  products = [];
+  totalPrice = 0;
+  totalItems = 0;
+  private cartSubscription: Subscription;
+
   constructor(private cartService: CartService, private router: Router) { }
 
   ngOnInit(): void {
-    this.cartService.getCartItems();
+    this.cartSubscription = this.cartService.getCartState().subscribe(cartState => {
+      this.products = cartState.cartItems;
+      this.totalPrice = cartState.totalPrice;
+      this.totalItems = cartState.totalItems;
+    });
   }
 
-  get products() {
-    return this.cartService.cartItems;
-  }
-
-  get totalPrice() {
-    return this.cartService.totalPrice;
+  ngOnDestroy(): void {
+    if (this.cartSubscription) {
+      this.cartSubscription.unsubscribe();
+    }
   }
 
   clearCart() {
@@ -30,7 +38,7 @@ export class CartProductListComponent implements OnInit {
       error: (error) => {
         console.log(error);
       }
-    })
+    });
   }
 
   proceedToCheckout() {

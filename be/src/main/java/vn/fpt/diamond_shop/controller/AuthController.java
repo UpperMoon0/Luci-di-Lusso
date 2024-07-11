@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import vn.fpt.diamond_shop.constant.EUserRole;
 import vn.fpt.diamond_shop.exception.BadRequestException;
 import vn.fpt.diamond_shop.model.dto.CommonResponse;
 import vn.fpt.diamond_shop.model.dto.LoginResponse;
@@ -19,6 +20,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import vn.fpt.diamond_shop.security.JwtTokenProvider;
+import vn.fpt.diamond_shop.service.UserService;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -34,13 +36,15 @@ public class AuthController {
     private final IUserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider tokenProvider;
+    private final UserService userService;
 
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager, IUserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenProvider tokenProvider) {
+    public AuthController(AuthenticationManager authenticationManager, IUserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenProvider tokenProvider, UserService userService) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.tokenProvider = tokenProvider;
+        this.userService = userService;
     }
 
     /**
@@ -72,7 +76,9 @@ public class AuthController {
             user.setFullName(signUpRequest.getFullName());
             user.setDob(signUpRequest.getDob());
             user.setProvider(signUpRequest.getProvider());
+            user.setRole(EUserRole.CUSTOMER);
             user.setCreateAt(LocalDateTime.now());
+
             userRepository.save(user);
         }
         cr.setMessage("Register successfully");
@@ -86,7 +92,7 @@ public class AuthController {
      * @return a ResponseEntity with the login response
      */
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getPrincipal(),
@@ -98,7 +104,9 @@ public class AuthController {
 
         String jwt = tokenProvider.generateToken(authentication);
         LoginResponse loginResponse = new LoginResponse();
+
         loginResponse.setAccessToken(jwt);
+        loginResponse.setRole(userService.getUserByToken(jwt).getRole().name());
         loginResponse.setMessage("Login successfully");
 
         return ResponseEntity.ok(loginResponse);

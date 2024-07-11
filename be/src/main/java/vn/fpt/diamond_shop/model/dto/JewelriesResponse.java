@@ -17,19 +17,5 @@ public class JewelriesResponse extends CommonResponse {
     }
 }
 
-@Getter
-class JewelryDTO {
-    private final Long id;
-    private final String name;
-    private final String imageUrl;
-    private final Double price;
-    private final String type;
-
-    public JewelryDTO(Long id, String name, String imageUrl, Double price, String type) {
-        this.id = id;
-        this.name = name;
-        this.imageUrl = imageUrl;
-        this.price = price;
-        this.type = type;
-    }
+record JewelryDTO(Long id, String name, String imageUrl, Double price, String type) {
 }

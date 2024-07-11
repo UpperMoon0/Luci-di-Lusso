@@ -1,17 +1,18 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
-import {environment} from "../../environments/environment";
+import { environment } from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = environment.apiUrl;
-  private readonly httpOptions: { headers: HttpHeaders };
+  private apiUrl = environment.beApiUrl;
 
-  constructor(private http: HttpClient) {
-    this.httpOptions = {
+  constructor(private http: HttpClient) {}
+
+  private get httpOptions() {
+    return {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -20,15 +21,15 @@ export class ProductService {
   }
 
   getJewelry(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/product/get-jewelry?id=` + id);
+    return this.http.get(`${this.apiUrl}/product/get-jewelry?id=` + id, this.httpOptions);
   }
 
-  public getJewelries(request: any): Observable<any>{
+  public getJewelries(request: any): Observable<any> {
     // Get all jewelries by default
     if (!request.types) {
-      return this.http.get(`${this.apiUrl}/product/get-all-jewelries`);
+      return this.http.get(`${this.apiUrl}/product/get-all-jewelries`, this.httpOptions);
     } else {
-      return this.http.post<any>(`${this.apiUrl}/product/get-jewelries`, request);
+      return this.http.post<any>(`${this.apiUrl}/product/get-jewelries`, request, this.httpOptions);
     }
   }
 
@@ -36,16 +37,16 @@ export class ProductService {
     return this.http.get<any[]>(`${this.apiUrl}/product/get-all-jewelry-types`, this.httpOptions);
   }
 
-  public addProduct(Product : any): Observable<any>{
-    return this.http.post<any>(`${this.apiUrl}/api/product/addProduct`,Product,this.httpOptions);
+  public addProduct(Product: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/api/product/addProduct`, Product, this.httpOptions);
   }
-  public updateProduct(Product : any): Observable<any>{
-    return this.http.put<any>(`${this.apiUrl}/api/product/update`,Product,this.httpOptions);
+  public updateProduct(Product: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/api/product/update`, Product, this.httpOptions);
   }
-  public deleteProduct(ProductId : number): Observable<any>{
-    return this.http.delete<void>(`${this.apiUrl}/api/product/delete/${ProductId}`,this.httpOptions);
+  public deleteProduct(ProductId: number): Observable<any> {
+    return this.http.delete<void>(`${this.apiUrl}/api/product/delete/${ProductId}`, this.httpOptions);
   }
-  public getTest(): Observable<any>{
+  public getTest(): Observable<any> {
     return this.http.get<Object>(`${this.apiUrl}/api/product/test`, this.httpOptions);
   }
 }

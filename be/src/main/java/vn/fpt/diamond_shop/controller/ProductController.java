@@ -4,10 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vn.fpt.diamond_shop.constant.EJewelryType;
+import vn.fpt.diamond_shop.constant.*;
 import vn.fpt.diamond_shop.model.dto.*;
 import vn.fpt.diamond_shop.model.entity.*;
 import vn.fpt.diamond_shop.repository.*;
+import vn.fpt.diamond_shop.service.IDiamondService;
 import vn.fpt.diamond_shop.service.IJewelryService;
 import vn.fpt.diamond_shop.service.IJewelrySizeService;
 
@@ -26,6 +27,11 @@ public class ProductController {
     private final IJewelrySizeRepository jewelrySizeRepository;
     private final IOrderItemRepository jewelryOrderRepository;
     private final IJewelrySizeService jewelrySizeService;
+    private final IDiamondService diamondService;
+    private final IDiamondCutRepository diamondCutRepository;
+    private final IDiamondColorRepository diamondColorRepository;
+    private final IDiamondClarityRepository diamondClarityRepository;
+    private final IDiamondShapeRepository diamondShapeRepository;
 
     @Autowired
     public ProductController(IOrderRepository receiptRepository,
@@ -33,13 +39,23 @@ public class ProductController {
                              IJewelryTypeRepository jewelryTypeRepository,
                              IJewelrySizeRepository jewelrySizeRepository,
                              IOrderItemRepository jewelryOrderRepository,
-                             IJewelrySizeService jewelrySizeService) {
+                             IJewelrySizeService jewelrySizeService,
+                             IDiamondService diamondService,
+                             IDiamondCutRepository diamondCutRepository,
+                             IDiamondColorRepository diamondColorRepository,
+                             IDiamondClarityRepository diamondClarityRepository,
+                             IDiamondShapeRepository diamondShapeRepository) {
         this.orderRepository = receiptRepository;
         this.jewelryService = jewelryService;
         this.jewelryTypeRepository = jewelryTypeRepository;
         this.jewelrySizeRepository = jewelrySizeRepository;
         this.jewelryOrderRepository = jewelryOrderRepository;
         this.jewelrySizeService = jewelrySizeService;
+        this.diamondService = diamondService;
+        this.diamondCutRepository = diamondCutRepository;
+        this.diamondColorRepository = diamondColorRepository;
+        this.diamondClarityRepository = diamondClarityRepository;
+        this.diamondShapeRepository = diamondShapeRepository;
     }
 
     @GetMapping("/get-jewelry")
@@ -97,61 +113,45 @@ public class ProductController {
         return ResponseEntity.ok(types);
     }
 
-    /*
-    @PostMapping("/add-order")
-    public ResponseEntity<CommonResponse> addOrder(@RequestBody @Valid OrderRequest receiptRequest) {
-        // Save receipt
-        List<Long> jewelryIdList = receiptRequest.getJewelryIdList();
-        Order order = new Order();
-        order.setUserId(receiptRequest.getUserId());
-        order.setTotalPrice(jewelryRepository.getTotalPriceByIdList(jewelryIdList));
-        order.setCreateAt(LocalDateTime.now());
-        order.setConfirmed(false);
-        orderRepository.save(order);
-
-        // Save jewelry order
-        for (Long jewelryId : jewelryIdList) {
-            OrderItem jewelryOrder = new OrderItem();
-            jewelryOrder.setJewelry(jewelryRepository.findById(jewelryId).orElse(null));
-            jewelryOrder.setOrder(order);
-            jewelryOrder.setSize(null);
-            jewelryOrderRepository.save(jewelryOrder);
-        }
-
-        // Return response
-        CommonResponse response = new CommonResponse();
-        response.setMessage("Receipt added successfully");
+    @GetMapping("/get-all-diamonds")
+    public ResponseEntity<DiamondsResponse> getAllDiamonds() {
+        List<Diamond> diamonds = diamondService.getAllDiamonds();
+        DiamondsResponse response = new DiamondsResponse(diamonds);
+        response.setMessage("Get all diamonds successfully");
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/set-jewelry-size")
-    public ResponseEntity<CommonResponse> setJewelrySize(@RequestBody @Valid SetJewelrySizeRequest req) {
+    @DeleteMapping("/delete-diamond")
+    public ResponseEntity<CommonResponse> deleteDiamond(@RequestParam Integer id) {
+        diamondService.deleteDiamond(id);
         CommonResponse response = new CommonResponse();
-        Jewelry jewelry = jewelryRepository.findById(req.getJewelryId()).orElse(null);
-        OrderItem jewelryOrder = jewelryOrderRepository.findByJewelry(jewelry).orElse(null);
-        if (jewelryOrder != null) {
-            JewelrySize size = jewelrySizeRepository.findById(req.getSizeId()).orElse(null);
-            jewelryOrder.setSize(size);
-            jewelryOrderRepository.save(jewelryOrder);
-            response.setMessage("Set jewelry size successfully");
-        } else {
-            response.setMessage("Jewelry order not found");
-        }
+        response.setMessage("Diamond deleted successfully");
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/confirm-order")
-    public ResponseEntity<CommonResponse> confirmOrder(@RequestBody @Valid ConfirmOrder req) {
+    @PostMapping("/save-diamond")
+    public ResponseEntity<CommonResponse> saveDiamond(@RequestBody DiamondUpdateRequest body) {
+        DiamondCut cut = diamondCutRepository.findByCut(EDiamondCut.fromValue(body.getCut()));
+        DiamondColor color = diamondColorRepository.findByColor(EDiamondColor.fromValue(body.getColor()));
+        DiamondClarity clarity = diamondClarityRepository.findByClarity(EDiamondClarity.fromValue(body.getClarity()));
+        Float carat = body.getCarat();
+        DiamondShape shape = diamondShapeRepository.findByShape(EDiamondShape.fromValue(body.getShape()));
+        Diamond diamond = diamondService.getDiamondById(body.getId());
         CommonResponse response = new CommonResponse();
-        Order receipt = orderRepository.findById(req.getOrderId()).orElse(null);
-        if (receipt != null) {
-            receipt.setConfirmed(req.isConfirm());
-            orderRepository.save(receipt);
-            response.setMessage("Confirm order successfully");
-        } else {
-            response.setMessage("Receipt not found");
+
+        if (cut == null || color == null || clarity == null || shape == null || diamond == null) {
+            response.setMessage("Invalid diamond data");
+            return ResponseEntity.badRequest().body(response);
         }
+
+        diamond.setCut(cut);
+        diamond.setColor(color);
+        diamond.setClarity(clarity);
+        diamond.setCarat(carat);
+        diamond.setShape(shape);
+        diamondService.saveDiamond(diamond);
+
+        response.setMessage("Diamond saved successfully");
         return ResponseEntity.ok(response);
     }
-     */
 }

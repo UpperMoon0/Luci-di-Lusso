@@ -4,6 +4,7 @@ import com.stripe.exception.StripeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import vn.fpt.diamond_shop.exception.InvalidJwtTokenException;
 import vn.fpt.diamond_shop.model.dto.CommonResponse;
 import vn.fpt.diamond_shop.service.IOrderService;
 import vn.fpt.diamond_shop.service.IPaymentService;
@@ -36,7 +37,11 @@ public class PaymentController {
             return ResponseEntity.ok(cr);
         } catch (StripeException e) {
             CommonResponse cr = new CommonResponse();
-            cr.setMessage(e.getMessage());
+            cr.setMessage("Payment failed");
+            return ResponseEntity.badRequest().body(cr);
+        } catch (InvalidJwtTokenException e) {
+            CommonResponse cr = new CommonResponse();
+            cr.setMessage("Invalid JWT token");
             return ResponseEntity.badRequest().body(cr);
         }
     }

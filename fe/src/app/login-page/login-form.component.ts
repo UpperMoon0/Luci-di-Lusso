@@ -35,10 +35,10 @@ export class LoginFormComponent implements OnInit {
 
     this.accountService.login(this.form.value).subscribe({
       next: () => {
-        this.toastrService.success("Login successfully");
+        this.toastrService.success("Login successfully!");
       },
       error: () => {
-        this.toastrService.error();
+        this.toastrService.error("Login failed!");
       }
     });
   }

@@ -4,9 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum EUserRole {
-    ADMIN,
     MANAGER,
-    SALE,
-    DELIVERY,
-    CUSTOMER
+    CUSTOMER,
+    DELIVERER
 }

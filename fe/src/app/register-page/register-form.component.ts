@@ -44,7 +44,7 @@ export class RegisterFormComponent implements OnInit {
         this.toastrService.success("Register successfully");
       },
       error: (err) => {
-        this.toastrService.error();
+        this.toastrService.error("Register failed!");
       }
     });
   }

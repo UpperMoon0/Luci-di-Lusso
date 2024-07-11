@@ -13,11 +13,6 @@
                               </span>
               Back to category
             </a>
-            <div class="section-title">
-              <h2>Listing category <span>(125)</span></h2>
-            </div>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown.</p>
           </div>
         </div>
       </div>
@@ -69,10 +64,10 @@
             </div>
             <div class="product-widget product-cat-widget">
               <div class="pro-itm has-children">
-                <a href="javascript:" class="acnav-label">
-                  jewelry types
-                </a>
-                <div class="pro-itm-inner acnav-list">
+                <div style="font-weight: 600">
+                  JEWELRY TYPES
+                </div>
+                <div>
                   <div *ngFor="let tag of typeLists">
                     <label class="check-label">
                       <span class="custom-checkbox">
@@ -94,7 +89,7 @@
                       <div *ngFor="let price of priceRange">
                         <label class="check-label">
                           <span class="custom-checkbox">
-                            <span id="{{price}}" class="filter-button" (click)="getSelectedPriceRange(price);">{{ price }}</span>
+                            <span id="{{price}}" class="filter-button" (click)="getSelectedPriceRange(price.toString());">{{ price }}</span>
                           </span>
                         </label>
                       </div>

@@ -4,6 +4,7 @@ import { Observable, BehaviorSubject } from "rxjs";
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import {environment} from "../../environments/environment";
+import {CartService} from "./cart.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,24 +12,37 @@ import {environment} from "../../environments/environment";
 export class AccountService {
   isLoggedIn = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient,
+              private router: Router,
+              private cartService: CartService) {
     this.checkToken();
   }
 
   login(formData: any): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/auth/login`, formData).pipe(
+    return this.http.post(`${environment.beApiUrl}/auth/login`, formData).pipe(
       tap(res => {
         if (res && res.accessToken) {
           this.isLoggedIn.next(true);
           localStorage.setItem('accessToken', res.accessToken);
-          this.router.navigate(['/home']).then(r => {});
+          switch (res.role) {
+            case 'DELIVERER':
+              this.router.navigate(["/delivery"]).then(r=> {});
+              break;
+            case 'MANAGER':
+              this.router.navigate(["/manager"]).then(r=> {});
+              break;
+            default:
+              this.cartService.getCartItems();
+              this.router.navigate(['/home']).then(r => {});
+              break;
+          }
         }
       })
     );
   }
 
   register(formData: any): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/auth/register`, formData);
+    return this.http.post(`${environment.beApiUrl}/auth/register`, formData);
   }
 
   logout(): void {
@@ -59,6 +73,6 @@ export class AccountService {
   }
 
   private validateToken(token: string): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/auth/validate-token`, token);
+    return this.http.post(`${environment.beApiUrl}/auth/validate-token`, token);
   }
 }

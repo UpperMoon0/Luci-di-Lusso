@@ -11,7 +11,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isLoggedIn: boolean = false;
   totalCartPrice: number = 0;
   totalItems: number = 0;
-  private totalPriceSubscription: Subscription;
+  private cartSubscription: Subscription;
 
   constructor(private accountService: AccountService,
               private cartService: CartService) {}
@@ -22,23 +22,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.isLoggedIn = value;
     });
 
-    this.cartService.totalPrice.subscribe(newTotalPrice => {
-      this.totalCartPrice = newTotalPrice;
-    });
-
-    this.cartService.totalItems.subscribe(newTotalItems => {
-      this.totalItems = newTotalItems;
+    this.cartSubscription = this.cartService.getCartState().subscribe(cartState => {
+      this.totalCartPrice = cartState.totalPrice;
+      this.totalItems = cartState.totalItems;
     });
   }
 
   ngOnDestroy() {
-    // Unsubscribe to prevent memory leaks
-    if (this.totalPriceSubscription) {
-      this.totalPriceSubscription.unsubscribe();
+    // Ensure the subscription is properly unsubscribed when the component is destroyed
+    if (this.cartSubscription) {
+      this.cartSubscription.unsubscribe();
     }
-  }
-
-  logOut() {
-    this.accountService.logout();
   }
 }

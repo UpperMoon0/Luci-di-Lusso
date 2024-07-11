@@ -1965,7 +1965,7 @@ Color.prototype = {
 				} else if (type === '[object Number]') {
 					target[prop] = value;
 				} else {
-					console.error(value);
+					console.error();
 				}
 			}
 		}
