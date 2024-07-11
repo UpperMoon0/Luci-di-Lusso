@@ -43,14 +43,16 @@ public class JewelryService implements IJewelryService {
             // If type list is not empty, initialize stream with jewelries that match the types
             jewelryStream = types.stream()
                     .map(jewelryTypeRepository::findByType)
-                    .flatMap(jewelryTag -> jewelryRepository.findAllByType(jewelryTag).stream())
+                    .flatMap(optionalType -> optionalType
+                            .map(jewelryType -> jewelryRepository.findAllByType(jewelryType).stream())
+                            .orElseGet(Stream::empty))
                     .distinct(); // Remove duplicates based on Jewelry's equals() and hashCode() methods
         }
 
         // Apply price filter to the stream
         jewelryStream = jewelryStream.filter(jewelry -> {
             double price = jewelry.getPrice();
-            if (maxPrice == 0) {
+            if (maxPrice == null || maxPrice == 0) {
                 return price >= minPrice;
             } else {
                 return price >= minPrice && price <= maxPrice;

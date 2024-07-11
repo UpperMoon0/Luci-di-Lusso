@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./discover.component.css']
 })
 export class DiscoverComponent  {
-
   constructor() {
 
   }

@@ -59,6 +59,7 @@ import {BlogPageComponent} from "./blog-page/blog/blog-page.component";
 import {Fashion01Component} from "./blog-page/blog/fashion01/fashion01.component";
 import {Fashion02Component} from "./blog-page/blog/fashion02/fashion02.component";
 import {NewsComponent} from "./blog-page/blog/news/news.component";
+import {DiscoverComponent} from "./blog-page/blog/discover/discover.component";
 
 @NgModule({
   declarations: [
@@ -114,6 +115,7 @@ import {NewsComponent} from "./blog-page/blog/news/news.component";
     ManagerPageComponent,
 
     // Blog page
+    DiscoverComponent,
     Fashion01Component,
     Fashion02Component,
     NewsComponent,
