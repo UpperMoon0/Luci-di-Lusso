@@ -61,6 +61,7 @@ import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {ToastrModule} from "ngx-toastr";
 import {OAuthModule} from "angular-oauth2-oidc";
 import { HomeBlogComponent } from './home-page/home-blog.component';
+import {HomeProductRowComponent} from "./home-page/home-product-row.component";
 
 @NgModule({
   declarations: [
