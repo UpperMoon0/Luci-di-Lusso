@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from "ngx-toastr";
 import { ProductService } from "../service/product.service";
 import { CartService } from "../service/cart.service";
+import {ColorService} from "../service/color.service";
 
 @Component({
   selector: 'app-product-list-page-page',
