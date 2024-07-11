@@ -13,6 +13,10 @@ import {DeliveryPageComponent} from "./delivery-page/delivery-page.component";
 import {PurchaseHistoryPageComponent} from "./purchase-history-page/purchase-history-page.component";
 import {ManagerPageComponent} from "./manager-page/manager-page.component";
 import {BlogPageComponent} from "./blog-page/blog/blog-page.component";
+import {NewsComponent} from "./blog-page/blog/news/news.component";
+import {DiscoverComponent} from "./blog-page/blog/discover/discover.component";
+import {Fashion02Component} from "./blog-page/blog/fashion02/fashion02.component";
+import {Fashion01Component} from "./blog-page/blog/fashion01/fashion01.component";
 
 const routes: Routes = [
   { path: 'home', component: HomePageComponent },
@@ -27,6 +31,39 @@ const routes: Routes = [
   { path: 'purchase-history', component: PurchaseHistoryPageComponent },
   { path: 'manager', component : ManagerPageComponent},
   { path : 'blog', component : BlogPageComponent },
+  //Blog's content pages
+
+  {
+    path: 'top-jewelry-trend-for-2024',
+    component: Fashion01Component,
+    data: {
+      title: 'Top Jewelry Trend For 2024'
+    }
+  },
+
+  {
+    path: 'top-jewelry-trend-for-2024',
+    component: Fashion02Component,
+    data: {
+      title: 'Top Jewelry Trend For 2024'
+    }
+  },
+
+  {
+    path: 'bracelet-and-ring-size-guide',
+    component: DiscoverComponent,
+    data: {
+      title: 'Bracelet And Ring Size Guide'
+    }
+  },
+
+  {
+    path: 'diamond-prices',
+    component: NewsComponent,
+    data: {
+      title: 'Diamond Prices Chart to Calculate 2024 Worth & Value'
+    }
+  },
 
   { path: '**', redirectTo: 'home' }
 ];

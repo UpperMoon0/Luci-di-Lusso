@@ -10,6 +10,7 @@ import vn.fpt.diamond_shop.security.JwtTokenProvider;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class UserService implements IUserService {
@@ -56,5 +57,10 @@ public class UserService implements IUserService {
             user.setRole(EUserRole.MANAGER);
             userRepository.save(user);
         }
+    }
+
+    @Override
+    public List<User> getAllDeliverer() {
+        return userRepository.findAllByRole(EUserRole.DELIVERER);
     }
 }

@@ -5,12 +5,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.fpt.diamond_shop.exception.InvalidJwtTokenException;
 import vn.fpt.diamond_shop.model.dto.CommonResponse;
+import vn.fpt.diamond_shop.model.dto.DeliverersResponse;
 import vn.fpt.diamond_shop.model.dto.UserProfileResponse;
 import vn.fpt.diamond_shop.model.dto.UpdateUserProfileRequest;
 import vn.fpt.diamond_shop.model.entity.User;
 import vn.fpt.diamond_shop.service.IUserService;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RequestMapping("/user")
 @RestController
@@ -57,5 +59,13 @@ public class UserController {
             response.setMessage("Invalid JWT token");
             return ResponseEntity.badRequest().body(response);
         }
+    }
+
+    @GetMapping("/get-deliverers")
+    public ResponseEntity<DeliverersResponse> getDeliverers() {
+        List<User> deliverers = userService.getAllDeliverer();
+        DeliverersResponse response = new DeliverersResponse(deliverers);
+        response.setMessage("Deliverers retrieved successfully");
+        return ResponseEntity.ok(response);
     }
 }
