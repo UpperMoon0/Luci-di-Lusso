@@ -2,11 +2,11 @@ import {Component} from '@angular/core';
 import {AccountService} from "../service/account.service";
 
 @Component({
-  selector: 'app-delivery-sidebar',
-  templateUrl: './delivery-sidebar.component.html',
-  styleUrls: ['./delivery-sidebar.component.css']
+  selector: 'app-staff-sidebar',
+  templateUrl: './staff-sidebar.component.html',
+  styleUrls: ['./staff-sidebar.component.css']
 })
-export class DeliverySidebarComponent {
+export class StaffSidebarComponent {
   constructor(private accountService: AccountService) {
   }
 

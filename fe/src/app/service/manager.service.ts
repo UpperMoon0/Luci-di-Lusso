@@ -38,4 +38,17 @@ export class ManagerService {
   deleteDiamond(diamondId: any): Observable<any> {
     return this.http.delete(`${environment.beApiUrl}/product/delete-diamond?id=` + diamondId, this.httpOptions);
   }
+
+  getAllDeliveries(): Observable<any> {
+    return this.http.get(`${environment.beApiUrl}/delivery/get-unassigned-deliveries`, this.httpOptions);
+  }
+
+  getAllDeliverers(): Observable<any> {
+    return this.http.get(`${environment.beApiUrl}/user/get-deliverers`, this.httpOptions);
+  }
+
+  assignDelivery(request: any): Observable<any> {
+    return this.http.post(`${environment.beApiUrl}/delivery/assign-delivery`, request, this.httpOptions);
+  }
+
 }

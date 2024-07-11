@@ -37,7 +37,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CustomerProfileFormComponent } from "./customer-profile-page/customer-profile-form.component";
 import { CustomerProfilePageComponent } from './customer-profile-page/customer-profile-page.component';
 
-import { DeliverySidebarComponent } from './delivery-page/delivery-sidebar.component';
+import { StaffSidebarComponent } from './staff-sidebar/staff-sidebar.component';
 import { DeliveryTableComponent } from './delivery-page/delivery-table.component';
 import { DeliveryPageComponent } from './delivery-page/delivery-page.component';
 
@@ -68,6 +68,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatInputModule} from "@angular/material/input";
 import {DemoMaterialModule} from "./AngularMaterialModule";
+import { ManageDeliveryPageComponent } from './manager-page/manage-delivery-page.component';
 
 @NgModule({
   declarations: [
@@ -115,7 +116,7 @@ import {DemoMaterialModule} from "./AngularMaterialModule";
     CustomerProfilePageComponent,
 
     // Delivery page
-    DeliverySidebarComponent,
+    StaffSidebarComponent,
     DeliveryTableComponent,
     DeliveryPageComponent,
 
@@ -136,6 +137,7 @@ import {DemoMaterialModule} from "./AngularMaterialModule";
     PurchaseHistoryPageComponent,
     HomePageComponent,
     HomeBlogComponent,
+    ManageDeliveryPageComponent,
   ],
   imports: [
     BrowserModule,
