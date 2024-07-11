@@ -32,4 +32,9 @@ public class OrderItemService implements IOrderItemService {
             orderItemRepository.save(orderItem);
         }
     }
+
+    @Override
+    public List<OrderItem> getOrderItemsByOrder(Order order) {
+        return orderItemRepository.findAllByOrder(order);
+    }
 }

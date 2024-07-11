@@ -1,0 +1,36 @@
+<div style="margin-top: 15rem;">
+<!--  <mat style="display: block; text-align: center;">Purchase History</mat>-->
+<!--  <div class="flex-container">-->
+<!--    &lt;!&ndash; Left orders list &ndash;&gt;-->
+<!--    <div class="list-container" style="min-height: 10rem;">-->
+<!--      <label>Orders</label>-->
+<!--      <button *ngFor="let order of orders" class="list-item-btn" (click)="onOrderSelect(order.id)">-->
+<!--        {{ order.firstProductName }} ({{ order.firstProductSize }}) x {{ order.firstProductQuantity }} - ${{ order.price }} - {{ order.timeAgo }}-->
+<!--      </button>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Right panel for purchase details &ndash;&gt;-->
+<!--    <div class="purchase-details-panel" *ngIf="selectedOrderId">-->
+<!--      <app-purchase-details [orderDetails]="selectedOrderDetails" [productList]="selectedOrderProductList"></app-purchase-details>-->
+<!--    </div>-->
+<!--  </div>-->
+
+  <!-- purchase-history.component.html -->
+  <div class="purchase-history-container">
+    <mat-card class="orders-list">
+      <h2>Orders</h2>
+      <mat-list>
+        <mat-list-item *ngFor="let order of orders" (click)="onOrderSelect(order.id)">
+          {{ order.firstProductName }} ({{ order.firstProductSize }}) x {{ order.firstProductQuantity }} - ${{ order.price }} - {{ order.timeAgo }}
+        </mat-list-item>
+      </mat-list>
+    </mat-card>
+
+    <mat-card class="order-details" *ngIf="selectedOrderId">
+      <h2>Order Details</h2>
+      <!-- Display order details here -->
+      <!-- Add relevant content for order details -->
+    </mat-card>
+  </div>
+
+</div>
