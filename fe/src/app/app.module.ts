@@ -44,6 +44,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {ToastrModule} from "ngx-toastr";
 import {OAuthModule} from "angular-oauth2-oidc";
+import { HomeBlogComponent } from './home-page/home-blog.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import {OAuthModule} from "angular-oauth2-oidc";
     CustomerProfilePageComponent,
 
     HomePageComponent,
+      HomeBlogComponent,
   ],
   imports: [
     BrowserModule,
