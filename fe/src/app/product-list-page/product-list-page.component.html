@@ -89,7 +89,7 @@
                       <div *ngFor="let price of priceRange">
                         <label class="check-label">
                           <span class="custom-checkbox">
-                            <span id="{{price}}" class="filter-button" (click)="getSelectedPriceRange(price.toString());">{{ price }}</span>
+                            <span id="{{price}}" class="filter-button" (click)="getSelectedPriceRange(price);">{{ price }}</span>
                           </span>
                         </label>
                       </div>

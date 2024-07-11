@@ -60,12 +60,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {ToastrModule} from "ngx-toastr";
 import {OAuthModule} from "angular-oauth2-oidc";
-import {MatTableModule} from "@angular/material/table";
-import {MatButtonModule} from "@angular/material/button";
-import {MatSnackBarModule} from "@angular/material/snack-bar";
-import {DemoMaterialModule} from "./AngularMaterialModule";
-import {MatInputModule} from "@angular/material/input";
-import {MatCardModule} from "@angular/material/card";
+import { HomeBlogComponent } from './home-page/home-blog.component';
+import {HomeProductRowComponent} from "./home-page/home-product-row.component";
 
 @NgModule({
   declarations: [
@@ -80,6 +76,7 @@ import {MatCardModule} from "@angular/material/card";
     FooterComponent,
 
     // Home page
+    HomeProductRowComponent,
     HomePageComponent,
 
     // Login page
@@ -130,7 +127,9 @@ import {MatCardModule} from "@angular/material/card";
     // Purchase history page
     PurchaseDetailsComponent,
     PurchaseHistoryListComponent,
-    PurchaseHistoryPageComponent
+    PurchaseHistoryPageComponent,
+    HomePageComponent,
+    HomeBlogComponent,
   ],
   imports: [
     BrowserModule,
