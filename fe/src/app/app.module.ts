@@ -51,6 +51,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {ToastrModule} from "ngx-toastr";
 import {OAuthModule} from "angular-oauth2-oidc";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatTableModule} from "@angular/material/table";
+import {MatButtonModule} from "@angular/material/button";
+import {DemoMaterialModule} from "./AngularMaterialModule";
 
 @NgModule({
   declarations: [
@@ -111,6 +115,9 @@ import {OAuthModule} from "angular-oauth2-oidc";
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatTableModule,
+    MatButtonModule,
     NgbModule,
     CommonModule,
     OAuthModule.forRoot(),
@@ -124,6 +131,7 @@ import {OAuthModule} from "angular-oauth2-oidc";
     NgxStripeModule.forRoot('pk_test_51PZaB3GvGs3G9mvhzYptSjAz1VvSJwDqt6ZVs1YTi0kU4cMSX5GH0Qms3rQaP5oLqKJgDk17gH9O8PYbEjAfkjbD00qqxTZ7nl'),
     FormsModule,
     ReactiveFormsModule,
+    DemoMaterialModule,
   ],
   providers: [
   ],

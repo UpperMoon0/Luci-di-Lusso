@@ -2,3 +2,32 @@
   display: flex;
   justify-content: space-between;
 }
+
+/* purchase-history.component.scss */
+.purchase-history-container {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1rem;
+}
+
+.orders-list,
+.order-details {
+  width: 50%;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.orders-list {
+  background-color: #f9f9f9;
+  overflow-y: auto;
+}
+
+.order-details {
+  background-color: #ffffff;
+}
+
+
+/* Additional styling as needed */

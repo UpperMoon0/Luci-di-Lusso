@@ -8,6 +8,7 @@ export class PurchaseDetailsComponent {
   @Input() orderDetails: { customerName: string; totalPrice: number; createAt: string };
   @Input() productList: { name: string; size: string; price: number; quantity: number; type: string; imageUrl: string }[];
 
+
   constructor() {
   }
 }
