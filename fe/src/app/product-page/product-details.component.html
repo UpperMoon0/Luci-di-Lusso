@@ -18,6 +18,9 @@
               <a class="dropdown-item" *ngFor="let size of product.sizes" (click)="selectSize(size)">{{size.size}} {{size.unit}}</a>
             </div>
           </div>
+          <p class="text-info">
+            Don't know which size to choose? <a href="/blog">See this</a>.
+          </p>
           <div class="quantity-selector d-flex align-items-center">
             <button class="btn btn-secondary" (click)="decrementQuantity()">-</button>
             <input type="number" class="form-control text-center mx-2" [(ngModel)]="selectedQuantity" min="1">

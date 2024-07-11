@@ -1,0 +1,459 @@
+<section class="blog-grid-section tabs-wrapper padding-bottom padding-top">
+  <div class="container">
+    <div class="section-title">
+      <h2>First-Time Buyers Price Guide</h2>
+    </div>
+
+    <p>
+      For first-time buyers, the following quick diamond budget scenarios and illustrative examples are valuable tools for making a well-considered choice.
+      <br>
+      Building on our framework of prioritizing the 4Cs, the table below illustrates three options for a buyer within a given budget. Option 1 shows the types of diamonds a shopper would buy based on the highest quality; Option 2 highlights diamonds for both quality and optimal value; and Option 3 shows diamonds with the biggest carat weight and acceptable quality within a given budget.
+    </p>
+
+    <br>
+
+    <table class="table-01">
+      <thead>
+      <tr>
+        <th>Budget</th>
+        <th>Factors</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of diamondPriceData" class="center-column">
+        <td>{{ data.budget }}</td>
+        <td [innerHTML]="data.factor"></td>
+      </tr>
+      </tbody>
+    </table>
+    <p>Note: avoid fluorescence in high color grades and prioritize cut.</p>
+    <br>
+    <br>
+    <div class="section-title">
+      <h2>1 Carat Diamond Prices</h2>
+    </div>
+    <p>Considering the economic downturn and additional pressure from lab-grown diamonds, 1 carat natural diamonds in the SI/VS range below G color might be traded 5-10% below the chart prices. However, we believe this is a temporary demand-related issue, and we urge diamond buyers to take advantage of this opportunity if they are in the market for a diamond.</p>
+    <br>
+    <table class="table-02">
+      <thead>
+      <tr>
+        <th>Clarity</th>
+        <th colspan="2">D Color</th>
+      </tr>
+      <tr>
+        <th>1 Carat</th>
+        <th>Wholesome</th>
+        <th>Retail</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of diamondPriceData01D" class="center-column">
+        <td>{{ data.carat }}</td>
+        <td>{{ data.wholesome }}</td>
+        <td>{{ data.retail }}</td>
+      </tr>
+      </tbody>
+
+      <thead>
+      <tr>
+        <th>Clarity</th>
+        <th colspan="2">E Color</th>
+      </tr>
+      <tr>
+        <th>1 Carat</th>
+        <th>Wholesome</th>
+        <th>Retail</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of diamondPriceData01E" class="center-column">
+        <td>{{ data.carat }}</td>
+        <td>{{ data.wholesome }}</td>
+        <td>{{ data.retail }}</td>
+      </tr>
+      </tbody>
+
+      <thead>
+      <tr>
+        <th>Clarity</th>
+        <th colspan="2">F Color</th>
+      </tr>
+      <tr>
+        <th>1 Carat</th>
+        <th>Wholesome</th>
+        <th>Retail</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of diamondPriceData01F" class="center-column">
+        <td>{{ data.carat }}</td>
+        <td>{{ data.wholesome }}</td>
+        <td>{{ data.retail }}</td>
+      </tr>
+      </tbody>
+
+      <thead>
+      <tr>
+        <th>Clarity</th>
+        <th colspan="2">G Color</th>
+      </tr>
+      <tr>
+        <th>1 Carat</th>
+        <th>Wholesome</th>
+        <th>Retail</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of diamondPriceData01G" class="center-column">
+        <td>{{ data.carat }}</td>
+        <td>{{ data.wholesome }}</td>
+        <td>{{ data.retail }}</td>
+      </tr>
+      </tbody>
+
+      <thead>
+      <tr>
+        <th>Clarity</th>
+        <th colspan="2">H Color</th>
+      </tr>
+      <tr>
+        <th>1 Carat</th>
+        <th>Wholesome</th>
+        <th>Retail</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of diamondPriceData01H" class="center-column">
+        <td>{{ data.carat }}</td>
+        <td>{{ data.wholesome }}</td>
+        <td>{{ data.retail }}</td>
+      </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+    <div class="section-title">
+      <h2>1.5 Carat Diamond Prices</h2>
+    </div>
+    <p>1.5 carat diamonds are highly in demand among individuals shopping for a good quality diamond with an average budget. Aim for a well-cut G or above color and VS2 clarity diamond with no fluorescence in this range. However, individuals with a tight budget can consider the H or I range with medium blue fluorescence.</p>
+    <br>
+    <table class="table-03">
+      <thead>
+      <tr>
+        <th>Clarity</th>
+        <th colspan="2">D Color</th>
+      </tr>
+      <tr>
+        <th>1.5 Carat</th>
+        <th>Wholesome</th>
+        <th>Retail</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of diamondPriceData02D" class="center-column">
+        <td>{{ data.carat }}</td>
+        <td>{{ data.wholesome }}</td>
+        <td>{{ data.retail }}</td>
+      </tr>
+      </tbody>
+
+      <thead>
+      <tr>
+        <th>Clarity</th>
+        <th colspan="2">E Color</th>
+      </tr>
+      <tr>
+        <th>1.5 Carat</th>
+        <th>Wholesome</th>
+        <th>Retail</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of diamondPriceData02E" class="center-column">
+        <td>{{ data.carat }}</td>
+        <td>{{ data.wholesome }}</td>
+        <td>{{ data.retail }}</td>
+      </tr>
+      </tbody>
+
+      <thead>
+      <tr>
+        <th>Clarity</th>
+        <th colspan="2">F Color</th>
+      </tr>
+      <tr>
+        <th>1.5 Carat</th>
+        <th>Wholesome</th>
+        <th>Retail</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of diamondPriceData02F" class="center-column">
+        <td>{{ data.carat }}</td>
+        <td>{{ data.wholesome }}</td>
+        <td>{{ data.retail }}</td>
+      </tr>
+      </tbody>
+
+      <thead>
+      <tr>
+        <th>Clarity</th>
+        <th colspan="2">G Color</th>
+      </tr>
+      <tr>
+        <th>1.5 Carat</th>
+        <th>Wholesome</th>
+        <th>Retail</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of diamondPriceData02G" class="center-column">
+        <td>{{ data.carat }}</td>
+        <td>{{ data.wholesome }}</td>
+        <td>{{ data.retail }}</td>
+      </tr>
+      </tbody>
+
+      <thead>
+      <tr>
+        <th>Clarity</th>
+        <th colspan="2">H Color</th>
+      </tr>
+      <tr>
+        <th>1.5 Carat</th>
+        <th>Wholesome</th>
+        <th>Retail</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of diamondPriceData02H" class="center-column">
+        <td>{{ data.carat }}</td>
+        <td>{{ data.wholesome }}</td>
+        <td>{{ data.retail }}</td>
+      </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+    <div class="section-title">
+      <h2>2 Carat Diamond Prices</h2>
+    </div>
+    <p>Two carat diamonds of premium quality are rare and their prices tend to be high for an average budget range. When shopping for a diamond in this range, aim to buy a high-quality diamond that will preserve its value over the long term.</p>
+    <br>
+    <table class="table-04">
+      <thead>
+      <tr>
+        <th>Clarity</th>
+        <th colspan="2">D Color</th>
+      </tr>
+      <tr>
+        <th>2 Carat</th>
+        <th>Wholesome</th>
+        <th>Retail</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of diamondPriceData03D" class="center-column">
+        <td>{{ data.carat }}</td>
+        <td>{{ data.wholesome }}</td>
+        <td>{{ data.retail }}</td>
+      </tr>
+      </tbody>
+
+      <thead>
+      <tr>
+        <th>Clarity</th>
+        <th colspan="2">E Color</th>
+      </tr>
+      <tr>
+        <th>2 Carat</th>
+        <th>Wholesome</th>
+        <th>Retail</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of diamondPriceData03E" class="center-column">
+        <td>{{ data.carat }}</td>
+        <td>{{ data.wholesome }}</td>
+        <td>{{ data.retail }}</td>
+      </tr>
+      </tbody>
+
+      <thead>
+      <tr>
+        <th>Clarity</th>
+        <th colspan="2">F Color</th>
+      </tr>
+      <tr>
+        <th>2 Carat</th>
+        <th>Wholesome</th>
+        <th>Retail</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of diamondPriceData03F" class="center-column">
+        <td>{{ data.carat }}</td>
+        <td>{{ data.wholesome }}</td>
+        <td>{{ data.retail }}</td>
+      </tr>
+      </tbody>
+
+      <thead>
+      <tr>
+        <th>Clarity</th>
+        <th colspan="2">G Color</th>
+      </tr>
+      <tr>
+        <th>2 Carat</th>
+        <th>Wholesome</th>
+        <th>Retail</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of diamondPriceData03G" class="center-column">
+        <td>{{ data.carat }}</td>
+        <td>{{ data.wholesome }}</td>
+        <td>{{ data.retail }}</td>
+      </tr>
+      </tbody>
+
+      <thead>
+      <tr>
+        <th>Clarity</th>
+        <th colspan="2">H Color</th>
+      </tr>
+      <tr>
+        <th>2 Carat</th>
+        <th>Wholesome</th>
+        <th>Retail</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of diamondPriceData03H" class="center-column">
+        <td>{{ data.carat }}</td>
+        <td>{{ data.wholesome }}</td>
+        <td>{{ data.retail }}</td>
+      </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+    <div class="section-title">
+      <h2>3 Carat Diamond Prices</h2>
+    </div>
+    <p>Diamonds in the 3 carat and above range are extremely rare, especially gem-quality ones. As such, for the best value, buy a well-cut, premium-grade stone in this range.</p>
+    <br>
+    <table class="table-05">
+      <thead>
+      <tr>
+        <th>Clarity</th>
+        <th colspan="2">D Color</th>
+      </tr>
+      <tr>
+        <th>3 Carat</th>
+        <th>Wholesome</th>
+        <th>Retail</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of diamondPriceData04D" class="center-column">
+        <td>{{ data.carat }}</td>
+        <td>{{ data.wholesome }}</td>
+        <td>{{ data.retail }}</td>
+      </tr>
+      </tbody>
+
+      <thead>
+      <tr>
+        <th>Clarity</th>
+        <th colspan="2">E Color</th>
+      </tr>
+      <tr>
+        <th>3 Carat</th>
+        <th>Wholesome</th>
+        <th>Retail</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of diamondPriceData04E" class="center-column">
+        <td>{{ data.carat }}</td>
+        <td>{{ data.wholesome }}</td>
+        <td>{{ data.retail }}</td>
+      </tr>
+      </tbody>
+
+      <thead>
+      <tr>
+        <th>Clarity</th>
+        <th colspan="2">F Color</th>
+      </tr>
+      <tr>
+        <th>3 Carat</th>
+        <th>Wholesome</th>
+        <th>Retail</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of diamondPriceData04F" class="center-column">
+        <td>{{ data.carat }}</td>
+        <td>{{ data.wholesome }}</td>
+        <td>{{ data.retail }}</td>
+      </tr>
+      </tbody>
+
+      <thead>
+      <tr>
+        <th>Clarity</th>
+        <th colspan="2">G Color</th>
+      </tr>
+      <tr>
+        <th>3 Carat</th>
+        <th>Wholesome</th>
+        <th>Retail</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of diamondPriceData04G" class="center-column">
+        <td>{{ data.carat }}</td>
+        <td>{{ data.wholesome }}</td>
+        <td>{{ data.retail }}</td>
+      </tr>
+      </tbody>
+
+      <thead>
+      <tr>
+        <th>Clarity</th>
+        <th colspan="2">H Color</th>
+      </tr>
+      <tr>
+        <th>3 Carat</th>
+        <th>Wholesome</th>
+        <th>Retail</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of diamondPriceData04H" class="center-column">
+        <td>{{ data.carat }}</td>
+        <td>{{ data.wholesome }}</td>
+        <td>{{ data.retail }}</td>
+      </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+    <div class="section-title">
+      <h2>Discount on Fancy Shape Diamond Prices</h2>
+    </div>
+    <p>The estimates below highlight the price difference between the round diamonds highlighted in the above charts and their "fancy cut" counterparts. Round cut diamonds are typically priced higher than fancy cut diamonds because cutting a round cut requires a larger rough diamond than a fancy cut.</p>
+    <ul>
+      <li>Oval cut diamonds are priced 2 to 10% lower than round diamonds.</li>
+      <li>Princess cut diamonds are priced 14 to 24% lower than round diamonds.</li>
+      <li>Cushion cut diamonds are priced 15 to 25% lower than round diamonds.</li>
+      <li>Radiant cut diamonds are priced 16 to 25% lower than round diamonds</li>
+      <li>Emerald cut diamonds are priced 17 to 26% lower than round diamonds.</li>
+      <li>Pear cut diamonds are priced 5 to 10% lower than round diamonds.</li>
+      <li>Marquise cut diamonds are priced 15 to 22% lower than round diamonds.</li>
+      <li>Asscher cut diamonds are priced 15 to 25% lower than round diamonds.</li>
+    </ul>
+  </div>
+</section>

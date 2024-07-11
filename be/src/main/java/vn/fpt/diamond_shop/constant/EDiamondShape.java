@@ -22,4 +22,13 @@ public enum EDiamondShape {
     EDiamondShape(String value) {
         this.value = value;
     }
+
+    public static EDiamondShape fromValue(String value) {
+        for (EDiamondShape shape : EDiamondShape.values()) {
+            if (shape.getValue().equals(value)) {
+                return shape;
+            }
+        }
+        return null;
+    }
 }

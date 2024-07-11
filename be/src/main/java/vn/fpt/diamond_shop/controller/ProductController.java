@@ -4,10 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vn.fpt.diamond_shop.constant.EJewelryType;
+import vn.fpt.diamond_shop.constant.*;
 import vn.fpt.diamond_shop.model.dto.*;
 import vn.fpt.diamond_shop.model.entity.*;
 import vn.fpt.diamond_shop.repository.*;
+import vn.fpt.diamond_shop.service.IDiamondService;
 import vn.fpt.diamond_shop.service.IJewelryService;
 import vn.fpt.diamond_shop.service.IJewelrySizeService;
 
@@ -26,6 +27,11 @@ public class ProductController {
     private final IJewelrySizeRepository jewelrySizeRepository;
     private final IOrderItemRepository jewelryOrderRepository;
     private final IJewelrySizeService jewelrySizeService;
+    private final IDiamondService diamondService;
+    private final IDiamondCutRepository diamondCutRepository;
+    private final IDiamondColorRepository diamondColorRepository;
+    private final IDiamondClarityRepository diamondClarityRepository;
+    private final IDiamondShapeRepository diamondShapeRepository;
 
     @Autowired
     public ProductController(IOrderRepository receiptRepository,
@@ -33,13 +39,23 @@ public class ProductController {
                              IJewelryTypeRepository jewelryTypeRepository,
                              IJewelrySizeRepository jewelrySizeRepository,
                              IOrderItemRepository jewelryOrderRepository,
-                             IJewelrySizeService jewelrySizeService) {
+                             IJewelrySizeService jewelrySizeService,
+                             IDiamondService diamondService,
+                             IDiamondCutRepository diamondCutRepository,
+                             IDiamondColorRepository diamondColorRepository,
+                             IDiamondClarityRepository diamondClarityRepository,
+                             IDiamondShapeRepository diamondShapeRepository) {
         this.orderRepository = receiptRepository;
         this.jewelryService = jewelryService;
         this.jewelryTypeRepository = jewelryTypeRepository;
         this.jewelrySizeRepository = jewelrySizeRepository;
         this.jewelryOrderRepository = jewelryOrderRepository;
         this.jewelrySizeService = jewelrySizeService;
+        this.diamondService = diamondService;
+        this.diamondCutRepository = diamondCutRepository;
+        this.diamondColorRepository = diamondColorRepository;
+        this.diamondClarityRepository = diamondClarityRepository;
+        this.diamondShapeRepository = diamondShapeRepository;
     }
 
     @GetMapping("/get-jewelry")
@@ -95,5 +111,47 @@ public class ProductController {
             types.add(e.toString().substring(0,1).toUpperCase() + e.toString().substring(1).toLowerCase());
         }
         return ResponseEntity.ok(types);
+    }
+
+    @GetMapping("/get-all-diamonds")
+    public ResponseEntity<DiamondsResponse> getAllDiamonds() {
+        List<Diamond> diamonds = diamondService.getAllDiamonds();
+        DiamondsResponse response = new DiamondsResponse(diamonds);
+        response.setMessage("Get all diamonds successfully");
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/delete-diamond")
+    public ResponseEntity<CommonResponse> deleteDiamond(@RequestParam Integer id) {
+        diamondService.deleteDiamond(id);
+        CommonResponse response = new CommonResponse();
+        response.setMessage("Diamond deleted successfully");
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/save-diamond")
+    public ResponseEntity<CommonResponse> saveDiamond(@RequestBody DiamondUpdateRequest body) {
+        DiamondCut cut = diamondCutRepository.findByCut(EDiamondCut.fromValue(body.getCut()));
+        DiamondColor color = diamondColorRepository.findByColor(EDiamondColor.fromValue(body.getColor()));
+        DiamondClarity clarity = diamondClarityRepository.findByClarity(EDiamondClarity.fromValue(body.getClarity()));
+        Float carat = body.getCarat();
+        DiamondShape shape = diamondShapeRepository.findByShape(EDiamondShape.fromValue(body.getShape()));
+        Diamond diamond = diamondService.getDiamondById(body.getId());
+        CommonResponse response = new CommonResponse();
+
+        if (cut == null || color == null || clarity == null || shape == null || diamond == null) {
+            response.setMessage("Invalid diamond data");
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        diamond.setCut(cut);
+        diamond.setColor(color);
+        diamond.setClarity(clarity);
+        diamond.setCarat(carat);
+        diamond.setShape(shape);
+        diamondService.saveDiamond(diamond);
+
+        response.setMessage("Diamond saved successfully");
+        return ResponseEntity.ok(response);
     }
 }

@@ -1,0 +1,45 @@
+<div class="container">
+  <mat-card class="mat-elevation-z8">
+    <mat-card-content>
+      <table mat-table [dataSource]="diamonds">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>Diamond ID</th>
+          <td mat-cell *matCellDef="let diamond"> {{diamond.id}} </td>
+        </ng-container>
+
+        <!-- Editable fields -->
+        <ng-container *ngFor="let column of editableColumns" [matColumnDef]="column.field">
+          <th mat-header-cell *matHeaderCellDef> {{column.header}} </th>
+          <td mat-cell *matCellDef="let diamond">
+            <div *ngIf="!diamond.isEditMode; else editTemplate">
+              {{ diamond[column.field] }}
+            </div>
+            <ng-template #editTemplate>
+              <input matInput [(ngModel)]="diamond[column.field]">
+            </ng-template>
+          </td>
+        </ng-container>
+
+        <!-- Save Button Column -->
+        <ng-container matColumnDef="save">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let diamond">
+            <button mat-button *ngIf="diamond.isEditMode" (click)="saveDiamond(diamond)">Save</button>
+            <button mat-button *ngIf="!diamond.isEditMode" (click)="editDiamond(diamond)">Edit</button>
+          </td>
+        </ng-container>
+
+        <!-- Delete Button Column -->
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef> </th>
+          <td mat-cell *matCellDef="let diamond">
+            <button mat-button (click)="deleteDiamond(diamond.id)">Delete</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>

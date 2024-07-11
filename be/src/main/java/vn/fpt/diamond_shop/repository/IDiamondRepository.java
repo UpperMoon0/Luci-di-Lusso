@@ -4,9 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import vn.fpt.diamond_shop.model.entity.Diamond;
 
-import java.util.List;
+import javax.swing.text.html.Option;
+import java.util.Optional;
 
 @Repository
-public interface IDiamondRepository extends JpaRepository<Diamond, Long> {
-    List<Diamond> findAllById(Long id);
+public interface IDiamondRepository extends JpaRepository<Diamond, Integer>{
+    Optional<Diamond> findById(Long id);
 }

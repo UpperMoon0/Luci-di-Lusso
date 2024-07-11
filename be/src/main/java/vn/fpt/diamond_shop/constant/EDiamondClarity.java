@@ -11,5 +11,14 @@ public enum EDiamondClarity {
     SI2,
     I1,
     I2,
-    I3
+    I3;
+
+    public static EDiamondClarity fromValue(String value) {
+        for (EDiamondClarity clarity : EDiamondClarity.values()) {
+            if (clarity.name().equals(value)) {
+                return clarity;
+            }
+        }
+        return null;
+    }
 }
