@@ -62,6 +62,12 @@ import {ToastrModule} from "ngx-toastr";
 import {OAuthModule} from "angular-oauth2-oidc";
 import { HomeBlogComponent } from './home-page/home-blog.component';
 import {HomeProductRowComponent} from "./home-page/home-product-row.component";
+import {MatCardModule} from "@angular/material/card";
+import {MatTableModule} from "@angular/material/table";
+import {MatButtonModule} from "@angular/material/button";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatInputModule} from "@angular/material/input";
+import {DemoMaterialModule} from "./AngularMaterialModule";
 
 @NgModule({
   declarations: [

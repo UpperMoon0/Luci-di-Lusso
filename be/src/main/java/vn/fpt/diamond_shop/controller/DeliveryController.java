@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.fpt.diamond_shop.model.dto.CommonResponse;
+import vn.fpt.diamond_shop.model.dto.CreateDeliveryRequest;
 import vn.fpt.diamond_shop.model.dto.DeliveriesResponse;
 import vn.fpt.diamond_shop.model.entity.Delivery;
 import vn.fpt.diamond_shop.model.entity.User;
@@ -46,6 +47,22 @@ public class DeliveryController {
         CommonResponse res = new CommonResponse();
         res.setMessage("Delivery completed successfully");
         return ResponseEntity.ok(res);
+    }
+
+    @PostMapping("add-delivery")
+    public ResponseEntity<CommonResponse> addDelivery(@RequestBody CreateDeliveryRequest request) {
+
+        try {
+            deliveryService.assignDeliverer(request.getDeliveryID(), request.getDelivererID());
+            CommonResponse res = new CommonResponse();
+            res.setMessage("Successfully assign deliverer!");
+            return ResponseEntity.ok(res);
+        } catch (Exception e) {
+            CommonResponse res = new CommonResponse();
+            res.setMessage("Something wrong while adding new delivery");
+            return ResponseEntity.ok(res);
+        }
+
     }
 
 }
