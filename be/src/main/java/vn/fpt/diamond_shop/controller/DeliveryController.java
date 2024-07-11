@@ -62,7 +62,5 @@ public class DeliveryController {
             res.setMessage("Something wrong while adding new delivery");
             return ResponseEntity.ok(res);
         }
-
     }
-
 }
