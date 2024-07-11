@@ -31,7 +31,8 @@ public class OrderService implements IOrderService {
         this.deliveryService = deliveryService;
     }
 
-    public double createOrder(String jwtToken) throws InvalidJwtTokenException {
+    @Override
+    public double createOrderFromJwtToken(String jwtToken) throws InvalidJwtTokenException {
         User user = userService.getUserByToken(jwtToken);
 
         Order order = new Order();

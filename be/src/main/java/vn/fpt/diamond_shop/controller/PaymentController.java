@@ -6,8 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.fpt.diamond_shop.exception.InvalidJwtTokenException;
 import vn.fpt.diamond_shop.model.dto.CommonResponse;
-import vn.fpt.diamond_shop.model.entity.Order;
-import vn.fpt.diamond_shop.model.entity.User;
 import vn.fpt.diamond_shop.service.IDeliveryService;
 import vn.fpt.diamond_shop.service.IOrderService;
 import vn.fpt.diamond_shop.service.IPaymentService;
@@ -40,7 +38,7 @@ public class PaymentController {
         try {
             String jwtToken = authorizationHeader.substring(7);
             String stripeToken = body.get("stripeToken");
-            double totalPrice = orderService.createOrder(jwtToken);
+            double totalPrice = orderService.createOrderFromJwtToken(jwtToken);
             paymentService.createCharge(stripeToken, (int) (totalPrice * 100));
 
             //Create Delivery after finishing payment

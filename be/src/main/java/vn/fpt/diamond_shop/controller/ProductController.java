@@ -123,7 +123,7 @@ public class ProductController {
 
     @DeleteMapping("/delete-diamond")
     public ResponseEntity<CommonResponse> deleteDiamond(@RequestParam Integer id) {
-        diamondService.deleteDiamond(id);
+        diamondService.deleteDiamondById(id);
         CommonResponse response = new CommonResponse();
         response.setMessage("Diamond deleted successfully");
         return ResponseEntity.ok(response);
