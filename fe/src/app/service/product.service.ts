@@ -1,15 +1,21 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import { environment } from "../../environments/environment";
+import {tap} from "rxjs/operators";
+import {ColorService} from "./color.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
+  productTypes: BehaviorSubject<String[]> = new BehaviorSubject<String[]>([]);
+
   private apiUrl = environment.beApiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private colorService: ColorService) {
+    this.getAllTypes().subscribe();
+  }
 
   private get httpOptions() {
     return {
@@ -34,19 +40,19 @@ export class ProductService {
   }
 
   public getAllTypes(): Observable<any> {
-    return this.http.get<any[]>(`${this.apiUrl}/product/get-all-jewelry-types`, this.httpOptions);
+    return this.http.get<any[]>(`${this.apiUrl}/product/get-all-jewelry-types`, this.httpOptions).pipe(
+      tap(types => {
+        this.productTypes.next(types);
+        this.colorService.mapTypesToColors(types);
+      })
+    );
   }
 
-  public addProduct(Product: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/api/product/addProduct`, Product, this.httpOptions);
-  }
-  public updateProduct(Product: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/api/product/update`, Product, this.httpOptions);
-  }
-  public deleteProduct(ProductId: number): Observable<any> {
-    return this.http.delete<void>(`${this.apiUrl}/api/product/delete/${ProductId}`, this.httpOptions);
-  }
   public getTest(): Observable<any> {
     return this.http.get<Object>(`${this.apiUrl}/api/product/test`, this.httpOptions);
+  }
+
+  public getProductTypes(): Observable<String[]> {
+    return this.productTypes.asObservable();
   }
 }
