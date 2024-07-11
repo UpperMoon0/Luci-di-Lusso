@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ManagerService} from "../service/manager.service";
 import {Title} from "@angular/platform-browser";
-import {FormBuilder, Validators} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
@@ -17,7 +16,6 @@ export class ManageDeliveryPageComponent implements OnInit{
 
   constructor(private managerService: ManagerService,
               private titleService: Title,
-              private fb: FormBuilder,
               private snackBar: MatSnackBar) {}
 
   ngOnInit() {
@@ -29,14 +27,14 @@ export class ManageDeliveryPageComponent implements OnInit{
   getDeliveries(): void {
     this.deliveries = [];
     this.managerService.getAllDeliveries().subscribe(response => {
-      this.deliveries = response;
+      this.deliveries = response.deliveries;
     });
   }
 
   getDeliverers(): void {
     this.deliverers = [];
     this.managerService.getAllDeliverers().subscribe(response => {
-      this.deliverers = response;
+      this.deliverers = response.deliverers;
     });
   }
 
@@ -46,7 +44,7 @@ export class ManageDeliveryPageComponent implements OnInit{
       delivererID: this.deliverer
     }
     this.managerService.assignDelivery(request).subscribe({
-      next: (response) => {
+      next: () => {
         this.snackBar.open('Delivery updated successfully', 'Close', {
           duration: 5000,
           panelClass: 'success-snackbar'

@@ -63,6 +63,6 @@ public class DeliveryService implements IDeliveryService {
 
     @Override
     public List<Delivery> getUnassignedDeliveries() {
-        deliveryRepository.findAllByDelivererIsNull();
+        return deliveryRepository.findAllByDelivererIsNull();
     }
 }

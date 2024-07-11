@@ -33,8 +33,8 @@
       <div *ngFor="let delivery of deliveries">
         <tr>
           <td>{{delivery.id}}</td>
-          <td>{{delivery.order.user.fullName}}</td>
-          <td><input type="number" [ngModel]="deliverer"></td>
+          <td>{{delivery.customerName}}</td>
+          <td><input type="number" [(ngModel)]="deliverer"></td>
           <td><button (click)="saveDelivery(delivery.id)"></button></td>
         </tr>
       </div>
