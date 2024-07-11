@@ -41,7 +41,14 @@ import { DeliverySidebarComponent } from './delivery-page/delivery-sidebar.compo
 import { DeliveryTableComponent } from './delivery-page/delivery-table.component';
 import { DeliveryPageComponent } from './delivery-page/delivery-page.component';
 
+import {DiamondListComponent} from "./manager-page/diamond-list.component";
 import {ManagerPageComponent} from "./manager-page/manager-page.component";
+
+import {DiscoverComponent} from "./blog-page/blog/discover/discover.component";
+import {Fashion01Component} from "./blog-page/blog/fashion01/fashion01.component";
+import {Fashion02Component} from "./blog-page/blog/fashion02/fashion02.component";
+import {NewsComponent} from "./blog-page/blog/news/news.component";
+import {BlogPageComponent} from "./blog-page/blog/blog-page.component";
 
 import {PurchaseDetailsComponent} from "./purchase-history-page/purchase-details.component";
 import {PurchaseHistoryListComponent} from "./purchase-history-page/purchase-history-list.component";
@@ -55,8 +62,10 @@ import {ToastrModule} from "ngx-toastr";
 import {OAuthModule} from "angular-oauth2-oidc";
 import {MatTableModule} from "@angular/material/table";
 import {MatButtonModule} from "@angular/material/button";
-import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
-
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {DemoMaterialModule} from "./AngularMaterialModule";
+import {MatInputModule} from "@angular/material/input";
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -116,7 +125,7 @@ import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
     Fashion01Component,
     Fashion02Component,
     NewsComponent,
-    BlogPageComponent
+    BlogPageComponent,
 
     // Purchase history page
     PurchaseDetailsComponent,
@@ -145,7 +154,7 @@ import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
     MatTableModule,
     MatButtonModule,
     MatSnackBarModule,
-    MatInputModule
+    MatInputModule,
     DemoMaterialModule,
   ],
   providers: [
