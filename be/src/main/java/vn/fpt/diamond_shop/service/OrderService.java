@@ -16,16 +16,19 @@ public class OrderService implements IOrderService {
     private final ICartItemRepository cartItemRepository;
     private final IOrderItemService orderItemService;
     private final IUserService userService;
+    private final IDeliveryService deliveryService;
 
     @Autowired
     public OrderService(IOrderRepository orderRepository,
                         ICartItemRepository cartItemRepository,
                         IOrderItemService orderItemService,
-                        IUserService userService) {
+                        IUserService userService,
+                        IDeliveryService deliveryService) {
         this.orderRepository = orderRepository;
         this.cartItemRepository = cartItemRepository;
         this.orderItemService = orderItemService;
         this.userService = userService;
+        this.deliveryService = deliveryService;
     }
 
     public double createOrder(String jwtToken) throws InvalidJwtTokenException {
@@ -45,6 +48,8 @@ public class OrderService implements IOrderService {
         for (CartItem cartItem : cartItems) {
             totalPrice += cartItem.getJewelry().getPrice() * cartItem.getQuantity();
         }
+
+        deliveryService.createDelivery(order.getId());
 
         return totalPrice;
     }

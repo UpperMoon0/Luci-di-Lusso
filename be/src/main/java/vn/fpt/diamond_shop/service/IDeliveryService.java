@@ -10,4 +10,8 @@ public interface IDeliveryService {
 
     public void completeDelivery(Long deliveryID);
 
+    public void createDelivery(Long orderID);
+
+    public void assignDeliverer(Long deliveryID, Long deliverer);
+
 }
