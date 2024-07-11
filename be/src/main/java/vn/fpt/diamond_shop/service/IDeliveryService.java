@@ -14,4 +14,6 @@ public interface IDeliveryService {
 
     public void assignDeliverer(Long deliveryID, Long deliverer);
 
+    List<Delivery> getUnassignedDeliveries();
+
 }

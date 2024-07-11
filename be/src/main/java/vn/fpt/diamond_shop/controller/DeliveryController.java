@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import vn.fpt.diamond_shop.model.dto.CommonResponse;
 import vn.fpt.diamond_shop.model.dto.CreateDeliveryRequest;
 import vn.fpt.diamond_shop.model.dto.DeliveriesResponse;
+import vn.fpt.diamond_shop.model.dto.UnassignedDeliveriesResponse;
 import vn.fpt.diamond_shop.model.entity.Delivery;
 import vn.fpt.diamond_shop.model.entity.User;
 import vn.fpt.diamond_shop.service.IDeliveryService;
@@ -62,5 +63,13 @@ public class DeliveryController {
             res.setMessage("Something wrong while adding new delivery");
             return ResponseEntity.ok(res);
         }
+    }
+
+    @GetMapping("/get-unassigned-deliveries")
+    public ResponseEntity<UnassignedDeliveriesResponse> getUnassignedDeliveries() {
+        List<Delivery> deliveries = deliveryService.getUnassignedDeliveries();
+        UnassignedDeliveriesResponse res = new UnassignedDeliveriesResponse(deliveries);
+        res.setMessage("Unassigned deliveries retrieved successfully");
+        return ResponseEntity.ok(res);
     }
 }

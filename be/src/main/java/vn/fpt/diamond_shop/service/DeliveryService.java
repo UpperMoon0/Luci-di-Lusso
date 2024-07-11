@@ -60,4 +60,9 @@ public class DeliveryService implements IDeliveryService {
         delivery.setDeliverer(user);
         deliveryRepository.save(delivery);
     }
+
+    @Override
+    public List<Delivery> getUnassignedDeliveries() {
+        deliveryRepository.findAllByDelivererIsNull();
+    }
 }
