@@ -55,6 +55,10 @@ import {MatTableModule} from "@angular/material/table";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatInputModule} from "@angular/material/input";
+import {BlogPageComponent} from "./blog-page/blog/blog-page.component";
+import {Fashion01Component} from "./blog-page/blog/fashion01/fashion01.component";
+import {Fashion02Component} from "./blog-page/blog/fashion02/fashion02.component";
+import {NewsComponent} from "./blog-page/blog/news/news.component";
 
 @NgModule({
   declarations: [
@@ -108,6 +112,12 @@ import {MatInputModule} from "@angular/material/input";
     // Manager page
     DiamondListComponent,
     ManagerPageComponent,
+
+    // Blog page
+    Fashion01Component,
+    Fashion02Component,
+    NewsComponent,
+    BlogPageComponent
   ],
     imports: [
         BrowserModule,

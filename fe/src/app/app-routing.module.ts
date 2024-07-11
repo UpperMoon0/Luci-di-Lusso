@@ -11,6 +11,7 @@ import { PaymentPageComponent } from "./payment-page/payment-page.component";
 import {CustomerProfilePageComponent} from "./customer-profile-page/customer-profile-page.component";
 import {DeliveryPageComponent} from "./delivery-page/delivery-page.component";
 import {ManagerPageComponent} from "./manager-page/manager-page.component";
+import {BlogPageComponent} from "./blog-page/blog/blog-page.component";
 
 const routes: Routes = [
   { path: 'home', component: HomePageComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'profile', component: CustomerProfilePageComponent },
   { path: 'delivery', component: DeliveryPageComponent },
   { path: 'manager', component : ManagerPageComponent},
+  { path : 'blog', component : BlogPageComponent },
 
   { path: '**', redirectTo: 'home' }
 ];
