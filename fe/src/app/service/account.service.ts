@@ -28,6 +28,9 @@ export class AccountService {
             case 'DELIVERER':
               this.router.navigate(["/delivery"]).then(r=> {});
               break;
+            case 'MANAGER':
+              this.router.navigate(["/manager"]).then(r=> {});
+              break;
             default:
               this.cartService.getCartItems();
               this.router.navigate(['/home']).then(r => {});

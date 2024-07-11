@@ -1,6 +1,5 @@
 package vn.fpt.diamond_shop.repository;
 
-import vn.fpt.diamond_shop.constant.EUserRole;
 import vn.fpt.diamond_shop.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -15,5 +14,4 @@ public interface IUserRepository extends JpaRepository<User, Long> {
     Boolean existsByEmail(String email);
     Boolean existsByUsername(String username);
     Boolean existsByUsernameOrEmail(String username, String email);
-    User findByRole(EUserRole role);
 }

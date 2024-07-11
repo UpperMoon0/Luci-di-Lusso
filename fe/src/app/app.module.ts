@@ -41,12 +41,20 @@ import { DeliverySidebarComponent } from './delivery-page/delivery-sidebar.compo
 import { DeliveryTableComponent } from './delivery-page/delivery-table.component';
 import { DeliveryPageComponent } from './delivery-page/delivery-page.component';
 
+import {ManagerPageComponent} from "./manager-page/manager-page.component";
+
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {ToastrModule} from "ngx-toastr";
 import {OAuthModule} from "angular-oauth2-oidc";
+import {DiamondListComponent} from "./manager-page/diamond-list.component";
+import {MatCardModule} from "@angular/material/card";
+import {MatTableModule} from "@angular/material/table";
+import {MatButtonModule} from "@angular/material/button";
+import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -96,26 +104,35 @@ import {OAuthModule} from "angular-oauth2-oidc";
     DeliverySidebarComponent,
     DeliveryTableComponent,
     DeliveryPageComponent,
+
+    // Manager page
+    DiamondListComponent,
+    ManagerPageComponent,
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    NgbModule,
-    CommonModule,
-    OAuthModule.forRoot(),
-    ToastrModule.forRoot({
-      timeOut: 150000,
-      closeButton: true,
-      progressBar: true,
-    }),
-    NgOtpInputModule,
-    NgOptimizedImage,
-    NgxStripeModule.forRoot('pk_test_51PZaB3GvGs3G9mvhzYptSjAz1VvSJwDqt6ZVs1YTi0kU4cMSX5GH0Qms3rQaP5oLqKJgDk17gH9O8PYbEjAfkjbD00qqxTZ7nl'),
-    FormsModule,
-    ReactiveFormsModule,
-  ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        NgbModule,
+        CommonModule,
+        OAuthModule.forRoot(),
+        ToastrModule.forRoot({
+            timeOut: 150000,
+            closeButton: true,
+            progressBar: true,
+        }),
+        NgOtpInputModule,
+        NgOptimizedImage,
+        NgxStripeModule.forRoot('pk_test_51PZaB3GvGs3G9mvhzYptSjAz1VvSJwDqt6ZVs1YTi0kU4cMSX5GH0Qms3rQaP5oLqKJgDk17gH9O8PYbEjAfkjbD00qqxTZ7nl'),
+        FormsModule,
+        ReactiveFormsModule,
+        MatCardModule,
+        MatTableModule,
+        MatButtonModule,
+        MatSnackBarModule,
+        MatInputModule
+    ],
   providers: [
   ],
   bootstrap: [AppComponent]

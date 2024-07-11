@@ -2,13 +2,11 @@ package vn.fpt.diamond_shop.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vn.fpt.diamond_shop.constant.EUserRole;
 import vn.fpt.diamond_shop.exception.InvalidJwtTokenException;
 import vn.fpt.diamond_shop.model.entity.User;
 import vn.fpt.diamond_shop.repository.IUserRepository;
 import vn.fpt.diamond_shop.security.JwtTokenProvider;
 
-import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 
 @Service
@@ -42,19 +40,5 @@ public class UserService implements IUserService {
         user.setImageUrl(imageUrl);
         user.setDob(dob);
         userRepository.save(user);
-    }
-
-    @PostConstruct
-    public void createManagerAccount() {
-        User managerAccount = userRepository.findByRole(EUserRole.MANAGER);
-        if (managerAccount == null) {
-            User user = new User();
-            user.setUsername("manager");
-            user.setPassword("manager");
-            user.setPhone("0123456789");
-            user.setFullName("Manager");
-            user.setRole(EUserRole.MANAGER);
-            userRepository.save(user);
-        }
     }
 }

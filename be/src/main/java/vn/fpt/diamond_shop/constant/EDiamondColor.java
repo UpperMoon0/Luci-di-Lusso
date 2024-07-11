@@ -23,5 +23,14 @@ public enum EDiamondColor {
     W,
     X,
     Y,
-    Z
+    Z;
+
+    public static EDiamondColor fromValue(String value) {
+        for (EDiamondColor color : EDiamondColor.values()) {
+            if (color.name().equals(value)) {
+                return color;
+            }
+        }
+        return null;
+    }
 }

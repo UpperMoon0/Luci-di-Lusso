@@ -64,18 +64,13 @@ public class StartupConfig {
             }
 
             for (EJewelryType jewelryTagValue : EJewelryType.values()) {
-                jewelryTagRepository.findByType(jewelryTagValue).ifPresentOrElse(
-                        existingJewelryType -> {
-                            // JewelryType exists, no action needed
-                        },
-                        () -> {
-                            // JewelryType not found, create a new one
-                            JewelryType newJewelryType = new JewelryType();
-                            newJewelryType.setType(jewelryTagValue);
-                            newJewelryType.setCreateAt(LocalDateTime.now());
-                            jewelryTagRepository.save(newJewelryType);
-                        }
-                );
+                JewelryType jewelryType = jewelryTagRepository.findByType(jewelryTagValue);
+                if (jewelryType == null) {
+                    jewelryType = new JewelryType();
+                    jewelryType.setType(jewelryTagValue);
+                    jewelryType.setCreateAt(LocalDateTime.now());
+                    jewelryTagRepository.save(jewelryType);
+                }
             }
         };
     }
