@@ -28,8 +28,7 @@
 
     <mat-card class="order-details" *ngIf="selectedOrderId">
       <h2>Order Details</h2>
-      <!-- Display order details here -->
-      <!-- Add relevant content for order details -->
+      <app-purchase-details [orderDetails]="selectedOrderDetails" [productList]="selectedOrderProductList"></app-purchase-details>
     </mat-card>
   </div>
 
