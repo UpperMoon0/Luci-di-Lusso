@@ -1,20 +1,14 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-1 sidebar">
-      <label class="check-label">
-        <span class="custom-checkbox">
-          <span class="filter-button" (click)="setTab(0);">Diamond List</span>
-        </span>
-      </label>
-      <label class="check-label">
-        <span class="custom-checkbox">
-          <span class="filter-button" (click)="setTab(1);">Delivery List</span>
-        </span>
-      </label>
+    <div class="sidebar">
+      <a (click)="setTab(0)">Diamonds List</a>
+      <a (click)="setTab(1)">Deliveries List</a>
+      <a (click)="setTab(2)">Statistics</a>
     </div>
     <div  class="col-11 content" id="diamond-list">
       <app-diamond-list *ngIf="tab == 0"></app-diamond-list>
       <app-manage-delivery-page *ngIf="tab == 1"></app-manage-delivery-page>
+      <app-statistics *ngIf="tab == 2"></app-statistics>
     </div>
   </div>
 </div>

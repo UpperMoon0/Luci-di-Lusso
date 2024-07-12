@@ -69,6 +69,7 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatInputModule} from "@angular/material/input";
 import {DemoMaterialModule} from "./AngularMaterialModule";
 import { ManageDeliveryPageComponent } from './manager-page/manage-delivery-page.component';
+import { StatisticsComponent } from './manager-page/statistics.component';
 
 @NgModule({
   declarations: [
@@ -138,6 +139,7 @@ import { ManageDeliveryPageComponent } from './manager-page/manage-delivery-page
     HomePageComponent,
     HomeBlogComponent,
     ManageDeliveryPageComponent,
+    StatisticsComponent,
   ],
   imports: [
     BrowserModule,

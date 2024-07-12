@@ -50,8 +50,8 @@ public class DeliveryController {
         return ResponseEntity.ok(res);
     }
 
-    @PostMapping("add-delivery")
-    public ResponseEntity<CommonResponse> addDelivery(@RequestBody CreateDeliveryRequest request) {
+    @PostMapping("assign-delivery")
+    public ResponseEntity<CommonResponse> assignDelivery(@RequestBody CreateDeliveryRequest request) {
 
         try {
             deliveryService.assignDeliverer(request.getDeliveryID(), request.getDelivererID());
