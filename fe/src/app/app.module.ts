@@ -69,6 +69,8 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatInputModule} from "@angular/material/input";
 import {DemoMaterialModule} from "./AngularMaterialModule";
 import { ManageDeliveryPageComponent } from './manager-page/manage-delivery-page.component';
+import { HomeBannerComponent } from './home-page/home-banner.component';
+import {ImageSliderModule} from "./image-slider/image-slider.module";
 
 @NgModule({
   declarations: [
@@ -138,6 +140,7 @@ import { ManageDeliveryPageComponent } from './manager-page/manage-delivery-page
     HomePageComponent,
     HomeBlogComponent,
     ManageDeliveryPageComponent,
+    HomeBannerComponent,
   ],
   imports: [
     BrowserModule,
@@ -163,6 +166,7 @@ import { ManageDeliveryPageComponent } from './manager-page/manage-delivery-page
     MatSnackBarModule,
     MatInputModule,
     DemoMaterialModule,
+    ImageSliderModule,
   ],
   providers: [
   ],

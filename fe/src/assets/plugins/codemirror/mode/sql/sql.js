@@ -474,7 +474,7 @@ CodeMirror.defineMode("sql", function(config, parserConfig) {
 });
 
 /*
-  How Properties of Mime Types are used by SQL Mode
+  How Properties of Mime TypesInterface are used by SQL Mode
   =================================================
 
   keywords:
