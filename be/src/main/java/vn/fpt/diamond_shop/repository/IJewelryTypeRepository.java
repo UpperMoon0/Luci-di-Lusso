@@ -13,4 +13,5 @@ import java.util.Optional;
 @Repository
 public interface IJewelryTypeRepository extends JpaRepository<JewelryType, Long>{
     Optional<JewelryType> findByType(EJewelryType tag);
+    Optional<JewelryType> findFirst();
 }

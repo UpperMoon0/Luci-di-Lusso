@@ -35,4 +35,9 @@ public class DiamondService implements IDiamondService {
     public List<Diamond> getAllDiamonds() {
         return diamondRepository.findAll();
     }
+
+    @Override
+    public Diamond findFirst() {
+        return diamondRepository.findFirst().orElse(null);
+    }
 }

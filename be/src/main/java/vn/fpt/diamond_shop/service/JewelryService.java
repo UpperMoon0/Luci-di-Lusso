@@ -81,4 +81,19 @@ public class JewelryService implements IJewelryService {
                 * diamond.getShape().getPriceMultiplier());
         return (Integer) (int) (diamondPrice + jewelry.getSettingPrice() * size.getPriceMultiplier() + jewelry.getLaborCost());
     }
+
+    @Override
+    public void deleteJewelryById(Long id) {
+        jewelryRepository.deleteById(id);
+    }
+
+    @Override
+    public Jewelry saveJewelry(Jewelry jewelry) {
+        return jewelryRepository.save(jewelry);
+    }
+
+    @Override
+    public void createNewJewelry() {
+
+    }
 }

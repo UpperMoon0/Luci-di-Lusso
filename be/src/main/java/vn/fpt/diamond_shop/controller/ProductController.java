@@ -1,5 +1,6 @@
 package vn.fpt.diamond_shop.controller;
 
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import vn.fpt.diamond_shop.service.IJewelryService;
 import vn.fpt.diamond_shop.service.IJewelrySizeService;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +36,8 @@ public class ProductController {
                              IDiamondCutRepository diamondCutRepository,
                              IDiamondColorRepository diamondColorRepository,
                              IDiamondClarityRepository diamondClarityRepository,
-                             IDiamondShapeRepository diamondShapeRepository) {
+                             IDiamondShapeRepository diamondShapeRepository,
+                             ) {
         this.jewelryService = jewelryService;
         this.jewelrySizeService = jewelrySizeService;
         this.diamondService = diamondService;
@@ -64,33 +67,34 @@ public class ProductController {
     public ResponseEntity<JewelriesResponse> getAllJewelries() {
         List<Jewelry> jewelries = jewelryService.getAllJewelries();
 
-        JewelriesResponse response = new JewelriesResponse();
-        for (Jewelry jewelry : jewelries) {
-            int price = jewelryService.calculateJewelryPrice(jewelry);
-            response.addJewelry(jewelry, price);
-        }
+        JewelriesResponse response = new JewelriesResponse(jewelries, jewelryService);
         response.setMessage("Get all jewelries successfully");
 
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/get-jewelries")
-    public ResponseEntity<JewelriesResponse> getJewelries(@RequestBody @Valid JewelriesRequest request) {
+    public ResponseEntity<JewelriesResponse> getJewelries(@RequestBody @Valid ListJewelriesRequest request) {
         List<EJewelryType> types = request.getTypes();
         Double minPrice = request.getMinPrice();
         Double maxPrice = request.getMaxPrice();
 
         List<Jewelry> filteredJewelries = jewelryService.getJewelriesByFilter(types, minPrice, maxPrice);
 
-        JewelriesResponse response = new JewelriesResponse();
-        for (Jewelry jewelry : filteredJewelries) {
-            int price = jewelryService.calculateJewelryPrice(jewelry);
-            response.addJewelry(jewelry, price);
-        }
+        JewelriesResponse response = new JewelriesResponse(filteredJewelries, jewelryService);
         response.setMessage("Get jewelries successfully");
 
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/add-jewelry")
+    public ResponseEntity<CommonResponse> addJewelry() {
+
+        CommonResponse response = new CommonResponse();
+        response.setMessage("Jewelry added successfully");
+        return ResponseEntity.ok(response);
+    }
+
 
     @GetMapping("/get-all-jewelry-types")
     public ResponseEntity<Object> getAllTypes() {
@@ -117,8 +121,8 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/save-diamond")
-    public ResponseEntity<CommonResponse> saveDiamond(@RequestBody DiamondUpdateRequest body) {
+    @PostMapping("/update-diamond")
+    public ResponseEntity<CommonResponse> updateDiamond(@RequestBody DiamondUpdateRequest body) {
         DiamondCut cut = diamondCutRepository.findByCut(EDiamondCut.fromValue(body.getCut()));
         DiamondColor color = diamondColorRepository.findByColor(EDiamondColor.fromValue(body.getColor()));
         DiamondClarity clarity = diamondClarityRepository.findByClarity(EDiamondClarity.fromValue(body.getClarity()));
@@ -140,6 +144,24 @@ public class ProductController {
         diamondService.saveDiamond(diamond);
 
         response.setMessage("Diamond saved successfully");
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/add-diamond")
+    public ResponseEntity<CommonResponse> addDiamond() {
+        Diamond diamond = new Diamond();
+        diamond.setCut(diamondCutRepository.findByCut(EDiamondCut.EXCELLENT));
+        diamond.setColor(diamondColorRepository.findByColor(EDiamondColor.D));
+        diamond.setClarity(diamondClarityRepository.findByClarity(EDiamondClarity.IF));
+        diamond.setCarat(1.0f);
+        diamond.setShape(diamondShapeRepository.findByShape(EDiamondShape.ROUND));
+        diamond.setCreateAt(LocalDateTime.now());
+        diamond.setQuantity(100);
+
+        diamondService.saveDiamond(diamond);
+
+        CommonResponse response = new CommonResponse();
+        response.setMessage("Diamond added successfully");
         return ResponseEntity.ok(response);
     }
 }

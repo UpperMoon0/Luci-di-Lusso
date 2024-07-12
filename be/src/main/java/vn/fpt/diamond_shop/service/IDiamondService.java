@@ -10,4 +10,5 @@ public interface IDiamondService
     void deleteDiamondById(Integer id);
     Diamond getDiamondById(Long id);
     List<Diamond> getAllDiamonds();
+    Diamond findFirst();
 }

@@ -13,4 +13,7 @@ public interface IJewelryService {
     List<Jewelry> getJewelriesByFilter(List<EJewelryType> types, Double minPrice, Double maxPrice);
     Integer calculateJewelryPrice(Jewelry jewelry);
     Integer calculateJewelryPriceWithSize(Jewelry jewelry, JewelrySize size);
+    void deleteJewelryById(Long id);
+    Jewelry saveJewelry(Jewelry jewelry);
+    public void createNewJewelry();
 }

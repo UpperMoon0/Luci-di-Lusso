@@ -3,6 +3,7 @@ package vn.fpt.diamond_shop.model.dto;
 import lombok.Getter;
 import lombok.ToString;
 import vn.fpt.diamond_shop.model.entity.Jewelry;
+import vn.fpt.diamond_shop.service.IJewelryService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,14 +13,32 @@ import java.util.List;
 public class JewelriesResponse extends CommonResponse {
     private final List<JewelryDTO> jewelries = new ArrayList<>();
 
-    public void addJewelry(Jewelry jewelry, Integer price) {
-        jewelries.add(new JewelryDTO(jewelry.getId(),
-                                    jewelry.getName(),
-                                    jewelry.getImageUrl(),
-                                    price,
-                                    jewelry.getType().getType().getValue()));
+    public JewelriesResponse(List<Jewelry> jewelries, IJewelryService jewelryService) {
+        for (Jewelry jewelry : jewelries) {
+            JewelryDTO jewelryDTO = new JewelryDTO(
+                    jewelry.getId(),
+                    jewelry.getName(),
+                    jewelry.getSettingPrice(),
+                    jewelry.getLaborCost(),
+                    jewelry.getType().getId(),
+                    jewelry.getDiamond().getId(),
+                    jewelryService.calculateJewelryPrice(jewelry),
+                    jewelry.getDescription(),
+                    jewelry.getImageUrl()
+            );
+            this.jewelries.add(jewelryDTO);
+        }
     }
 }
 
-record JewelryDTO(Long id, String name, String imageUrl, Integer price, String type) {
-}
+record JewelryDTO(
+        long id,
+        String name,
+        int setting_price,
+        int labor_cost,
+        long type_id,
+        long diamond_id,
+        int price,
+        String description,
+        String imageUrl
+) { }
