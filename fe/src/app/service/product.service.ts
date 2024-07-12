@@ -40,8 +40,9 @@ export class ProductService {
   }
 
   public getAllTypes(): Observable<any> {
-    return this.http.get<any[]>(`${this.apiUrl}/product/get-all-jewelry-types`, this.httpOptions).pipe(
-      tap(types => {
+    return this.http.get<any>(`${this.apiUrl}/product/get-all-jewelry-types`, this.httpOptions).pipe(
+      tap(response => {
+        const types = response.types.map((item: any) => item.type);
         this.productTypes.next(types);
         this.colorService.mapTypesToColors(types);
       })
