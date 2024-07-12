@@ -26,7 +26,7 @@ public class OrderItemService implements IOrderItemService {
             orderItem.setJewelry(cartItem.getJewelry());
             orderItem.setJewelrySize(cartItem.getJewelrySize());
             orderItem.setQuantity(cartItem.getQuantity());
-            orderItem.setPrice(cartItem.getJewelry().getPrice());
+            orderItem.setPrice(cartItem.getJewelry().getSettingPrice());
             orderItem.setOrder(order);
             order.setCreateAt(LocalDateTime.now());
             orderItemRepository.save(orderItem);

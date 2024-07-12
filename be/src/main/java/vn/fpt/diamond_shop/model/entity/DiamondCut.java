@@ -21,6 +21,9 @@ public class DiamondCut {
     @Column(name = "cut", unique = true)
     private EDiamondCut cut;
 
+    @Column(name = "price")
+    private Integer price;
+
     @Column(name = "create_at")
     private LocalDateTime createAt;
 }

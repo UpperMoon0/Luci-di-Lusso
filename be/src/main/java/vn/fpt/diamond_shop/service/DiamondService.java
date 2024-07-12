@@ -22,7 +22,7 @@ public class DiamondService implements IDiamondService {
     }
 
     @Override
-    public void deleteDiamond(Integer id) {
+    public void deleteDiamondById(Integer id) {
         diamondRepository.deleteById(id);
     }
 

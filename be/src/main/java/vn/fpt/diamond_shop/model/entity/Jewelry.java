@@ -17,8 +17,11 @@ public class Jewelry {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "price")
-    private Double price;
+    @Column(name = "setting_price")
+    private Integer settingPrice;
+
+    @Column(name = "labor_cost")
+    private Integer laborCost;
 
     @Column(name = "description")
     private String description;
@@ -36,16 +39,4 @@ public class Jewelry {
 
     @Column(name = "create_at")
     private LocalDateTime createAt;
-
-    public JewelryRequest getJewelryRequest() {
-        JewelryRequest jewelryRequest = new JewelryRequest();
-        jewelryRequest.setId(this.id);
-        jewelryRequest.setName(this.name);
-        jewelryRequest.setJewelryType(this.type.getType());
-        jewelryRequest.setDescription(this.description);
-        jewelryRequest.setImageUrl(this.imageUrl);
-        jewelryRequest.setPrice(this.price);
-        jewelryRequest.setDiamondId(this.diamond.getId());
-        return jewelryRequest;
-    }
 }
