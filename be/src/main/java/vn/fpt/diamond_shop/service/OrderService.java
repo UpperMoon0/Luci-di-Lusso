@@ -17,18 +17,21 @@ public class OrderService implements IOrderService {
     private final IOrderItemService orderItemService;
     private final IUserService userService;
     private final IDeliveryService deliveryService;
+    private final IJewelryService jewelryService;
 
     @Autowired
     public OrderService(IOrderRepository orderRepository,
                         ICartItemRepository cartItemRepository,
                         IOrderItemService orderItemService,
                         IUserService userService,
-                        IDeliveryService deliveryService) {
+                        IDeliveryService deliveryService,
+                        IJewelryService jewelryService) {
         this.orderRepository = orderRepository;
         this.cartItemRepository = cartItemRepository;
         this.orderItemService = orderItemService;
         this.userService = userService;
         this.deliveryService = deliveryService;
+        this.jewelryService = jewelryService;
     }
 
     @Override
@@ -47,7 +50,7 @@ public class OrderService implements IOrderService {
         // Calculate total price
         double totalPrice = 0.0;
         for (CartItem cartItem : cartItems) {
-            totalPrice += cartItem.getJewelry().getSettingPrice() * cartItem.getQuantity();
+            totalPrice += jewelryService.calculateJewelryPriceWithSize(cartItem.getJewelry(), cartItem.getJewelrySize()) * cartItem.getQuantity();
         }
 
         deliveryService.createDelivery(order.getId());
