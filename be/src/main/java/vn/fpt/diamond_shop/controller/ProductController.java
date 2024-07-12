@@ -1,6 +1,5 @@
 package vn.fpt.diamond_shop.controller;
 
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -74,7 +73,7 @@ public class ProductController {
     }
 
     @PostMapping("/get-jewelries")
-    public ResponseEntity<JewelriesResponse> getJewelries(@RequestBody @Valid ListJewelriesRequest request) {
+    public ResponseEntity<JewelriesResponse> getJewelries(@RequestBody @Valid JewelriesListRequest request) {
         List<EJewelryType> types = request.getTypes();
         Double minPrice = request.getMinPrice();
         Double maxPrice = request.getMaxPrice();
@@ -89,12 +88,40 @@ public class ProductController {
 
     @PostMapping("/add-jewelry")
     public ResponseEntity<CommonResponse> addJewelry() {
-
-        CommonResponse response = new CommonResponse();
-        response.setMessage("Jewelry added successfully");
-        return ResponseEntity.ok(response);
+        try {
+            jewelryService.createNewJewelry();
+            CommonResponse response = new CommonResponse();
+            response.setMessage("Jewelry added successfully");
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            CommonResponse response = new CommonResponse();
+            response.setMessage(e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
     }
 
+    @PutMapping("/update-jewelry")
+    public ResponseEntity<CommonResponse> updateJewelry(@RequestBody JewelryUpdateRequest body) {
+        try {
+            jewelryService.updateJewelry(body);
+            CommonResponse response = new CommonResponse();
+            response.setMessage("Jewelry updated successfully");
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            CommonResponse response = new CommonResponse();
+            response.setMessage(e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    @DeleteMapping("/delete-jewelry")
+    public ResponseEntity<CommonResponse> deleteJewelry(@RequestParam Long id) {
+        jewelryService.deleteJewelryById(id);
+
+        CommonResponse response = new CommonResponse();
+        response.setMessage("Jewelry deleted successfully");
+        return ResponseEntity.ok(response);
+    }
 
     @GetMapping("/get-all-jewelry-types")
     public ResponseEntity<Object> getAllTypes() {
@@ -123,42 +150,27 @@ public class ProductController {
 
     @PostMapping("/update-diamond")
     public ResponseEntity<CommonResponse> updateDiamond(@RequestBody DiamondUpdateRequest body) {
-        DiamondCut cut = diamondCutRepository.findByCut(EDiamondCut.fromValue(body.getCut()));
-        DiamondColor color = diamondColorRepository.findByColor(EDiamondColor.fromValue(body.getColor()));
-        DiamondClarity clarity = diamondClarityRepository.findByClarity(EDiamondClarity.fromValue(body.getClarity()));
-        Float carat = body.getCarat();
-        DiamondShape shape = diamondShapeRepository.findByShape(EDiamondShape.fromValue(body.getShape()));
-        Diamond diamond = diamondService.getDiamondById(body.getId());
-        CommonResponse response = new CommonResponse();
-
-        if (cut == null || color == null || clarity == null || shape == null || diamond == null) {
-            response.setMessage("Invalid diamond data");
+        try {
+            diamondService.updateDiamond(body);
+            CommonResponse response = new CommonResponse();
+            response.setMessage("Diamond updated successfully");
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            CommonResponse response = new CommonResponse();
+            response.setMessage(e.getMessage());
             return ResponseEntity.badRequest().body(response);
         }
-
-        diamond.setCut(cut);
-        diamond.setColor(color);
-        diamond.setClarity(clarity);
-        diamond.setCarat(carat);
-        diamond.setShape(shape);
-        diamondService.saveDiamond(diamond);
-
-        response.setMessage("Diamond saved successfully");
-        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/add-diamond")
     public ResponseEntity<CommonResponse> addDiamond() {
-        Diamond diamond = new Diamond();
-        diamond.setCut(diamondCutRepository.findByCut(EDiamondCut.EXCELLENT));
-        diamond.setColor(diamondColorRepository.findByColor(EDiamondColor.D));
-        diamond.setClarity(diamondClarityRepository.findByClarity(EDiamondClarity.IF));
-        diamond.setCarat(1.0f);
-        diamond.setShape(diamondShapeRepository.findByShape(EDiamondShape.ROUND));
-        diamond.setCreateAt(LocalDateTime.now());
-        diamond.setQuantity(100);
-
-        diamondService.saveDiamond(diamond);
+        try {
+            diamondService.createNewDiamond();
+        } catch (RuntimeException e) {
+            CommonResponse response = new CommonResponse();
+            response.setMessage(e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
 
         CommonResponse response = new CommonResponse();
         response.setMessage("Diamond added successfully");

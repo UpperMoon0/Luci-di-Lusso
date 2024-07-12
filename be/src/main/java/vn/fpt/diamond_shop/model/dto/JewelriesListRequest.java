@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class ListJewelriesRequest {
+public class JewelriesListRequest {
     List<EJewelryType> types;
     Double minPrice;
     Double maxPrice;

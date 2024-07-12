@@ -10,7 +10,8 @@ import vn.fpt.diamond_shop.security.JwtTokenProvider;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Service
 public class UserService implements IUserService {
@@ -60,7 +61,27 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<User> getAllDeliverer() {
+    public List<Integer> getCustomerCreationStatistics() {
+        // Fetch users with CUSTOMER role created in the last 30 days
+        List<User> users = userRepository.findAllByRoleAndCreateAtBetween(EUserRole.CUSTOMER, LocalDateTime.now().minusDays(30), LocalDateTime.now());
+        Map<LocalDate, Integer> dailyUserCreations = new HashMap<>();
+
+        for (User user : users) {
+            LocalDate date = user.getCreateAt().toLocalDate();
+            dailyUserCreations.merge(date, 1, Integer::sum);
+        }
+
+        List<Integer> customerCreationStatistics = new ArrayList<>();
+        LocalDate start = LocalDate.now().minusDays(29); // Start from 30 days ago
+        for (int i = 0; i < 30; i++) {
+            customerCreationStatistics.add(dailyUserCreations.getOrDefault(start.plusDays(i), 0));
+        }
+
+        return customerCreationStatistics;
+    }
+
+    @Override
+    public List<User> getAllDeliverers() {
         return userRepository.findAllByRole(EUserRole.DELIVERER);
     }
 }

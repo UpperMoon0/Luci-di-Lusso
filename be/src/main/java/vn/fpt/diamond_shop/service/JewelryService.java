@@ -3,6 +3,7 @@ package vn.fpt.diamond_shop.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.fpt.diamond_shop.constant.EJewelryType;
+import vn.fpt.diamond_shop.model.dto.JewelryUpdateRequest;
 import vn.fpt.diamond_shop.model.entity.Diamond;
 import vn.fpt.diamond_shop.model.entity.Jewelry;
 import vn.fpt.diamond_shop.model.entity.JewelrySize;
@@ -20,17 +21,14 @@ import java.util.stream.Stream;
 public class JewelryService implements IJewelryService {
     private final IJewelryRepository jewelryRepository;
     private final IJewelryTypeRepository jewelryTypeRepo;
-    private final IJewelrySizeRepository jewelrySizeRepo;
     private final IDiamondRepository diamondRepository;
 
     @Autowired
     public JewelryService(IJewelryRepository jewelryRepository,
                           IJewelryTypeRepository jewelryTypeRepo,
-                          IJewelrySizeRepository jewelrySizeRepo,
                           IDiamondRepository diamondRepository) {
         this.jewelryRepository = jewelryRepository;
         this.jewelryTypeRepo = jewelryTypeRepo;
-        this.jewelrySizeRepo = jewelrySizeRepo;
         this.diamondRepository = diamondRepository;
     }
 
@@ -97,8 +95,23 @@ public class JewelryService implements IJewelryService {
     }
 
     @Override
-    public Jewelry saveJewelry(Jewelry jewelry) {
-        return jewelryRepository.save(jewelry);
+    public void updateJewelry(JewelryUpdateRequest request) {
+        Jewelry jewelry = jewelryRepository.findById(request.getId()).orElse(null);
+        JewelryType type = jewelryTypeRepo.findById(request.getTypeId()).orElse(null);
+        Diamond diamond = diamondRepository.findById(request.getDiamondId()).orElse(null);
+
+        if (jewelry == null || type == null || diamond == null) {
+            throw new IllegalArgumentException("Invalid jewelry update request");
+        }
+
+        jewelry.setType(type);
+        jewelry.setDiamond(diamond);
+        jewelry.setName(request.getName());
+        jewelry.setSettingPrice(request.getSettingPrice());
+        jewelry.setLaborCost(request.getLaborCost());
+        jewelry.setDescription(request.getDescription());
+        jewelry.setImageUrl(request.getImageUrl());
+        jewelryRepository.save(jewelry);
     }
 
     @Override
@@ -119,4 +132,6 @@ public class JewelryService implements IJewelryService {
         jewelry.setCreateAt(LocalDateTime.now());
         jewelryRepository.save(jewelry);
     }
+
+
 }

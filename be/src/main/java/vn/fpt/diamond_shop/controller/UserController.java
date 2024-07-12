@@ -63,7 +63,7 @@ public class UserController {
 
     @GetMapping("/get-deliverers")
     public ResponseEntity<DeliverersResponse> getDeliverers() {
-        List<User> deliverers = userService.getAllDeliverer();
+        List<User> deliverers = userService.getAllDeliverers();
         DeliverersResponse response = new DeliverersResponse(deliverers);
         response.setMessage("Deliverers retrieved successfully");
         return ResponseEntity.ok(response);
