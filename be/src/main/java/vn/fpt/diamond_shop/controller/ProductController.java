@@ -7,14 +7,12 @@ import org.springframework.web.bind.annotation.*;
 import vn.fpt.diamond_shop.constant.*;
 import vn.fpt.diamond_shop.model.dto.*;
 import vn.fpt.diamond_shop.model.entity.*;
-import vn.fpt.diamond_shop.repository.*;
 import vn.fpt.diamond_shop.service.IDiamondService;
 import vn.fpt.diamond_shop.service.IJewelryService;
 import vn.fpt.diamond_shop.service.IJewelrySizeService;
+import vn.fpt.diamond_shop.service.JewelryTypeService;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping("/product")
@@ -23,27 +21,17 @@ public class ProductController {
     private final IJewelryService jewelryService;
     private final IJewelrySizeService jewelrySizeService;
     private final IDiamondService diamondService;
-    private final IDiamondCutRepository diamondCutRepository;
-    private final IDiamondColorRepository diamondColorRepository;
-    private final IDiamondClarityRepository diamondClarityRepository;
-    private final IDiamondShapeRepository diamondShapeRepository;
+    private final JewelryTypeService jewelryTypeService;
 
     @Autowired
     public ProductController(IJewelryService jewelryService,
                              IJewelrySizeService jewelrySizeService,
                              IDiamondService diamondService,
-                             IDiamondCutRepository diamondCutRepository,
-                             IDiamondColorRepository diamondColorRepository,
-                             IDiamondClarityRepository diamondClarityRepository,
-                             IDiamondShapeRepository diamondShapeRepository
-    ) {
+                             JewelryTypeService jewelryTypeService) {
         this.jewelryService = jewelryService;
         this.jewelrySizeService = jewelrySizeService;
         this.diamondService = diamondService;
-        this.diamondCutRepository = diamondCutRepository;
-        this.diamondColorRepository = diamondColorRepository;
-        this.diamondClarityRepository = diamondClarityRepository;
-        this.diamondShapeRepository = diamondShapeRepository;
+        this.jewelryTypeService = jewelryTypeService;
     }
 
     @GetMapping("/get-jewelry")
@@ -124,18 +112,19 @@ public class ProductController {
     }
 
     @GetMapping("/get-all-jewelry-types")
-    public ResponseEntity<Object> getAllTypes() {
-        List<String> types = new ArrayList<>();
-        for (EJewelryType e : EJewelryType.values()) {
-            types.add(e.toString().substring(0,1).toUpperCase() + e.toString().substring(1).toLowerCase());
-        }
-        return ResponseEntity.ok(types);
+    public ResponseEntity<JewelryTypesResponse> getAllTypes() {
+        List<JewelryType> types = jewelryTypeService.getAll();
+        JewelryTypesResponse response = new JewelryTypesResponse();
+        response.setTypes(types);
+        response.setMessage("Get all jewelry types successfully");
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/get-all-diamonds")
     public ResponseEntity<DiamondsResponse> getAllDiamonds() {
         List<Diamond> diamonds = diamondService.getAllDiamonds();
-        DiamondsResponse response = new DiamondsResponse(diamonds);
+        DiamondsResponse response = new DiamondsResponse();
+        response.setDiamonds(diamonds);
         response.setMessage("Get all diamonds successfully");
         return ResponseEntity.ok(response);
     }
