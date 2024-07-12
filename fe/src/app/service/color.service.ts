@@ -18,6 +18,8 @@ export class ColorService {
     typeLists.forEach((type, index) => {
       typeColors.set(type, this.generateVibrantColors(index));
     });
+    // Print the map to the console key : value
+    typeColors.forEach((value, key) => { console.log(key + ' : ' + value); });
     this.typeColors = typeColors;
   }
 

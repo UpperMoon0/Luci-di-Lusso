@@ -31,9 +31,10 @@ export class ProductListPageComponent implements OnInit {
         this.typeLists = types;
         this.getProducts();
       },
-      error: (error) => this.toastrService.error(),
+      error: () => this.toastrService.error(),
       complete: () => console.log('Completed fetching tags')
     });
+    console.log("TypeLists: " + this.typeLists);
     this.getProducts();
   }
 
@@ -48,6 +49,7 @@ export class ProductListPageComponent implements OnInit {
     const isSelected = this.selectedRangePrice === price;
     this.toggleSelectionPrice(isSelected, price);
     this.getProducts();
+    // Print all products.type_id
   }
 
   private toggleSelectionType(isSelected: boolean, value: string, array: string[], index: number): void {
@@ -92,6 +94,7 @@ export class ProductListPageComponent implements OnInit {
       next: (res) => this.productsList = res.jewelries,
       error: () => this.toastrService.error("Error in getting products list")
     });
+    this.productsList.forEach(product => console.log("Product id" + product.type_id));
   }
 
   private getPriceRange(): { minPrice: number; maxPrice: number } {
