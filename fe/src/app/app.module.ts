@@ -17,7 +17,7 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 import { RegisterFormComponent } from './register-page/register-form.component';
 
 import { LoginPageComponent } from './login-page/login-page.component';
-import { LoginFormComponent } from './login-page/login-form.component';
+import { LoginFormComponent } from "./login-page/login-form.component";
 
 import { ProductCardComponent } from "./product-list-page/product-card.component";
 import { ProductListPageComponent } from './product-list-page/product-list-page.component';

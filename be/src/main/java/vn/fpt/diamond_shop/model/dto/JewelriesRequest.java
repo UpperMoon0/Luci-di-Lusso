@@ -12,6 +12,7 @@ import java.util.List;
 @ToString
 public class JewelriesRequest {
     List<EJewelryType> types;
-    Double minPrice;
-    Double maxPrice;
+    Integer minPrice;
+    Integer maxPrice;
+    String keyword;
 }

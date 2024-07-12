@@ -36,7 +36,7 @@ public class JewelryService implements IJewelryService {
     }
 
     @Override
-    public List<Jewelry> getJewelriesByFilter(List<EJewelryType> types, Double minPrice, Double maxPrice) {
+    public List<Jewelry> getJewelriesByFilter(List<EJewelryType> types, Integer minPrice, Integer maxPrice, String keyword) {
         Stream<Jewelry> jewelryStream;
         if (types.isEmpty()) {
             // Initialize stream with all jewelries if type list is empty
@@ -53,13 +53,19 @@ public class JewelryService implements IJewelryService {
 
         // Apply price filter to the stream
         jewelryStream = jewelryStream.filter(jewelry -> {
-            double price = jewelry.getSettingPrice();
+            double price = calculateJewelryPrice(jewelry);
             if (maxPrice == null || maxPrice == 0) {
                 return price >= minPrice;
             } else {
                 return price >= minPrice && price <= maxPrice;
             }
         });
+
+        // Apply keyword filter to the stream if keyword is not null or empty
+        if (keyword != null && !keyword.isEmpty()) {
+            final String lowerCaseKeyword = keyword.toLowerCase();
+            jewelryStream = jewelryStream.filter(jewelry -> jewelry.getName().toLowerCase().contains(lowerCaseKeyword));
+        }
 
         return jewelryStream.toList();
     }

@@ -12,12 +12,12 @@ import {ColorService} from "../service/color.service";
 export class ProductListPageComponent implements OnInit {
   public typeLists: string[] = [];
   public priceRange: string[] = ["$ 0 - 100", "$ 100 - 500", "$ 500 - 1000", "$ 1000 - 4000", "More than $ 4000"];
-  public typeColors: Map<string, [string, string]> = new Map();
 
   isLoggedIn: boolean = false;
   selectedRangePrice: string = "";
   productsList: any[] = [];
   selectedTypes: string[] = [];
+  searchText: string = '';
 
   constructor(private productService: ProductService,
               private toastrService: ToastrService,
@@ -86,7 +86,8 @@ export class ProductListPageComponent implements OnInit {
   getProducts(): void {
     const types = this.selectedTypes.map(tag => tag.includes(" ") ? tag.replace(" ", "_").toUpperCase() : tag.toUpperCase());
     const { minPrice, maxPrice } = this.getPriceRange();
-    const request = { types, minPrice, maxPrice };
+    const keyword = this.searchText;
+    const request = { types, minPrice, maxPrice, keyword };
     this.productService.getJewelries(request).subscribe({
       next: (res) => this.productsList = res.jewelries,
       error: () => this.toastrService.error("Error in getting products list")

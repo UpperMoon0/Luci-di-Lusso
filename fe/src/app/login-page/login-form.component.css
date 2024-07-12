@@ -18,3 +18,51 @@
   border-radius: 50px;
   box-shadow: 0 0 0 0.2rem #0a0e14;
 }
+
+[class^="tooltip"] {
+  position: relative;
+  border-radius: 80px;
+  &:after {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    content: attr(data-tooltip);
+    padding: 6px 10px;
+    top: 1.4em;
+    left: 50%;
+    transform: translateX(-50%) translateY(-2px);
+    background: grey;
+    color: white;
+    white-space: nowrap;
+    z-index: 2;
+    border-radius: 2px;
+    transition: opacity 0.2s, transform 0.2s ;
+  }
+  &:hover {
+    &:after {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+}
+
+.tooltip--right {
+  &:after {
+    top: -4px;
+    left: 100%;
+    transform: translateX(12%) translateY(0);
+    /* Limit width to 100px */
+    width: 400px;
+    white-space: normal;
+    word-wrap: break-word;
+    /* Reduced padding for smaller size */
+    /* Limit width to encourage wrapping */ /* Allows text to wrap and respects whitespace */
+  }
+  &:hover {
+    &:after {
+      transform: translateX(10%) translateY(0);
+    }
+  }
+}

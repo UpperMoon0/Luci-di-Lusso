@@ -3,10 +3,11 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 import {AccountService} from "../service/account.service";
 
+
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-form.component.html',
-  styleUrls: ['./register-form.component.css']
+  styleUrls: ['./register-form.component.css'],
 })
 export class RegisterFormComponent implements OnInit {
   form!: FormGroup;
@@ -20,25 +21,23 @@ export class RegisterFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
       address: ['', Validators.required],
       fullName: ['', Validators.required],
       dob: ['', Validators.required],
-      provider: ['LOCAL'] // Set default value to "LOCAL"
+      provider: ['LOCAL'] ,// Set default value to "LOCAL"
     });
   }
 
   onRegister() {
-    if (this.form.invalid) {
-      for (const field in this.form.controls) {
-        if (this.form.controls[field].invalid) {
-          this.toastrService.error();
-        }
-      }
+    const password = this.form.get('password').value;
+    const confirmPassword = this.form.get('confirmPassword').value;
+    if (password !== confirmPassword) {
+      this.toastrService.error('Passwords do not match');
       return;
     }
-
     this.accountService.register(this.form.value).subscribe({
       next: (res) => {
         this.toastrService.success("Register successfully");
