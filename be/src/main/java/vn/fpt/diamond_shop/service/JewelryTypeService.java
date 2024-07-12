@@ -5,17 +5,24 @@ import org.springframework.stereotype.Service;
 import vn.fpt.diamond_shop.model.entity.JewelryType;
 import vn.fpt.diamond_shop.repository.IJewelryTypeRepository;
 
+import java.util.List;
+
 @Service
 public class JewelryTypeService implements IJewelryTypeService {
-    private final IJewelryTypeRepository jewelrySizeRepository;
+    private final IJewelryTypeRepository jewelryTypeRepository;
 
     @Autowired
     public JewelryTypeService(IJewelryTypeRepository jewelrySizeRepository) {
-        this.jewelrySizeRepository = jewelrySizeRepository;
+        this.jewelryTypeRepository = jewelrySizeRepository;
     }
 
     @Override
-    public JewelryType findFirst() {
-        return jewelrySizeRepository.findFirstBy().orElse(null);
+    public JewelryType getFirst() {
+        return jewelryTypeRepository.findFirstBy().orElse(null);
+    }
+
+    @Override
+    public List<JewelryType> getAll() {
+        return jewelryTypeRepository.findAll();
     }
 }
