@@ -61,10 +61,10 @@ public class ProductController {
     }
 
     @PostMapping("/get-jewelries")
-    public ResponseEntity<JewelriesResponse> getJewelries(@RequestBody @Valid JewelriesListRequest request) {
+    public ResponseEntity<JewelriesResponse> getJewelries(@RequestBody JewelriesListRequest request) {
         List<EJewelryType> types = request.getTypes();
-        Double minPrice = request.getMinPrice();
-        Double maxPrice = request.getMaxPrice();
+        Integer minPrice = request.getMinPrice();
+        Integer maxPrice = request.getMaxPrice();
 
         List<Jewelry> filteredJewelries = jewelryService.getJewelriesByFilter(types, minPrice, maxPrice);
 

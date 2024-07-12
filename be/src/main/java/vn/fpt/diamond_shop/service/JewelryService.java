@@ -43,7 +43,7 @@ public class JewelryService implements IJewelryService {
     }
 
     @Override
-    public List<Jewelry> getJewelriesByFilter(List<EJewelryType> types, Double minPrice, Double maxPrice) {
+    public List<Jewelry> getJewelriesByFilter(List<EJewelryType> types, Integer minPrice, Integer maxPrice) {
         Stream<Jewelry> jewelryStream;
         if (types.isEmpty()) {
             // Initialize stream with all jewelries if type list is empty
