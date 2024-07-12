@@ -6,23 +6,32 @@ import vn.fpt.diamond_shop.constant.EJewelryType;
 import vn.fpt.diamond_shop.model.entity.Diamond;
 import vn.fpt.diamond_shop.model.entity.Jewelry;
 import vn.fpt.diamond_shop.model.entity.JewelrySize;
+import vn.fpt.diamond_shop.model.entity.JewelryType;
+import vn.fpt.diamond_shop.repository.IDiamondRepository;
 import vn.fpt.diamond_shop.repository.IJewelryRepository;
+import vn.fpt.diamond_shop.repository.IJewelrySizeRepository;
 import vn.fpt.diamond_shop.repository.IJewelryTypeRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 @Service
 public class JewelryService implements IJewelryService {
     private final IJewelryRepository jewelryRepository;
-    private final IJewelryTypeRepository jewelryTypeRepository;
+    private final IJewelryTypeRepository jewelryTypeRepo;
+    private final IJewelrySizeRepository jewelrySizeRepo;
+    private final IDiamondRepository diamondRepository;
 
     @Autowired
     public JewelryService(IJewelryRepository jewelryRepository,
-                          IJewelryTypeRepository jewelryTypeRepository) {
+                          IJewelryTypeRepository jewelryTypeRepo,
+                          IJewelrySizeRepository jewelrySizeRepo,
+                          IDiamondRepository diamondRepository) {
         this.jewelryRepository = jewelryRepository;
-        this.jewelryTypeRepository = jewelryTypeRepository;
+        this.jewelryTypeRepo = jewelryTypeRepo;
+        this.jewelrySizeRepo = jewelrySizeRepo;
+        this.diamondRepository = diamondRepository;
     }
 
     @Override
@@ -44,7 +53,7 @@ public class JewelryService implements IJewelryService {
         } else {
             // If type list is not empty, initialize stream with jewelries that match the types
             jewelryStream = types.stream()
-                    .map(jewelryTypeRepository::findByType)
+                    .map(jewelryTypeRepo::findByType)
                     .flatMap(optionalType -> optionalType
                             .map(jewelryType -> jewelryRepository.findAllByType(jewelryType).stream())
                             .orElseGet(Stream::empty))
@@ -94,6 +103,20 @@ public class JewelryService implements IJewelryService {
 
     @Override
     public void createNewJewelry() {
-
+        Jewelry jewelry = new Jewelry();
+        jewelry.setName("New Jewelry");
+        jewelry.setSettingPrice(1000);
+        jewelry.setLaborCost(500);
+        Diamond diamond = diamondRepository.findFirstBy().orElse(null);
+        JewelryType type = jewelryTypeRepo.findFirstBy().orElse(null);
+        if (diamond == null && type == null) {
+            throw new RuntimeException("Cannot create new jewelry without diamond, size, and type");
+        }
+        jewelry.setDiamond(diamond);
+        jewelry.setType(type);
+        jewelry.setDescription("New Jewelry Description");
+        jewelry.setImageUrl("");
+        jewelry.setCreateAt(LocalDateTime.now());
+        jewelryRepository.save(jewelry);
     }
 }

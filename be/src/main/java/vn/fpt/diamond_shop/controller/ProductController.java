@@ -37,7 +37,7 @@ public class ProductController {
                              IDiamondColorRepository diamondColorRepository,
                              IDiamondClarityRepository diamondClarityRepository,
                              IDiamondShapeRepository diamondShapeRepository
-                             ) {
+    ) {
         this.jewelryService = jewelryService;
         this.jewelrySizeService = jewelrySizeService;
         this.diamondService = diamondService;

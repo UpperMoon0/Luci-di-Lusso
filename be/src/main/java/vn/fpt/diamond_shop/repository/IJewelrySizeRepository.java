@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface IJewelrySizeRepository extends JpaRepository<JewelrySize, Long> {
     List<JewelrySize> findAllByType(JewelryType type);
     Optional<JewelrySize> findFirstByType(JewelryType type);
-    Optional<JewelrySize> findFirst();
+    Optional<JewelrySize> findFirstBy();
 }

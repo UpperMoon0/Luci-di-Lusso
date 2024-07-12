@@ -30,6 +30,6 @@ public class JewelrySizeService implements IJewelrySizeService {
 
     @Override
     public JewelrySize findFirst() {
-        return jewelrySizeService.findFirst().orElse(null);
+        return jewelrySizeService.findFirstBy().orElse(null);
     }
 }

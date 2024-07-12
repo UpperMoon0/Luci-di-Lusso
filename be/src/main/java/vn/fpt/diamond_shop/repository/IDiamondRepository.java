@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface IDiamondRepository extends JpaRepository<Diamond, Integer>{
     Optional<Diamond> findById(Long id);
-    Optional<Diamond> findFirst();
+    Optional<Diamond> findFirstBy();
 }

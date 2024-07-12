@@ -16,6 +16,6 @@ public class JewelryTypeService implements IJewelryTypeService {
 
     @Override
     public JewelryType findFirst() {
-        return jewelrySizeRepository.findFirst().orElse(null);
+        return jewelrySizeRepository.findFirstBy().orElse(null);
     }
 }

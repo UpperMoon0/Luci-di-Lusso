@@ -38,6 +38,6 @@ public class DiamondService implements IDiamondService {
 
     @Override
     public Diamond findFirst() {
-        return diamondRepository.findFirst().orElse(null);
+        return diamondRepository.findFirstBy().orElse(null);
     }
 }
