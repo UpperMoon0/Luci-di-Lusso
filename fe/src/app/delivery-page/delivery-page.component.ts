@@ -7,4 +7,14 @@ import {Component} from '@angular/core';
 })
 export class DeliveryPageComponent {
 
+  willOpened : boolean = false;
+
+  public modifyOpen(status : number) {
+    if (status === 0){
+      this.willOpened = false;
+    } else {
+      this.willOpened = true;
+    }
+  }
+
 }

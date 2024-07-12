@@ -28,6 +28,7 @@ const routes: Routes = [
   { path: 'payment', component: PaymentPageComponent },
   { path: 'profile', component: CustomerProfilePageComponent },
   { path: 'delivery', component: DeliveryPageComponent },
+  { path: 'manager', component: ManagerPageComponent },
   { path: 'purchase-history', component: PurchaseHistoryPageComponent },
   { path: 'manager', component : ManagerPageComponent},
   { path : 'blog', component : BlogPageComponent },

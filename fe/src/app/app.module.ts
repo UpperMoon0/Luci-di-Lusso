@@ -41,7 +41,7 @@ import { StaffSidebarComponent } from './staff-sidebar/staff-sidebar.component';
 import { DeliveryTableComponent } from './delivery-page/delivery-table.component';
 import { DeliveryPageComponent } from './delivery-page/delivery-page.component';
 
-import {DiamondListComponent} from "./manager-page/diamond-list.component";
+import {ManageDiamondListComponent} from "./manager-page/manage-diamond-list.component";
 import {ManagerPageComponent} from "./manager-page/manager-page.component";
 
 import {DiscoverComponent} from "./blog-page/blog/discover/discover.component";
@@ -70,6 +70,9 @@ import {MatInputModule} from "@angular/material/input";
 import {DemoMaterialModule} from "./AngularMaterialModule";
 import { ManageDeliveryPageComponent } from './manager-page/manage-delivery-page.component';
 import { StatisticsComponent } from './manager-page/statistics.component';
+import {CanvasJSAngularChartsModule} from "@canvasjs/angular-charts";
+import { ManageJewelriesListComponent } from './manager-page/manage-jewelries-list.component';
+import { OrdersListComponent } from './delivery-page/orders-list/orders-list.component';
 
 @NgModule({
   declarations: [
@@ -122,7 +125,7 @@ import { StatisticsComponent } from './manager-page/statistics.component';
     DeliveryPageComponent,
 
     // Manager page
-    DiamondListComponent,
+    ManageDiamondListComponent,
     ManagerPageComponent,
 
     // Blog page
@@ -140,6 +143,8 @@ import { StatisticsComponent } from './manager-page/statistics.component';
     HomeBlogComponent,
     ManageDeliveryPageComponent,
     StatisticsComponent,
+    ManageJewelriesListComponent,
+    OrdersListComponent,
   ],
   imports: [
     BrowserModule,
@@ -165,6 +170,7 @@ import { StatisticsComponent } from './manager-page/statistics.component';
     MatSnackBarModule,
     MatInputModule,
     DemoMaterialModule,
+    CanvasJSAngularChartsModule,
   ],
   providers: [
   ],

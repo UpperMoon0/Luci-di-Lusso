@@ -26,4 +26,8 @@ export class OrderService {
   public getOrderDetails(id: number): Observable<any> {
     return this.http.get<any>(`${environment.beApiUrl}/order/get-order-details?orderId=${id}`, this.httpOptions);
   }
+
+  public get30DaysOrderCount(): Observable<any> {
+    return this.http.get<any[]>(`${environment.beApiUrl}/order/get-order-details`, this.httpOptions);
+  }
 }

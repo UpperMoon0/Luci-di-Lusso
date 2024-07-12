@@ -7,6 +7,8 @@
 }
 
 .sidebar {
+  display: flex;
+  flex-direction: column;
   margin: 0;
   padding: 0;
   width: 300px;
@@ -17,11 +19,15 @@
 }
 
 .sidebar a {
-  display: block;
   color: black;
   padding: 16px;
   text-decoration: none;
 }
+
+.sidebar a:last-of-type {
+  margin-top: auto;
+}
+
 
 .sidebar a.active {
   background-color: #04AA6D;
@@ -37,6 +43,20 @@ div.content {
   margin-left: 200px;
   padding: 1px 16px;
   height: 1000px;
+}
+
+.logout-button {
+  width: 100%;
+  align-self: center;
+  padding: 10px 20px;
+  background-color: #007bff; /* Bootstrap primary color for example */
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: #0056b3;
 }
 
 @media screen and (max-width: 700px) {

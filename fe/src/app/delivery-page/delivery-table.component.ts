@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { DeliveryService } from "../service/delivery.service";
 import {ToastrService} from "ngx-toastr";
+import { DeliveryPageComponent } from "./delivery-page.component";
 
 @Component({
   selector: 'app-delivery-table',
@@ -9,13 +10,25 @@ import {ToastrService} from "ngx-toastr";
 })
 export class DeliveryTableComponent implements OnInit {
   deliveries : any[] = [];
+  deliveryID : number = 0;
 
   constructor(private deliveryService: DeliveryService,
-              private toastrService: ToastrService) {
+              private toastrService: ToastrService,
+              private deliveryPageComponent: DeliveryPageComponent) {
   }
 
   ngOnInit(): void {
     this.getDeliveries();
+  }
+
+  public setDeliveryID(id : number) {
+    if (this.deliveryID === id) {
+      this.deliveryID = 0;
+      this.deliveryPageComponent.modifyOpen(0);
+    } else {
+      this.deliveryID = id;
+      this.deliveryPageComponent.modifyOpen(1);
+    }
   }
 
   private getDeliveries() {
