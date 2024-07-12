@@ -14,8 +14,12 @@ public class DiamondShape {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "shape", unique = true)
     private EDiamondShape shape;
+
+    @Column(name = "price_multiplier")
+    private Float priceMultiplier;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;

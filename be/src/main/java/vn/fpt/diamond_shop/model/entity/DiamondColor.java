@@ -19,6 +19,9 @@ public class DiamondColor {
     @Column(name = "color", unique = true)
     private EDiamondColor color;
 
+    @Column(name = "price")
+    private Integer price;
+
     @Column(name = "create_at")
     private LocalDateTime createAt;
 }

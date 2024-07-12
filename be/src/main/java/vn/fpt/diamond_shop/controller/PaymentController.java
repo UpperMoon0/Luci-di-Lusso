@@ -18,18 +18,12 @@ import java.util.Map;
 public class PaymentController {
     private final IPaymentService paymentService;
     private final IOrderService orderService;
-    private final IDeliveryService deliveryService;
-    private final IUserService userService;
 
     @Autowired
     public PaymentController(IPaymentService paymentService,
-                             IOrderService orderService,
-                             IDeliveryService deliveryService,
-                             IUserService userService) {
+                             IOrderService orderService) {
         this.paymentService = paymentService;
         this.orderService = orderService;
-        this.deliveryService = deliveryService;
-        this.userService = userService;
     }
 
     @PostMapping("/create-charge")
@@ -40,9 +34,6 @@ public class PaymentController {
             String stripeToken = body.get("stripeToken");
             double totalPrice = orderService.createOrderFromJwtToken(jwtToken);
             paymentService.createCharge(stripeToken, (int) (totalPrice * 100));
-
-            //Create Delivery after finishing payment
-
 
             CommonResponse cr = new CommonResponse();
             cr.setMessage("Payment successful");

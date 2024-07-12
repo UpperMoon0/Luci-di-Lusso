@@ -47,7 +47,7 @@ public class OrderService implements IOrderService {
         // Calculate total price
         double totalPrice = 0.0;
         for (CartItem cartItem : cartItems) {
-            totalPrice += cartItem.getJewelry().getPrice() * cartItem.getQuantity();
+            totalPrice += cartItem.getJewelry().getSettingPrice() * cartItem.getQuantity();
         }
 
         deliveryService.createDelivery(order.getId());

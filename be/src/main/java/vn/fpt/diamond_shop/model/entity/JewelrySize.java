@@ -24,6 +24,9 @@ public class JewelrySize {
     @Column(name = "size")
     private Float size;
 
+    @Column(name = "price_multiplier")
+    private Float priceMultiplier;
+
     @ManyToOne
     @JoinColumn(name = "type_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)

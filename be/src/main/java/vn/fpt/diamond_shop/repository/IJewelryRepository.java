@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface IJewelryRepository extends JpaRepository<Jewelry, Long> {
-    @Query("SELECT SUM(j.price) FROM Jewelry j WHERE j.id IN (:ids)")
+    @Query("SELECT SUM(j.settingPrice) FROM Jewelry j WHERE j.id IN (:ids)")
     Double getTotalPriceByIdList(@Param("ids") List<Long> ids);
     List<Jewelry> findAllByType(JewelryType jewelryTag);
 }

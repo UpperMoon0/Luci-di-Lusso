@@ -3,7 +3,9 @@ package vn.fpt.diamond_shop.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.fpt.diamond_shop.constant.EJewelryType;
+import vn.fpt.diamond_shop.model.entity.Diamond;
 import vn.fpt.diamond_shop.model.entity.Jewelry;
+import vn.fpt.diamond_shop.model.entity.JewelrySize;
 import vn.fpt.diamond_shop.repository.IJewelryRepository;
 import vn.fpt.diamond_shop.repository.IJewelryTypeRepository;
 
@@ -24,8 +26,8 @@ public class JewelryService implements IJewelryService {
     }
 
     @Override
-    public Optional<Jewelry> getJewelryById(Long id) {
-        return jewelryRepository.findById(id);
+    public Jewelry getJewelryById(Long id) {
+        return jewelryRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -51,7 +53,7 @@ public class JewelryService implements IJewelryService {
 
         // Apply price filter to the stream
         jewelryStream = jewelryStream.filter(jewelry -> {
-            double price = jewelry.getPrice();
+            double price = jewelry.getSettingPrice();
             if (maxPrice == null || maxPrice == 0) {
                 return price >= minPrice;
             } else {
@@ -60,5 +62,23 @@ public class JewelryService implements IJewelryService {
         });
 
         return jewelryStream.toList();
+    }
+
+    @Override
+    public Integer calculateJewelryPrice(Jewelry jewelry) {
+        Diamond diamond = jewelry.getDiamond();
+        int diamondPrice = (int) ((diamond.getCut().getPrice() + diamond.getColor().getPrice() + diamond.getClarity().getPrice())
+                * diamond.getCarat()
+                * diamond.getShape().getPriceMultiplier());
+        return diamondPrice + jewelry.getSettingPrice() + jewelry.getLaborCost();
+    }
+
+    @Override
+    public Integer calculateJewelryPriceWithSize(Jewelry jewelry, JewelrySize size) {
+        Diamond diamond = jewelry.getDiamond();
+        int diamondPrice = (int) ((diamond.getCut().getPrice() + diamond.getColor().getPrice() + diamond.getClarity().getPrice())
+                * diamond.getCarat()
+                * diamond.getShape().getPriceMultiplier());
+        return (Integer) (int) (diamondPrice + jewelry.getSettingPrice() * size.getPriceMultiplier() + jewelry.getLaborCost());
     }
 }
