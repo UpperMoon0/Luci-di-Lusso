@@ -8,5 +8,6 @@ import java.util.Optional;
 
 public interface IJewelrySizeService {
     List<JewelrySize> getJewelrySizesByJewelryType(JewelryType type);
-    Optional<JewelrySize> getDefaultSizeByJewelryType(JewelryType type);
+    JewelrySize getDefaultSizeByJewelryType(JewelryType type);
+    JewelrySize findFirst();
 }

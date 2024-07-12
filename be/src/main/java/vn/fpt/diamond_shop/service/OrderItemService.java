@@ -7,8 +7,12 @@ import vn.fpt.diamond_shop.model.entity.Order;
 import vn.fpt.diamond_shop.model.entity.OrderItem;
 import vn.fpt.diamond_shop.repository.IOrderItemRepository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrderItemService implements IOrderItemService {
@@ -28,7 +32,7 @@ public class OrderItemService implements IOrderItemService {
             orderItem.setQuantity(cartItem.getQuantity());
             orderItem.setPrice(cartItem.getJewelry().getSettingPrice());
             orderItem.setOrder(order);
-            order.setCreateAt(LocalDateTime.now());
+            orderItem.setCreateAt(LocalDateTime.now());
             orderItemRepository.save(orderItem);
         }
     }
@@ -36,5 +40,45 @@ public class OrderItemService implements IOrderItemService {
     @Override
     public List<OrderItem> getOrderItemsByOrder(Order order) {
         return orderItemRepository.findAllByOrder(order);
+    }
+
+    @Override
+    public List<Integer> getSaleStatistics() {
+        List<OrderItem> orderItems = orderItemRepository.findAllByCreateAtBetween(LocalDateTime.now().minusDays(30), LocalDateTime.now());
+        Map<LocalDate, Integer> dailySales = new HashMap<>();
+
+        for (OrderItem orderItem : orderItems) {
+            LocalDate date = orderItem.getCreateAt().toLocalDate();
+            int saleAmount = orderItem.getPrice() * orderItem.getQuantity();
+            dailySales.merge(date, saleAmount, Integer::sum);
+        }
+
+        List<Integer> saleStatistics = new ArrayList<>();
+        LocalDate start = LocalDate.now().minusDays(29); // Start from 30 days ago
+        for (int i = 0; i < 30; i++) {
+            saleStatistics.add(dailySales.getOrDefault(start.plusDays(i), 0));
+        }
+
+        return saleStatistics;
+    }
+
+    @Override
+    public List<Integer> getJewelriesSaleStatistics() {
+        List<OrderItem> orderItems = orderItemRepository.findAllByCreateAtBetween(LocalDateTime.now().minusDays(30), LocalDateTime.now());
+        Map<LocalDate, Integer> dailyQuantities = new HashMap<>();
+
+        for (OrderItem orderItem : orderItems) {
+            LocalDate date = orderItem.getCreateAt().toLocalDate();
+            int quantity = orderItem.getQuantity();
+            dailyQuantities.merge(date, quantity, Integer::sum);
+        }
+
+        List<Integer> saleStatistics = new ArrayList<>();
+        LocalDate start = LocalDate.now().minusDays(29); // Start from 30 days ago
+        for (int i = 0; i < 30; i++) {
+            saleStatistics.add(dailyQuantities.getOrDefault(start.plusDays(i), 0));
+        }
+
+        return saleStatistics;
     }
 }

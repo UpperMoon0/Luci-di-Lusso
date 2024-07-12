@@ -13,7 +13,7 @@
     </thead>
     <tbody>
     <tr *ngFor="let delivery of deliveries">
-        <td>{{ delivery.id }}</td>
+        <td><a class="fc-button" (click)="setDeliveryID(delivery.id)">{{ delivery.id }}</a></td>
         <td>{{ delivery.customerName }}</td>
         <td>{{ delivery.customerPhone }}</td>
         <td>{{ delivery.customerEmail }}</td>

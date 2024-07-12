@@ -17,8 +17,7 @@ import java.util.List;
 public class OrderDetailsResponse extends CommonResponse {
     private String customerName;
     private Double totalPrice;
-    private LocalDateTime createAt;
-    private String formattedCreateAt;
+    private String createAt;
     private List<JewelryInOrderDTO> productList = new ArrayList<>();
 
     public OrderDetailsResponse(Order order, List<OrderItem> orderItems) {
@@ -26,9 +25,8 @@ public class OrderDetailsResponse extends CommonResponse {
         this.totalPrice = orderItems.stream()
                 .mapToDouble(item -> item.getPrice() * item.getQuantity())
                 .sum();
-        this.createAt = order.getCreateAt();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
-        this.formattedCreateAt = this.createAt.format(formatter);
+        this.createAt = order.getCreateAt().format(formatter);
 
         for (OrderItem item : orderItems) {
             Jewelry jewelry = item.getJewelry();

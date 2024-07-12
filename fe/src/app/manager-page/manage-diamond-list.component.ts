@@ -6,10 +6,10 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-diamond-list',
-  templateUrl: './diamond-list.component.html',
-  styleUrls: ['./diamond-list.component.css']
+  templateUrl: './manage-diamond-list.component.html',
+  styleUrls: ['./manage-diamond-list.component.css']
 })
-export class DiamondListComponent implements OnInit {
+export class ManageDiamondListComponent implements OnInit {
   diamonds: any[] = [];
   searchDiamondForm!: FormGroup;
   editableColumns = [
