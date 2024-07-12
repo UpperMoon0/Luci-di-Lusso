@@ -16,6 +16,7 @@ export class PaymentService {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
       }),
+      withCredentials: true,
     };
   }
 

@@ -20,6 +20,7 @@ export class UserService {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
       }),
+      withCredentials: true,
     };
   }
 

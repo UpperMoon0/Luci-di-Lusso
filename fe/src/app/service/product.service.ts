@@ -23,6 +23,7 @@ export class ProductService {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       }),
+      withCredentials: true,
     };
   }
 
