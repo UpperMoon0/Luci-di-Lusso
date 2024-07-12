@@ -31,7 +31,7 @@ public class OrderItem {
     private JewelrySize jewelrySize;
 
     @Column(name = "price")
-    private Double price;
+    private Integer price;
 
     @Column(name = "quantity")
     private Integer quantity;

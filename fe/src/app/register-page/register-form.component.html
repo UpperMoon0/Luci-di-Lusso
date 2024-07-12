@@ -1,5 +1,8 @@
 <div class="form-wrapper register-form p-2">
-  <form [formGroup]="form" (ngSubmit)="onRegister()">
+  <form class="form-style" [formGroup]="form" (ngSubmit)="onRegister()">
+    <div class="section-title text-center">
+      <h2 class="h1">Register</h2>
+    </div>
     <div class="form-group d-flex flex-column align-items-center">
       <div class="field d-flex flex-column align-items-start w-50">
         <label class="mb-1">Username:</label>

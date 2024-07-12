@@ -18,6 +18,9 @@ public class DiamondClarity {
     @Column(name = "clarity", unique = true)
     private EDiamondClarity clarity;
 
+    @Column(name = "price")
+    private Integer price;
+
     @Column(name = "create_at")
     private LocalDateTime createAt;
 }

@@ -16,19 +16,26 @@ public class OrderService implements IOrderService {
     private final ICartItemRepository cartItemRepository;
     private final IOrderItemService orderItemService;
     private final IUserService userService;
+    private final IDeliveryService deliveryService;
+    private final IJewelryService jewelryService;
 
     @Autowired
     public OrderService(IOrderRepository orderRepository,
                         ICartItemRepository cartItemRepository,
                         IOrderItemService orderItemService,
-                        IUserService userService) {
+                        IUserService userService,
+                        IDeliveryService deliveryService,
+                        IJewelryService jewelryService) {
         this.orderRepository = orderRepository;
         this.cartItemRepository = cartItemRepository;
         this.orderItemService = orderItemService;
         this.userService = userService;
+        this.deliveryService = deliveryService;
+        this.jewelryService = jewelryService;
     }
 
-    public double createOrder(String jwtToken) throws InvalidJwtTokenException {
+    @Override
+    public double createOrderFromJwtToken(String jwtToken) throws InvalidJwtTokenException {
         User user = userService.getUserByToken(jwtToken);
 
         Order order = new Order();
@@ -43,8 +50,10 @@ public class OrderService implements IOrderService {
         // Calculate total price
         double totalPrice = 0.0;
         for (CartItem cartItem : cartItems) {
-            totalPrice += cartItem.getJewelry().getPrice() * cartItem.getQuantity();
+            totalPrice += jewelryService.calculateJewelryPriceWithSize(cartItem.getJewelry(), cartItem.getJewelrySize()) * cartItem.getQuantity();
         }
+
+        deliveryService.createDelivery(order.getId());
 
         return totalPrice;
     }

@@ -7,7 +7,7 @@ import java.util.List;
 public interface IDiamondService
 {
     void saveDiamond(Diamond diamond);
-    void deleteDiamond(Integer id);
+    void deleteDiamondById(Integer id);
     Diamond getDiamondById(Long id);
     List<Diamond> getAllDiamonds();
 }

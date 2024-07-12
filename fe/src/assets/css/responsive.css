@@ -100,16 +100,16 @@
     padding-bottom: 80px;
   }
 }
-@media screen and (max-width:1200px) {  
-  .main-home-section .progress { 
-    left: 65px; 
+@media screen and (max-width:1200px) {
+  .main-home-section .progress {
+    left: 65px;
   }
-  .main-home-section .slider__counter {  
-    left:15px;   
-  } 
+  .main-home-section .slider__counter {
+    left:15px;
+  }
   .home-slider-wrapper {
     max-width: 500px;
-  } 
+  }
 }
 /* media 991px start  */
 @media screen and (max-width:991px) {
@@ -132,7 +132,7 @@
   }
   .header-style-one .main-navigationbar .logo-col a {
     margin-top: -5px;
-} 
+}
   .main-home-section .section-title h1,
   .main-home-section .section-title h2 {
     font-size: 40px;
@@ -189,11 +189,11 @@
     right: 143px;
     bottom: -26px;
   }
-  .main-home-section .progress {  
+  .main-home-section .progress {
     bottom: 60px;
   }
-  .main-home-section .slider__counter {   
-    bottom: 50px; 
+  .main-home-section .slider__counter {
+    bottom: 50px;
   }
   .main-home-section .home-slide.slide2 .ring1 {
     bottom: 0;
@@ -351,7 +351,7 @@
     font-size: 9px;
     border: 0;
   }
-  .card-slider-sec .section-title { 
+  .card-slider-sec .section-title {
     padding-bottom: 0;
   }
 }
@@ -495,9 +495,9 @@
   .subscribe-our-sec ul {
     margin:0 -10px -30px;
   }
-  .subscribe-our-sec ul li { 
-    max-width: 50%; 
-  } 
+  .subscribe-our-sec ul li {
+    max-width: 50%;
+  }
   .subscribe-our-sec ul li:last-of-type img,
   .subscribe-our-sec ul li:first-of-type img{
     border-radius: 0;
@@ -505,7 +505,7 @@
     -moz-border-radius: 0;
     -ms-border-radius: 0;
     -o-border-radius: 0;
-  } 
+  }
   .site-footer.footer-with-img {
     padding: 75px 0 40px;
   }
@@ -808,7 +808,7 @@
   .form-container,
   .order-confirmation-body {
     padding: 20px 15px;
-  } 
+  }
   .logo-slider {
     padding-top: 40px;
     border-top: 1px solid var(--second-color);
@@ -843,10 +843,10 @@
   }
   .product-card .product-size-div {
     flex-wrap: wrap;
-  } 
+  }
   .product-card .product-card-image a {
     padding-top: 70%;
-  } 
+  }
   .product-card .card-top .card-title h3 span {
     font-size: 10px;
   }
@@ -1002,14 +1002,14 @@
   .section-title.d-flex h2{
     margin-bottom: 20px;
   }
-  .product-sec .product-thumb-slider { 
+  .product-sec .product-thumb-slider {
     margin: 20px auto 0;
   }
   .product-sec .product-thumb-slider button.slide-arrow.slick-prev.slick-arrow {
-    left: -30px; 
+    left: -30px;
   }
   .product-sec .product-thumb-slider button.slide-arrow.slick-next.slick-arrow {
-    right: -30px; 
+    right: -30px;
   }
   .product-sec .product-thumb-slider .slick-arrow{
     height: 30px;
@@ -1034,7 +1034,7 @@
     max-width: 300px;
     margin-left:auto ;
     margin-right:auto ;
-  }  
+  }
   .ring-label {
     padding: 12px;
     font-size: 12px;
@@ -1052,13 +1052,13 @@
     margin: 10px 0 0;
     width: 100%;
   }
-  .acc-back-btn-wrp button { 
+  .acc-back-btn-wrp button {
     min-width: 108px;
   }
   .checkout-page .forgot-pass {
     font-size: 11px;
   }
-  .btn-flex a { 
+  .btn-flex a {
     min-width: 117px;
   }
   .center-descrp {

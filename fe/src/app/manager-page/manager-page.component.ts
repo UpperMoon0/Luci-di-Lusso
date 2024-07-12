@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class ManagerPageComponent {
 
+  tab: number = 0;
+
+  public setTab(tab: number) {
+    this.tab = tab;
+  }
+
 }

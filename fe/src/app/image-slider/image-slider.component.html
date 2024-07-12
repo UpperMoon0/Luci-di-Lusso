@@ -1,0 +1,21 @@
+<div class="slider">
+  <div>
+    <div (click)="goToPrevious()" class="leftArrow">❰</div>
+    <div (click)="goToNext()" class="rightArrow">❱</div>
+  </div>
+  <a [href]="slides[currentIndex].link" target="_blank"
+    class="slide"
+    [ngStyle]="{ 'background-image': getCurrentSlideUrl() }">
+    <h2>{{ slides[currentIndex].title }}</h2>
+  </a>
+  <div class="dotsContainer">
+    <div
+      *ngFor="let slide of slides; let slideIndex = index"
+      class="dot"
+      [class.active]="slideIndex === currentIndex"
+      (click)="goToSlide(slideIndex)"
+    >
+      ●
+    </div>
+  </div>
+</div>

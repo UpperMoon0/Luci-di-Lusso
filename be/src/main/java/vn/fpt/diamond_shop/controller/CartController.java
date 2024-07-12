@@ -10,6 +10,7 @@ import vn.fpt.diamond_shop.model.dto.GetCartResponse;
 import vn.fpt.diamond_shop.model.dto.UpdateCartItemRequest;
 import vn.fpt.diamond_shop.model.entity.CartItem;
 import vn.fpt.diamond_shop.service.ICartService;
+import vn.fpt.diamond_shop.service.IJewelryService;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -20,10 +21,13 @@ import java.util.NoSuchElementException;
 @RequestMapping("/cart")
 public class CartController {
     private final ICartService cartService;
+    private final IJewelryService jewelryService;
 
     @Autowired
-    public CartController(ICartService cartService) {
+    public CartController(ICartService cartService,
+                          IJewelryService jewelryService) {
         this.cartService = cartService;
+        this.jewelryService = jewelryService;
     }
 
     @PostMapping("/add")
@@ -45,7 +49,7 @@ public class CartController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(cr);
             }
         } else {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GetCartResponse(new ArrayList<>()));
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GetCartResponse(new ArrayList<>(), jewelryService));
         }
     }
 
@@ -55,18 +59,18 @@ public class CartController {
             String token = authorizationHeader.substring(7);
             try {
                 List<CartItem> cartItems = cartService.getCartByUserId(token);
-                GetCartResponse response = new GetCartResponse(cartItems);
+                GetCartResponse response = new GetCartResponse(cartItems, jewelryService);
                 response.setMessage("Cart retrieved successfully");
                 return ResponseEntity.ok(response);
             } catch (NoSuchElementException e) {
-                GetCartResponse response = new GetCartResponse(new ArrayList<>());
+                GetCartResponse response = new GetCartResponse(new ArrayList<>(), jewelryService);
                 response.setMessage(e.getMessage());
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
             } catch (RuntimeException e) {
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GetCartResponse(new ArrayList<>()));
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GetCartResponse(new ArrayList<>(), jewelryService));
             }
         } else {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GetCartResponse(new ArrayList<>()));
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GetCartResponse(new ArrayList<>(), jewelryService));
         }
     }
 

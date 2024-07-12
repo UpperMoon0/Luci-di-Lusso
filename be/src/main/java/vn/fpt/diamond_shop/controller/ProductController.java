@@ -16,16 +16,10 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.http.ResponseEntity.ok;
-
 @RequestMapping("/product")
 @RestController
 public class ProductController {
-    private final IOrderRepository orderRepository;
     private final IJewelryService jewelryService;
-    private final IJewelryTypeRepository jewelryTypeRepository;
-    private final IJewelrySizeRepository jewelrySizeRepository;
-    private final IOrderItemRepository jewelryOrderRepository;
     private final IJewelrySizeService jewelrySizeService;
     private final IDiamondService diamondService;
     private final IDiamondCutRepository diamondCutRepository;
@@ -34,22 +28,14 @@ public class ProductController {
     private final IDiamondShapeRepository diamondShapeRepository;
 
     @Autowired
-    public ProductController(IOrderRepository receiptRepository,
-                             IJewelryService jewelryService,
-                             IJewelryTypeRepository jewelryTypeRepository,
-                             IJewelrySizeRepository jewelrySizeRepository,
-                             IOrderItemRepository jewelryOrderRepository,
+    public ProductController(IJewelryService jewelryService,
                              IJewelrySizeService jewelrySizeService,
                              IDiamondService diamondService,
                              IDiamondCutRepository diamondCutRepository,
                              IDiamondColorRepository diamondColorRepository,
                              IDiamondClarityRepository diamondClarityRepository,
                              IDiamondShapeRepository diamondShapeRepository) {
-        this.orderRepository = receiptRepository;
         this.jewelryService = jewelryService;
-        this.jewelryTypeRepository = jewelryTypeRepository;
-        this.jewelrySizeRepository = jewelrySizeRepository;
-        this.jewelryOrderRepository = jewelryOrderRepository;
         this.jewelrySizeService = jewelrySizeService;
         this.diamondService = diamondService;
         this.diamondCutRepository = diamondCutRepository;
@@ -60,12 +46,12 @@ public class ProductController {
 
     @GetMapping("/get-jewelry")
     public ResponseEntity<JewelryResponse> getJewelry(@RequestParam Long id) {
-        Jewelry jewelry = jewelryService.getJewelryById(id).orElse(null);
+        Jewelry jewelry = jewelryService.getJewelryById(id);
         if (jewelry != null) {
             JewelryType type = jewelry.getType();
             List<JewelrySize> sizes = jewelrySizeService.getJewelrySizesByJewelryType(type);
 
-            JewelryResponse response = new JewelryResponse(jewelry, sizes);
+            JewelryResponse response = new JewelryResponse(jewelry, sizes, jewelryService);
             response.setMessage("Jewelry retrieved successfully");
 
             return ResponseEntity.ok(response);
@@ -80,7 +66,8 @@ public class ProductController {
 
         JewelriesResponse response = new JewelriesResponse();
         for (Jewelry jewelry : jewelries) {
-            response.addJewelry(jewelry);
+            int price = jewelryService.calculateJewelryPrice(jewelry);
+            response.addJewelry(jewelry, price);
         }
         response.setMessage("Get all jewelries successfully");
 
@@ -97,7 +84,8 @@ public class ProductController {
 
         JewelriesResponse response = new JewelriesResponse();
         for (Jewelry jewelry : filteredJewelries) {
-            response.addJewelry(jewelry);
+            int price = jewelryService.calculateJewelryPrice(jewelry);
+            response.addJewelry(jewelry, price);
         }
         response.setMessage("Get jewelries successfully");
 
@@ -123,7 +111,7 @@ public class ProductController {
 
     @DeleteMapping("/delete-diamond")
     public ResponseEntity<CommonResponse> deleteDiamond(@RequestParam Integer id) {
-        diamondService.deleteDiamond(id);
+        diamondService.deleteDiamondById(id);
         CommonResponse response = new CommonResponse();
         response.setMessage("Diamond deleted successfully");
         return ResponseEntity.ok(response);

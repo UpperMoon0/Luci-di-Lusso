@@ -3,6 +3,7 @@ package vn.fpt.diamond_shop.model.dto;
 import lombok.Getter;
 import vn.fpt.diamond_shop.model.entity.Jewelry;
 import vn.fpt.diamond_shop.model.entity.JewelrySize;
+import vn.fpt.diamond_shop.service.IJewelryService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ public class JewelryResponse extends CommonResponse {
     private final String name;
     private final String description;
     private final String imageUrl;
-    private final Double price;
+    private final Integer price;
     private final String type;
     private final Float diamondCarat;
     private final String diamondCut;
@@ -22,12 +23,12 @@ public class JewelryResponse extends CommonResponse {
     private final String diamondShape;
     private final List<SizeDTO> sizes;
 
-    public JewelryResponse(Jewelry jewelry, List<JewelrySize> sizes) {
+    public JewelryResponse(Jewelry jewelry, List<JewelrySize> sizes, IJewelryService jewelryService) {
         this.id = jewelry.getId();
         this.name = jewelry.getName();
         this.description = jewelry.getDescription();
         this.imageUrl = jewelry.getImageUrl();
-        this.price = jewelry.getPrice();
+        this.price = jewelryService.calculateJewelryPrice(jewelry);
         this.type = jewelry.getType().getType().getValue();
         this.diamondCarat = jewelry.getDiamond().getCarat();
         this.diamondCut = jewelry.getDiamond().getCut().getCut().getValue();

@@ -49,7 +49,7 @@ public class OrderDetailsResponse extends CommonResponse {
 
 record JewelryInOrderDTO(String name,
                   String size,
-                  Double price,
+                  Integer price,
                   Integer quantity,
                   String type,
                   String imageUrl) {}

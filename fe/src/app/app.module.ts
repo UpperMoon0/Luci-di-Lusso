@@ -37,7 +37,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CustomerProfileFormComponent } from "./customer-profile-page/customer-profile-form.component";
 import { CustomerProfilePageComponent } from './customer-profile-page/customer-profile-page.component';
 
-import { DeliverySidebarComponent } from './delivery-page/delivery-sidebar.component';
+import { StaffSidebarComponent } from './staff-sidebar/staff-sidebar.component';
 import { DeliveryTableComponent } from './delivery-page/delivery-table.component';
 import { DeliveryPageComponent } from './delivery-page/delivery-page.component';
 
@@ -62,6 +62,15 @@ import {ToastrModule} from "ngx-toastr";
 import {OAuthModule} from "angular-oauth2-oidc";
 import { HomeBlogComponent } from './home-page/home-blog.component';
 import {HomeProductRowComponent} from "./home-page/home-product-row.component";
+import {MatCardModule} from "@angular/material/card";
+import {MatTableModule} from "@angular/material/table";
+import {MatButtonModule} from "@angular/material/button";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatInputModule} from "@angular/material/input";
+import {DemoMaterialModule} from "./AngularMaterialModule";
+import { ManageDeliveryPageComponent } from './manager-page/manage-delivery-page.component';
+import { HomeBannerComponent } from './home-page/home-banner.component';
+import {ImageSliderModule} from "./image-slider/image-slider.module";
 
 @NgModule({
   declarations: [
@@ -109,7 +118,7 @@ import {HomeProductRowComponent} from "./home-page/home-product-row.component";
     CustomerProfilePageComponent,
 
     // Delivery page
-    DeliverySidebarComponent,
+    StaffSidebarComponent,
     DeliveryTableComponent,
     DeliveryPageComponent,
 
@@ -130,6 +139,8 @@ import {HomeProductRowComponent} from "./home-page/home-product-row.component";
     PurchaseHistoryPageComponent,
     HomePageComponent,
     HomeBlogComponent,
+    ManageDeliveryPageComponent,
+    HomeBannerComponent,
   ],
   imports: [
     BrowserModule,
@@ -155,6 +166,7 @@ import {HomeProductRowComponent} from "./home-page/home-product-row.component";
     MatSnackBarModule,
     MatInputModule,
     DemoMaterialModule,
+    ImageSliderModule,
   ],
   providers: [
   ],

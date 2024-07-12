@@ -2,6 +2,7 @@ package vn.fpt.diamond_shop.model.dto;
 
 import lombok.*;
 import vn.fpt.diamond_shop.model.entity.CartItem;
+import vn.fpt.diamond_shop.service.IJewelryService;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -12,10 +13,10 @@ import java.util.List;
 @ToString
 public class GetCartResponse extends CommonResponse {
     private final List<CartItemDTO> cartItems;
-    private final Double totalPrice;
-    private final Integer totalItems;
+    private final int totalPrice;
+    private final int totalItems;
 
-    public GetCartResponse(List<CartItem> cartItems) {
+    public GetCartResponse(List<CartItem> cartItems, IJewelryService productService) {
         this.cartItems = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
         for (CartItem cartItem : cartItems) {
@@ -25,15 +26,15 @@ public class GetCartResponse extends CommonResponse {
                             cartItem.getJewelry().getName(),
                             cartItem.getJewelry().getImageUrl(),
                             cartItem.getJewelrySize().getSize() + " " + cartItem.getJewelrySize().getUnit(),
-                            cartItem.getJewelry().getPrice(),
+                            productService.calculateJewelryPriceWithSize(cartItem.getJewelry(), cartItem.getJewelrySize()),
                             cartItem.getQuantity(),
                             cartItem.getCreateAt().format(formatter)
                     )
             );
         }
 
-        totalPrice = cartItems.stream()
-                .mapToDouble(cartItem -> cartItem.getJewelry().getPrice() * cartItem.getQuantity())
+        totalPrice = this.cartItems.stream()
+                .mapToInt(cartItem -> cartItem.price() * cartItem.quantity())
                 .sum();
 
         totalItems = cartItems.stream()
@@ -46,7 +47,7 @@ record CartItemDTO(Long id,
                    String name,
                    String imageUrl,
                    String size,
-                   Double price,
+                   Integer price,
                    Integer quantity,
                    String createAt)
-{}
+{ }
