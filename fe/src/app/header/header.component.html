@@ -20,11 +20,11 @@
           </div>
           <ul class="menu-right">
             <div *ngIf="isLoggedIn" class="cart-header">
-              <app-header-cart></app-header-cart>
+              <app-header-cart style="margin: 0 1rem 0;"></app-header-cart>
             </div>
             <li class="profile-header menu-lnk has-item">
               <a *ngIf="!isLoggedIn" href="/login">Login</a>
-              <app-header-profile-dropdown *ngIf="isLoggedIn"></app-header-profile-dropdown>
+              <app-header-profile-dropdown style="margin: 0 1rem 0;" *ngIf="isLoggedIn"></app-header-profile-dropdown>
             </li>
           </ul>
           <div class="mobile-menu">

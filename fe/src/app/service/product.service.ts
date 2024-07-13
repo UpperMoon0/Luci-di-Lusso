@@ -54,6 +54,10 @@ export class ProductService {
     return this.http.get<Object>(`${this.apiUrl}/api/product/test`, this.httpOptions);
   }
 
+  public getDiamond(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/product/get-diamond?id=` + id, this.httpOptions);
+  }
+
   public getProductTypes(): Observable<String[]> {
     return this.productTypes.asObservable();
   }

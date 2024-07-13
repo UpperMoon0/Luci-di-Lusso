@@ -1,3 +1,7 @@
+.form-wrapper {
+  margin: 10rem 0 10rem;
+}
+
 .ng-otp-input-wrapper {
   width: 50px;
 }

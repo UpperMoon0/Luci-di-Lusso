@@ -17,6 +17,7 @@ import {NewsComponent} from "./blog-page/blog/news/news.component";
 import {DiscoverComponent} from "./blog-page/blog/discover/discover.component";
 import {Fashion02Component} from "./blog-page/blog/fashion02/fashion02.component";
 import {Fashion01Component} from "./blog-page/blog/fashion01/fashion01.component";
+import {CertificatePageComponent} from "./certificate-page/certificate-page.component";
 
 const routes: Routes = [
   { path: 'home', component: HomePageComponent },
@@ -64,6 +65,11 @@ const routes: Routes = [
     data: {
       title: 'Diamond Prices Chart to Calculate 2024 Worth & Value'
     }
+  },
+
+  {
+    path: 'certificate/:id',
+    component: CertificatePageComponent,
   },
 
   { path: '**', redirectTo: 'home' }

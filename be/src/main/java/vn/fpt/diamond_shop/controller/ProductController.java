@@ -165,4 +165,14 @@ public class ProductController {
         response.setMessage("Diamond added successfully");
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/get-diamond")
+    public ResponseEntity<Diamond> getDiamond(@RequestParam Long id) {
+        Diamond diamond = diamondService.getDiamondById(id);
+        if (diamond != null) {
+            return ResponseEntity.ok(diamond);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
 }
