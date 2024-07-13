@@ -67,4 +67,9 @@ export class UserService {
   getProfileData(): Observable<any> {
     return this.profileDataSubject.asObservable();
   }
+
+  public get30DaysAccountCount(): Observable<any> {
+    return this.http.get<any[]>(`${environment.beApiUrl}/order/get-order-details`, this.httpOptions);
+  }
+
 }
