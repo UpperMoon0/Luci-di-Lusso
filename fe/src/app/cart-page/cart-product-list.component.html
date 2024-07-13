@@ -1,9 +1,12 @@
 <div class="container mt-for-header">
   <div *ngIf="products.length > 0; else emptyCart">
-    <app-cart-product-card *ngFor="let product of products" [product]="product"></app-cart-product-card>
-    <p>Total Price: {{ totalPrice }}</p>
+    <h2 style="text-align: center;">Shopping Cart</h2>
+    <div style="border: 2px solid #000; padding: 20px; margin: 2rem auto 2rem;">
+      <app-cart-product-card *ngFor="let product of products" [product]="product"></app-cart-product-card>
+      <h3>Total Price: ${{ totalPrice }}</h3>
+    </div>
     <div class="button-group">
-      <button type="button" class="btn btn-danger ml-2" (click)="clearCart()">Clear Shopping Cart</button>
+      <button type="button" class="btn btn-danger ml-2" (click)="clearCart()" style="margin-right: 1rem">Clear Shopping Cart</button>
       <button type="button" class="btn btn-primary" (click)="proceedToCheckout()">Proceed to Checkout</button>
     </div>
   </div>
