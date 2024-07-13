@@ -13,7 +13,7 @@
             <th mat-header-cell *matHeaderCellDef> {{column.header}} </th>
             <td mat-cell *matCellDef="let diamond">
               <div *ngIf="!diamond.isEditMode; else editTemplate">
-                {{ diamond[column.field] }}
+                {{ getNestedProperty(diamond, column.field) }}
               </div>
               <ng-template #editTemplate>
                 <input matInput [(ngModel)]="diamond[column.field]">

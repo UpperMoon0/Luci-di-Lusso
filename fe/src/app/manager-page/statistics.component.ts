@@ -19,7 +19,7 @@ export class StatisticsComponent implements OnInit {
   title = 'Orders';
   orderChart = {
     title: {
-      text: "Amount of Orders have made in 30 days"
+      text: "Total jewelries sold in 30 days"
     },
     animationEnabled: true,
     axisY: {
@@ -113,7 +113,7 @@ export class StatisticsComponent implements OnInit {
 
   accountChart = {
     title: {
-      text: "Amount of Accounts have made in 30 days"
+      text: "Total customer registered in 30 days"
     },
     animationEnabled: true,
     axisY: {

@@ -13,12 +13,13 @@ export class ManageDiamondListComponent implements OnInit {
   diamonds: any[] = [];
   searchDiamondForm!: FormGroup;
   editableColumns = [
-    { field: 'cut', header: 'Cut' },
-    { field: 'color', header: 'Color' },
-    { field: 'clarity', header: 'Clarity' },
-    { field: 'shape', header: 'Shape' },
+    { field: 'cut.id', header: 'Cut ID' },
+    { field: 'color.id', header: 'Color ID' },
+    { field: 'clarity.id', header: 'Clarity ID' },
+    { field: 'shape.id', header: 'Shape ID' },
     { field: 'carat', header: 'Carat' },
   ];
+
   displayedColumns = ['id', ...this.editableColumns.map(c => c.field), 'save', 'delete'];
 
   constructor(private managerService: ManagerService,
@@ -67,7 +68,15 @@ export class ManageDiamondListComponent implements OnInit {
   }
 
   saveDiamond(editedDiamond: any) {
-    const { isEditMode, ...diamondToSave } = editedDiamond;
+    const diamondToSave = {
+      id: editedDiamond.id,
+      clarityId: editedDiamond.clarity.id,
+      cutId: editedDiamond.cut.id,
+      colorId: editedDiamond.color.id,
+      carat: editedDiamond.carat,
+      shapeId: editedDiamond.shape.id
+    };
+
     this.managerService.saveDiamond(diamondToSave).subscribe({
       next: (response) => {
         this.snackBar.open('Diamond updated successfully', 'Close', {
@@ -83,5 +92,18 @@ export class ManageDiamondListComponent implements OnInit {
         });
       }
     });
+  }
+
+  getNestedProperty(obj: any, path: string): any {
+    return path.split('.').reduce((o, p) => o && o[p], obj);
+  }
+
+  setNestedProperty(obj: any, path: string, value: any): void {
+    const keys = path.split('.');
+    const lastKey = keys.pop();
+    const lastObj = keys.reduce((o, p) => o && o[p], obj);
+    if (lastObj && lastKey) {
+      lastObj[lastKey] = value;
+    }
   }
 }
