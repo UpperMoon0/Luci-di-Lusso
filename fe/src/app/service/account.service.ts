@@ -57,7 +57,7 @@ export class AccountService {
     if (token) {
       this.validateToken(token).subscribe({
         next: (res) => {
-          if (res.message === 'Valid token') {
+          if (res.message != "Invalid token") {
             this.isLoggedIn.next(true);
           } else {
             this.isLoggedIn.next(false);
@@ -72,7 +72,7 @@ export class AccountService {
     }
   }
 
-  private validateToken(token: string): Observable<any> {
+  public validateToken(token: string): Observable<any> {
     return this.http.post(`${environment.beApiUrl}/auth/validate-token`, token);
   }
 }

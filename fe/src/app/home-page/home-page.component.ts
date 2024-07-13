@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
+import {AccountService} from "../service/account.service";
 
 @Component({
   selector: 'app-home-page',
@@ -11,13 +12,25 @@ export class HomePageComponent {
   listProduct:any[]
 
   constructor(private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private accountService: AccountService) {
   }
 
   ngOnInit(): void {
     this.isLoginUser = localStorage.getItem("user") != null;
     this.getProducts();
     console.log(localStorage.getItem("user"),this.isLoginUser);
+    const token = localStorage.getItem('accessToken');
+    this.accountService.validateToken(token).subscribe({
+      next: (res) => {
+        if (res.message == "MANAGER") {
+          this.router.navigate(["/manager"]).then(r=> {});
+        }
+        if (res.message == "DELIVERER") {
+          this.router.navigate(["/delivery"]).then(r=> {});
+        }
+      }
+    });
   }
 
   redirectLogin() {
