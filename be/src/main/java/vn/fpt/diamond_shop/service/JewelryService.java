@@ -22,14 +22,17 @@ public class JewelryService implements IJewelryService {
     private final IJewelryRepository jewelryRepository;
     private final IJewelryTypeRepository jewelryTypeRepo;
     private final IDiamondRepository diamondRepository;
+    private final IJewelryTypeRepository jewelryTypeRepository;
 
     @Autowired
     public JewelryService(IJewelryRepository jewelryRepository,
                           IJewelryTypeRepository jewelryTypeRepo,
-                          IDiamondRepository diamondRepository) {
+                          IDiamondRepository diamondRepository,
+                          IJewelryTypeRepository jewelryTypeRepository) {
         this.jewelryRepository = jewelryRepository;
         this.jewelryTypeRepo = jewelryTypeRepo;
         this.diamondRepository = diamondRepository;
+        this.jewelryTypeRepository = jewelryTypeRepository;
     }
 
     @Override
@@ -43,7 +46,7 @@ public class JewelryService implements IJewelryService {
     }
 
     @Override
-    public List<Jewelry> getJewelriesByFilter(List<EJewelryType> types, Integer minPrice, Integer maxPrice) {
+    public List<Jewelry> getJewelriesByFilter(List<EJewelryType> types, Integer minPrice, Integer maxPrice, String keyword) {
         Stream<Jewelry> jewelryStream;
         if (types.isEmpty()) {
             // Initialize stream with all jewelries if type list is empty
@@ -51,7 +54,7 @@ public class JewelryService implements IJewelryService {
         } else {
             // If type list is not empty, initialize stream with jewelries that match the types
             jewelryStream = types.stream()
-                    .map(jewelryTypeRepo::findByType)
+                    .map(jewelryTypeRepository::findByType)
                     .flatMap(optionalType -> optionalType
                             .map(jewelryType -> jewelryRepository.findAllByType(jewelryType).stream())
                             .orElseGet(Stream::empty))
@@ -60,13 +63,19 @@ public class JewelryService implements IJewelryService {
 
         // Apply price filter to the stream
         jewelryStream = jewelryStream.filter(jewelry -> {
-            double price = jewelry.getSettingPrice();
+            double price = calculateJewelryPrice(jewelry);
             if (maxPrice == null || maxPrice == 0) {
                 return price >= minPrice;
             } else {
                 return price >= minPrice && price <= maxPrice;
             }
         });
+
+        // Apply keyword filter to the stream if keyword is not null or empty
+        if (keyword != null && !keyword.isEmpty()) {
+            final String lowerCaseKeyword = keyword.toLowerCase();
+            jewelryStream = jewelryStream.filter(jewelry -> jewelry.getName().toLowerCase().contains(lowerCaseKeyword));
+        }
 
         return jewelryStream.toList();
     }
@@ -132,6 +141,4 @@ public class JewelryService implements IJewelryService {
         jewelry.setCreateAt(LocalDateTime.now());
         jewelryRepository.save(jewelry);
     }
-
-
 }

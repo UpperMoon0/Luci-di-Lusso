@@ -5,6 +5,9 @@ import {ToastrService} from "ngx-toastr";
 @Component({
   selector: 'app-purchase-history-list',
   templateUrl: './purchase-history-list.component.html',
+  styleUrls: ['./purchase-history-list.component.css']
+
+
 })
 export class PurchaseHistoryListComponent implements OnInit {
   orders: {
@@ -33,6 +36,9 @@ export class PurchaseHistoryListComponent implements OnInit {
     type: string;
     imageUrl: string;
   }[] = [];
+
+  displayedColumns: string[] = ['productName', 'quantity', 'price', 'orderTime'];
+
 
   constructor(private orderService: OrderService,
               private toastrService: ToastrService) {}
