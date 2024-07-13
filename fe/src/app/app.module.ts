@@ -72,7 +72,7 @@ import { ManageDeliveryPageComponent } from './manager-page/manage-delivery-page
 import { StatisticsComponent } from './manager-page/statistics.component';
 import {CanvasJSAngularChartsModule} from "@canvasjs/angular-charts";
 import { ManageJewelriesListComponent } from './manager-page/manage-jewelries-list.component';
-import { OrdersListComponent } from './delivery-page/orders-list/orders-list.component';
+import { ListOfOrdersComponent } from './delivery-page/list-of-orders.component';
 
 @NgModule({
   declarations: [
@@ -144,7 +144,7 @@ import { OrdersListComponent } from './delivery-page/orders-list/orders-list.com
     ManageDeliveryPageComponent,
     StatisticsComponent,
     ManageJewelriesListComponent,
-    OrdersListComponent,
+    ListOfOrdersComponent,
   ],
   imports: [
     BrowserModule,
