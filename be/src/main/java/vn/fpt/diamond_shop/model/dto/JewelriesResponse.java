@@ -35,11 +35,11 @@ public class JewelriesResponse extends CommonResponse {
 record JewelryDTO(
         long id,
         String name,
-        int setting_price,
-        int labor_cost,
-        long type_id,
+        int settingPrice,
+        int laborCost,
+        long typeId,
         String type,
-        long diamond_id,
+        long diamondId,
         int price,
         String description,
         String imageUrl
