@@ -3,8 +3,11 @@
     <div class="col-1 sidebar">
       <app-staff-sidebar></app-staff-sidebar>
     </div>
-    <div class="col-11 content">
-      <app-delivery-table></app-delivery-table>
+    <div class="col-11 content" style="display: flex; flex-direction: row;">
+      <app-delivery-table style="width: 100%"></app-delivery-table>
+      <ng-container style="width: auto" *ngIf="willOpened">
+        <app-list-of-orders></app-list-of-orders>
+      </ng-container>
     </div>
   </div>
 </div>

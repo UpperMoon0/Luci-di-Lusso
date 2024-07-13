@@ -24,7 +24,7 @@ public class StartupConfig {
             }
 
             for (EDiamondCut cutValue : EDiamondCut.values()) {
-                DiamondCut cut = cutRepository.findByCut(cutValue);
+                DiamondCut cut = cutRepository.findByCut(cutValue).orElse(null);
                 if (cut == null) {
                     cut = new DiamondCut();
                     cut.setCut(cutValue);
@@ -34,7 +34,7 @@ public class StartupConfig {
             }
 
             for (EDiamondColor polishValue : EDiamondColor.values()) {
-                DiamondColor color = polishRepository.findByColor(polishValue);
+                DiamondColor color = polishRepository.findByColor(polishValue).orElse(null);
                 if (color == null) {
                     color = new DiamondColor();
                     color.setColor(polishValue);
@@ -44,7 +44,7 @@ public class StartupConfig {
             }
 
             for (EDiamondShape shapeValue : EDiamondShape.values()) {
-                DiamondShape shape = shapeRepository.findByShape(shapeValue);
+                DiamondShape shape = shapeRepository.findByShape(shapeValue).orElse(null);
                 if (shape == null) {
                     shape = new DiamondShape();
                     shape.setShape(shapeValue);
@@ -54,7 +54,7 @@ public class StartupConfig {
             }
 
             for (EDiamondClarity clarityValue : EDiamondClarity.values()) {
-                DiamondClarity clarity = clarityRepository.findByClarity(clarityValue);
+                DiamondClarity clarity = clarityRepository.findByClarity(clarityValue).orElse(null);
                 if (clarity == null) {
                     clarity = new DiamondClarity();
                     clarity.setClarity(clarityValue);

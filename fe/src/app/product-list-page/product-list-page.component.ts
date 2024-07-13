@@ -3,6 +3,8 @@ import { ToastrService } from "ngx-toastr";
 import { ProductService } from "../service/product.service";
 import { CartService } from "../service/cart.service";
 import {ColorService} from "../service/color.service";
+import {AccountService} from "../service/account.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-product-list-page-page',
@@ -12,16 +14,18 @@ import {ColorService} from "../service/color.service";
 export class ProductListPageComponent implements OnInit {
   public typeLists: string[] = [];
   public priceRange: string[] = ["$ 0 - 100", "$ 100 - 500", "$ 500 - 1000", "$ 1000 - 4000", "More than $ 4000"];
-  public typeColors: Map<string, [string, string]> = new Map();
 
   isLoggedIn: boolean = false;
   selectedRangePrice: string = "";
   productsList: any[] = [];
   selectedTypes: string[] = [];
+  searchText: string = '';
 
   constructor(private productService: ProductService,
               private toastrService: ToastrService,
-              protected colorService: ColorService) {}
+              protected colorService: ColorService,
+              private accountService: AccountService,
+              private router: Router) {}
 
   ngOnInit(): void {
     this.isLoggedIn = localStorage.getItem("user") != null;
@@ -31,9 +35,10 @@ export class ProductListPageComponent implements OnInit {
         this.typeLists = types;
         this.getProducts();
       },
-      error: (error) => this.toastrService.error(),
+      error: () => this.toastrService.error(),
       complete: () => console.log('Completed fetching tags')
     });
+    console.log("TypeLists: " + this.typeLists);
     this.getProducts();
   }
 
@@ -48,6 +53,7 @@ export class ProductListPageComponent implements OnInit {
     const isSelected = this.selectedRangePrice === price;
     this.toggleSelectionPrice(isSelected, price);
     this.getProducts();
+    // Print all products.type_id
   }
 
   private toggleSelectionType(isSelected: boolean, value: string, array: string[], index: number): void {
@@ -86,10 +92,24 @@ export class ProductListPageComponent implements OnInit {
   getProducts(): void {
     const types = this.selectedTypes.map(tag => tag.includes(" ") ? tag.replace(" ", "_").toUpperCase() : tag.toUpperCase());
     const { minPrice, maxPrice } = this.getPriceRange();
-    const request = { types, minPrice, maxPrice };
+    const keyword = this.searchText;
+    const request = { types, minPrice, maxPrice, keyword };
     this.productService.getJewelries(request).subscribe({
       next: (res) => this.productsList = res.jewelries,
       error: () => this.toastrService.error("Error in getting products list")
+    });
+    this.productsList.forEach(product => console.log("Product id" + product.type_id));
+
+    const token = localStorage.getItem('accessToken');
+    this.accountService.validateToken(token).subscribe({
+      next: (res) => {
+        if (res.message == "MANAGER") {
+          this.router.navigate(["/manager"]).then(r=> {});
+        }
+        if (res.message == "DELIVERER") {
+          this.router.navigate(["/delivery"]).then(r=> {});
+        }
+      }
     });
   }
 

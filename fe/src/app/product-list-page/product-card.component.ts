@@ -16,7 +16,7 @@ export class ProductCardComponent implements OnInit {
   }
 
   convertNumber(price: number): string {
-    return `$${price.toFixed(2)}`;
+    return `$${price}`;
   }
 
   // Function to get the gradient string for the product type

@@ -1,0 +1,35 @@
+<app-header></app-header>
+<div class="wrapper" style="margin-top: 250px">
+<div style="margin: 10rem auto 5rem; width: 40%; border: 1px solid #000;">
+  <div style="display: flex; justify-content: center;">
+    <img src="assets/images/GIA.png" alt="GIA Certificate">
+  </div>
+  <div>
+    <div style="background-color: #ccc149;">
+      <h3 style="margin-left: 2rem;">GIA DIAMOND DOSSIER*</h3>
+    </div>
+    <div style="margin-top: 1rem; margin-bottom: 1rem">
+      <p style="margin-left: 2rem;">{{diamond.createAt | date:'MMMM d, y'}}</p>
+      <p style="margin-left: 2rem;">GIA Report Number: 7281252579</p>
+      <p style="margin-left: 2rem;">Shape and Cutting Style: {{diamond.shape.shape}}</p>
+      <p style="margin-left: 2rem;">Measurements: 6.29 - 6.32 x 4.05 mm</p>
+    </div>
+    <div style="background-color: #ccc149;">
+      <h3 style="margin-left: 2rem;">GRADING RESULT</h3>
+    </div>
+    <div style="margin-top: 1rem; margin-bottom: 1rem">
+      <p style="margin-left: 2rem;">Carat Weight: {{diamond.carat}}</p>
+      <p style="margin-left: 2rem;">Color Grade: {{diamond.color.color}}</p>
+      <p style="margin-left: 2rem;">Clarity Grade: {{diamond.clarity.clarity}}</p>
+      <p style="margin-left: 2rem;">Cut Grade: {{diamond.cut.cut}}</p>
+    </div>
+    <div style="background-color: #ccc149;">
+      <h3 style="margin-left: 2rem;">PROPORTIONS</h3>
+    </div>
+    <div style="display: flex; justify-content: center;">
+      <img src="assets/images/diamond-proportions.png" alt="Diamond Proportions">
+    </div>
+  </div>
+</div>
+</div>
+<app-footer></app-footer>

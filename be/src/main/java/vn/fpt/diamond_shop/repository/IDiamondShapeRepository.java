@@ -5,7 +5,9 @@ import org.springframework.stereotype.Repository;
 import vn.fpt.diamond_shop.constant.EDiamondShape;
 import vn.fpt.diamond_shop.model.entity.DiamondShape;
 
+import java.util.Optional;
+
 @Repository
 public interface IDiamondShapeRepository extends JpaRepository<DiamondShape, Long> {
-    DiamondShape findByShape(EDiamondShape shapeValue);
+    Optional<DiamondShape> findByShape(EDiamondShape shapeValue);
 }

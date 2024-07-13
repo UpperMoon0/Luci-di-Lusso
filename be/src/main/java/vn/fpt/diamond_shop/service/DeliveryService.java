@@ -51,6 +51,8 @@ public class DeliveryService implements IDeliveryService {
         delivery.setOrder(order);
         delivery.setCreateAt(dateTime);
         delivery.setStatus(EOrderStatus.PENDING);
+
+        deliveryRepository.save(delivery);
     }
 
     @Override

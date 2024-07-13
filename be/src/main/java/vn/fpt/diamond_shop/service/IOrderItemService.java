@@ -9,4 +9,6 @@ import java.util.List;
 public interface IOrderItemService {
     void createOrderItemsByCartItems(List<CartItem> cartItems, Order order);
     List<OrderItem> getOrderItemsByOrder(Order order);
+    List<Integer> getSaleStatistics();
+    List<Integer> getJewelriesSaleStatistics();
 }

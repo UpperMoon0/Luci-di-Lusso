@@ -6,16 +6,26 @@
     </div>
     <div class="form-group d-flex flex-column align-items-center">
       <div class="field d-flex flex-column align-items-start w-50">
-        <label class="mb-1">Username:</label>
-        <input type="text" class="form-control" formControlName="principal" required />
+        <label class="mb-1">Username: <button class="tooltip--right" data-tooltip="Username can only contain letters and numbers">?</button></label>
+        <input type="text" class="form-control" formControlName="principal" placeholder="Please enter your username" required />
+        <mat-error *ngIf="form.get('principal').invalid && form.get('principal').touched" style="color: red">
+          *Field is blank.
+        </mat-error>
       </div>
       <div class="field d-flex flex-column align-items-start w-50">
-        <label class="mb-1">Password:</label>
-        <input type="password" class="form-control" formControlName="credentials" required />
+        <label class="mb-1">Password: <button class="tooltip--right" data-tooltip="Password must contain at least one number, one lowercase letter, one uppercase letter,
+        one special character, and have a minimum length of 8 characters">
+          ?
+        </button>
+        </label>
+        <input type="password" class="form-control" formControlName="credentials" placeholder="Please enter your password" required />
+        <mat-error *ngIf="form.get('credentials').invalid && form.get('credentials').touched" style="color: red">
+          *Field is blank.
+        </mat-error>
       </div>
       <div class="field d-flex align-items-center w-50">
         <a class="mr-auto" routerLink="/register">Don't have an account yet?</a>
-        <button type="submit" class="btn btn-primary">Login</button>
+        <button type="submit" class="register-btn">Login</button>
       </div>
     </div>
   </form>

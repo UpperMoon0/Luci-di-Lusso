@@ -6,9 +6,9 @@ import vn.fpt.diamond_shop.model.entity.Diamond;
 @Data
 public class DiamondUpdateRequest {
     private Long id;
-    private String clarity;
-    private String cut;
-    private String color;
+    private Long clarityId;
+    private Long cutId;
+    private Long colorId;
     private Float carat;
-    private String shape;
+    private Long shapeId;
 }

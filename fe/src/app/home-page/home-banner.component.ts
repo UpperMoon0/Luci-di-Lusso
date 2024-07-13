@@ -16,6 +16,12 @@ export class HomeBannerComponent{
       link: 'top-jewelry-trend-for-2024'},
     { url: '../assets/images/blog-banner02.png',
       title: '',
+      link: ''},
+    { url: '../assets/images/price-banner.jpg',
+      title: 'Diamond Prices Chart 2024',
+      link: 'diamond-prices'},
+    { url: '../assets/images/size-banner.jpg',
+      title: 'Bracelet and Ring Size Guide',
       link: 'bracelet-and-ring-size-guide'},
     // Add more slides as needed
   ];

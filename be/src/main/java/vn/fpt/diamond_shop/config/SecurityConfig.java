@@ -1,8 +1,10 @@
 package vn.fpt.diamond_shop.config;
 
+import io.jsonwebtoken.Jwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -12,6 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsUtils;
+import vn.fpt.diamond_shop.security.JwtAuthenticationEntryPoint;
 import vn.fpt.diamond_shop.security.JwtAuthenticationFilter;
 import vn.fpt.diamond_shop.security.JwtTokenProvider;
 import vn.fpt.diamond_shop.security.UserDetailsServiceImpl;
@@ -34,8 +38,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .csrf()
-                .disable()
+            .cors().and()
+            .csrf().disable()
+            .exceptionHandling()
+            .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
+            .and()
             .authorizeRequests()
             .antMatchers("/auth/register",
                         "/auth/login",
@@ -43,22 +50,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/product/get-jewelry",
                         "/product/get-jewelries",
                         "/product/get-all-jewelries",
-                        "/product/get-all-tags")
+                        "/product/get-diamond",
+                        "/product/get-all-jewelry-types")
                 .permitAll()
             .anyRequest()
-                .permitAll()
+                .authenticated()
             .and()
-            .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(new JwtAuthenticationFilter(tokenProvider()), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
     public JwtTokenProvider tokenProvider() {
         return new JwtTokenProvider(userDetailsService);
-    }
-
-    @Bean
-    public JwtAuthenticationFilter jwtAuthenticationFilter() {
-        return new JwtAuthenticationFilter(tokenProvider());
     }
 
     @Bean

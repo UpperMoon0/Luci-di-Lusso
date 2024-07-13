@@ -1,39 +1,77 @@
 <div class="form-wrapper register-form p-2">
-  <form class="form-style" [formGroup]="form" (ngSubmit)="onRegister()">
+  <form [formGroup]="form" class="form-style">
     <div class="section-title text-center">
       <h2 class="h1">Register</h2>
     </div>
     <div class="form-group d-flex flex-column align-items-center">
       <div class="field d-flex flex-column align-items-start w-50">
-        <label class="mb-1">Username:</label>
-        <input type="text" class="form-control" formControlName="username" required />
+        <label class="mb-1">Username:
+          <button class="tooltip--right" data-tooltip="Username can only contain letters and numbers">?</button>
+        </label>
+        <input class="form-control" formControlName="username" placeholder="Contains letters and numbers" required type="text"/>
+        <mat-error *ngIf="form.get('username').invalid && form.get('username').touched" style="color: red">
+          *Please enter your username
+        </mat-error>
       </div>
       <div class="field d-flex flex-column align-items-start w-50">
-        <label class="mb-1">Password:</label>
-        <input type="password" class="form-control" formControlName="password" required />
+        <label class="mb-1">Password:
+          <button class="tooltip--right" data-tooltip="Password must contain at least one number, one lowercase letter, one uppercase letter,
+        one special character, and have a minimum length of 8 characters">
+            ?
+          </button>
+        </label>
+        <input class="form-control" formControlName="password" placeholder="Minimum 8 characters" required type="password"/>
+        <mat-error *ngIf="form.get('password').invalid && form.get('password').touched" style="color: red">
+          *Please enter your password.
+        </mat-error>
       </div>
       <div class="field d-flex flex-column align-items-start w-50">
-        <label class="mb-1">Email:</label>
-        <input type="email" class="form-control" formControlName="email" required />
+        <label class="mb-1">Confirm password:</label>
+        <input class="form-control" formControlName="confirmPassword" placeholder="Minimum 8 characters" required type="password"/>
+        <mat-error *ngIf="form.get('confirmPassword').invalid && form.get('confirmPassword').touched"
+                   style="color: red">
+          *Confirm your password.
+        </mat-error>
       </div>
       <div class="field d-flex flex-column align-items-start w-50">
-        <label class="mb-1">Phone:</label>
-        <input type="text" class="form-control" formControlName="phone" required />
+        <label class="mb-1">Email:<button class="tooltip--right" data-tooltip="Format: example@hostname.com">?</button>
+        </label>
+        <input class="form-control" formControlName="email" placeholder="example@someone.com" required type="email"/>
+        <mat-error *ngIf="form.get('email').invalid && form.get('email').touched" style="color: red">
+          *Please enter your email.
+        </mat-error>
+      </div>
+      <div class="field d-flex flex-column align-items-start w-50">
+        <label class="mb-1">Phone:<button class="tooltip--right" data-tooltip="Phone number can only contain numbers">?</button>
+        </label>
+        <input class="form-control" formControlName="phone" placeholder="Ex: 0123456789" required type="text"/>
+        <mat-error *ngIf="form.get('phone').invalid && form.get('phone').touched" style="color: red">
+          *Please enter your phone number.
+        </mat-error>
       </div>
       <div class="field d-flex flex-column align-items-start w-50">
         <label class="mb-1">Address:</label>
-        <input type="text" class="form-control" formControlName="address" required />
+        <input class="form-control" formControlName="address" placeholder="Enter your address" required type="text"/>
+        <mat-error *ngIf="form.get('address').invalid && form.get('address').touched" style="color: red">
+          *Please enter your address.
+        </mat-error>
       </div>
       <div class="field d-flex flex-column align-items-start w-50">
         <label class="mb-1">Full Name:</label>
-        <input type="text" class="form-control" formControlName="fullName" required />
+        <input class="form-control" formControlName="fullName" placeholder="Nguyen Van B" required type="text"/>
+        <mat-error *ngIf="form.get('fullName').invalid && form.get('fullName').touched" style="color: red">
+          *Please enter your full name.
+        </mat-error>
       </div>
       <div class="field d-flex flex-column align-items-start w-50">
         <label class="mb-1">Date of Birth:</label>
-        <input type="date" class="form-control" formControlName="dob" required />
+        <input class="form-control" formControlName="dob" required type="date"/>
+        <mat-error *ngIf="form.get('dob').invalid && form.get('dob').touched" style="color: red">
+          *Please enter your date of birth.
+        </mat-error>
       </div>
-      <div class="field d-flex flex-column align-items-start w-50 ml-auto">
-        <button type="submit" class="btn btn-primary">Register</button>
+      <div class="field">
+        <button (click)="onRegister()" class="register-btn" type="submit">Register</button>
       </div>
     </div>
   </form>

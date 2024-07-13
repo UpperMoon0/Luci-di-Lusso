@@ -92,7 +92,7 @@ public class AuthController {
      * @return a ResponseEntity with the login response
      */
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getPrincipal(),
@@ -116,7 +116,9 @@ public class AuthController {
     public ResponseEntity<CommonResponse> ping(@RequestBody String jwt) {
         CommonResponse cr = new CommonResponse();
         if (tokenProvider.validateToken(jwt)) {
-            cr.setMessage("Valid token");
+            User user = userService.getUserByToken(jwt);
+            String role = user.getRole().name();
+            cr.setMessage(role);
         } else {
             cr.setMessage("Invalid token");
         }

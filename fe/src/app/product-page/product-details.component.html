@@ -7,7 +7,7 @@
       <div class="col-md-6">
         <div class="product-info">
           <h2 class="product-name">{{product.name}}</h2>
-          <h3 class="price text-dark">${{product.price}}</h3>
+          <h2 class="price text-dark">${{product.price}}</h2>
           <p class="type">Type: {{product.type}}</p>
           <div class="dropdown d-flex align-items-center my-3">
             <span class="mr-2">Size:</span>
@@ -21,10 +21,17 @@
           <p class="text-info">
             Don't know which size to choose? <a href="/blog">See this</a>.
           </p>
+          <a href="/certificate/{{product.diamondId}}" style="margin: 1rem auto 0rem">GIA certificate</a>
+          <div style="display: flex; align-items: center; margin: 1rem auto 1rem;">
+            <img src="assets/images/zalo.png" alt="Zalo" class="img-fluid" width="40" height="40">
+            <p style="margin-left: 1rem;">
+              Contact sales for more information: <a href="tel:+84903179968">+(84) 903-179-968</a>
+            </p>
+          </div>
           <div class="quantity-selector d-flex align-items-center">
-            <button class="btn btn-secondary" (click)="decrementQuantity()">-</button>
-            <input type="number" class="form-control text-center mx-2" [(ngModel)]="selectedQuantity" min="1">
-            <button class="btn btn-secondary" (click)="incrementQuantity()">+</button>
+            <button class="decrement-btn" (click)="decrementQuantity()">-</button>
+            <input type="number" class="text-center mx-2" [(ngModel)]="selectedQuantity" min="1">
+            <button class="decrement-btn" (click)="incrementQuantity()">+</button>
           </div>
           <ul class="nav nav-tabs my-3" id="myTab" role="tablist">
             <li class="nav-item">

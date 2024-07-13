@@ -24,7 +24,12 @@ public class JewelrySizeService implements IJewelrySizeService {
     }
 
     @Override
-    public Optional<JewelrySize> getDefaultSizeByJewelryType(JewelryType type) {
-        return jewelrySizeService.findFirstByType(type);
+    public JewelrySize getDefaultSizeByJewelryType(JewelryType type) {
+        return jewelrySizeService.findFirstByType(type).orElse(null);
+    }
+
+    @Override
+    public JewelrySize findFirst() {
+        return jewelrySizeService.findFirstBy().orElse(null);
     }
 }

@@ -17,3 +17,18 @@
   background-color: #173334FF;
   color: white;
 }
+
+.search-button {
+  background-color: #007bff; /* Default background color */
+  color: white; /* Text color */
+  padding: 10px 20px; /* Padding inside the button */
+  border: none; /* No border */
+  cursor: pointer; /* Cursor changes to pointer on hover */
+  transition: background-color 0.3s; /* Smooth transition for background color */
+  border-top-right-radius: 10px; /* Added right top border-radius */
+  border-bottom-right-radius: 10px; /* Added right bottom border-radius */
+}
+
+.search-button:hover {
+  background-color: #0056b3; /* Background color on hover */
+}

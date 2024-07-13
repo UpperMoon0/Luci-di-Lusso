@@ -16,6 +16,7 @@ export class ManagerService {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
       }),
+      withCredentials: true,
     };
   }
 
@@ -48,7 +49,18 @@ export class ManagerService {
   }
 
   assignDelivery(request: any): Observable<any> {
-    return this.http.post(`${environment.beApiUrl}/delivery/assign-delivery`, request, this.httpOptions);
+    return this.http.post(`${environment.beApiUrl}/delivery/add-delivery`, request, this.httpOptions);
   }
 
+  getAllJeweleries(): Observable<any> {
+    return this.http.get<any>(`${environment.beApiUrl}/product/get-all-jewelries`, this.httpOptions);
+  }
+
+  deleteJewelry(id: number): Observable<any> {
+    return this.http.delete(`${environment.beApiUrl}/product/delete-jewelry?id=${id}`, this.httpOptions);
+  }
+
+  updateJewelry(request: any): Observable<any> {
+    return this.http.post(`${environment.beApiUrl}/product/update-jewelry`, request, this.httpOptions);
+  }
 }

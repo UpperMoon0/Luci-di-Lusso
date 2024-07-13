@@ -10,13 +10,14 @@ import java.util.List;
 
 @Getter
 public class JewelryResponse extends CommonResponse {
-    private final Long id;
+    private final long id;
     private final String name;
     private final String description;
     private final String imageUrl;
-    private final Integer price;
+    private final int price;
     private final String type;
-    private final Float diamondCarat;
+    private final float diamondCarat;
+    private final long diamondId;
     private final String diamondCut;
     private final String diamondClarity;
     private final String diamondColor;
@@ -30,6 +31,7 @@ public class JewelryResponse extends CommonResponse {
         this.imageUrl = jewelry.getImageUrl();
         this.price = jewelryService.calculateJewelryPrice(jewelry);
         this.type = jewelry.getType().getType().getValue();
+        this.diamondId = jewelry.getDiamond().getId();
         this.diamondCarat = jewelry.getDiamond().getCarat();
         this.diamondCut = jewelry.getDiamond().getCut().getCut().getValue();
         this.diamondClarity = jewelry.getDiamond().getClarity().getClarity().name();

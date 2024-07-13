@@ -41,7 +41,7 @@ import { StaffSidebarComponent } from './staff-sidebar/staff-sidebar.component';
 import { DeliveryTableComponent } from './delivery-page/delivery-table.component';
 import { DeliveryPageComponent } from './delivery-page/delivery-page.component';
 
-import {DiamondListComponent} from "./manager-page/diamond-list.component";
+import {ManageDiamondListComponent} from "./manager-page/manage-diamond-list.component";
 import {ManagerPageComponent} from "./manager-page/manager-page.component";
 
 import {DiscoverComponent} from "./blog-page/blog/discover/discover.component";
@@ -69,6 +69,12 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatInputModule} from "@angular/material/input";
 import {DemoMaterialModule} from "./AngularMaterialModule";
 import { ManageDeliveryPageComponent } from './manager-page/manage-delivery-page.component';
+import { StatisticsComponent } from './manager-page/statistics.component';
+import {CanvasJSAngularChartsModule} from "@canvasjs/angular-charts";
+import { ManageJewelriesListComponent } from './manager-page/manage-jewelries-list.component';
+import { ListOfOrdersComponent } from './delivery-page/list-of-orders.component';
+import { OrdersListComponent } from './delivery-page/orders-list/orders-list.component';
+import {CertificatePageComponent} from "./certificate-page/certificate-page.component";
 import { HomeBannerComponent } from './home-page/home-banner.component';
 import {ImageSliderModule} from "./image-slider/image-slider.module";
 
@@ -123,7 +129,7 @@ import {ImageSliderModule} from "./image-slider/image-slider.module";
     DeliveryPageComponent,
 
     // Manager page
-    DiamondListComponent,
+    ManageDiamondListComponent,
     ManagerPageComponent,
 
     // Blog page
@@ -137,9 +143,17 @@ import {ImageSliderModule} from "./image-slider/image-slider.module";
     PurchaseDetailsComponent,
     PurchaseHistoryListComponent,
     PurchaseHistoryPageComponent,
+
+    // Certificate page
+    CertificatePageComponent,
+
     HomePageComponent,
     HomeBlogComponent,
     ManageDeliveryPageComponent,
+    StatisticsComponent,
+    ManageJewelriesListComponent,
+    ListOfOrdersComponent,
+    OrdersListComponent,
     HomeBannerComponent,
   ],
   imports: [
@@ -166,6 +180,7 @@ import {ImageSliderModule} from "./image-slider/image-slider.module";
     MatSnackBarModule,
     MatInputModule,
     DemoMaterialModule,
+    CanvasJSAngularChartsModule,
     ImageSliderModule,
   ],
   providers: [

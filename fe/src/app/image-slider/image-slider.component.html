@@ -4,9 +4,11 @@
     <div (click)="goToNext()" class="rightArrow">❱</div>
   </div>
   <a [href]="slides[currentIndex].link" target="_blank"
-    class="slide"
-    [ngStyle]="{ 'background-image': getCurrentSlideUrl() }">
-    <h2>{{ slides[currentIndex].title }}</h2>
+     class="slide"
+     [ngStyle]="{ 'background-image': getCurrentSlideUrl() }">
+    <div>
+      <h2 class="section-title">{{ slides[currentIndex].title }}</h2>
+    </div>
   </a>
   <div class="dotsContainer">
     <div

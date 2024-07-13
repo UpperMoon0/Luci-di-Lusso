@@ -5,7 +5,9 @@ import org.springframework.stereotype.Repository;
 import vn.fpt.diamond_shop.constant.EDiamondCut;
 import vn.fpt.diamond_shop.model.entity.DiamondCut;
 
+import java.util.Optional;
+
 @Repository
 public interface IDiamondCutRepository extends JpaRepository<DiamondCut, Long> {
-    DiamondCut findByCut(EDiamondCut cut);
+    Optional<DiamondCut> findByCut(EDiamondCut cut);
 }

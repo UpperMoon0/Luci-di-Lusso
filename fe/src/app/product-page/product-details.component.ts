@@ -11,7 +11,8 @@ interface ProductDetailsDTO {
   description: string;
   imageUrl: string;
   type: string;
-  diamondCarat: number
+  diamondId: number;
+  diamondCarat: number;
   diamondShape: string;
   diamondCut: string;
   diamondColor: string;

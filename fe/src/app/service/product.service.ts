@@ -23,6 +23,7 @@ export class ProductService {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       }),
+      withCredentials: true,
     };
   }
 
@@ -40,8 +41,9 @@ export class ProductService {
   }
 
   public getAllTypes(): Observable<any> {
-    return this.http.get<any[]>(`${this.apiUrl}/product/get-all-jewelry-types`, this.httpOptions).pipe(
-      tap(types => {
+    return this.http.get<any>(`${this.apiUrl}/product/get-all-jewelry-types`, this.httpOptions).pipe(
+      tap(response => {
+        const types = response.types.map((item: any) => item.type);
         this.productTypes.next(types);
         this.colorService.mapTypesToColors(types);
       })
@@ -50,6 +52,10 @@ export class ProductService {
 
   public getTest(): Observable<any> {
     return this.http.get<Object>(`${this.apiUrl}/api/product/test`, this.httpOptions);
+  }
+
+  public getDiamond(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/product/get-diamond?id=` + id, this.httpOptions);
   }
 
   public getProductTypes(): Observable<String[]> {
