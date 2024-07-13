@@ -4,6 +4,23 @@
   -moz-box-sizing: border-box;
 }
 
+.save-button {
+  border-radius: 15px;
+  align-self: center;
+  padding: 10px 20px;
+  width: 80px;
+  height: 35px;
+  background-image: linear-gradient(45deg, rgba( 71, 147, 227, 1), rgb(119, 173, 243));
+  color: white;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+}
+
+.save-button:hover {
+  background-color: #0056b3;
+}
+
 .page-body {
   width: 100%;
   height: 100%;

@@ -72,6 +72,7 @@ import { ManageDeliveryPageComponent } from './manager-page/manage-delivery-page
 import { StatisticsComponent } from './manager-page/statistics.component';
 import {CanvasJSAngularChartsModule} from "@canvasjs/angular-charts";
 import { ManageJewelriesListComponent } from './manager-page/manage-jewelries-list.component';
+import { ListOfOrdersComponent } from './delivery-page/list-of-orders.component';
 import { OrdersListComponent } from './delivery-page/orders-list/orders-list.component';
 import {CertificatePageComponent} from "./certificate-page/certificate-page.component";
 import { HomeBannerComponent } from './home-page/home-banner.component';
@@ -151,6 +152,7 @@ import {ImageSliderModule} from "./image-slider/image-slider.module";
     ManageDeliveryPageComponent,
     StatisticsComponent,
     ManageJewelriesListComponent,
+    ListOfOrdersComponent,
     OrdersListComponent,
     HomeBannerComponent,
   ],

@@ -11,7 +11,7 @@ import vn.fpt.diamond_shop.service.IUserService;
 
 import java.util.List;
 
-@RequestMapping("/order")
+@RequestMapping("/statistics")
 @RestController
 public class StatisticsController {
     private final IOrderItemService orderItemService;

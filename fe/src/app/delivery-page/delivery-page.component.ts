@@ -12,14 +12,20 @@ export class DeliveryPageComponent implements OnInit{
   constructor(private accountService: AccountService,
               private router: Router) {}
 
+  choseDeliveryID: number;
+
   willOpened : boolean = false;
 
   public modifyOpen(status : number) {
-    if (status === 0){
-      this.willOpened = false;
-    } else {
-      this.willOpened = true;
-    }
+    this.willOpened = status !== 0;
+  }
+
+  public setChoseDeliveryID(id : number) {
+    this.choseDeliveryID = id;
+  }
+
+  public getChoseDeliveryID() {
+    return this.choseDeliveryID;
   }
 
   ngOnInit(): void {
