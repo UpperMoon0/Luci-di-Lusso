@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ManagerService} from "../service/manager.service";
 import {Title} from "@angular/platform-browser";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-manage-delivery-page',
@@ -12,9 +13,14 @@ export class ManageDeliveryPageComponent implements OnInit{
   deliveries: any[] = [];
   deliverers: any[] = [];
 
-  deliverer: number;
+  delivererID: number;
+  deliveryID: number;
+  form = this.formBuilder.group({
+    delivererID: new FormControl(null, [Validators.required]),
+  });
 
   constructor(private managerService: ManagerService,
+              private formBuilder: FormBuilder,
               private titleService: Title,
               private snackBar: MatSnackBar) {}
 
@@ -22,6 +28,17 @@ export class ManageDeliveryPageComponent implements OnInit{
     this.getDeliverers();
     this.getDeliveries();
     this.titleService.setTitle('Delivery | Luci di Lusso');
+  }
+
+  setDeliveryID(deliveryID: number) {
+    this.deliveryID = deliveryID;
+  }
+
+  submitForm() {
+    this.delivererID = this.form.value.delivererID;
+    this.saveDelivery();
+    //reset delivererID in form
+    this.form.value.delivererID = null;
   }
 
   getDeliveries(): void {
@@ -38,10 +55,10 @@ export class ManageDeliveryPageComponent implements OnInit{
     });
   }
 
-  saveDelivery(deliveryID: number) {
+  saveDelivery() {
     const request = {
-      deliveryID: deliveryID,
-      delivererID: this.deliverer
+      deliveryID: this.deliveryID,
+      delivererID: this.delivererID
     }
     this.managerService.assignDelivery(request).subscribe({
       next: () => {

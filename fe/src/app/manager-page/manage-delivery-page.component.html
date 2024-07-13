@@ -3,18 +3,18 @@
   <div class="table-wrapper">
     <table class="fl-table">
       <thead>
-      <tr>
-        <td>Deliverer ID</td>
-        <td>Deliverer's Name</td>
-      </tr>
+        <tr>
+          <td style="width: 30%">Deliverer ID</td>
+          <td style="width: 70%">Deliverer's Name</td>
+        </tr>
       </thead>
       <tbody>
-      <div *ngFor="let deliverer of deliverers">
-        <tr>
-          <td>{{deliverer.id}}</td>
-          <td>{{deliverer.fullName}}</td>
-        </tr>
-      </div>
+        <ng-container *ngFor="let deliverer of deliverers">
+          <tr>
+            <td style="width: 30%">{{deliverer.id}}</td>
+            <td style="width: 70%">{{deliverer.fullName}}</td>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
   </div>
@@ -25,25 +25,27 @@
 <div class="container" style="margin-top: 100px;">
   <h2 style="color: black; font-family: Helvetica Neue, sans-serif;">Deliveries</h2>
   <div class="table-wrapper">
-    <table class="fl-table">
-      <thead>
-      <tr>
-        <td>Delivery ID</td>
-        <td>Customer's Name</td>
-        <td>Deliverer</td>
-        <td>Save</td>
-      </tr>
-      </thead>
-      <tbody>
-      <div *ngFor="let delivery of deliveries">
+    <form [formGroup]="form" (ngSubmit)="submitForm()">
+      <table class="fl-table">
+        <thead>
         <tr>
-          <td>{{delivery.id}}</td>
-          <td>{{delivery.customerName}}</td>
-          <td><input type="number" [(ngModel)]="deliverer"></td>
-          <td><button (click)="saveDelivery(delivery.id)"></button></td>
+          <td>Delivery ID</td>
+          <td>Customer's Name</td>
+          <td>Deliverer ID</td>
+          <td>Save</td>
         </tr>
-      </div>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let delivery of deliveries">
+          <tr>
+            <td>{{delivery.id}}</td>
+            <td style="text-align: left">{{delivery.customerName}}</td>
+            <td><input type="number" name="delivererID" formControlName="delivererID"></td>
+            <td><span><button type="submit" class="save-button" (click)="setDeliveryID(delivery.id)">Save</button></span></td>
+          </tr>
+        </ng-container>
+        </tbody>
+      </table>
+    </form>
   </div>
 </div>
