@@ -33,7 +33,7 @@ export class ManagerService {
   }
 
   saveDiamond(diamond: any): Observable<any> {
-    return this.http.post(`${environment.beApiUrl}/product/save-diamond`, diamond, this.httpOptions);
+    return this.http.post(`${environment.beApiUrl}/product/update-diamond`, diamond, this.httpOptions);
   }
 
   deleteDiamond(diamondId: any): Observable<any> {

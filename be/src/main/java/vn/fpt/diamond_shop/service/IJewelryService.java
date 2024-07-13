@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface IJewelryService {
     Jewelry getJewelryById(Long id);
     List<Jewelry> getAllJewelries();
-    List<Jewelry> getJewelriesByFilter(List<EJewelryType> types, Integer minPrice, Integer maxPrice);
+    List<Jewelry> getJewelriesByFilter(List<EJewelryType> types, Integer minPrice, Integer maxPrice, String keyword);
     Integer calculateJewelryPrice(Jewelry jewelry);
     Integer calculateJewelryPriceWithSize(Jewelry jewelry, JewelrySize size);
     void deleteJewelryById(Long id);

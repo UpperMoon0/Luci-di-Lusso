@@ -1,35 +1,43 @@
-<div style="margin-top: 15rem;">
-<!--  <mat style="display: block; text-align: center;">Purchase History</mat>-->
-<!--  <div class="flex-container">-->
-<!--    &lt;!&ndash; Left orders list &ndash;&gt;-->
-<!--    <div class="list-container" style="min-height: 10rem;">-->
-<!--      <label>Orders</label>-->
-<!--      <button *ngFor="let order of orders" class="list-item-btn" (click)="onOrderSelect(order.id)">-->
-<!--        {{ order.firstProductName }} ({{ order.firstProductSize }}) x {{ order.firstProductQuantity }} - ${{ order.price }} - {{ order.timeAgo }}-->
-<!--      </button>-->
-<!--    </div>-->
+<div class="purchase-history-wrapper" style="margin-top: 200px; margin-bottom: 400px">
+  <section class="purchase-history">
+    <header class="purchase-history-header">
+      <h2>Your Orders</h2>
+    </header>
+    <mat-table [dataSource]="orders" class="mat-elevation-z8">
 
-<!--    &lt;!&ndash; Right panel for purchase details &ndash;&gt;-->
-<!--    <div class="purchase-details-panel" *ngIf="selectedOrderId">-->
-<!--      <app-purchase-details [orderDetails]="selectedOrderDetails" [productList]="selectedOrderProductList"></app-purchase-details>-->
-<!--    </div>-->
-<!--  </div>-->
+      <!-- Product Name Column -->
+      <ng-container matColumnDef="productName">
+        <mat-header-cell *matHeaderCellDef> Product Name </mat-header-cell>
+        <mat-cell *matCellDef="let order"> {{order.firstProductName}} ({{order.firstProductSize}}) </mat-cell>
+      </ng-container>
 
-  <!-- purchase-history.component.html -->
-  <div class="purchase-history-container">
-    <mat-card class="orders-list">
-      <h2>Orders</h2>
-      <mat-list>
-        <mat-list-item *ngFor="let order of orders" (click)="onOrderSelect(order.id)">
-          {{ order.firstProductName }} ({{ order.firstProductSize }}) x {{ order.firstProductQuantity }} - ${{ order.price }} - {{ order.timeAgo }}
-        </mat-list-item>
-      </mat-list>
-    </mat-card>
+      <!-- Quantity Column -->
+      <ng-container matColumnDef="quantity">
+        <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+        <mat-cell *matCellDef="let order"> x {{order.firstProductQuantity}} </mat-cell>
+      </ng-container>
 
-    <mat-card class="order-details" *ngIf="selectedOrderId">
+      <!-- Price Column -->
+      <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+        <mat-cell *matCellDef="let order"> ${{order.price}} </mat-cell>
+      </ng-container>
+
+      <!-- Order Time Column -->
+      <ng-container matColumnDef="orderTime">
+        <mat-header-cell *matHeaderCellDef> Order Time </mat-header-cell>
+        <mat-cell *matCellDef="let order"> {{order.timeAgo}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onOrderSelect(row.id)"></mat-row>
+
+    </mat-table>
+  </section>
+  <section class="order-details" *ngIf="selectedOrderId">
+    <header class="order-details-header">
       <h2>Order Details</h2>
-      <app-purchase-details [orderDetails]="selectedOrderDetails" [productList]="selectedOrderProductList"></app-purchase-details>
-    </mat-card>
-  </div>
-
+    </header>
+    <app-purchase-details [orderDetails]="selectedOrderDetails" [productList]="selectedOrderProductList"></app-purchase-details>
+  </section>
 </div>

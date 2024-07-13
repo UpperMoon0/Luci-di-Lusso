@@ -61,12 +61,13 @@ public class ProductController {
     }
 
     @PostMapping("/get-jewelries")
-    public ResponseEntity<JewelriesResponse> getJewelries(@RequestBody JewelriesListRequest request) {
+    public ResponseEntity<JewelriesResponse> getJewelries(@RequestBody JewelriesRequest request) {
         List<EJewelryType> types = request.getTypes();
         Integer minPrice = request.getMinPrice();
         Integer maxPrice = request.getMaxPrice();
+        String keyword = request.getKeyword();
 
-        List<Jewelry> filteredJewelries = jewelryService.getJewelriesByFilter(types, minPrice, maxPrice);
+        List<Jewelry> filteredJewelries = jewelryService.getJewelriesByFilter(types, minPrice, maxPrice, keyword);
 
         JewelriesResponse response = new JewelriesResponse(filteredJewelries, jewelryService);
         response.setMessage("Get jewelries successfully");
