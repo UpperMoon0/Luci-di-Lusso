@@ -88,7 +88,7 @@ public class ProductController {
         }
     }
 
-    @PutMapping("/update-jewelry")
+    @PostMapping("/update-jewelry")
     public ResponseEntity<CommonResponse> updateJewelry(@RequestBody JewelryUpdateRequest body) {
         try {
             jewelryService.updateJewelry(body);
