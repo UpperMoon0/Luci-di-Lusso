@@ -3,6 +3,8 @@ import { ToastrService } from "ngx-toastr";
 import { ProductService } from "../service/product.service";
 import { CartService } from "../service/cart.service";
 import {ColorService} from "../service/color.service";
+import {AccountService} from "../service/account.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-product-list-page-page',
@@ -21,7 +23,9 @@ export class ProductListPageComponent implements OnInit {
 
   constructor(private productService: ProductService,
               private toastrService: ToastrService,
-              protected colorService: ColorService) {}
+              protected colorService: ColorService,
+              private accountService: AccountService,
+              private router: Router) {}
 
   ngOnInit(): void {
     this.isLoggedIn = localStorage.getItem("user") != null;
@@ -95,6 +99,18 @@ export class ProductListPageComponent implements OnInit {
       error: () => this.toastrService.error("Error in getting products list")
     });
     this.productsList.forEach(product => console.log("Product id" + product.type_id));
+
+    const token = localStorage.getItem('accessToken');
+    this.accountService.validateToken(token).subscribe({
+      next: (res) => {
+        if (res.message == "MANAGER") {
+          this.router.navigate(["/manager"]).then(r=> {});
+        }
+        if (res.message == "DELIVERER") {
+          this.router.navigate(["/delivery"]).then(r=> {});
+        }
+      }
+    });
   }
 
   private getPriceRange(): { minPrice: number; maxPrice: number } {

@@ -116,7 +116,9 @@ public class AuthController {
     public ResponseEntity<CommonResponse> ping(@RequestBody String jwt) {
         CommonResponse cr = new CommonResponse();
         if (tokenProvider.validateToken(jwt)) {
-            cr.setMessage("Valid token");
+            User user = userService.getUserByToken(jwt);
+            String role = user.getRole().name();
+            cr.setMessage(role);
         } else {
             cr.setMessage("Invalid token");
         }
