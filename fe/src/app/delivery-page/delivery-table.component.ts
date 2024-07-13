@@ -11,10 +11,8 @@ import {ListOfOrdersComponent} from "./list-of-orders.component";
 })
 export class DeliveryTableComponent implements OnInit {
   deliveries : any[] = [];
-  deliveryID : number = 0;
 
   constructor(private deliveryService: DeliveryService,
-              private listOfOrdersComponent: ListOfOrdersComponent,
               private toastrService: ToastrService,
               private deliveryPageComponent: DeliveryPageComponent) {
   }
@@ -24,17 +22,13 @@ export class DeliveryTableComponent implements OnInit {
   }
 
   public setDeliveryID(id : number) {
-    if (this.deliveryID === id) {
-      this.deliveryID = 0;
+    if (this.deliveryPageComponent.getChoseDeliveryID() === id) {
+      this.deliveryPageComponent.setChoseDeliveryID(0);
       this.deliveryPageComponent.modifyOpen(0);
     } else {
-      this.deliveryID = id;
+      this.deliveryPageComponent.setChoseDeliveryID(id);
       this.deliveryPageComponent.modifyOpen(1);
     }
-  }
-
-  getDeliveryID() {
-    return this.deliveryID;
   }
 
   private getDeliveries() {

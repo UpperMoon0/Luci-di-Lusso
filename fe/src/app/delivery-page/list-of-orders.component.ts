@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import { DeliveryTableComponent } from './delivery-table.component';
 import {OrderService} from "../service/order.service";
+import {DeliveryPageComponent} from "./delivery-page.component";
 
 @Component({
   selector: 'app-list-of-orders',
@@ -12,12 +12,14 @@ export class ListOfOrdersComponent implements OnInit {
   deliveryID : number;
   listOfOrder : any[] = [];
 
-  constructor(private deliveryTableComponent: DeliveryTableComponent,
+  constructor(private deliveryPageComponent: DeliveryPageComponent,
               private orderService : OrderService) {
   }
 
   public ngOnInit() {
-    this.deliveryID = this.deliveryTableComponent.getDeliveryID();
+    this.deliveryID = this.deliveryPageComponent.getChoseDeliveryID();
+    this.getOrderDetail(this.deliveryID);
+    this.getOrderDetail(this.deliveryID);
   }
 
   getOrderDetail(id: number) {
