@@ -76,6 +76,7 @@ import { ListOfOrdersComponent } from './delivery-page/list-of-orders.component'
 import {CertificatePageComponent} from "./certificate-page/certificate-page.component";
 import { HomeBannerComponent} from "./home-page/home-banner.component";
 import {ImageSliderModule} from "./image-slider/image-slider.module";
+import {DiamondEditComponent} from "./manager-page/diamond-edit.component";
 
 @NgModule({
   declarations: [
@@ -128,6 +129,10 @@ import {ImageSliderModule} from "./image-slider/image-slider.module";
     DeliveryPageComponent,
 
     // Manager page
+    DiamondEditComponent,
+    ManageDeliveryPageComponent,
+    StatisticsComponent,
+    ManageJewelriesListComponent,
     ManageDiamondListComponent,
     ManagerPageComponent,
 
@@ -148,9 +153,7 @@ import {ImageSliderModule} from "./image-slider/image-slider.module";
 
     HomePageComponent,
     HomeBlogComponent,
-    ManageDeliveryPageComponent,
-    StatisticsComponent,
-    ManageJewelriesListComponent,
+
     ListOfOrdersComponent,
     HomeBannerComponent,
   ],

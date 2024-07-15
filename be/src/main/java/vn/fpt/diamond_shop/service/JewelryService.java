@@ -10,7 +10,6 @@ import vn.fpt.diamond_shop.model.entity.JewelrySize;
 import vn.fpt.diamond_shop.model.entity.JewelryType;
 import vn.fpt.diamond_shop.repository.IDiamondRepository;
 import vn.fpt.diamond_shop.repository.IJewelryRepository;
-import vn.fpt.diamond_shop.repository.IJewelrySizeRepository;
 import vn.fpt.diamond_shop.repository.IJewelryTypeRepository;
 
 import java.time.LocalDateTime;

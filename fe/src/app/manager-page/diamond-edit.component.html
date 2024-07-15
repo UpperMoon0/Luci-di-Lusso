@@ -1,0 +1,37 @@
+<div>
+  <div>
+    <div>
+      <h2>Edit diamond</h2>
+    </div>
+    <div>
+      <form [formGroup]="diamondEditForm" (ngSubmit)="onSubmit()">
+        <label>
+          Cut:
+          <input type="text" formControlName="cut">
+        </label>
+
+        <label>
+          Color:
+          <input type="text" formControlName="color">
+        </label>
+
+        <label>
+          Clarity:
+          <input type="text" formControlName="clarity">
+        </label>
+
+        <label>
+          Carat:
+          <input type="text" formControlName="carat">
+        </label>
+
+        <label>
+          Shape:
+          <input type="text" formControlName="shape">
+        </label>
+
+        <button type="submit">Save</button>
+      </form>
+    </div>
+  </div>
+</div>

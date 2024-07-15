@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { ManagerService } from "../service/manager.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import {MatDialog} from "@angular/material/dialog";
+import {DiamondEditComponent} from "./diamond-edit.component";
 
 @Component({
   selector: 'app-diamond-list',
@@ -25,7 +27,8 @@ export class ManageDiamondListComponent implements OnInit {
   constructor(private managerService: ManagerService,
               private titleService: Title,
               private fb: FormBuilder,
-              private snackBar: MatSnackBar) {}
+              private snackBar: MatSnackBar,
+              public dialog: MatDialog) {}
 
   ngOnInit() {
     this.getDiamonds();
@@ -105,5 +108,17 @@ export class ManageDiamondListComponent implements OnInit {
     if (lastObj && lastKey) {
       lastObj[lastKey] = value;
     }
+  }
+
+  openEditDiamondDialog(diamond: any): void {
+    const dialogRef = this.dialog.open(DiamondEditComponent, {
+      width: '250px',
+      data: { diamond: diamond }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // Here you can handle what to do after the dialog is closed
+    });
   }
 }
