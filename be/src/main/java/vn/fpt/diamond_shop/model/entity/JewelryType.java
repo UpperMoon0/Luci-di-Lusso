@@ -1,16 +1,16 @@
 package vn.fpt.diamond_shop.model.entity;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import vn.fpt.diamond_shop.constant.EJewelryType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "jewelry_type")
 public class JewelryType {

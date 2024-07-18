@@ -7,7 +7,6 @@ import vn.fpt.diamond_shop.model.entity.JewelryType;
 import vn.fpt.diamond_shop.repository.IJewelrySizeRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class JewelrySizeService implements IJewelrySizeService {

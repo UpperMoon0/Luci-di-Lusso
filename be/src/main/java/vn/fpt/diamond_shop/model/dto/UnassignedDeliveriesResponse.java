@@ -15,7 +15,7 @@ public class UnassignedDeliveriesResponse extends CommonResponse {
     public UnassignedDeliveriesResponse(List<Delivery> deliveries) {
         for (Delivery delivery : deliveries) {
             this.deliveries.add(new UnassignedDeliveryDTO(delivery.getId(),
-                    delivery.getOrder().getUser().getFullName(),
+                    delivery.getOrder().getUser().getCustomer().getFullName(),
                     delivery.getCreateAt().toString()));
         }
     }

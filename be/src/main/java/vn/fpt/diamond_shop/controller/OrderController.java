@@ -7,10 +7,10 @@ import vn.fpt.diamond_shop.model.dto.OrderDetailsResponse;
 import vn.fpt.diamond_shop.model.dto.OrdersResponse;
 import vn.fpt.diamond_shop.model.entity.Order;
 import vn.fpt.diamond_shop.model.entity.OrderItem;
-import vn.fpt.diamond_shop.model.entity.User;
+import vn.fpt.diamond_shop.model.entity.Account;
 import vn.fpt.diamond_shop.service.IOrderItemService;
 import vn.fpt.diamond_shop.service.IOrderService;
-import vn.fpt.diamond_shop.service.IUserService;
+import vn.fpt.diamond_shop.service.IAccountService;
 
 import java.util.List;
 
@@ -18,12 +18,12 @@ import java.util.List;
 @RequestMapping("/order")
 public class OrderController {
     private final IOrderService orderService;
-    private final IUserService userService;
+    private final IAccountService userService;
     private final IOrderItemService orderItemService;
 
     @Autowired
     public OrderController(IOrderService orderService,
-                           IUserService userService,
+                           IAccountService userService,
                            IOrderItemService orderItemService) {
         this.orderService = orderService;
         this.userService = userService;
@@ -33,7 +33,11 @@ public class OrderController {
     @GetMapping("/get-orders")
     public ResponseEntity<OrdersResponse> getOrders(@RequestHeader("Authorization") String authorizationHeader) {
         String jwt = authorizationHeader.substring(7);
-        User user = userService.getUserByToken(jwt);
+        Account user = userService.getUserByToken(jwt).orElse(null);
+
+        if (user == null) {
+            return ResponseEntity.badRequest().body(null);
+        }
 
         List<Order> orders = orderService.getOrdersByUser(user.getId());
 

@@ -1,17 +1,20 @@
 package vn.fpt.diamond_shop.model.entity;
-import lombok.Data;
+
+import lombok.*;
 import vn.fpt.diamond_shop.constant.EAuthProvider;
 import vn.fpt.diamond_shop.constant.EUserRole;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
-@Table(name = "`user`")
-public class User {
+@Table(name = "`account`")
+public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -23,25 +26,6 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "full_name", nullable = false)
-    private String fullName;
-
-    @Email
-    @Column(name = "email", nullable = false, unique = true)
-    private String email;
-
-    @Column(name = "image_url")
-    private String imageUrl;
-
-    @Column(name = "phone")
-    private String phone;
-
-    @Column(name = "address")
-    private String address;
-
-    @Column(name = "dob")
-    private LocalDate dob;
-
     @Column(name = "create_at")
     private LocalDateTime createAt;
   
@@ -52,4 +36,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private EUserRole role;
+
+    @OneToOne(mappedBy = "account")
+    private Customer customer;
 }

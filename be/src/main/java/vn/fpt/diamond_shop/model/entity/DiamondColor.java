@@ -6,10 +6,13 @@ import vn.fpt.diamond_shop.constant.EDiamondColor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "diamond_color")
-@NoArgsConstructor
 public class DiamondColor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

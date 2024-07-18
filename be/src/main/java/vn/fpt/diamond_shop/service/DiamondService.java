@@ -1,13 +1,11 @@
 package vn.fpt.diamond_shop.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import vn.fpt.diamond_shop.constant.EDiamondClarity;
 import vn.fpt.diamond_shop.constant.EDiamondColor;
 import vn.fpt.diamond_shop.constant.EDiamondCut;
 import vn.fpt.diamond_shop.constant.EDiamondShape;
-import vn.fpt.diamond_shop.model.dto.CommonResponse;
 import vn.fpt.diamond_shop.model.dto.DiamondUpdateRequest;
 import vn.fpt.diamond_shop.model.entity.*;
 import vn.fpt.diamond_shop.repository.*;

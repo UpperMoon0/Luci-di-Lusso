@@ -4,7 +4,6 @@ import vn.fpt.diamond_shop.model.dto.DiamondUpdateRequest;
 import vn.fpt.diamond_shop.model.entity.Diamond;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface IDiamondService
 {

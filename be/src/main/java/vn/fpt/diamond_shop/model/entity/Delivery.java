@@ -1,6 +1,6 @@
 package vn.fpt.diamond_shop.model.entity;
 
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import vn.fpt.diamond_shop.constant.EOrderStatus;
@@ -8,7 +8,11 @@ import vn.fpt.diamond_shop.constant.EOrderStatus;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "delivery")
 public class Delivery {
@@ -24,7 +28,7 @@ public class Delivery {
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "deliverer_id")
-    private User deliverer;
+    private Account deliverer;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'PENDING'")

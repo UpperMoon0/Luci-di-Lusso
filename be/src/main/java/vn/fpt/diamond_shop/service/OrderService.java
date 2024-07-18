@@ -15,7 +15,7 @@ public class OrderService implements IOrderService {
     private final IOrderRepository orderRepository;
     private final ICartItemRepository cartItemRepository;
     private final IOrderItemService orderItemService;
-    private final IUserService userService;
+    private final IAccountService userService;
     private final IDeliveryService deliveryService;
     private final IJewelryService jewelryService;
 
@@ -23,7 +23,7 @@ public class OrderService implements IOrderService {
     public OrderService(IOrderRepository orderRepository,
                         ICartItemRepository cartItemRepository,
                         IOrderItemService orderItemService,
-                        IUserService userService,
+                        IAccountService userService,
                         IDeliveryService deliveryService,
                         IJewelryService jewelryService) {
         this.orderRepository = orderRepository;
@@ -36,7 +36,11 @@ public class OrderService implements IOrderService {
 
     @Override
     public double createOrderFromJwtToken(String jwtToken) throws InvalidJwtTokenException {
-        User user = userService.getUserByToken(jwtToken);
+        Account user = userService.getUserByToken(jwtToken).orElse(null);
+
+        if (user == null) {
+            throw new InvalidJwtTokenException();
+        }
 
         Order order = new Order();
         order.setUser(user);

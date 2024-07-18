@@ -1,7 +1,6 @@
 package vn.fpt.diamond_shop.model.dto;
 
 import lombok.Data;
-import vn.fpt.diamond_shop.model.entity.Diamond;
 
 @Data
 public class DiamondUpdateRequest {

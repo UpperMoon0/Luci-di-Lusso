@@ -6,11 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.fpt.diamond_shop.model.entity.CartItem;
 import vn.fpt.diamond_shop.model.entity.Jewelry;
 import vn.fpt.diamond_shop.model.entity.JewelrySize;
-import vn.fpt.diamond_shop.model.entity.User;
+import vn.fpt.diamond_shop.model.entity.Account;
 import vn.fpt.diamond_shop.repository.ICartItemRepository;
 import vn.fpt.diamond_shop.repository.IJewelryRepository;
 import vn.fpt.diamond_shop.repository.IJewelrySizeRepository;
-import vn.fpt.diamond_shop.repository.IUserRepository;
+import vn.fpt.diamond_shop.repository.IAccountRepository;
 import vn.fpt.diamond_shop.security.JwtTokenProvider;
 
 import java.time.LocalDateTime;
@@ -21,14 +21,14 @@ import java.util.NoSuchElementException;
 public class CartService implements ICartService {
     private final ICartItemRepository cartItemRepository;
     private final IJewelryRepository jewelryRepository;
-    private final IUserRepository userRepository;
+    private final IAccountRepository userRepository;
     private final IJewelrySizeRepository jewelrySizeRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
     @Autowired
     public CartService(ICartItemRepository cartItemRepository,
                        IJewelryRepository jewelryRepository,
-                       IUserRepository userRepository,
+                       IAccountRepository userRepository,
                        IJewelrySizeRepository jewelrySizeRepository,
                        JwtTokenProvider jwtTokenProvider) {
         this.cartItemRepository = cartItemRepository;
@@ -51,7 +51,7 @@ public class CartService implements ICartService {
         String username = jwtTokenProvider.getUsernameFromJWT(token);
 
         // Find the user by username
-        User user = userRepository.findByUsername(username)
+        Account user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new NoSuchElementException("User not found"));
         // Find the Jewelry by jewelryId
         Jewelry jewelry = jewelryRepository.findById(jewelryId)
@@ -94,7 +94,7 @@ public class CartService implements ICartService {
         String username = jwtTokenProvider.getUsernameFromJWT(token);
 
         // Find the user by username
-        User user = userRepository.findByUsername(username)
+        Account user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new NoSuchElementException("User not found"));
 
         // Return the cart items for the found user
@@ -114,7 +114,7 @@ public class CartService implements ICartService {
         String username = jwtTokenProvider.getUsernameFromJWT(token);
 
         // Find the user by username
-        User user = userRepository.findByUsername(username)
+        Account user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new NoSuchElementException("User not found"));
 
         // Find the CartItem by cartItemId
@@ -146,7 +146,7 @@ public class CartService implements ICartService {
         String username = jwtTokenProvider.getUsernameFromJWT(token);
 
         // Find the user by username
-        User user = userRepository.findByUsername(username)
+        Account user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new NoSuchElementException("User not found"));
 
         // Find the CartItem by cartItemId
@@ -176,7 +176,7 @@ public class CartService implements ICartService {
         String username = jwtTokenProvider.getUsernameFromJWT(token);
 
         // Find the user by username
-        User user = userRepository.findByUsername(username)
+        Account user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new NoSuchElementException("User not found"));
 
         // Delete all CartItems for the user
