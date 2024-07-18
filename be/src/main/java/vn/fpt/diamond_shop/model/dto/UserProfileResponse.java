@@ -1,7 +1,7 @@
 package vn.fpt.diamond_shop.model.dto;
 
 import lombok.Getter;
-import vn.fpt.diamond_shop.model.entity.User;
+import vn.fpt.diamond_shop.model.entity.Account;
 
 import java.time.LocalDate;
 
@@ -13,11 +13,11 @@ public class UserProfileResponse extends CommonResponse {
     private final String imageUrl;
     private final LocalDate dob;
 
-    public UserProfileResponse(User user) {
-        this.fullName = user.getFullName();
-        this.address = user.getAddress();
-        this.phone = user.getPhone();
-        this.imageUrl = user.getImageUrl();
-        this.dob = user.getDob();
+    public UserProfileResponse(Account user) {
+        this.fullName = user.getCustomer().getFullName();
+        this.address = user.getCustomer().getAddress();
+        this.phone = user.getCustomer().getPhone();
+        this.imageUrl = user.getCustomer().getImageUrl();
+        this.dob = user.getCustomer().getDob();
     }
 }

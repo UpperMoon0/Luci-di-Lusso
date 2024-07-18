@@ -7,7 +7,6 @@ import vn.fpt.diamond_shop.model.entity.JewelrySize;
 import vn.fpt.diamond_shop.model.entity.Order;
 import vn.fpt.diamond_shop.model.entity.OrderItem;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ public class OrderDetailsResponse extends CommonResponse {
     private List<JewelryInOrderDTO> productList = new ArrayList<>();
 
     public OrderDetailsResponse(Order order, List<OrderItem> orderItems) {
-        this.customerName = order.getUser().getFullName();
+        this.customerName = order.getUser().getCustomer().getFullName();
         this.totalPrice = orderItems.stream()
                 .mapToDouble(item -> item.getPrice() * item.getQuantity())
                 .sum();

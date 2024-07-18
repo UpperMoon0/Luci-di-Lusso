@@ -8,9 +8,9 @@ import vn.fpt.diamond_shop.model.dto.CreateDeliveryRequest;
 import vn.fpt.diamond_shop.model.dto.DeliveriesResponse;
 import vn.fpt.diamond_shop.model.dto.UnassignedDeliveriesResponse;
 import vn.fpt.diamond_shop.model.entity.Delivery;
-import vn.fpt.diamond_shop.model.entity.User;
+import vn.fpt.diamond_shop.model.entity.Account;
 import vn.fpt.diamond_shop.service.IDeliveryService;
-import vn.fpt.diamond_shop.service.IUserService;
+import vn.fpt.diamond_shop.service.IAccountService;
 
 import java.util.List;
 
@@ -18,11 +18,11 @@ import java.util.List;
 @RequestMapping("/delivery")
 public class DeliveryController {
 
-    private final IUserService userService;
+    private final IAccountService userService;
     private final IDeliveryService deliveryService;
 
     @Autowired
-    public DeliveryController(IUserService userService, IDeliveryService deliveryService) {
+    public DeliveryController(IAccountService userService, IDeliveryService deliveryService) {
         this.userService = userService;
         this.deliveryService = deliveryService;
     }
@@ -30,7 +30,11 @@ public class DeliveryController {
     @GetMapping("/get-deliveries")
     public ResponseEntity<DeliveriesResponse> getDeliveries(@RequestHeader("Authorization") String authorizationHeader) {
         String jwt = authorizationHeader.substring(7);
-        User user = userService.getUserByToken(jwt);
+
+        Account user = userService.getUserByToken(jwt).orElse(null);
+        if (user == null) {
+            return ResponseEntity.badRequest().body(null);
+        }
 
         List<Delivery> deliveries = deliveryService.getDeliveriesByUser(user.getId());
         System.out.println("Number of deliveries: " + deliveries.size());

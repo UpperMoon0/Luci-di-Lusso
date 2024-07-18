@@ -7,18 +7,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vn.fpt.diamond_shop.model.dto.StatisticsResponse;
 import vn.fpt.diamond_shop.service.IOrderItemService;
-import vn.fpt.diamond_shop.service.IUserService;
+import vn.fpt.diamond_shop.service.IAccountService;
 
 import java.util.List;
 
 @RequestMapping("/statistics")
 @RestController
 public class StatisticsController {
+
     private final IOrderItemService orderItemService;
-    private final IUserService userService;
+    private final IAccountService userService;
+
     @Autowired
     public StatisticsController(IOrderItemService orderItemService,
-                                IUserService userService) {
+                                IAccountService userService) {
         this.orderItemService = orderItemService;
         this.userService = userService;
     }

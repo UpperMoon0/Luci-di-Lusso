@@ -6,7 +6,6 @@ import vn.fpt.diamond_shop.model.entity.Jewelry;
 import vn.fpt.diamond_shop.model.entity.JewelrySize;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface IJewelryService {
     Jewelry getJewelryById(Long id);

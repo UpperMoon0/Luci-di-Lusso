@@ -1,12 +1,15 @@
 package vn.fpt.diamond_shop.model.entity;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "customer_order")
 public class Order {
@@ -16,7 +19,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private Account user;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;

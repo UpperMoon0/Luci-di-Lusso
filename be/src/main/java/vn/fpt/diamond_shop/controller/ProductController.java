@@ -12,7 +12,6 @@ import vn.fpt.diamond_shop.service.IJewelryService;
 import vn.fpt.diamond_shop.service.IJewelrySizeService;
 import vn.fpt.diamond_shop.service.JewelryTypeService;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping("/product")
