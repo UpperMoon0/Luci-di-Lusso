@@ -3,7 +3,7 @@
     <h2>Edit diamond</h2>
     <button type="button" (click)="closeDialog()">Close</button>
   </div>
-  <div>
+  <div *ngIf="diamondProperties">
     <form [formGroup]="diamondEditForm" (ngSubmit)="onSubmit()">
       <label>
         Cut:

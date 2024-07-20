@@ -62,10 +62,6 @@ import {ToastrModule} from "ngx-toastr";
 import {OAuthModule} from "angular-oauth2-oidc";
 import { HomeBlogComponent } from './home-page/home-blog.component';
 import {HomeProductRowComponent} from "./home-page/home-product-row.component";
-import {MatCardModule} from "@angular/material/card";
-import {MatTableModule} from "@angular/material/table";
-import {MatButtonModule} from "@angular/material/button";
-import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatInputModule} from "@angular/material/input";
 import {DemoMaterialModule} from "./AngularMaterialModule";
 import { ManageDeliveryPageComponent } from './manager-page/manage-delivery-page.component';
@@ -77,6 +73,10 @@ import {CertificatePageComponent} from "./certificate-page/certificate-page.comp
 import { HomeBannerComponent} from "./home-page/home-banner.component";
 import {ImageSliderModule} from "./image-slider/image-slider.module";
 import {DiamondEditComponent} from "./manager-page/diamond-edit.component";
+import {MatCardModule} from "@angular/material/card";
+import {MatTableModule} from "@angular/material/table";
+import {MatButtonModule} from "@angular/material/button";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -175,14 +175,14 @@ import {DiamondEditComponent} from "./manager-page/diamond-edit.component";
     NgxStripeModule.forRoot('pk_test_51PZaB3GvGs3G9mvhzYptSjAz1VvSJwDqt6ZVs1YTi0kU4cMSX5GH0Qms3rQaP5oLqKJgDk17gH9O8PYbEjAfkjbD00qqxTZ7nl'),
     FormsModule,
     ReactiveFormsModule,
+    DemoMaterialModule,
+    CanvasJSAngularChartsModule,
+    ImageSliderModule,
     MatCardModule,
     MatTableModule,
     MatButtonModule,
     MatSnackBarModule,
     MatInputModule,
-    DemoMaterialModule,
-    CanvasJSAngularChartsModule,
-    ImageSliderModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
