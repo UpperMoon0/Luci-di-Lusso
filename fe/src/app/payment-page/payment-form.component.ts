@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import {Component, ViewChild, OnInit, OnDestroy} from '@angular/core';
 import { StripeService, StripeCardComponent } from 'ngx-stripe';
 import { PaymentService } from "../service/payment.service";
 import { CartService } from "../service/cart.service";
@@ -11,7 +11,7 @@ import {ToastrService} from "ngx-toastr";
   templateUrl: './payment-form.component.html',
   styleUrls: ['./payment-form.component.css']
 })
-export class PaymentFormComponent implements OnInit {
+export class PaymentFormComponent implements OnInit, OnDestroy {
   @ViewChild(StripeCardComponent) card: StripeCardComponent;
   customerName: string = '';
   totalPrice: number;
@@ -46,12 +46,15 @@ export class PaymentFormComponent implements OnInit {
         .subscribe(result => {
           if (result.token) {
             this.paymentService.createCharge(result.token.id)
-              .subscribe(res => {
-                this.toastrService.success("Payment successful!");
-                this.router.navigate(['/home']).then(r => {});
+              .subscribe({
+                next: () => {
+                  this.toastrService.success("Payment successful!");
+                  this.router.navigate(['/home']).then(r => {});
+                },
+                error: () => {
+                  this.toastrService.error('Payment failed!');
+                }
               });
-          } else if (result.error) {
-            this.toastrService.error("Payment failed!");
           }
         });
     }

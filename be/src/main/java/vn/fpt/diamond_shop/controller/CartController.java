@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import vn.fpt.diamond_shop.exception.InvalidJwtTokenException;
 import vn.fpt.diamond_shop.model.dto.AddToCartRequest;
 import vn.fpt.diamond_shop.model.dto.CommonResponse;
 import vn.fpt.diamond_shop.model.dto.GetCartResponse;
@@ -44,7 +45,7 @@ public class CartController {
                 cartService.addToCart(token, jewelryId, quantity, sizeId);
                 cr.setMessage("Added to cart successfully");
                 return ResponseEntity.ok(cr);
-            } catch (NoSuchElementException e) {
+            } catch (RuntimeException e) {
                 cr.setMessage(e.getMessage());
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(cr);
             }
@@ -62,12 +63,10 @@ public class CartController {
                 GetCartResponse response = new GetCartResponse(cartItems, jewelryService);
                 response.setMessage("Cart retrieved successfully");
                 return ResponseEntity.ok(response);
-            } catch (NoSuchElementException e) {
+            } catch (RuntimeException e) {
                 GetCartResponse response = new GetCartResponse(new ArrayList<>(), jewelryService);
                 response.setMessage(e.getMessage());
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-            } catch (RuntimeException e) {
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GetCartResponse(new ArrayList<>(), jewelryService));
             }
         } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new GetCartResponse(new ArrayList<>(), jewelryService));
@@ -84,7 +83,7 @@ public class CartController {
                 cartService.updateCartItem(token, request.getItemId(), request.getQuantity());
                 cr.setMessage("Updated item successfully");
                 return ResponseEntity.ok(cr);
-            } catch (NoSuchElementException e) {
+            } catch (RuntimeException e) {
                 cr.setMessage(e.getMessage());
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(cr);
             }
@@ -103,7 +102,7 @@ public class CartController {
                 cartService.deleteCartItem(token, itemId);
                 cr.setMessage("Deleted item successfully");
                 return ResponseEntity.ok(cr);
-            } catch (NoSuchElementException e) {
+            } catch (RuntimeException e) {
                 cr.setMessage(e.getMessage());
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(cr);
             }
@@ -121,7 +120,7 @@ public class CartController {
                 cartService.deleteAllCartItems(token);
                 cr.setMessage("Deleted all items successfully");
                 return ResponseEntity.ok(cr);
-            } catch (NoSuchElementException e) {
+            } catch (RuntimeException e) {
                 cr.setMessage(e.getMessage());
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(cr);
             }

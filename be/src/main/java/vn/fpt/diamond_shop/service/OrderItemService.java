@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.fpt.diamond_shop.model.entity.CartItem;
+import vn.fpt.diamond_shop.model.entity.Diamond;
 import vn.fpt.diamond_shop.model.entity.Order;
 import vn.fpt.diamond_shop.model.entity.OrderItem;
+import vn.fpt.diamond_shop.repository.IDiamondRepository;
 import vn.fpt.diamond_shop.repository.IOrderItemRepository;
 
 import java.time.LocalDate;
@@ -19,6 +21,7 @@ import java.util.Map;
 @Service
 public class OrderItemService implements IOrderItemService {
     private final IOrderItemRepository orderItemRepository;
+    private final IDiamondRepository diamondRepository;
     private final IJewelryService jewelryService;
 
     @Override
@@ -32,6 +35,10 @@ public class OrderItemService implements IOrderItemService {
             orderItem.setOrder(order);
             orderItem.setCreateAt(LocalDateTime.now());
             orderItemRepository.save(orderItem);
+
+            Diamond diamond = cartItem.getJewelry().getDiamond();
+            diamond.setQuantity(diamond.getQuantity() - cartItem.getQuantity());
+            diamondRepository.save(diamond);
         }
     }
 

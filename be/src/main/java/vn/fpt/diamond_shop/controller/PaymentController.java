@@ -40,11 +40,11 @@ public class PaymentController {
             return ResponseEntity.ok(cr);
         } catch (StripeException e) {
             CommonResponse cr = new CommonResponse();
-            cr.setMessage("Payment failed");
+            cr.setMessage("Payment failed.");
             return ResponseEntity.badRequest().body(cr);
-        } catch (InvalidJwtTokenException e) {
+        } catch (RuntimeException e) {
             CommonResponse cr = new CommonResponse();
-            cr.setMessage("Invalid JWT token");
+            cr.setMessage(e.getMessage());
             return ResponseEntity.badRequest().body(cr);
         }
     }

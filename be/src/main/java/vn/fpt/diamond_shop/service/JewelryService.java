@@ -35,17 +35,17 @@ public class JewelryService implements IJewelryService {
     }
 
     @Override
-    public Jewelry getJewelryById(Long id) {
+    public Jewelry findJewelryById(Long id) {
         return jewelryRepository.findById(id).orElse(null);
     }
 
     @Override
-    public List<Jewelry> getAllJewelries() {
+    public List<Jewelry> findAllJewelries() {
         return jewelryRepository.findAll();
     }
 
     @Override
-    public List<Jewelry> getJewelriesByFilter(List<EJewelryType> types, Integer minPrice, Integer maxPrice, String keyword) {
+    public List<Jewelry> findJewelriesByFilter(List<EJewelryType> types, Integer minPrice, Integer maxPrice, String keyword) {
         Stream<Jewelry> jewelryStream;
         if (types.isEmpty()) {
             // Initialize stream with all jewelries if type list is empty
@@ -139,5 +139,10 @@ public class JewelryService implements IJewelryService {
         jewelry.setImageUrl("");
         jewelry.setCreateAt(LocalDateTime.now());
         jewelryRepository.save(jewelry);
+    }
+
+    @Override
+    public boolean isJewelryInStock(Jewelry jewelry) {
+        return jewelry.getDiamond().getQuantity() > 0;
     }
 }

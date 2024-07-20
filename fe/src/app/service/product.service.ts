@@ -36,12 +36,12 @@ export class ProductService {
     if (!request.types) {
       return this.http.get(`${this.apiUrl}/product/get-all-jewelries`, this.httpOptions);
     } else {
-      return this.http.post<any>(`${this.apiUrl}/product/get-jewelries`, request, this.httpOptions);
+      return this.http.post(`${this.apiUrl}/product/get-jewelries`, request, this.httpOptions);
     }
   }
 
   public getAllTypes(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/product/get-all-jewelry-types`, this.httpOptions).pipe(
+    return this.http.get(`${this.apiUrl}/product/get-all-jewelry-types`, this.httpOptions).pipe(
       tap(response => {
         const types = response.types.map((item: any) => item.type);
         this.productTypes.next(types);

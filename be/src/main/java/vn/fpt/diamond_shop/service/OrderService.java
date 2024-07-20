@@ -35,7 +35,7 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public double createOrderFromJwtToken(String jwtToken) throws InvalidJwtTokenException {
+    public double createOrderFromJwtToken(String jwtToken) throws RuntimeException {
         Account account = userService.findAccountByToken(jwtToken).orElse(null);
         if (account == null) {
             throw new InvalidJwtTokenException();
@@ -49,6 +49,14 @@ public class OrderService implements IOrderService {
 
         // Find all CartItems by userId
         List<CartItem> cartItems = cartItemRepository.findAllByCustomerId(customer.getId());
+
+        // Check if any cart item is out of stock
+        for (CartItem cartItem : cartItems) {
+            if (cartItem.getQuantity() > cartItem.getJewelry().getDiamond().getQuantity()) {
+                throw new RuntimeException(cartItem.getJewelry().getName() + " is out of stock.");
+            }
+        }
+
         orderItemService.createOrderItemsByCartItems(cartItems, order);
 
         // Calculate total price
