@@ -33,9 +33,9 @@ public class CartItem {
     private JewelrySize jewelrySize;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "customer_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Account user;
+    private Customer customer;
 
     @Column(name = "create_at")
     private LocalDateTime createAt;

@@ -49,7 +49,7 @@ public class AuthController {
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         String jwt = accountService.login(loginRequest);
         LoginResponse loginResponse = new LoginResponse();
-        Account account = accountService.getUserByToken(jwt).orElse(null);
+        Account account = accountService.findAccountByToken(jwt).orElse(null);
         if (account == null) {
             loginResponse.setMessage("Invalid token");
             return ResponseEntity.badRequest().body(loginResponse);
@@ -65,7 +65,7 @@ public class AuthController {
     public ResponseEntity<CommonResponse> ping(@RequestBody String jwt) {
         CommonResponse cr = new CommonResponse();
         if (tokenProvider.validateToken(jwt)) {
-            Account user = accountService.getUserByToken(jwt).orElse(null);
+            Account user = accountService.findAccountByToken(jwt).orElse(null);
 
             if (user == null) {
                 cr.setMessage("Invalid token");

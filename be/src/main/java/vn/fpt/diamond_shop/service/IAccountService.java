@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IAccountService {
-    Optional<Account> getUserByToken(String jwtToken) throws InvalidJwtTokenException;
-    List<Account> getAllDeliverers();
-    List<Integer> getCustomerCreationStatistics();
+    Optional<Account> findAccountByToken(String jwtToken) throws InvalidJwtTokenException;
+    List<Account> findAllDeliverers();
+    List<Integer> findCustomerCreationStatistics();
     void updateCustomerProfile(String jwtToken, UpdateCustomerProfileRequest request);
     String login(LoginRequest request);
 }

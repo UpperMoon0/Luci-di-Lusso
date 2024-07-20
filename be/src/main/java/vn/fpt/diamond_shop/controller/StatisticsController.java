@@ -47,7 +47,7 @@ public class StatisticsController {
 
     @GetMapping("/get-customers-creation-statistics")
     public ResponseEntity<StatisticsResponse> getCustomersCreationStatistics() {
-        List<Integer> creationStatistics = userService.getCustomerCreationStatistics();
+        List<Integer> creationStatistics = userService.findCustomerCreationStatistics();
 
         StatisticsResponse response = new StatisticsResponse();
         response.setStatistics(creationStatistics);

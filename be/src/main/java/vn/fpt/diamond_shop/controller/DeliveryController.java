@@ -31,7 +31,7 @@ public class DeliveryController {
     public ResponseEntity<DeliveriesResponse> getDeliveries(@RequestHeader("Authorization") String authorizationHeader) {
         String jwt = authorizationHeader.substring(7);
 
-        Account user = userService.getUserByToken(jwt).orElse(null);
+        Account user = userService.findAccountByToken(jwt).orElse(null);
         if (user == null) {
             return ResponseEntity.badRequest().body(null);
         }

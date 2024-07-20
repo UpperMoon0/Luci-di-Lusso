@@ -20,7 +20,7 @@ public class OrderDetailsResponse extends CommonResponse {
     private List<JewelryInOrderDTO> productList = new ArrayList<>();
 
     public OrderDetailsResponse(Order order, List<OrderItem> orderItems) {
-        this.customerName = order.getUser().getCustomer().getFullName();
+        this.customerName = order.getCustomer().getFullName();
         this.totalPrice = orderItems.stream()
                 .mapToDouble(item -> item.getPrice() * item.getQuantity())
                 .sum();

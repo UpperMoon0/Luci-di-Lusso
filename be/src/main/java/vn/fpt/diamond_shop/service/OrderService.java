@@ -36,19 +36,19 @@ public class OrderService implements IOrderService {
 
     @Override
     public double createOrderFromJwtToken(String jwtToken) throws InvalidJwtTokenException {
-        Account user = userService.getUserByToken(jwtToken).orElse(null);
-
-        if (user == null) {
+        Account account = userService.findAccountByToken(jwtToken).orElse(null);
+        if (account == null) {
             throw new InvalidJwtTokenException();
         }
+        Customer customer = account.getCustomer();
 
         Order order = new Order();
-        order.setUser(user);
+        order.setCustomer(customer);
         order.setCreateAt(LocalDateTime.now());
         orderRepository.save(order);
 
         // Find all CartItems by userId
-        List<CartItem> cartItems = cartItemRepository.findAllByUserId(user.getId());
+        List<CartItem> cartItems = cartItemRepository.findAllByCustomerId(customer.getId());
         orderItemService.createOrderItemsByCartItems(cartItems, order);
 
         // Calculate total price
@@ -63,8 +63,8 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public List<Order> getOrdersByUser(Long userId) {
-        return orderRepository.findAllByUserId(userId);
+    public List<Order> getOrdersByCustomer(Long customerId) {
+        return orderRepository.findAllByCustomerId(customerId);
     }
 
     @Override

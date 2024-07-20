@@ -32,7 +32,7 @@ public class AccountService implements IAccountService {
     private final JwtTokenProvider tokenProvider;
 
     @Override
-    public Optional<Account> getUserByToken(String jwtToken) throws InvalidJwtTokenException {
+    public Optional<Account> findAccountByToken(String jwtToken) throws InvalidJwtTokenException {
         boolean tokenValid = tokenProvider.validateToken(jwtToken);
         if (!tokenValid) {
             throw new InvalidJwtTokenException();
@@ -49,7 +49,7 @@ public class AccountService implements IAccountService {
         String imageUrl = request.getImageUrl();
         LocalDate dob = request.getDob();
 
-        Account account = getUserByToken(jwtToken).orElse(null);
+        Account account = findAccountByToken(jwtToken).orElse(null);
 
         if (account == null) {
             throw new RuntimeException("User not found");
@@ -83,7 +83,7 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public List<Integer> getCustomerCreationStatistics() {
+    public List<Integer> findCustomerCreationStatistics() {
         // Fetch users with CUSTOMER role created in the last 30 days
         List<Account> users = userRepository.findAllByRoleAndCreateAtBetween(EUserRole.CUSTOMER, LocalDateTime.now().minusDays(30), LocalDateTime.now());
         Map<LocalDate, Integer> dailyUserCreations = new HashMap<>();
@@ -103,7 +103,7 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public List<Account> getAllDeliverers() {
+    public List<Account> findAllDeliverers() {
         return userRepository.findAllByRole(EUserRole.DELIVERER);
     }
 

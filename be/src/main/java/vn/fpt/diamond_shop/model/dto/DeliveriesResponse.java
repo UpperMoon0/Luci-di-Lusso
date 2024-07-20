@@ -16,10 +16,10 @@ public class DeliveriesResponse extends CommonResponse {
         for (Delivery delivery : deliveries) {
             DeliveryDTO deliveryDTO = new DeliveryDTO(
                     delivery.getId(),
-                    delivery.getOrder().getUser().getCustomer().getFullName(),
-                    delivery.getOrder().getUser().getCustomer().getPhone(),
-                    delivery.getOrder().getUser().getCustomer().getAddress(),
-                    delivery.getOrder().getUser().getCustomer().getEmail(),
+                    delivery.getOrder().getCustomer().getFullName(),
+                    delivery.getOrder().getCustomer().getPhone(),
+                    delivery.getOrder().getCustomer().getAddress(),
+                    delivery.getOrder().getCustomer().getEmail(),
                     delivery.getCreateAt().toString()
             );
 

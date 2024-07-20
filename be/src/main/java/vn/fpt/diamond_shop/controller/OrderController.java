@@ -33,13 +33,13 @@ public class OrderController {
     @GetMapping("/get-orders")
     public ResponseEntity<OrdersResponse> getOrders(@RequestHeader("Authorization") String authorizationHeader) {
         String jwt = authorizationHeader.substring(7);
-        Account user = userService.getUserByToken(jwt).orElse(null);
+        Account user = userService.findAccountByToken(jwt).orElse(null);
 
         if (user == null) {
             return ResponseEntity.badRequest().body(null);
         }
 
-        List<Order> orders = orderService.getOrdersByUser(user.getId());
+        List<Order> orders = orderService.getOrdersByCustomer(user.getId());
 
         OrdersResponse res = new OrdersResponse(orders, orderItemService);
         res.setMessage("Orders retrieved successfully");

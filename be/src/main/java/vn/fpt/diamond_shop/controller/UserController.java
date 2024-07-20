@@ -29,7 +29,7 @@ public class UserController {
     public ResponseEntity<UserProfileResponse> getCustomerProfile (@RequestHeader("Authorization") String authorizationHeader) {
         try {
             String jwtToken = authorizationHeader.substring(7);
-            Account user = userService.getUserByToken(jwtToken).orElse(null);
+            Account user = userService.findAccountByToken(jwtToken).orElse(null);
 
             if (user == null) {
                 UserProfileResponse response = new UserProfileResponse(new Account());
@@ -69,7 +69,7 @@ public class UserController {
 
     @GetMapping("/get-deliverers")
     public ResponseEntity<DeliverersResponse> getDeliverers() {
-        List<Account> deliverers = userService.getAllDeliverers();
+        List<Account> deliverers = userService.findAllDeliverers();
         DeliverersResponse response = new DeliverersResponse(deliverers);
         response.setMessage("Deliverers retrieved successfully");
         return ResponseEntity.ok(response);
