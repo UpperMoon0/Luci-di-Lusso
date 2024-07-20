@@ -1,37 +1,48 @@
-<div>
+<div class="edit-diamond-container">
   <div>
-    <div>
-      <h2>Edit diamond</h2>
-    </div>
-    <div>
-      <form [formGroup]="diamondEditForm" (ngSubmit)="onSubmit()">
-        <label>
-          Cut:
-          <input type="text" formControlName="cut">
-        </label>
+    <h2>Edit diamond</h2>
+    <button type="button" (click)="closeDialog()">Close</button>
+  </div>
+  <div>
+    <form [formGroup]="diamondEditForm" (ngSubmit)="onSubmit()">
+      <label>
+        Cut:
+        <select formControlName="cut">
+          <option *ngFor="let cutOption of diamondProperties.cuts" [value]="cutOption">{{cutOption.cut}}</option>
+        </select>
+      </label>
 
-        <label>
-          Color:
-          <input type="text" formControlName="color">
-        </label>
+      <label>
+        Color:
+        <select formControlName="color">
+          <option *ngFor="let colorOption of diamondProperties.colors" [value]="colorOption">{{colorOption.color}}</option>
+        </select>
+      </label>
 
-        <label>
-          Clarity:
-          <input type="text" formControlName="clarity">
-        </label>
+      <label>
+        Clarity:
+        <select formControlName="clarity">
+          <option *ngFor="let clarityOption of diamondProperties.clarities" [value]="clarityOption">{{clarityOption.clarity}}</option>
+        </select>
+      </label>
 
-        <label>
-          Carat:
-          <input type="text" formControlName="carat">
-        </label>
+      <label>
+        Shape:
+        <select formControlName="shape">
+          <option *ngFor="let shapeOption of diamondProperties.shapes" [value]="shapeOption">{{shapeOption.shape}}</option>
+        </select>
+      </label>
 
-        <label>
-          Shape:
-          <input type="text" formControlName="shape">
-        </label>
+      <label>
+        Carat:
+        <input type="text" formControlName="carat">
+      </label>
 
-        <button type="submit">Save</button>
-      </form>
-    </div>
+      <label>
+        Quantity:
+        <input type="text" formControlName="quantity">
+      </label>
+      <button type="submit">Save</button>
+    </form>
   </div>
 </div>

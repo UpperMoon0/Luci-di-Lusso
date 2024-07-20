@@ -1,37 +1,29 @@
 package vn.fpt.diamond_shop.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.fpt.diamond_shop.constant.*;
 import vn.fpt.diamond_shop.model.dto.*;
 import vn.fpt.diamond_shop.model.entity.*;
-import vn.fpt.diamond_shop.service.IDiamondService;
-import vn.fpt.diamond_shop.service.IJewelryService;
-import vn.fpt.diamond_shop.service.IJewelrySizeService;
-import vn.fpt.diamond_shop.service.JewelryTypeService;
+import vn.fpt.diamond_shop.service.*;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @RequestMapping("/product")
 @RestController
 public class ProductController {
+
     private final IJewelryService jewelryService;
     private final IJewelrySizeService jewelrySizeService;
+    private final IJewelryTypeService jewelryTypeService;
     private final IDiamondService diamondService;
-    private final JewelryTypeService jewelryTypeService;
-
-    @Autowired
-    public ProductController(IJewelryService jewelryService,
-                             IJewelrySizeService jewelrySizeService,
-                             IDiamondService diamondService,
-                             JewelryTypeService jewelryTypeService) {
-        this.jewelryService = jewelryService;
-        this.jewelrySizeService = jewelrySizeService;
-        this.diamondService = diamondService;
-        this.jewelryTypeService = jewelryTypeService;
-    }
+    private final IDiamondCutService diamondCutService;
+    private final IDiamondClarityService diamondClarityService;
+    private final IDiamondColorService diamondColorService;
+    private final IDiamondShapeService diamondShapeService;
 
     @GetMapping("/get-jewelry")
     public ResponseEntity<JewelryResponse> getJewelry(@RequestParam Long id) {
@@ -121,12 +113,9 @@ public class ProductController {
     }
 
     @GetMapping("/get-all-diamonds")
-    public ResponseEntity<DiamondsResponse> getAllDiamonds() {
+    public ResponseEntity<List<Diamond>> getAllDiamonds() {
         List<Diamond> diamonds = diamondService.getAllDiamonds();
-        DiamondsResponse response = new DiamondsResponse();
-        response.setDiamonds(diamonds);
-        response.setMessage("Get all diamonds successfully");
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(diamonds);
     }
 
     @DeleteMapping("/delete-diamond")
@@ -174,5 +163,18 @@ public class ProductController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
+    }
+
+    @GetMapping("/get-all-diamond-properties")
+    public ResponseEntity<DiamondPropertiesResponse> getAllDiamondProperties() {
+        List<DiamondCut> cuts = diamondCutService.findAll();
+        List<DiamondClarity> clarities = diamondClarityService.findAll();
+        List<DiamondColor> colors = diamondColorService.findAll();
+        List<DiamondShape> shapes = diamondShapeService.findAll();
+
+        DiamondPropertiesResponse response = new DiamondPropertiesResponse(cuts, clarities, colors, shapes);
+        response.setMessage("Get all diamond properties successfully");
+
+        return ResponseEntity.ok(response);
     }
 }

@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import {BehaviorSubject, Observable} from "rxjs";
+import { BehaviorSubject, Observable} from "rxjs";
 import { environment } from "../../environments/environment";
-import {tap} from "rxjs/operators";
-import {ColorService} from "./color.service";
+import { tap } from "rxjs/operators";
+import { ColorService } from "./color.service";
 
 @Injectable({
   providedIn: 'root'
@@ -60,5 +60,9 @@ export class ProductService {
 
   public getProductTypes(): Observable<String[]> {
     return this.productTypes.asObservable();
+  }
+
+  public getAllDiamondProperties(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/product/get-all-diamond-properties`, this.httpOptions);
   }
 }

@@ -51,7 +51,7 @@ export class StatisticsComponent implements OnInit {
   public showSaleStatistics() {
     return {
       title: {
-        text: "Total jewelries sold in 30 days"
+        text: "Monthly Sales"
       },
       animationEnabled: true,
       axisY: {
@@ -70,7 +70,7 @@ export class StatisticsComponent implements OnInit {
   public showJewelriesSaleStatistics() {
     return {
       title: {
-        text: "Monthly Sales"
+        text: "Total jewelries sold in 30 days"
       },
       animationEnabled: true,
       axisY: {

@@ -1,0 +1,7 @@
+.edit-diamond-container {
+  margin: auto;
+  padding: 20px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
