@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.fpt.diamond_shop.model.dto.OrderDetailsResponse;
-import vn.fpt.diamond_shop.model.dto.OrdersResponse;
+import vn.fpt.diamond_shop.model.dto.PurchaseHistoryResponse;
+import vn.fpt.diamond_shop.model.entity.Customer;
 import vn.fpt.diamond_shop.model.entity.Order;
 import vn.fpt.diamond_shop.model.entity.OrderItem;
 import vn.fpt.diamond_shop.model.entity.Account;
@@ -30,19 +31,21 @@ public class OrderController {
         this.orderItemService = orderItemService;
     }
 
-    @GetMapping("/get-orders")
-    public ResponseEntity<OrdersResponse> getOrders(@RequestHeader("Authorization") String authorizationHeader) {
+    @GetMapping("/get-purchase-history")
+    public ResponseEntity<PurchaseHistoryResponse> getOrders(@RequestHeader("Authorization") String authorizationHeader) {
         String jwt = authorizationHeader.substring(7);
-        Account user = userService.findAccountByToken(jwt).orElse(null);
+        Account account = userService.findAccountByToken(jwt).orElse(null);
 
-        if (user == null) {
+        if (account == null) {
             return ResponseEntity.badRequest().body(null);
         }
 
-        List<Order> orders = orderService.getOrdersByCustomer(user.getId());
+        Customer customer = account.getCustomer();
 
-        OrdersResponse res = new OrdersResponse(orders, orderItemService);
-        res.setMessage("Orders retrieved successfully");
+        List<Order> orders = orderService.getOrdersByCustomer(customer.getId());
+
+        PurchaseHistoryResponse res = new PurchaseHistoryResponse(orders, orderItemService);
+        res.setMessage("Purchase history retrieved successfully");
 
         return ResponseEntity.ok(res);
     }

@@ -1,5 +1,6 @@
 package vn.fpt.diamond_shop.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -49,6 +50,7 @@ public class Customer {
     @Column(name = "create_at")
     private LocalDateTime createAt;
 
+    @JsonManagedReference
     @OneToOne
     @JoinColumn(name = "account_id")
     @OnDelete(action = OnDeleteAction.CASCADE)

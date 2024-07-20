@@ -6,64 +6,52 @@ import {ToastrService} from "ngx-toastr";
   selector: 'app-purchase-history-list',
   templateUrl: './purchase-history-list.component.html',
   styleUrls: ['./purchase-history-list.component.css']
-
-
 })
 export class PurchaseHistoryListComponent implements OnInit {
-  orders: {
-    id: number;
-    firstProductName: string;
-    firstProductSize: string;
-    firstProductQuantity: string;
-    price: number;
-    timeAgo: string;
-  }[] = [];
+  orders: any[] = [];
+  orderLabels: string[] = [];
   selectedOrderId: number = null;
-  selectedOrderDetails: {
-    customerName: string;
-    totalPrice: number;
-    createAt: string;
-  } = {
-    customerName: '',
-    totalPrice: 0,
-    createAt: '',
-  };
-  selectedOrderProductList: {
-    name: string;
-    size: string;
-    price: number;
-    quantity: number;
-    type: string;
-    imageUrl: string;
-  }[] = [];
-
-  displayedColumns: string[] = ['productName', 'quantity', 'price', 'orderTime'];
-
+  selectedOrderDetails: any = null;
 
   constructor(private orderService: OrderService,
               private toastrService: ToastrService) {}
 
   ngOnInit(): void {
-    this.getOrders();
+    this.getPurchaseHistory();
   }
 
-  private getOrders() {
-    this.orderService.getOrders().subscribe({
-      next: (res) => (this.orders = res.orders),
-      error: () => this.toastrService.error("Failed to get orders"),
-    });
-  }
-
-  onOrderSelect(orderId: number) {
-    this.selectedOrderId = orderId;
-    this.orderService.getOrderDetails(orderId).subscribe({
+  private getPurchaseHistory() {
+    this.orderService.getPurchaseHistory().subscribe({
       next: (res) => {
-        this.selectedOrderDetails.customerName = res.customerName;
-        this.selectedOrderDetails.totalPrice = res.totalPrice;
-        this.selectedOrderDetails.createAt = res.createAt;
-        this.selectedOrderProductList = res.productList;
+        this.orders = res.orders
+        for (let order of this.orders) {
+          // Calculate total price and item count
+          let totalPrice: number = 0;
+          let itemCount: number = 0;
+          for (let orderItem of order.orderItems) {
+            totalPrice += orderItem.price;
+            itemCount++;
+          }
+
+          // Calculate time ago
+          let timeAgo: string = "";
+          let createdAt: Date = new Date(order.order.createAt);
+          let now: Date = new Date();
+          let diffMs: number = now.getTime() - createdAt.getTime();
+          let diffDays: number = Math.floor(diffMs / 86400000); // days
+          let diffHrs: number = Math.floor((diffMs % 86400000) / 3600000); // hours
+          if (diffDays > 1) {
+            timeAgo = `${diffDays} days ago`;
+          } else {
+            timeAgo = `${diffHrs} hours ago`;
+          }
+
+          let orderLabel: string = `Order #${order.order.id} - $${totalPrice} (${itemCount} items) - ${timeAgo}`;
+          this.orderLabels.push(orderLabel);
+        }
       },
-      error: () => this.toastrService.error("Failed to get order details"),
+      error: () => this.toastrService.error("Failed to get purchase history"),
     });
   }
+
 }

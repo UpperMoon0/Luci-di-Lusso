@@ -1,5 +1,6 @@
 package vn.fpt.diamond_shop.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import vn.fpt.diamond_shop.constant.EAuthProvider;
 import vn.fpt.diamond_shop.constant.EUserRole;
@@ -37,6 +38,7 @@ public class Account {
     @Column(name = "role", nullable = false)
     private EUserRole role;
 
+    @JsonBackReference
     @OneToOne(mappedBy = "account")
     private Customer customer;
 }
