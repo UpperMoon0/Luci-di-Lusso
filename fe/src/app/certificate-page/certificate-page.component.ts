@@ -10,8 +10,8 @@ import {ProductService} from "../service/product.service";
   styleUrls: ['./certificate-page.component.css']
 })
 export class CertificatePageComponent implements OnInit {
-  protected diamond;
-  // @ts-ignore
+  protected diamond: any;
+
   constructor(private productService: ProductService,
               private toastrService: ToastrService,
               private accountService: AccountService,

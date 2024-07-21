@@ -1,5 +1,6 @@
 .purchase-history-container {
   margin-top: 15rem;
+  min-height: 600px;
 }
 
 .purchase-list-container, .purchase-details-container {

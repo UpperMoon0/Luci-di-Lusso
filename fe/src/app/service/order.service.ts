@@ -24,8 +24,11 @@ export class OrderService {
     return this.http.get(`${environment.beApiUrl}/order/get-purchase-history`, this.httpOptions);
   }
 
-  public getOrderDetails(id: number): Observable<any> {
-    return this.http.get(`${environment.beApiUrl}/order/get-order-details?orderId=${id}`, this.httpOptions);
+  public getOrderItem(itemId: number): Observable<any> {
+    return this.http.get(`${environment.beApiUrl}/order/get-order-item?orderItemId=${itemId}`, this.httpOptions);
   }
 
+  public getOrderItemsByOrder(orderId: number): Observable<any> {
+    return this.http.get(`${environment.beApiUrl}/order/get-order-items-by-order?orderId=${orderId}`, this.httpOptions);
+  }
 }

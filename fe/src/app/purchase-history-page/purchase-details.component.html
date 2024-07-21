@@ -22,7 +22,12 @@
             <p>Size: {{item.jewelrySize.size}} {{item.jewelrySize.unit}}</p>
             <p>Quantity: {{item.quantity}}</p>
             <p>Price: {{item.price | currency}}</p>
-            <a href="/certificate/{{item.jewelry.diamond.id}}">GIA certificate</a>
+            <div>
+              <a href="/certificate/{{item.jewelry.diamond.id}}">GIA certificate</a>
+            </div>
+            <div>
+              <a href="/warranty/{{item.id}}">Warranty</a>
+            </div>
           </div>
         </li>
       </ul>

@@ -77,6 +77,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatTableModule} from "@angular/material/table";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {WarrantyPageComponent} from "./warranty/warranty-page.component";
 
 @NgModule({
   declarations: [
@@ -150,6 +151,9 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 
     // Certificate page
     CertificatePageComponent,
+
+    // Warranty page
+    WarrantyPageComponent,
 
     HomePageComponent,
     HomeBlogComponent,

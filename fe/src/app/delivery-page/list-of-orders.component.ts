@@ -10,7 +10,7 @@ import {DeliveryPageComponent} from "./delivery-page.component";
 export class ListOfOrdersComponent implements OnInit {
 
   deliveryID : number;
-  listOfOrder : any[] = [];
+  orders : any[] = [];
 
   constructor(private deliveryPageComponent: DeliveryPageComponent,
               private orderService : OrderService) {
@@ -19,12 +19,11 @@ export class ListOfOrdersComponent implements OnInit {
   public ngOnInit() {
     this.deliveryID = this.deliveryPageComponent.getChoseDeliveryID();
     this.getOrderDetail(this.deliveryID);
-    this.getOrderDetail(this.deliveryID);
   }
 
   getOrderDetail(id: number) {
-    this.orderService.getOrderDetails(id).subscribe( response => {
-      this.listOfOrder = response.productList;
+    this.orderService.getOrderItemsByOrder(id).subscribe( response => {
+      this.orders = response.productList;
     });
   }
 

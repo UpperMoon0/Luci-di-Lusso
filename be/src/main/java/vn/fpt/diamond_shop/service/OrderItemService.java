@@ -86,4 +86,9 @@ public class OrderItemService implements IOrderItemService {
 
         return saleStatistics;
     }
+
+    @Override
+    public OrderItem getOrderItemById(Long orderItemId) {
+        return orderItemRepository.findById(orderItemId).orElse(null);
+    }
 }
