@@ -1,0 +1,21 @@
+<div *ngIf="order">
+  <h1>Purchase Details</h1>
+  <div>
+    <div>
+      <p>Customer name: {{order.order.customer.fullName}}</p>
+      <p>Order date: {{order.order.createAt | date: 'medium'}}</p>
+    </div>
+    <div>
+      <h3>Jewelries List</h3>
+      <ul>
+        <li *ngFor="let item of order.orderItems">
+          <img src="{{item.jewelry.imageUrl}}" alt="Jewelry Image">
+          <p>Name: {{item.jewelry.name}}</p>
+          <p>Size: {{item.jewelrySize.size}} {{item.jewelrySize.unit}}</p>
+          <p>Quantity: {{item.quantity}}</p>
+          <p>Price: {{item.price | currency}}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

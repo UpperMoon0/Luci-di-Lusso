@@ -9,9 +9,8 @@ import {ToastrService} from "ngx-toastr";
 })
 export class PurchaseHistoryListComponent implements OnInit {
   orders: any[] = [];
-  orderLabels: string[] = [];
-  selectedOrderId: number = null;
-  selectedOrderDetails: any = null;
+  orderLabels: {order: any, label: string}[] = [];
+  selectedOrder: any = null;
 
   constructor(private orderService: OrderService,
               private toastrService: ToastrService) {}
@@ -47,11 +46,14 @@ export class PurchaseHistoryListComponent implements OnInit {
           }
 
           let orderLabel: string = `Order #${order.order.id} - $${totalPrice} (${itemCount} items) - ${timeAgo}`;
-          this.orderLabels.push(orderLabel);
+          this.orderLabels.push({order: order, label: orderLabel});
         }
       },
       error: () => this.toastrService.error("Failed to get purchase history"),
     });
   }
 
+  selectOrder(order: any): void {
+    this.selectedOrder = order;
+  }
 }

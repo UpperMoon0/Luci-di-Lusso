@@ -1,15 +1,16 @@
-<div style="margin-top: 15rem;">
-  <h1>Purchase History</h1>
-  <div>
-    <div>
+<div class="purchase-history-container">
+  <h1 style="text-align: center;">Purchase History</h1>
+  <div style="display: flex;">
+    <div class="purchase-list-container">
       <h4>Purchase List</h4>
-      <li *ngFor="let orderLabel of orderLabels">
-        {{orderLabel}}
-      </li>
+      <ul class="purchase-list">
+        <li *ngFor="let orderLabel of orderLabels" (click)="selectOrder(orderLabel.order)" class="purchase-list-item">
+          {{orderLabel.label}}
+        </li>
+      </ul>
     </div>
-    <div>
-      <app-purchase-details [orderDetails]="selectedOrderDetails"></app-purchase-details>
+    <div class="purchase-details-container">
+      <app-purchase-details [order]="selectedOrder"></app-purchase-details>
     </div>
   </div>
 </div>
-

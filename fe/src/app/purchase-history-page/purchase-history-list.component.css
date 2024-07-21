@@ -1,0 +1,30 @@
+.purchase-history-container {
+  margin-top: 15rem;
+}
+
+.purchase-list-container, .purchase-details-container {
+  border: 1px solid #000;
+  margin: 10px;
+  padding: 10px;
+}
+
+.purchase-list-container {
+  width: 30%;
+  text-align: center;
+}
+
+.purchase-details-container {
+  width: 70%;
+}
+
+.purchase-list {
+  padding: 0;
+}
+
+.purchase-list-item {
+  cursor: pointer;
+  border: 1px solid #000;
+  list-style-type: none;
+  padding: 5px;
+  margin-bottom: 5px;
+}
