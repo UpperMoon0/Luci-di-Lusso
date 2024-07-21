@@ -1,35 +1,34 @@
 <div class="edit-diamond-container">
   <div>
     <h2>Edit diamond</h2>
-    <button type="button" (click)="closeDialog()">Close</button>
   </div>
   <div *ngIf="diamondProperties">
-    <form [formGroup]="diamondEditForm" (ngSubmit)="onSubmit()">
-      <label>
-        Cut:
-        <select formControlName="cut">
-          <option *ngFor="let cutOption of diamondProperties.cuts" [value]="cutOption">{{cutOption.cut}}</option>
-        </select>
-      </label>
-
+    <form [formGroup]="diamondEditForm" (ngSubmit)="onSubmit()" style="display: flex; flex-direction: column;">
       <label>
         Color:
         <select formControlName="color">
-          <option *ngFor="let colorOption of diamondProperties.colors" [value]="colorOption">{{colorOption.color}}</option>
+          <option *ngFor="let colorOption of diamondProperties.colors" [value]="colorOption.id">{{colorOption.color}}</option>
         </select>
       </label>
 
       <label>
         Clarity:
         <select formControlName="clarity">
-          <option *ngFor="let clarityOption of diamondProperties.clarities" [value]="clarityOption">{{clarityOption.clarity}}</option>
+          <option *ngFor="let clarityOption of diamondProperties.clarities" [value]="clarityOption.id">{{clarityOption.clarity}}</option>
+        </select>
+      </label>
+
+      <label>
+        Cut:
+        <select formControlName="cut">
+          <option *ngFor="let cutOption of diamondProperties.cuts" [value]="cutOption.id">{{cutOption.cut}}</option>
         </select>
       </label>
 
       <label>
         Shape:
         <select formControlName="shape">
-          <option *ngFor="let shapeOption of diamondProperties.shapes" [value]="shapeOption">{{shapeOption.shape}}</option>
+          <option *ngFor="let shapeOption of diamondProperties.shapes" [value]="shapeOption.id">{{shapeOption.shape}}</option>
         </select>
       </label>
 

@@ -2,6 +2,8 @@ import {Component, Inject, OnInit} from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {ProductService} from "../service/product.service";
+import {ManagerService} from "../service/manager.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-diamond-edit',
@@ -10,53 +12,65 @@ import {ProductService} from "../service/product.service";
 })
 export class DiamondEditComponent implements OnInit {
   protected diamondProperties: any;
+  protected selectedCut: any = '';
+  protected selectedColor: any = '';
+  protected selectedClarity: any = '';
+  protected selectedShape: any = '';
 
   diamondEditForm = new FormGroup({
-    cut: new FormControl(''),
-    color: new FormControl(''),
-    clarity: new FormControl(''),
-    carat: new FormControl(''),
-    shape: new FormControl(''),
-    quantity: new FormControl(''),
+    cut: new FormControl(this.selectedCut.id),
+    color: new FormControl(this.selectedColor.id),
+    clarity: new FormControl(this.selectedClarity.id),
+    carat: new FormControl(this.data.diamond.carat),
+    shape: new FormControl(this.selectedShape.id),
+    quantity: new FormControl(this.data.diamond.quantity),
   });
 
   constructor(
-    public dialogRef: MatDialogRef<DiamondEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private productService: ProductService
+    private productService: ProductService,
+    private managerService: ManagerService,
+    private toastrService: ToastrService,
   ) { }
 
   ngOnInit(): void {
     this.productService.getAllDiamondProperties().subscribe(response => {
       this.diamondProperties = response;
+
+      // Set selected values
+      this.diamondProperties.cuts.forEach((cut: any) => {
+        if (cut.cut === this.data.diamond.cut) {
+          this.selectedCut = cut;
+        }
+      });
+
+      this.diamondProperties.colors.forEach((color: any) => {
+        if (color.color === this.data.diamond.color) {
+          this.selectedColor = color;
+        }
+      });
+
+      this.diamondProperties.clarities.forEach((clarity: any) => {
+        if (clarity.clarity === this.data.diamond.clarity) {
+          this.selectedClarity = clarity;
+        }
+      });
+
+      this.diamondProperties.shapes.forEach((shape: any) => {
+        if (shape.shape === this.data.diamond.shape) {
+          this.selectedShape = shape;
+        }
+      });
     });
-
-    this.initializeFormWithPassedData();
   }
-
-  initializeFormWithPassedData(): void {
-  if (this.data.diamond && this.diamondProperties) {
-    const selectedCut = this.diamondProperties.cuts.find((cut: { cut: string; }) => cut.cut === this.data.diamond.cut) || '';
-    const selectedColor = this.diamondProperties.colors.find((color: { color: string; }) => color.color === this.data.diamond.color) || '';
-    const selectedClarity = this.diamondProperties.clarities.find((clarity: { clarity: string; }) => clarity.clarity === this.data.diamond.clarity) || '';
-    const selectedShape = this.diamondProperties.shapes.find((shape: { shape: string; }) => shape.shape === this.data.diamond.shape) || '';
-
-    this.diamondEditForm.setValue({
-      cut: selectedCut,
-      color: selectedColor,
-      clarity: selectedClarity,
-      shape: selectedShape,
-      carat: this.data.diamond.carat || '',
-      quantity: this.data.diamond.quantity || '',
-    });
-  }
-}
 
   onSubmit(): void {
-    console.log(this.diamondEditForm.value);
-  }
-
-  closeDialog(): void {
-    this.dialogRef.close();
+    let diamond = {id: this.data.diamond.id, clarityId: this.selectedClarity.id, colorId: this.selectedColor.id, cutId: this.selectedCut.id, shapeId: this.selectedShape.id, carat: this.diamondEditForm.value.carat, quantity: this.diamondEditForm.value.quantity};
+    this.managerService.updateDiamond(diamond).subscribe(
+      () => {
+        this.toastrService.success('Diamond updated successfully');
+        this.data.refreshList();
+      }
+    )
   }
 }

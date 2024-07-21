@@ -119,7 +119,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/delete-diamond")
-    public ResponseEntity<CommonResponse> deleteDiamond(@RequestParam Integer id) {
+    public ResponseEntity<CommonResponse> deleteDiamond(@RequestParam long id) {
         diamondService.deleteDiamondById(id);
         CommonResponse response = new CommonResponse();
         response.setMessage("Diamond deleted successfully");
@@ -127,13 +127,13 @@ public class ProductController {
     }
 
     @PostMapping("/update-diamond")
-    public ResponseEntity<CommonResponse> updateDiamond(@RequestBody DiamondUpdateRequest body) {
+    public ResponseEntity<CommonResponse> updateDiamond(@RequestBody DiamondUpdateRequest request) {
         try {
-            diamondService.updateDiamond(body);
+            diamondService.updateDiamond(request);
             CommonResponse response = new CommonResponse();
             response.setMessage("Diamond updated successfully");
             return ResponseEntity.ok(response);
-        } catch (IllegalArgumentException e) {
+        } catch (RuntimeException e) {
             CommonResponse response = new CommonResponse();
             response.setMessage(e.getMessage());
             return ResponseEntity.badRequest().body(response);

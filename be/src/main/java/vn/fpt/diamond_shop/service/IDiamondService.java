@@ -8,8 +8,8 @@ import java.util.List;
 public interface IDiamondService
 {
     void saveDiamond(Diamond diamond);
-    void deleteDiamondById(Integer id);
-    Diamond getDiamondById(Long id);
+    void deleteDiamondById(long id);
+    Diamond getDiamondById(long id);
     List<Diamond> getAllDiamonds();
     void updateDiamond(DiamondUpdateRequest request);
     void createNewDiamond();

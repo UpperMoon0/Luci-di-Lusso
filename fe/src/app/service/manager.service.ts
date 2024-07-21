@@ -28,15 +28,15 @@ export class ManagerService {
     return this.http.get(`${environment.beApiUrl}/product/get-diamond?id=` + diamondId, this.httpOptions);
   }
 
-  addDiamond(diamond: any): Observable<any> {
-    return this.http.post(`${environment.beApiUrl}/product/add-diamond`, diamond, this.httpOptions);
+  addDiamond(): Observable<any> {
+    return this.http.post(`${environment.beApiUrl}/product/add-diamond`, '',this.httpOptions);
   }
 
-  saveDiamond(diamond: any): Observable<any> {
+  updateDiamond(diamond: any): Observable<any> {
     return this.http.post(`${environment.beApiUrl}/product/update-diamond`, diamond, this.httpOptions);
   }
 
-  deleteDiamond(diamondId: any): Observable<any> {
+  deleteDiamond(diamondId: number): Observable<any> {
     return this.http.delete(`${environment.beApiUrl}/product/delete-diamond?id=` + diamondId, this.httpOptions);
   }
 

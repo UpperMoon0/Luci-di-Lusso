@@ -4,10 +4,11 @@ import lombok.Data;
 
 @Data
 public class DiamondUpdateRequest {
-    private Long id;
-    private Long clarityId;
-    private Long cutId;
-    private Long colorId;
-    private Float carat;
-    private Long shapeId;
+    private long id;
+    private long clarityId;
+    private long cutId;
+    private long colorId;
+    private float carat;
+    private long shapeId;
+    private int quantity;
 }

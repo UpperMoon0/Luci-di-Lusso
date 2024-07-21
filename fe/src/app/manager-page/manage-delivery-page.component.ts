@@ -66,7 +66,7 @@ export class ManageDeliveryPageComponent implements OnInit{
           duration: 5000,
           panelClass: 'success-snackbar'
         });
-        this.getDeliveries(); // Refresh the list
+        this.getDeliveries();
       },
       error: () => {
         this.snackBar.open('Error updating delivery', 'Close', {

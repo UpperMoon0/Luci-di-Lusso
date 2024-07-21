@@ -1,62 +1,32 @@
 <div class="container">
-  <mat-card class="mat-elevation-z8">
-    <mat-card-content>
-      <table mat-table [dataSource]="diamonds" class="mat-elevation-z8">
-
-        <!-- ID Column -->
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef> ID </th>
-          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-        </ng-container>
-
-        <!-- Color Column -->
-        <ng-container matColumnDef="color">
-          <th mat-header-cell *matHeaderCellDef> Color </th>
-          <td mat-cell *matCellDef="let element"> {{element.color}} </td>
-        </ng-container>
-
-        <!-- Clarity Column -->
-        <ng-container matColumnDef="clarity">
-          <th mat-header-cell *matHeaderCellDef> Clarity </th>
-          <td mat-cell *matCellDef="let element"> {{element.clarity}} </td>
-        </ng-container>
-
-        <!-- Cut Column -->
-        <ng-container matColumnDef="cut">
-          <th mat-header-cell *matHeaderCellDef> Cut </th>
-          <td mat-cell *matCellDef="let element"> {{element.cut}} </td>
-        </ng-container>
-
-        <!-- Shape Column -->
-        <ng-container matColumnDef="shape">
-          <th mat-header-cell *matHeaderCellDef> Shape </th>
-          <td mat-cell *matCellDef="let element"> {{element.shape}} </td>
-        </ng-container>
-
-        <!-- Carat Column -->
-        <ng-container matColumnDef="carat">
-          <th mat-header-cell *matHeaderCellDef> Carat </th>
-          <td mat-cell *matCellDef="let element"> {{element.carat}} </td>
-        </ng-container>
-
-        <!-- Quantity Column -->
-        <ng-container matColumnDef="quantity">
-          <th mat-header-cell *matHeaderCellDef> Quantity </th>
-          <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
-        </ng-container>
-
-        <!-- Actions Column -->
-        <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef> Actions </th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-button (click)="openEditDiamondDialog(element)">Edit</button>
-            <button mat-button (click)="deleteDiamond(element.id)">Delete</button>
-          </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-    </mat-card-content>
-  </mat-card>
+  <button (click)="addDiamond()">Add Diamond</button>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Color</th>
+        <th>Clarity</th>
+        <th>Cut</th>
+        <th>Shape</th>
+        <th>Carat</th>
+        <th>Quantity</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let element of diamonds">
+        <td>{{element.id}}</td>
+        <td>{{element.color}}</td>
+        <td>{{element.clarity}}</td>
+        <td>{{element.cut}}</td>
+        <td>{{element.shape}}</td>
+        <td>{{element.carat}}</td>
+        <td>{{element.quantity}}</td>
+        <td>
+          <button (click)="openEditDiamondDialog(element)">Edit</button>
+          <button (click)="deleteDiamond(element.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

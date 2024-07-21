@@ -31,7 +31,6 @@ export class CartService {
   });
 
   constructor(private http: HttpClient) {
-    this.getCartItems();
   }
 
   private get httpOptions() {

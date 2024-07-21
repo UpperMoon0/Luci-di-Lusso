@@ -5,6 +5,7 @@ import { ManagerService } from "../service/manager.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatDialog } from "@angular/material/dialog";
 import { DiamondEditComponent } from "./diamond-edit.component";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-diamond-list',
@@ -13,11 +14,10 @@ import { DiamondEditComponent } from "./diamond-edit.component";
 })
 export class ManageDiamondListComponent implements OnInit {
   diamonds: { id: number, color: string, clarity: string, cut: string, shape: string, carat: number, quantity: number }[] = [];
-  displayedColumns = ['id', 'color', 'clarity', 'cut', 'shape', 'carat', 'quantity', 'actions'];
 
   constructor(private managerService: ManagerService,
               private titleService: Title,
-              private snackBar: MatSnackBar,
+              private toastrService: ToastrService,
               public dialog: MatDialog) {}
 
   ngOnInit() {
@@ -41,28 +41,27 @@ export class ManageDiamondListComponent implements OnInit {
 
   deleteDiamond(diamondId: any) {
     this.managerService.deleteDiamond(diamondId).subscribe(response => {
-      if (response == null) {
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('showSnackbar', 'true');
-        }
-        window.location.reload();
-      } else {
-        this.snackBar.open(response.message, 'Close', {
-          duration: 5000,
-          panelClass: 'error-snackbar'
-        });
-      }
+      this.toastrService.success('Diamond deleted successfully');
+      this.getDiamonds();
     });
   }
 
   openEditDiamondDialog(diamond: any): void {
-    const dialogRef = this.dialog.open(DiamondEditComponent, {
-      data: { diamond: diamond },
+    this.dialog.open(DiamondEditComponent, {
+      data: {
+        diamond: diamond,
+        refreshList: () => this.getDiamonds()
+      },
       width: '400px',
     });
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+  addDiamond() {
+    this.managerService.addDiamond().subscribe(
+      () => {
+        this.toastrService.success('Diamond added successfully');
+        this.getDiamonds();
+      }
+    )
   }
 }
