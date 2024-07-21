@@ -7,28 +7,28 @@
       <label>
         Color:
         <select formControlName="color">
-          <option *ngFor="let colorOption of diamondProperties.colors" [value]="colorOption.id">{{colorOption.color}}</option>
+          <option *ngFor="let colorOption of diamondProperties.colors" [ngValue]="colorOption">{{colorOption.color}}</option>
         </select>
       </label>
 
       <label>
         Clarity:
         <select formControlName="clarity">
-          <option *ngFor="let clarityOption of diamondProperties.clarities" [value]="clarityOption.id">{{clarityOption.clarity}}</option>
+          <option *ngFor="let clarityOption of diamondProperties.clarities" [ngValue]="clarityOption">{{clarityOption.clarity}}</option>
         </select>
       </label>
 
       <label>
         Cut:
         <select formControlName="cut">
-          <option *ngFor="let cutOption of diamondProperties.cuts" [value]="cutOption.id">{{cutOption.cut}}</option>
+          <option *ngFor="let cutOption of diamondProperties.cuts" [ngValue]="cutOption">{{cutOption.cut}}</option>
         </select>
       </label>
 
       <label>
         Shape:
         <select formControlName="shape">
-          <option *ngFor="let shapeOption of diamondProperties.shapes" [value]="shapeOption.id">{{shapeOption.shape}}</option>
+          <option *ngFor="let shapeOption of diamondProperties.shapes" [ngValue]="shapeOption">{{shapeOption.shape}}</option>
         </select>
       </label>
 
