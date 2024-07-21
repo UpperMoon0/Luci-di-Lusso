@@ -27,7 +27,7 @@ public class ProductController {
 
     @GetMapping("/get-jewelry")
     public ResponseEntity<JewelryResponse> getJewelry(@RequestParam Long id) {
-        Jewelry jewelry = jewelryService.findJewelryById(id);
+        Jewelry jewelry = jewelryService.getJewelryById(id);
         if (jewelry != null) {
             JewelryType type = jewelry.getType();
             List<JewelrySize> sizes = jewelrySizeService.getJewelrySizesByJewelryType(type);
@@ -41,29 +41,25 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/get-all-jewelries")
-    public ResponseEntity<JewelryListResponse> getAllJewelries() {
-        List<Jewelry> jewelries = jewelryService.findAllJewelries();
-
-        JewelryListResponse response = new JewelryListResponse(jewelries, jewelryService);
-        response.setMessage("Get all jewelries successfully");
-
-        return ResponseEntity.ok(response);
-    }
-
-    @PostMapping("/get-jewelries")
-    public ResponseEntity<JewelryListResponse> getJewelries(@RequestBody JewelriesRequest request) {
+    @PostMapping("/get-jewelry-list")
+    public ResponseEntity<JewelryListResponse> getJewelryList(@RequestBody JewelryListRequest request) {
         List<EJewelryType> types = request.getTypes();
         Integer minPrice = request.getMinPrice();
         Integer maxPrice = request.getMaxPrice();
         String keyword = request.getKeyword();
 
-        List<Jewelry> filteredJewelries = jewelryService.findJewelriesByFilter(types, minPrice, maxPrice, keyword);
+        List<Jewelry> filteredJewelries = jewelryService.getJewelriesByFilter(types, minPrice, maxPrice, keyword);
 
         JewelryListResponse response = new JewelryListResponse(filteredJewelries, jewelryService);
         response.setMessage("Get jewelries successfully");
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/get-all-jewelries")
+    public ResponseEntity<List<Jewelry>> getAllJewelries() {
+        List<Jewelry> jewelries = jewelryService.getAllJewelries();
+        return ResponseEntity.ok(jewelries);
     }
 
     @PostMapping("/add-jewelry")

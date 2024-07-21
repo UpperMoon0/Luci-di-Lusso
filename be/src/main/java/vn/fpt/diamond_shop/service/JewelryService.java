@@ -35,17 +35,17 @@ public class JewelryService implements IJewelryService {
     }
 
     @Override
-    public Jewelry findJewelryById(Long id) {
+    public Jewelry getJewelryById(Long id) {
         return jewelryRepository.findById(id).orElse(null);
     }
 
     @Override
-    public List<Jewelry> findAllJewelries() {
+    public List<Jewelry> getAllJewelries() {
         return jewelryRepository.findAll();
     }
 
     @Override
-    public List<Jewelry> findJewelriesByFilter(List<EJewelryType> types, Integer minPrice, Integer maxPrice, String keyword) {
+    public List<Jewelry> getJewelriesByFilter(List<EJewelryType> types, Integer minPrice, Integer maxPrice, String keyword) {
         Stream<Jewelry> jewelryStream;
         if (types.isEmpty()) {
             // Initialize stream with all jewelries if type list is empty

@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {ProductService} from "../service/product.service";
 import {ManagerService} from "../service/manager.service";
 import {ToastrService} from "ngx-toastr";
@@ -54,8 +54,6 @@ export class DiamondEditComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.diamondProperties);
-    console.log(JSON.stringify(this.diamondEditForm.value.clarity));
     let diamond = {id: this.data.diamond.id,
                                             clarityId: this.diamondEditForm.value.clarity.id,
                                             colorId: this.diamondEditForm.value.color.id,

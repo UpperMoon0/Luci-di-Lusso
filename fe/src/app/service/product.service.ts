@@ -32,12 +32,8 @@ export class ProductService {
   }
 
   public getJewelries(request: any): Observable<any> {
-    // Get all jewelries by default
-    if (!request.types) {
-      return this.http.get(`${this.apiUrl}/product/get-all-jewelries`, this.httpOptions);
-    } else {
-      return this.http.post(`${this.apiUrl}/product/get-jewelries`, request, this.httpOptions);
-    }
+    if (!request) request = {types: {}, minPrice: 0, maxPrice: 0, keyword: ''};
+    return this.http.post(`${this.apiUrl}/product/get-jewelry-list`, request, this.httpOptions);
   }
 
   public getAllTypes(): Observable<any> {

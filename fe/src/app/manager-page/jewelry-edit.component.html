@@ -1,0 +1,49 @@
+<div class="edit-diamond-container">
+  <div>
+    <h2>Edit diamond</h2>
+  </div>
+  <div *ngIf="jewelryTypes && diamonds">
+    <form [formGroup]="jewelryEditForm" (ngSubmit)="onSubmit()" style="display: flex; flex-direction: column;">
+      <label>
+        Name:
+        <input type="text" formControlName="name">
+      </label>
+
+      <label>
+        Description:
+        <input type="text" formControlName="description">
+      </label>
+
+      <label>
+        Diamond:
+        <select formControlName="diamond">
+          <option *ngFor="let diamondOption of diamonds" [ngValue]="diamondOption">Color: {{diamondOption.color.color}}, Clarity: {{diamondOption.clarity.clarity}}, Cut: {{diamondOption.cut.cut}}, Shape: {{diamondOption.shape.shape}}, Carat: {{diamondOption.carat}}</option>
+        </select>
+      </label>
+
+      <label>
+        Type:
+        <select formControlName="type">
+          <option *ngFor="let typeOption of jewelryTypes" [ngValue]="typeOption">{{typeOption.type}}</option>
+        </select>
+      </label>
+
+      <label>
+        Image URL:
+        <input type="text" formControlName="imageUrl">
+      </label>
+
+      <label>
+        Setting price:
+        <input type="text" formControlName="settingPrice">
+      </label>
+
+      <label>
+        Labor cost:
+        <input type="text" formControlName="laborCost">
+      </label>
+
+      <button type="submit">Save</button>
+    </form>
+  </div>
+</div>

@@ -53,7 +53,11 @@ export class ManagerService {
   }
 
   getAllJeweleries(): Observable<any> {
-    return this.http.get<any>(`${environment.beApiUrl}/product/get-all-jewelries`, this.httpOptions);
+    return this.http.get(`${environment.beApiUrl}/product/get-all-jewelries`, this.httpOptions);
+  }
+
+  addJewelry(): Observable<any> {
+    return this.http.post(`${environment.beApiUrl}/product/add-jewelry`, '',this.httpOptions);
   }
 
   deleteJewelry(id: number): Observable<any> {
