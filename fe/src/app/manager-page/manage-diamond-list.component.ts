@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { ManagerService } from "../service/manager.service";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatDialog } from "@angular/material/dialog";
 import { DiamondEditComponent } from "./diamond-edit.component";
 import {ToastrService} from "ngx-toastr";
@@ -65,7 +63,7 @@ export class ManageDiamondListComponent implements OnInit {
         deleteEntity: () => this.deleteDiamond(diamondId),
         closeDialog: () => this.dialog.closeAll()
       },
-      width: '400',
+      width: '400px',
     });
   }
 

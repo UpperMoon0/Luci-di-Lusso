@@ -52,7 +52,7 @@ export class StatisticsComponent implements OnInit {
       animationEnabled: true,
       axisY: {
         includeZero: true,
-        valueFormatString: '#0 $'
+        valueFormatString: '$#0'
       },
       data: [{
         type: "column", //change type to bar, line, area, pie, etc
