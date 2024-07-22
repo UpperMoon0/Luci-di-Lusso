@@ -50,6 +50,7 @@ public class ProductController {
         String keyword = request.getKeyword();
 
         List<Jewelry> filteredJewelries = jewelryService.getJewelriesByFilter(types, minPrice, maxPrice, keyword);
+        filteredJewelries.removeIf(j -> !j.getStatus().equals("ACTIVE") && !j.getDiamond().getStatus().equals("ACTIVE"));
 
         JewelryListResponse response = new JewelryListResponse(filteredJewelries, jewelryService);
         response.setMessage("Get jewelries successfully");
@@ -60,6 +61,7 @@ public class ProductController {
     @GetMapping("/get-all-jewelries")
     public ResponseEntity<List<Jewelry>> getAllJewelries() {
         List<Jewelry> jewelries = jewelryService.getAllJewelries();
+        jewelries.removeIf(j -> !j.getStatus().equals("ACTIVE") && !j.getDiamond().getStatus().equals("ACTIVE"));
         return ResponseEntity.ok(jewelries);
     }
 
@@ -119,6 +121,7 @@ public class ProductController {
     @GetMapping("/get-all-diamonds")
     public ResponseEntity<List<Diamond>> getAllDiamonds() {
         List<Diamond> diamonds = diamondService.getAllDiamonds();
+        diamonds.removeIf(d -> !d.getStatus().equals("ACTIVE"));
         return ResponseEntity.ok(diamonds);
     }
 

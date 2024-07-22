@@ -25,12 +25,15 @@ public class VoucherController {
 
     @GetMapping("/get-all-vouchers")
     public ResponseEntity<List<Voucher>> getAllVouchers() {
-        return ResponseEntity.ok(voucherService.getAllVouchers());
+        List<Voucher> vouchers = voucherService.getAllVouchers();
+        vouchers.removeIf(voucher -> !voucher.getStatus().equals("ACTIVE"));
+        return ResponseEntity.ok(vouchers);
     }
 
     @GetMapping("/get-usable-vouchers")
     public ResponseEntity<List<Voucher>> getUsableVouchers() {
         List<Voucher> vouchers = voucherService.getAvailableVouchers();
+        vouchers.removeIf(voucher -> !voucher.getStatus().equals("ACTIVE"));
         return ResponseEntity.ok(vouchers);
     }
 
@@ -107,6 +110,7 @@ public class VoucherController {
 
             Customer customer = user.getCustomer();
             List<Voucher> vouchers = voucherService.getVouchersByCustomer(customer.getId());
+            vouchers.removeIf(voucher -> !voucher.getStatus().equals("ACTIVE"));
 
             return ResponseEntity.ok(vouchers);
         } catch (RuntimeException e) {
