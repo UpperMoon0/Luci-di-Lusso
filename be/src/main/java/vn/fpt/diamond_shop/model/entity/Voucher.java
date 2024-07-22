@@ -1,11 +1,14 @@
 package vn.fpt.diamond_shop.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -36,6 +39,7 @@ public class Voucher {
     @Column
     private LocalDateTime expireAt;
 
+    @JsonManagedReference
     @ManyToMany(mappedBy = "vouchers")
-    private Set<Customer> customers = new HashSet<>();
+    private List<Customer> customers = new ArrayList<>();
 }

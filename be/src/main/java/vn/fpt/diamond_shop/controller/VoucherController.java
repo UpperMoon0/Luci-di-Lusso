@@ -5,9 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.fpt.diamond_shop.exception.InvalidJwtTokenException;
-import vn.fpt.diamond_shop.model.dto.AddVoucherToAccountRequest;
 import vn.fpt.diamond_shop.model.dto.CommonResponse;
-import vn.fpt.diamond_shop.model.dto.GetAllCustomerVouchersResponse;
 import vn.fpt.diamond_shop.model.dto.UpdateVoucherRequest;
 import vn.fpt.diamond_shop.model.entity.Account;
 import vn.fpt.diamond_shop.model.entity.Customer;
@@ -28,6 +26,12 @@ public class VoucherController {
     @GetMapping("/get-all-vouchers")
     public ResponseEntity<List<Voucher>> getAllVouchers() {
         return ResponseEntity.ok(voucherService.getAllVouchers());
+    }
+
+    @GetMapping("/get-usable-vouchers")
+    public ResponseEntity<List<Voucher>> getUsableVouchers() {
+        List<Voucher> vouchers = voucherService.getAvailableVouchers();
+        return ResponseEntity.ok(vouchers);
     }
 
     @PostMapping("/create-voucher")
@@ -57,9 +61,9 @@ public class VoucherController {
         }
     }
 
-    @PostMapping("/add-voucher-to-account")
-    public ResponseEntity<CommonResponse> addVoucherToAccount(@RequestHeader("Authorization") String authorizationHeader,
-                                                              @Valid @RequestBody AddVoucherToAccountRequest body) {
+    @PostMapping("/redeem-voucher")
+    public ResponseEntity<CommonResponse> addVoucherToCustomer(@RequestHeader("Authorization") String authorizationHeader,
+                                                               @RequestBody Long voucherId) {
         try {
             String jwtToken = authorizationHeader.substring(7);
             Account user = userService.findAccountByToken(jwtToken).orElse(null);
@@ -71,9 +75,9 @@ public class VoucherController {
             }
 
             Customer customer = user.getCustomer();
-            voucherService.addVoucherToCustomer(body.getCode(), customer.getId());
+            voucherService.redeemVoucher(voucherId, customer.getId());
             CommonResponse response = new CommonResponse();
-            response.setMessage("Add voucher success!");
+            response.setMessage("Redeem voucher success!");
 
             return ResponseEntity.ok(response);
         } catch (InvalidJwtTokenException e) {
@@ -87,33 +91,22 @@ public class VoucherController {
         }
     }
 
-    @GetMapping("/get-all-customer-vouchers")
-    public ResponseEntity<GetAllCustomerVouchersResponse> getAllCustomerVouchers(@RequestHeader("Authorization") String authorizationHeader) {
+    @GetMapping("/get-my-vouchers")
+    public ResponseEntity<List<Voucher>> getAllCustomerVouchers(@RequestHeader("Authorization") String authorizationHeader) {
         try {
             String jwtToken = authorizationHeader.substring(7);
             Account user = userService.findAccountByToken(jwtToken).orElse(null);
 
             if (user == null) {
-                GetAllCustomerVouchersResponse response = new GetAllCustomerVouchersResponse();
-                response.setMessage("User not found");
-                return ResponseEntity.badRequest().body(response);
+                return ResponseEntity.badRequest().body(null);
             }
 
             Customer customer = user.getCustomer();
-            List<Voucher> vouchers = voucherService.getAllCustomerVouchers(customer.getId());
-            GetAllCustomerVouchersResponse response = new GetAllCustomerVouchersResponse();
-            response.setMessage("Get vouchers!");
-            response.setVouchers(vouchers);
+            List<Voucher> vouchers = voucherService.getVouchersByCustomer(customer.getId());
 
-            return ResponseEntity.ok(response);
-        } catch (InvalidJwtTokenException e) {
-            GetAllCustomerVouchersResponse response = new GetAllCustomerVouchersResponse();
-            response.setMessage("Invalid JWT token");
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.ok(vouchers);
         } catch (RuntimeException e) {
-            GetAllCustomerVouchersResponse response = new GetAllCustomerVouchersResponse();
-            response.setMessage(e.getMessage());
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.badRequest().body(null);
         }
     }
 }

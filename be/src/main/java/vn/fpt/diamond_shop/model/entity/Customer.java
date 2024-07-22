@@ -1,5 +1,6 @@
 package vn.fpt.diamond_shop.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
@@ -9,7 +10,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -56,11 +59,12 @@ public class Customer {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Account account;
 
+    @JsonBackReference
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "customer_voucher",
             joinColumns = @JoinColumn(name = "customer_id"),
             inverseJoinColumns = @JoinColumn(name = "voucher_id")
     )
-    private Set<Voucher> vouchers = new HashSet<>();
+    private List<Voucher> vouchers = new ArrayList<>();
 }

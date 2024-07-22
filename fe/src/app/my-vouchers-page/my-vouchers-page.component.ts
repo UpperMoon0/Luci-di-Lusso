@@ -3,11 +3,11 @@ import {AccountService} from "../service/account.service";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-vouchers',
-  templateUrl: './vouchers.component.html',
-  styleUrls: ['./vouchers.component.css']
+  selector: 'app-my-vouchers-page',
+  templateUrl: './my-vouchers-page.component.html',
+  styleUrls: ['./my-vouchers-page.component.css']
 })
-export class VouchersComponent implements OnInit {
+export class MyVouchersPageComponent implements OnInit {
   constructor(private accountService: AccountService,
               private router: Router) { }
 

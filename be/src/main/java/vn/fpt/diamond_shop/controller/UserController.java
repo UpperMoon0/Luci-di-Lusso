@@ -73,23 +73,22 @@ public class UserController {
         return ResponseEntity.ok(deliverers);
     }
 
-    @GetMapping("/customer-points")
-    public ResponseEntity<GetCustomerPointsResponse> getCustomerPoints(@RequestHeader("Authorization") String authorizationHeader) {
+    @GetMapping("/get-customer-points")
+    public ResponseEntity<Integer> getCustomerPoints(@RequestHeader("Authorization") String authorizationHeader) {
         try {
             String jwtToken = authorizationHeader.substring(7);
-            Customer customer = userService.findAccountByToken(jwtToken).orElse(null).getCustomer();
-            GetCustomerPointsResponse response = new GetCustomerPointsResponse();
-            response.setMessage("Customer profile updated successfully");
-            response.setPoints(userService.getCustomerPoints(customer.getId()));
-            return ResponseEntity.ok(response);
-        } catch (InvalidJwtTokenException e) {
-            GetCustomerPointsResponse response = new GetCustomerPointsResponse();
-            response.setMessage("Invalid JWT token");
-            return ResponseEntity.badRequest().body(response);
+            Account account = userService.findAccountByToken(jwtToken).orElse(null);
+
+            if (account == null) {
+                System.out.println("Account not found");
+                return ResponseEntity.badRequest().body(0);
+            }
+
+            Customer customer = account.getCustomer();
+            Integer points = userService.getCustomerPoints(customer.getId());
+            return ResponseEntity.ok(points);
         } catch (RuntimeException e) {
-            GetCustomerPointsResponse response = new GetCustomerPointsResponse();
-            response.setMessage(e.getMessage());
-            return ResponseEntity.badRequest().body(response);
+            return ResponseEntity.badRequest().body(0);
         }
     }
 }

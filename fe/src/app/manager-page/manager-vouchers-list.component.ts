@@ -7,11 +7,11 @@ import {DeleteConfirmComponent} from "./delete-confirm.component";
 import {VoucherEditComponent} from "./voucher-edit.component";
 
 @Component({
-  selector: 'app-vouchers-list',
-  templateUrl: './vouchers-list.component.html',
-  styleUrls: ['./vouchers-list.component.css']
+  selector: 'app-manager-vouchers-list',
+  templateUrl: './manager-vouchers-list.component.html',
+  styleUrls: ['./manager-vouchers-list.component.css']
 })
-export class VouchersListComponent implements OnInit {
+export class ManagerVouchersListComponent implements OnInit {
   vouchers: any[] = [];
 
   constructor(private managerService: ManagerService,

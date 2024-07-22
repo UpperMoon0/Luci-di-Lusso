@@ -134,6 +134,7 @@ public class AccountService implements IAccountService {
                     .dob(registerRequest.getDob())
                     .createAt(LocalDateTime.now())
                     .account(user)
+                    .point(0)
                     .build();
 
             customerRepository.save(customer);
@@ -141,10 +142,8 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public void addPoint(String jwtToken, double totalPrice) {
-        Account account = findAccountByToken(jwtToken).orElseThrow();
-        Customer customer = account.getCustomer();
-        customer.setPoint(customer.getPoint() + ((int) totalPrice * 10/100));
+    public void addPoint(Customer customer, double totalPrice) {
+        customer.setPoint(customer.getPoint() + ((int) totalPrice / 10));
         customerRepository.save(customer);
     }
 

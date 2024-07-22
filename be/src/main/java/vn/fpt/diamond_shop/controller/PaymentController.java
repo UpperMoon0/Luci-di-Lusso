@@ -4,12 +4,12 @@ import com.stripe.exception.StripeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vn.fpt.diamond_shop.exception.InvalidJwtTokenException;
 import vn.fpt.diamond_shop.model.dto.CommonResponse;
+import vn.fpt.diamond_shop.model.dto.CreateChargeRequest;
 import vn.fpt.diamond_shop.model.entity.Account;
+import vn.fpt.diamond_shop.model.entity.Customer;
+import vn.fpt.diamond_shop.model.entity.Voucher;
 import vn.fpt.diamond_shop.service.*;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/payment")
@@ -37,23 +37,34 @@ public class PaymentController {
 
     @PostMapping("/create-charge")
     public ResponseEntity<CommonResponse> createCharge(@RequestHeader("Authorization") String authorizationHeader,
-                                                       @RequestBody Map<String, String> body) {
+                                                       @RequestBody CreateChargeRequest request){
         try {
             String jwtToken = authorizationHeader.substring(7);
-            Account user = userService.findAccountByToken(jwtToken).orElse(null);
+            Account account = userService.findAccountByToken(jwtToken).orElse(null);
 
-            String stripeToken = body.get("stripeToken");
-            String voucherCode = body.get("voucherCode");
-            double totalPrice = orderService.createOrderFromJwtToken(jwtToken);
-            //Add point
-            accountService.addPoint(jwtToken, totalPrice);
-            //Starting to charge (cost can be reduced by vouchers but will not affect the amount of points user gets)
-            int discount = 0;
-            if(!voucherCode.isEmpty() && !voucherCode.isBlank()) {
-                discount = voucherService.useVoucher(voucherCode, user.getCustomer().getId()).getDiscount();
+            if (account == null) {
+                CommonResponse cr = new CommonResponse();
+                cr.setMessage("User not found");
+                return ResponseEntity.badRequest().body(cr);
             }
 
-            paymentService.createCharge(stripeToken, (int) (totalPrice * 100 * (1 - discount/100)));
+            Customer customer = account.getCustomer();
+
+            String stripeToken = request.getStripeToken();
+            long voucherId = request.getVoucherId();
+            double totalPrice = orderService.createOrderFromJwtToken(jwtToken);
+
+            // Add point
+            accountService.addPoint(customer, totalPrice);
+
+            // Starting to charge (cost can be reduced by vouchers but will not affect the amount of points user gets)
+            int discount = 0;
+            if(voucherId != 0) {
+                Voucher voucher = voucherService.useVoucher(voucherId, customer.getId());
+                discount = voucher.getDiscount();
+            }
+
+            paymentService.createCharge(stripeToken, (int) (totalPrice * 100 * (1 - (double) discount / 100)));
             cartService.deleteAllCartItems(jwtToken);
 
             CommonResponse cr = new CommonResponse();

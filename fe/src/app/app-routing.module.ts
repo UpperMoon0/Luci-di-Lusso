@@ -18,8 +18,8 @@ import {DiscoverComponent} from "./blog-page/blog/discover/discover.component";
 import {Fashion02Component} from "./blog-page/blog/fashion02/fashion02.component";
 import {Fashion01Component} from "./blog-page/blog/fashion01/fashion01.component";
 import {CertificatePageComponent} from "./certificate-page/certificate-page.component";
-import {VouchersComponent} from "./vouchers/vouchers.component";
-import {WarrantyPageComponent} from "./warranty/warranty-page.component";
+import {MyVouchersPageComponent} from "./my-vouchers-page/my-vouchers-page.component";
+import {WarrantyPageComponent} from "./warranty-page/warranty-page.component";
 import {CollectionListPageComponent} from "./collection-page/collection-list-page.component";
 import {CollectionPageComponent} from "./collection-page/collection-page.component";
 
@@ -37,7 +37,7 @@ const routes: Routes = [
   { path: 'purchase-history', component: PurchaseHistoryPageComponent },
   { path: 'manager', component : ManagerPageComponent},
   { path : 'blog', component : BlogPageComponent },
-  { path: 'vouchers', component: VouchersComponent },
+  { path: 'vouchers', component: MyVouchersPageComponent },
 
   {
     path: 'top-jewelry-trend-for-2024',
@@ -77,7 +77,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'warranty/:id',
+    path: 'warranty-page/:id',
     component: WarrantyPageComponent,
   },
 

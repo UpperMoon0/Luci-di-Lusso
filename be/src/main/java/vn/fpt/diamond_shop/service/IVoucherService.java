@@ -11,7 +11,9 @@ public interface IVoucherService {
     void updateVoucher(UpdateVoucherRequest request);
     void deleteVoucher(Long id);
     void createVoucher() throws SQLServerException;
-    void addVoucherToCustomer(String code, Long userId);
-    List<Voucher> getAllCustomerVouchers(Long userId);
-    Voucher useVoucher(String code, Long customerId);
+    void redeemVoucher(Long voucherId, Long customerId);
+    List<Voucher> getVouchersByCustomer(Long userId);
+    Voucher useVoucher(Long voucherId, Long customerId);
+    Voucher getVoucherById(Long id);
+    List<Voucher> getAvailableVouchers();
 }

@@ -77,7 +77,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatTableModule} from "@angular/material/table";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
-import {WarrantyPageComponent} from "./warranty/warranty-page.component";
+import {WarrantyPageComponent} from "./warranty-page/warranty-page.component";
 import {JewelryEditComponent} from "./manager-page/jewelry-edit.component";
 import {DeleteConfirmComponent} from "./manager-page/delete-confirm.component";
 import {DeliverySidebarComponent} from "./delivery-page/delivery-sidebar.component";
@@ -86,10 +86,9 @@ import {CollectionCardComponent} from "./collection-page/collection-card.compone
 import {CollectionPageComponent} from "./collection-page/collection-page.component";
 import {HomeCollectionRowComponent} from "./home-page/home-collection-row.component";
 import {VoucherEditComponent} from "./manager-page/voucher-edit.component";
-import {VouchersListComponent} from "./manager-page/vouchers-list.component";
-import {VoucherWindowComponent} from "./payment-page/voucher-window/voucher-window.component";
-import { VouchersComponent } from './vouchers/vouchers.component';
-import { VouchersListComponent } from './vouchers/vouchers-list.component';
+import {ManagerVouchersListComponent} from "./manager-page/manager-vouchers-list.component";
+import { MyVouchersPageComponent } from './my-vouchers-page/my-vouchers-page.component';
+import { VouchersListComponent } from './my-vouchers-page/vouchers-list.component';
 
 @NgModule({
   declarations: [
@@ -151,7 +150,7 @@ import { VouchersListComponent } from './vouchers/vouchers-list.component';
     JewelryEditComponent,
     ManageJewelriesListComponent,
     VoucherEditComponent,
-    VouchersListComponent,
+    ManagerVouchersListComponent,
     DeleteConfirmComponent,
     ManageDiamondListComponent,
     StaffSidebarComponent,
@@ -183,8 +182,7 @@ import { VouchersListComponent } from './vouchers/vouchers-list.component';
     CollectionPageComponent,
 
     ListOfOrdersComponent,
-    VoucherWindowComponent,
-    VouchersComponent,
+    MyVouchersPageComponent,
     VouchersListComponent,
   ],
   imports: [

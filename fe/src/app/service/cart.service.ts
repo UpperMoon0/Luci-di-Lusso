@@ -86,6 +86,7 @@ export class CartService {
   }
 
   getCartState(): Observable<CartState> {
+    this.getCartItems();
     return this.cartState.asObservable();
   }
 }

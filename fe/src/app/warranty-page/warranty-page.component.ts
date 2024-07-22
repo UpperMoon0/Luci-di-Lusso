@@ -5,7 +5,7 @@ import {AccountService} from "../service/account.service";
 import {ToastrService} from "ngx-toastr";
 
 @Component({
-  selector: 'app-warranty-page',
+  selector: 'app-warranty-page-page',
   templateUrl: './warranty-page.component.html',
 })
 export class WarrantyPageComponent implements OnInit {

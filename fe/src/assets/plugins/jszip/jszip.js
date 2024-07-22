@@ -5693,7 +5693,7 @@ exports.utf8border = function (buf, max) {
 // (C) 2014-2017 Vitaly Puzrin and Andrey Tupitsin
 //
 // This software is provided 'as-is', without any express or implied
-// warranty. In no event will the authors be held liable for any damages
+// warranty-page. In no event will the authors be held liable for any damages
 // arising from the use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,
@@ -5742,7 +5742,7 @@ module.exports = adler32;
 // (C) 2014-2017 Vitaly Puzrin and Andrey Tupitsin
 //
 // This software is provided 'as-is', without any express or implied
-// warranty. In no event will the authors be held liable for any damages
+// warranty-page. In no event will the authors be held liable for any damages
 // arising from the use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,
@@ -5816,7 +5816,7 @@ module.exports = {
 // (C) 2014-2017 Vitaly Puzrin and Andrey Tupitsin
 //
 // This software is provided 'as-is', without any express or implied
-// warranty. In no event will the authors be held liable for any damages
+// warranty-page. In no event will the authors be held liable for any damages
 // arising from the use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,
@@ -5873,7 +5873,7 @@ module.exports = crc32;
 // (C) 2014-2017 Vitaly Puzrin and Andrey Tupitsin
 //
 // This software is provided 'as-is', without any express or implied
-// warranty. In no event will the authors be held liable for any damages
+// warranty-page. In no event will the authors be held liable for any damages
 // arising from the use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,
@@ -7749,7 +7749,7 @@ exports.deflateTune = deflateTune;
 // (C) 2014-2017 Vitaly Puzrin and Andrey Tupitsin
 //
 // This software is provided 'as-is', without any express or implied
-// warranty. In no event will the authors be held liable for any damages
+// warranty-page. In no event will the authors be held liable for any damages
 // arising from the use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,
@@ -7809,7 +7809,7 @@ module.exports = GZheader;
 // (C) 2014-2017 Vitaly Puzrin and Andrey Tupitsin
 //
 // This software is provided 'as-is', without any express or implied
-// warranty. In no event will the authors be held liable for any damages
+// warranty-page. In no event will the authors be held liable for any damages
 // arising from the use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,
@@ -8156,7 +8156,7 @@ module.exports = function inflate_fast(strm, start) {
 // (C) 2014-2017 Vitaly Puzrin and Andrey Tupitsin
 //
 // This software is provided 'as-is', without any express or implied
-// warranty. In no event will the authors be held liable for any damages
+// warranty-page. In no event will the authors be held liable for any damages
 // arising from the use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,
@@ -9714,7 +9714,7 @@ exports.inflateUndermine = inflateUndermine;
 // (C) 2014-2017 Vitaly Puzrin and Andrey Tupitsin
 //
 // This software is provided 'as-is', without any express or implied
-// warranty. In no event will the authors be held liable for any damages
+// warranty-page. In no event will the authors be held liable for any damages
 // arising from the use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,
@@ -10059,7 +10059,7 @@ module.exports = function inflate_table(type, lens, lens_index, codes, table, ta
 // (C) 2014-2017 Vitaly Puzrin and Andrey Tupitsin
 //
 // This software is provided 'as-is', without any express or implied
-// warranty. In no event will the authors be held liable for any damages
+// warranty-page. In no event will the authors be held liable for any damages
 // arising from the use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,
@@ -10093,7 +10093,7 @@ module.exports = {
 // (C) 2014-2017 Vitaly Puzrin and Andrey Tupitsin
 //
 // This software is provided 'as-is', without any express or implied
-// warranty. In no event will the authors be held liable for any damages
+// warranty-page. In no event will the authors be held liable for any damages
 // arising from the use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,
@@ -11315,7 +11315,7 @@ exports._tr_align = _tr_align;
 // (C) 2014-2017 Vitaly Puzrin and Andrey Tupitsin
 //
 // This software is provided 'as-is', without any express or implied
-// warranty. In no event will the authors be held liable for any damages
+// warranty-page. In no event will the authors be held liable for any damages
 // arising from the use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,

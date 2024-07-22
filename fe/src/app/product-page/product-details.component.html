@@ -28,7 +28,7 @@
               Contact sales for more information: <a href="tel:+84903179968">+(84) 903-179-968</a>
             </p>
           </div>
-          <div class="quantity-selector d-flex align-items-center">
+          <div *ngIf="isLoggedIn" class="quantity-selector d-flex align-items-center">
             <button class="decrement-btn" (click)="decrementQuantity()">-</button>
             <input type="number" class="text-center mx-2" [(ngModel)]="selectedQuantity" min="1">
             <button class="decrement-btn" (click)="incrementQuantity()">+</button>

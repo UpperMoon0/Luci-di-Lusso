@@ -10,6 +10,7 @@ import vn.fpt.diamond_shop.repository.IVoucherRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Service
@@ -47,19 +48,24 @@ public class VoucherService implements IVoucherService {
     public void createVoucher() {
         String uniqueCode = "VOUCHER_" + java.util.UUID.randomUUID();
         Voucher newVoucher = Voucher.builder()
-            .code(uniqueCode)
-            .discount(10)
-            .createAt(LocalDateTime.now())
-            .expireAt(LocalDateTime.now().plusDays(30).withNano(0))
-            .price(1000)
-            .build();
+                .code(uniqueCode)
+                .discount(10)
+                .createAt(LocalDateTime.now())
+                .expireAt(LocalDateTime.now().plusDays(30).withNano(0))
+                .price(1000)
+                .build();
 
         voucherRepository.save(newVoucher);
     }
 
     @Override
-    public void addVoucherToCustomer(String code, Long customerId) {
-        Voucher voucher = voucherRepository.findByCode(code).orElse(null);
+    public void redeemVoucher(Long voucherId, Long customerId) {
+        Voucher voucher = voucherRepository.findById(voucherId).orElse(null);
+
+        if (voucher == null) {
+            throw new RuntimeException("Voucher not found");
+        }
+
         Customer customer = customerRepository.getById(customerId);
 
         customer.setPoint(customer.getPoint() - voucher.getPrice());
@@ -70,20 +76,42 @@ public class VoucherService implements IVoucherService {
     }
 
     @Override
-    public List<Voucher> getAllCustomerVouchers(Long customerId) {
+    public List<Voucher> getVouchersByCustomer(Long customerId) {
         Customer customer = customerRepository.getById(customerId);
+        List<Voucher> vouchers = customer.getVouchers();
+        // Filter vouchers that expired
+        vouchers.removeIf(v -> v.getExpireAt().isBefore(LocalDateTime.now()));
 
-        return customer.getVouchers().stream().toList();
+        return vouchers;
     }
 
     @Override
-    public Voucher useVoucher(String code, Long customerId) {
-        Voucher voucher = voucherRepository.findByCode(code).orElse(null);
+    public Voucher useVoucher(Long voucherId, Long customerId) {
+        Voucher voucher = voucherRepository.findById(voucherId).orElse(null);
+
+        if (voucher == null) {
+            throw new RuntimeException("Voucher not found");
+        }
+
         Customer customer = customerRepository.getById(customerId);
+
+        if (customer.getVouchers().stream().noneMatch(v -> v.getId().equals(voucherId))) {
+            throw new RuntimeException("Voucher not found");
+        }
 
         customer.getVouchers().remove(voucher);
         customerRepository.save(customer);
 
         return voucher;
+    }
+
+    @Override
+    public Voucher getVoucherById(Long id) {
+        return voucherRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Voucher> getAvailableVouchers() {
+        return voucherRepository.findByExpireAtAfter(LocalDateTime.now());
     }
 }

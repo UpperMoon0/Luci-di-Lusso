@@ -5,21 +5,8 @@ import { CartService } from "../service/cart.service";
 import { Subscription } from 'rxjs';
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
-import {MatButtonModule} from '@angular/material/button';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogContent,
-  MatDialogRef,
-  MatDialogTitle,
-} from '@angular/material/dialog';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {FormsModule} from "@angular/forms";
-import {VoucherWindowComponent} from "./voucher-window/voucher-window.component";
-import {VouchersService} from "../service/vouchers.service";
+import {ManagerService} from "../service/manager.service";
+import {VoucherService} from "../service/voucher.service";
 
 @Component({
   selector: 'app-payment-form',
@@ -28,28 +15,43 @@ import {VouchersService} from "../service/vouchers.service";
 })
 export class PaymentFormComponent implements OnInit, OnDestroy {
   @ViewChild(StripeCardComponent) card: StripeCardComponent;
-  customerName: string = '';
-  totalPrice: number;
-  private cartSubscription: Subscription;
+  protected customerName: string = '';
+  protected totalPrice: number;
+  protected basePrice: number;
+  protected vouchers: any[] = [];
+  protected selectedVoucher: any = 'None';
 
-  vouchersList: any[] = []
-  chosenVoucher: any;
+  private cartSubscription: Subscription;
 
   constructor(
     private stripeService: StripeService,
     private paymentService: PaymentService,
     private cartService: CartService,
+    private voucherService: VoucherService,
     private toastrService: ToastrService,
     private router: Router,
-    public dialog: MatDialog,
-    public vouchersService: VouchersService,
   ) { }
 
   ngOnInit() {
-    // Subscribe to cartState to get totalPrice
     this.cartSubscription = this.cartService.getCartState().subscribe(cartState => {
-      this.totalPrice = cartState.totalPrice;
+      this.basePrice = cartState.totalPrice;
+      this.totalPrice = this.basePrice;
     });
+
+    this.voucherService.getMyVouchers().subscribe({
+      next: (res) => {
+        this.vouchers = res;
+      }
+    });
+  }
+
+  updateTotalPrice() {
+    if (this.selectedVoucher !== 'None') {
+      let voucher = this.vouchers.find(voucher => voucher.id == this.selectedVoucher);
+      this.totalPrice = this.basePrice * (1 - voucher.discount / 100);
+    } else {
+      this.totalPrice = this.basePrice;
+    }
   }
 
   ngOnDestroy() {
@@ -65,7 +67,13 @@ export class PaymentFormComponent implements OnInit, OnDestroy {
         .createToken(this.card.element, { name: this.customerName })
         .subscribe(result => {
           if (result.token) {
-            this.paymentService.createCharge(result.token.id, this.chosenVoucher?.code)
+            let voucherId = 0;
+            if (this.selectedVoucher != 'None') {
+              voucherId = this.selectedVoucher;
+            }
+
+            let request = {stripeToken: result.token.id, voucherId: voucherId};
+            this.paymentService.createCharge(request)
               .subscribe({
                 next: () => {
                   this.toastrService.success("Payment successful!");
@@ -77,28 +85,6 @@ export class PaymentFormComponent implements OnInit, OnDestroy {
               });
           }
         });
-    }
-  }
-
-  getAllCustomerVouchers() {
-    this.vouchersService.getAllCustomerVouchers().subscribe({
-      next: (res) => { this.vouchersList = res.vouchers; }
-    })
-  }
-
-  openDialog(): void {
-    if (this.vouchersList.length > 0) {
-      const dialogRef = this.dialog.open(VoucherWindowComponent, {
-        width: '600px',
-        data: { vouchersList: this.vouchersList }
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        if (result !== undefined) {
-          this.chosenVoucher = result;
-        }
-      });
-    } else {
-      this.toastrService.error('No voucher found!');
     }
   }
 }
