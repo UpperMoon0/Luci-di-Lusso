@@ -1,9 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
-import {ProductService} from "../service/product.service";
-import {ManagerService} from "../service/manager.service";
-import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-delete-confirm',

@@ -1,8 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-
-import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import {StatisticsService} from "../service/statistics.service";
 
 @Component({

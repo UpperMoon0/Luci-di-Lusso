@@ -1,0 +1,28 @@
+<div class="container">
+  <button (click)="addVoucher()">Add voucher</button>
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Code</th>
+      <th>Discount</th>
+      <th>Expire time</th>
+      <th>Price</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let voucher of vouchers">
+      <td>{{voucher.id}}</td>
+      <td>{{voucher.code}}</td>
+      <td>{{voucher.discount}}</td>
+      <td>{{voucher.expireAt | date: 'medium'}}</td>
+      <td>{{voucher.price}}</td>
+      <td>
+        <button (click)="openEditVoucherDialog(voucher)">Edit</button>
+        <button (click)="openDeleteConfirmDialog(voucher.id)">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

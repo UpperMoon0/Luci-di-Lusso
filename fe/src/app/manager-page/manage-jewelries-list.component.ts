@@ -37,7 +37,7 @@ export class ManageJewelriesListComponent implements OnInit {
     });
   }
 
-  openEditDiamondDialog(jewelry: any): void {
+  openEditJewelryDialog(jewelry: any): void {
     this.dialog.open(JewelryEditComponent, {
       data: {
         jewelry: jewelry,

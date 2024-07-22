@@ -85,6 +85,8 @@ import {CollectionListPageComponent} from "./collection-page/collection-list-pag
 import {CollectionCardComponent} from "./collection-page/collection-card.component";
 import {CollectionPageComponent} from "./collection-page/collection-page.component";
 import {HomeCollectionRowComponent} from "./home-page/home-collection-row.component";
+import {VoucherEditComponent} from "./manager-page/voucher-edit.component";
+import {VouchersListComponent} from "./manager-page/vouchers-list.component";
 
 @NgModule({
   declarations: [
@@ -145,6 +147,8 @@ import {HomeCollectionRowComponent} from "./home-page/home-collection-row.compon
     ManageDeliveryPageComponent,
     JewelryEditComponent,
     ManageJewelriesListComponent,
+    VoucherEditComponent,
+    VouchersListComponent,
     DeleteConfirmComponent,
     ManageDiamondListComponent,
     StaffSidebarComponent,
