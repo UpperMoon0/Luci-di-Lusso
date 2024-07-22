@@ -1,1 +1,1 @@
-Diamond shop system - Group 8
+Diamond shop system - Group 7
