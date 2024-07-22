@@ -42,4 +42,7 @@ public class Jewelry {
 
     @Column(name = "create_at")
     private LocalDateTime createAt;
+
+    @Column(name = "status")
+    private String status;
 }

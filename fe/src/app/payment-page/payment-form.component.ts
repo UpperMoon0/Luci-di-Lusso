@@ -64,7 +64,7 @@ export class PaymentFormComponent implements OnInit, OnDestroy {
   buy() {
     if (this.card.element) {
       this.stripeService
-        .createToken(this.card.element, { name: this.customerName })
+        .createToken(this.card.element, {name: this.customerName})
         .subscribe(result => {
           if (result.token) {
             let voucherId = 0;
@@ -77,7 +77,8 @@ export class PaymentFormComponent implements OnInit, OnDestroy {
               .subscribe({
                 next: () => {
                   this.toastrService.success("Payment successful!");
-                  this.router.navigate(['/home']).then(r => {});
+                  this.router.navigate(['/home']).then(r => {
+                  });
                 },
                 error: () => {
                   this.toastrService.error('Payment failed!');

@@ -142,8 +142,8 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public void addPoint(Customer customer, double totalPrice) {
-        customer.setPoint(customer.getPoint() + ((int) totalPrice / 10));
+    public void addPoint(Customer customer, int totalPrice) {
+        customer.setPoint(customer.getPoint() + (totalPrice / 10));
         customerRepository.save(customer);
     }
 
@@ -151,8 +151,4 @@ public class AccountService implements IAccountService {
     public int getCustomerPoints(Long customerId) {
         return customerRepository.getById(customerId).getPoint();
     }
-
-
-
-
 }

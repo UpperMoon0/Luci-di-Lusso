@@ -5,7 +5,7 @@ import vn.fpt.diamond_shop.model.entity.Order;
 import java.util.List;
 
 public interface IOrderService {
-    double createOrderFromJwtToken(String token);
+    int createOrderFromJwtToken(String token, int discount);
     List<Order> getOrdersByCustomer(Long userId);
     Order getOrderById(Long orderId);
 }

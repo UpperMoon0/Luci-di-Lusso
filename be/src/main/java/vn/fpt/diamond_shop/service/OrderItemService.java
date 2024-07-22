@@ -25,13 +25,13 @@ public class OrderItemService implements IOrderItemService {
     private final IJewelryService jewelryService;
 
     @Override
-    public void createOrderItemsByCartItems(List<CartItem> cartItems, Order order) {
+    public void createOrderItemsByCartItems(List<CartItem> cartItems, Order order, int discount) {
         for (CartItem cartItem : cartItems) {
             OrderItem orderItem = new OrderItem();
             orderItem.setJewelry(cartItem.getJewelry());
             orderItem.setJewelrySize(cartItem.getJewelrySize());
             orderItem.setQuantity(cartItem.getQuantity());
-            orderItem.setPrice(jewelryService.calculateJewelryPriceWithSize(cartItem.getJewelry(), cartItem.getJewelrySize()));
+            orderItem.setPrice(jewelryService.calculateJewelryPriceWithSize(cartItem.getJewelry(), cartItem.getJewelrySize(), discount));
             orderItem.setOrder(order);
             orderItem.setCreateAt(LocalDateTime.now());
             orderItemRepository.save(orderItem);

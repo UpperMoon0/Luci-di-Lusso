@@ -89,17 +89,24 @@ public class JewelryService implements IJewelryService {
     }
 
     @Override
-    public Integer calculateJewelryPriceWithSize(Jewelry jewelry, JewelrySize size) {
+    public Integer calculateJewelryPriceWithSize(Jewelry jewelry, JewelrySize size, int discount) {
         Diamond diamond = jewelry.getDiamond();
         int diamondPrice = (int) ((diamond.getCut().getPrice() + diamond.getColor().getPrice() + diamond.getClarity().getPrice())
                 * diamond.getCarat()
                 * diamond.getShape().getPriceMultiplier());
-        return (Integer) (int) (diamondPrice + jewelry.getSettingPrice() * size.getPriceMultiplier() + jewelry.getLaborCost());
+        return (Integer) (int) ((diamondPrice + jewelry.getSettingPrice() * size.getPriceMultiplier() + jewelry.getLaborCost()) * (1 - discount / 100.0));
     }
 
     @Override
     public void deleteJewelryById(Long id) {
-        jewelryRepository.deleteById(id);
+        Jewelry jewelry = jewelryRepository.findById(id).orElse(null);
+
+        if (jewelry == null) {
+            throw new IllegalArgumentException("Jewelry not found");
+        }
+
+        jewelry.setStatus("DISABLED");
+        jewelryRepository.save(jewelry);
     }
 
     @Override

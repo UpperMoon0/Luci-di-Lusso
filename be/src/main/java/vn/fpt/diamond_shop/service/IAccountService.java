@@ -14,6 +14,6 @@ public interface IAccountService {
     List<Integer> findCustomerCreationStatistics();
     void updateCustomerProfile(String jwtToken, UpdateCustomerProfileRequest request);
     String login(LoginRequest request);
-    void addPoint(Customer customer, double totalPrice);
+    void addPoint(Customer customer, int totalPrice);
     int getCustomerPoints(Long customerId);
 }

@@ -35,7 +35,7 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public double createOrderFromJwtToken(String jwtToken) throws RuntimeException {
+    public int createOrderFromJwtToken(String jwtToken, int discount) throws RuntimeException {
         Account account = userService.findAccountByToken(jwtToken).orElse(null);
         if (account == null) {
             throw new InvalidJwtTokenException();
@@ -57,12 +57,12 @@ public class OrderService implements IOrderService {
             }
         }
 
-        orderItemService.createOrderItemsByCartItems(cartItems, order);
+        orderItemService.createOrderItemsByCartItems(cartItems, order, discount);
 
         // Calculate total price
-        double totalPrice = 0.0;
+        int totalPrice = 0;
         for (CartItem cartItem : cartItems) {
-            totalPrice += jewelryService.calculateJewelryPriceWithSize(cartItem.getJewelry(), cartItem.getJewelrySize()) * cartItem.getQuantity();
+            totalPrice += jewelryService.calculateJewelryPriceWithSize(cartItem.getJewelry(), cartItem.getJewelrySize(), discount) * cartItem.getQuantity();
         }
 
         deliveryService.createDelivery(order.getId());

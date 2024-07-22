@@ -26,7 +26,7 @@ public class GetCartResponse extends CommonResponse {
                             cartItem.getJewelry().getName(),
                             cartItem.getJewelry().getImageUrl(),
                             cartItem.getJewelrySize().getSize() + " " + cartItem.getJewelrySize().getUnit(),
-                            productService.calculateJewelryPriceWithSize(cartItem.getJewelry(), cartItem.getJewelrySize()),
+                            productService.calculateJewelryPriceWithSize(cartItem.getJewelry(), cartItem.getJewelrySize(), 0),
                             cartItem.getQuantity(),
                             cartItem.getCreateAt().format(formatter)
                     )

@@ -41,7 +41,14 @@ public class DiamondService implements IDiamondService {
 
     @Override
     public void deleteDiamondById(long id) {
-        diamondRepository.deleteById(id);
+        Diamond diamond = diamondRepository.findById(id).orElse(null);
+
+        if (diamond == null) {
+            throw new RuntimeException("Diamond not found");
+        }
+
+        diamond.setStatus("DISABLED");
+        diamondRepository.save(diamond);
     }
 
     @Override

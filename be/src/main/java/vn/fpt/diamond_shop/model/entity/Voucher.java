@@ -42,4 +42,7 @@ public class Voucher {
     @JsonManagedReference
     @ManyToMany(mappedBy = "vouchers")
     private List<Customer> customers = new ArrayList<>();
+
+    @Column(name = "status")
+    private String status;
 }

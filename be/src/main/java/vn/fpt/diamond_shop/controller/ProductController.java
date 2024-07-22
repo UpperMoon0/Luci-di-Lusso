@@ -93,11 +93,18 @@ public class ProductController {
 
     @DeleteMapping("/delete-jewelry")
     public ResponseEntity<CommonResponse> deleteJewelry(@RequestParam Long id) {
-        jewelryService.deleteJewelryById(id);
+        try {
+            jewelryService.deleteJewelryById(id);
 
-        CommonResponse response = new CommonResponse();
-        response.setMessage("Jewelry deleted successfully");
-        return ResponseEntity.ok(response);
+            CommonResponse response = new CommonResponse();
+            response.setMessage("Jewelry deleted successfully");
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            CommonResponse response = new CommonResponse();
+            response.setMessage(e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+
     }
 
     @GetMapping("/get-all-jewelry-types")
@@ -117,10 +124,16 @@ public class ProductController {
 
     @DeleteMapping("/delete-diamond")
     public ResponseEntity<CommonResponse> deleteDiamond(@RequestParam long id) {
-        diamondService.deleteDiamondById(id);
-        CommonResponse response = new CommonResponse();
-        response.setMessage("Diamond deleted successfully");
-        return ResponseEntity.ok(response);
+        try {
+            diamondService.deleteDiamondById(id);
+            CommonResponse response = new CommonResponse();
+            response.setMessage("Diamond deleted successfully");
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            CommonResponse response = new CommonResponse();
+            response.setMessage(e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
     }
 
     @PostMapping("/update-diamond")

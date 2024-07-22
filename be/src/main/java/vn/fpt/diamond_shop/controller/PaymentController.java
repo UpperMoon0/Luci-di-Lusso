@@ -52,19 +52,18 @@ public class PaymentController {
 
             String stripeToken = request.getStripeToken();
             long voucherId = request.getVoucherId();
-            double totalPrice = orderService.createOrderFromJwtToken(jwtToken);
-
-            // Add point
-            accountService.addPoint(customer, totalPrice);
-
-            // Starting to charge (cost can be reduced by vouchers but will not affect the amount of points user gets)
             int discount = 0;
             if(voucherId != 0) {
                 Voucher voucher = voucherService.useVoucher(voucherId, customer.getId());
                 discount = voucher.getDiscount();
             }
 
-            paymentService.createCharge(stripeToken, (int) (totalPrice * 100 * (1 - (double) discount / 100)));
+            int totalPrice = orderService.createOrderFromJwtToken(jwtToken, discount);
+
+            // Add point
+            accountService.addPoint(customer, totalPrice);
+
+            paymentService.createCharge(stripeToken, totalPrice * 100);
             cartService.deleteAllCartItems(jwtToken);
 
             CommonResponse cr = new CommonResponse();
