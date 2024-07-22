@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.fpt.diamond_shop.exception.InvalidJwtTokenException;
 import vn.fpt.diamond_shop.model.dto.CommonResponse;
-import vn.fpt.diamond_shop.model.dto.DeliverersResponse;
 import vn.fpt.diamond_shop.model.dto.UserProfileResponse;
 import vn.fpt.diamond_shop.model.dto.UpdateCustomerProfileRequest;
 import vn.fpt.diamond_shop.model.entity.Account;
@@ -68,10 +67,8 @@ public class UserController {
     }
 
     @GetMapping("/get-deliverers")
-    public ResponseEntity<DeliverersResponse> getDeliverers() {
+    public ResponseEntity<List<Account>> getDeliverers() {
         List<Account> deliverers = userService.findAllDeliverers();
-        DeliverersResponse response = new DeliverersResponse(deliverers);
-        response.setMessage("Deliverers retrieved successfully");
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(deliverers);
     }
 }

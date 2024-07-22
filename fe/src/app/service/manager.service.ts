@@ -48,8 +48,8 @@ export class ManagerService {
     return this.http.get(`${environment.beApiUrl}/user/get-deliverers`, this.httpOptions);
   }
 
-  assignDelivery(request: any): Observable<any> {
-    return this.http.post(`${environment.beApiUrl}/delivery/add-delivery`, request, this.httpOptions);
+  assignDeliverer(request: any): Observable<any> {
+    return this.http.post(`${environment.beApiUrl}/delivery/assign-deliverer`, request, this.httpOptions);
   }
 
   getAllJeweleries(): Observable<any> {

@@ -3,6 +3,8 @@ package vn.fpt.diamond_shop.model.dto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import vn.fpt.diamond_shop.model.entity.Delivery;
+import vn.fpt.diamond_shop.model.entity.OrderItem;
+import vn.fpt.diamond_shop.service.IOrderItemService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,15 +12,16 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class UnassignedDeliveriesResponse extends CommonResponse {
-    private List<UnassignedDeliveryDTO> deliveries = new ArrayList<>();
+    private List<UnassignedDeliveryDTO> unassignedDeliveries = new ArrayList<>();
 
-    public UnassignedDeliveriesResponse(List<Delivery> deliveries) {
+    public UnassignedDeliveriesResponse(List<Delivery> deliveries, IOrderItemService orderItemService) {
         for (Delivery delivery : deliveries) {
-            this.deliveries.add(new UnassignedDeliveryDTO(delivery.getId(),
-                    delivery.getOrder().getCustomer().getFullName(),
-                    delivery.getCreateAt().toString()));
+            List<OrderItem> orderItems = orderItemService.getOrderItemsByOrder(delivery.getOrder());
+            UnassignedDeliveryDTO unassignedDeliveryDTO = new UnassignedDeliveryDTO(delivery, orderItems);
+            this.unassignedDeliveries.add(unassignedDeliveryDTO);
         }
     }
 }
 
-record UnassignedDeliveryDTO(Long id, String customerName, String creatAt) {}
+record UnassignedDeliveryDTO(Delivery delivery, List<OrderItem> orderItems) {
+}

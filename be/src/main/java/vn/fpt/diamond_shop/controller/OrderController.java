@@ -59,7 +59,7 @@ public class OrderController {
         return ResponseEntity.ok(orderItem);
     }
 
-    @GetMapping("/get-order-item-by-order")
+    @GetMapping("/get-order-items-by-order")
     public ResponseEntity<List<OrderItem>> getOrderItemsByOrder(@RequestParam Long orderId) {
         Order order = orderService.getOrderById(orderId);
         if (order == null) {

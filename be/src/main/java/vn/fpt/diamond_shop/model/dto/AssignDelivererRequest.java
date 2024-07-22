@@ -7,12 +7,10 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @ToString
-public class CreateDeliveryRequest {
+public class AssignDelivererRequest {
+    @NotNull
+    private long deliveryId;
 
     @NotNull
-    private Long deliveryID;
-
-    @NotNull
-    private Long delivererID;
-
+    private long delivererId;
 }
