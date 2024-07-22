@@ -6,6 +6,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatDialog } from "@angular/material/dialog";
 import { DiamondEditComponent } from "./diamond-edit.component";
 import {ToastrService} from "ngx-toastr";
+import {DeleteConfirmComponent} from "./delete-confirm.component";
 
 @Component({
   selector: 'app-diamond-list',
@@ -53,6 +54,18 @@ export class ManageDiamondListComponent implements OnInit {
         refreshList: () => this.getDiamonds()
       },
       width: '400px',
+    });
+  }
+
+  openDeleteConfirmDialog(diamondId: any): void {
+    this.dialog.open(DeleteConfirmComponent, {
+      data: {
+        entity: 'diamond',
+        refreshList: () => this.getDiamonds(),
+        deleteEntity: () => this.deleteDiamond(diamondId),
+        closeDialog: () => this.dialog.closeAll()
+      },
+      width: '400',
     });
   }
 

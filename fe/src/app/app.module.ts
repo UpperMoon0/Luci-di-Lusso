@@ -79,6 +79,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {WarrantyPageComponent} from "./warranty/warranty-page.component";
 import {JewelryEditComponent} from "./manager-page/jewelry-edit.component";
+import {DeleteConfirmComponent} from "./manager-page/delete-confirm.component";
 
 @NgModule({
   declarations: [
@@ -136,6 +137,7 @@ import {JewelryEditComponent} from "./manager-page/jewelry-edit.component";
     ManageDeliveryPageComponent,
     JewelryEditComponent,
     ManageJewelriesListComponent,
+    DeleteConfirmComponent,
     ManageDiamondListComponent,
     ManagerPageComponent,
 

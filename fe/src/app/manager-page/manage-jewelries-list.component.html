@@ -1,5 +1,5 @@
 <div class="container">
-  <button (click)="addJewelry()">Add Diamond</button>
+  <button (click)="addJewelry()">Add jewelry</button>
   <table>
     <thead>
     <tr>
@@ -35,7 +35,7 @@
       <td>{{element.laborCost}}</td>
       <td>
         <button (click)="openEditDiamondDialog(element)">Edit</button>
-        <button (click)="deleteJewelry(element.id)">Delete</button>
+        <button (click)="openDeleteConfirmDialog(element.id)">Delete</button>
       </td>
     </tr>
     </tbody>
