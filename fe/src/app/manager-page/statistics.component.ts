@@ -54,9 +54,11 @@ export class StatisticsComponent implements OnInit {
         includeZero: true,
         valueFormatString: '$#0'
       },
+      axisX: {
+        title: "Days"
+      },
       data: [{
-        type: "column", //change type to bar, line, area, pie, etc
-        //indexLabel: "{y}", //Shows y value on all Data Points
+        type: "column",
         indexLabelFontColor: "#5A5757",
         dataPoints: this.saleStatistics.map((y, index) => ({x: index + 1, y}))
       }]
@@ -71,11 +73,13 @@ export class StatisticsComponent implements OnInit {
       animationEnabled: true,
       axisY: {
         includeZero: true,
-        valueFormatString: '#0 Jewelries'
+        valueFormatString: '#0 jewelries'
+      },
+      axisX: {
+        title: "Days"
       },
       data: [{
-        type: "column", //change type to bar, line, area, pie, etc
-        //indexLabel: "{y}", //Shows y value on all Data Points
+        type: "column",
         indexLabelFontColor: "#5A5757",
         dataPoints: this.saledJewelriesStatistics.map((y, index) => ({x: index + 1, y}))
       }]
@@ -90,11 +94,13 @@ export class StatisticsComponent implements OnInit {
       animationEnabled: true,
       axisY: {
         includeZero: true,
-        valueFormatString: '#0 Account'
+        valueFormatString: '#0 customer'
+      },
+      axisX: {
+        title: "Days"
       },
       data: [{
-        type: "column", //change type to bar, line, area, pie, etc
-        //indexLabel: "{y}", //Shows y value on all Data Points
+        type: "column",
         indexLabelFontColor: "#5A5757",
         dataPoints: this.customerCreationStatistics.map((y, index) => ({x: index + 1, y}))
       }]

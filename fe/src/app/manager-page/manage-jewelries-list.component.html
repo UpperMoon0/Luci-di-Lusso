@@ -1,5 +1,4 @@
 <div class="container">
-  <button (click)="addJewelry()">Add jewelry</button>
   <table>
     <thead>
     <tr>
@@ -11,6 +10,7 @@
       <th>Image</th>
       <th>Setting price</th>
       <th>Labor cost</th>
+      <th>Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -33,11 +33,12 @@
       </td>
       <td>{{element.settingPrice}}</td>
       <td>{{element.laborCost}}</td>
-      <td>
+      <td style="display: flex">
         <button (click)="openEditJewelryDialog(element)">Edit</button>
         <button (click)="openDeleteConfirmDialog(element.id)">Delete</button>
       </td>
     </tr>
     </tbody>
   </table>
+  <button (click)="addJewelry()">Add jewelry</button>
 </div>
