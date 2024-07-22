@@ -108,6 +108,7 @@ public class DiamondService implements IDiamondService {
         diamond.setCarat(1.0f);
         diamond.setCreateAt(LocalDateTime.now());
         diamond.setQuantity(100);
+        diamond.setStatus("ACTIVE");
 
         diamondRepository.save(diamond);
     }

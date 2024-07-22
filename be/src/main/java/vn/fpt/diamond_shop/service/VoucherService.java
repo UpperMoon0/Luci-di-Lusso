@@ -60,6 +60,7 @@ public class VoucherService implements IVoucherService {
                 .createAt(LocalDateTime.now())
                 .expireAt(LocalDateTime.now().plusDays(30).withNano(0))
                 .price(1000)
+                .status("ACTIVE")
                 .build();
 
         voucherRepository.save(newVoucher);

@@ -145,6 +145,7 @@ public class JewelryService implements IJewelryService {
         jewelry.setDescription("New Jewelry Description");
         jewelry.setImageUrl("");
         jewelry.setCreateAt(LocalDateTime.now());
+        jewelry.setStatus("ACTIVE");
         jewelryRepository.save(jewelry);
     }
 
