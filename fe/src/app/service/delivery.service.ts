@@ -19,11 +19,11 @@ export class DeliveryService {
     };
   }
 
-  public getDeliveries(): Observable<any> {
-    return this.http.get<any[]>(`${environment.beApiUrl}/delivery/get-deliveries`, this.httpOptions);
+  public getMyDeliveries(): Observable<any> {
+    return this.http.get(`${environment.beApiUrl}/delivery/get-my-deliveries`, this.httpOptions);
   }
 
   public completeDelivery(id: number) {
-    return this.http.put<any>(`${environment.beApiUrl}/delivery/complete-delivery?id=${id}`, this.httpOptions);
+    return this.http.put(`${environment.beApiUrl}/delivery/complete-delivery?id=${id}`, '', this.httpOptions);
   }
 }

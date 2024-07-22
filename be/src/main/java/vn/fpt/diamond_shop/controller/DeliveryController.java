@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import vn.fpt.diamond_shop.model.dto.UnassignedDeliveriesResponse;
 import vn.fpt.diamond_shop.model.dto.CommonResponse;
 import vn.fpt.diamond_shop.model.dto.AssignDelivererRequest;
-import vn.fpt.diamond_shop.model.dto.DeliveriesResponse;
+import vn.fpt.diamond_shop.model.dto.MyDeliveriesResponse;
 import vn.fpt.diamond_shop.model.entity.Delivery;
 import vn.fpt.diamond_shop.model.entity.Account;
 import vn.fpt.diamond_shop.service.IDeliveryService;
@@ -24,8 +24,8 @@ public class DeliveryController {
     private final IDeliveryService deliveryService;
     private final IOrderItemService orderItemService;
 
-    @GetMapping("/get-deliveries")
-    public ResponseEntity<DeliveriesResponse> getDeliveries(@RequestHeader("Authorization") String authorizationHeader) {
+    @GetMapping("/get-my-deliveries")
+    public ResponseEntity<MyDeliveriesResponse> getMyDeliveries(@RequestHeader("Authorization") String authorizationHeader) {
         String jwt = authorizationHeader.substring(7);
 
         Account user = userService.findAccountByToken(jwt).orElse(null);
@@ -33,10 +33,10 @@ public class DeliveryController {
             return ResponseEntity.badRequest().body(null);
         }
 
-        List<Delivery> deliveries = deliveryService.getDeliveriesByUser(user.getId());
+        List<Delivery> deliveries = deliveryService.getDeliveriesByAccount(user.getId());
         deliveries.removeIf(temp -> temp.getStatus().name().equals("DONE"));
 
-        DeliveriesResponse res = new DeliveriesResponse(deliveries);
+        MyDeliveriesResponse res = new MyDeliveriesResponse(deliveries, orderItemService);
 
         return ResponseEntity.ok(res);
     }

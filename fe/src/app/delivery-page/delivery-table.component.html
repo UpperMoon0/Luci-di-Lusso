@@ -2,25 +2,31 @@
   <table class="fl-table">
     <thead>
     <tr>
-      <th style="width: 5%;">ID</th>
-      <th style="width: 25%">Customer Name</th>
-      <th style="width: 15%">Phone</th>
-      <th style="width: 20%">Email</th>
-      <th style="width: 30%">Address</th>
-      <th style="width: 30%">Created At</th>
-      <th style="width: 10%">Actions</th>
+      <th>ID</th>
+      <th>Customer Name</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th>Address</th>
+      <th>Order</th>
+      <th>Created At</th>
+      <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let delivery of deliveries">
-        <td><button class="fc-button" (click)="setDeliveryID(delivery.id)">{{ delivery.id }}</button></td>
-        <td>{{ delivery.customerName }}</td>
-        <td>{{ delivery.customerPhone }}</td>
-        <td>{{ delivery.customerEmail }}</td>
-        <td>{{ delivery.customerAddress }}</td>
-        <td>{{ delivery.createAt }}</td>
+        <td>{{ delivery.delivery.id }}</td>
+        <td>{{ delivery.delivery.order.customer.fullName }}</td>
+        <td>{{ delivery.delivery.order.customer.phone }}</td>
+        <td>{{ delivery.delivery.order.customer.email }}</td>
+        <td>{{ delivery.delivery.order.customer.address }}</td>
         <td>
-          <button (click)="completeDelivery(delivery.id)">Complete</button> <!-- Added button for completing delivery -->
+          <p *ngFor="let item of delivery.orderItems">
+            {{item.jewelry.name}} x {{item.quantity}}
+          </p>
+        </td>
+        <td>{{ delivery.delivery.createAt }}</td>
+        <td>
+          <button (click)="completeDelivery(delivery.delivery.id)">Complete</button>
         </td>
     </tr>
     </tbody>

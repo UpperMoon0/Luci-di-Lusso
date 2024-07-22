@@ -31,7 +31,7 @@ public class DeliveryService implements IDeliveryService {
     }
 
     @Override
-    public List<Delivery> getDeliveriesByUser(Long delivererID) {
+    public List<Delivery> getDeliveriesByAccount(Long delivererID) {
         return deliveryRepository.findAllByDelivererId(delivererID);
     }
 

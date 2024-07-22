@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ManagerService} from "../service/manager.service";
 import {Title} from "@angular/platform-browser";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-manage-delivery-page',
@@ -12,7 +13,8 @@ export class ManageDeliveryPageComponent implements OnInit{
   deliverers: any[] = [];
 
   constructor(private managerService: ManagerService,
-              private titleService: Title) {}
+              private titleService: Title,
+              private toastrService: ToastrService) {}
 
   ngOnInit() {
     this.getDeliverers();
@@ -40,6 +42,7 @@ export class ManageDeliveryPageComponent implements OnInit{
     let request = {deliveryId: deliveryId, delivererId: delivererId};
     this.managerService.assignDeliverer(request).subscribe(response => {
       this.getDeliveries();
+      this.toastrService.success('Deliverer assigned successfully');
     });
   }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IDeliveryService {
 
-    List<Delivery> getDeliveriesByUser(Long delivererID);
+    List<Delivery> getDeliveriesByAccount(Long delivererID);
 
     void completeDelivery(Long deliveryID);
 
