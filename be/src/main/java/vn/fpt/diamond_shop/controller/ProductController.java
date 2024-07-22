@@ -9,6 +9,7 @@ import vn.fpt.diamond_shop.model.dto.*;
 import vn.fpt.diamond_shop.model.entity.*;
 import vn.fpt.diamond_shop.service.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -86,7 +87,7 @@ public class ProductController {
     }
 
     @PostMapping("/update-jewelry")
-    public ResponseEntity<CommonResponse> updateJewelry(@RequestBody JewelryUpdateRequest body) {
+    public ResponseEntity<CommonResponse> updateJewelry(@Valid @RequestBody JewelryUpdateRequest body) {
         try {
             jewelryService.updateJewelry(body);
             CommonResponse response = new CommonResponse();
@@ -148,7 +149,7 @@ public class ProductController {
     }
 
     @PostMapping("/update-diamond")
-    public ResponseEntity<CommonResponse> updateDiamond(@RequestBody DiamondUpdateRequest request) {
+    public ResponseEntity<CommonResponse> updateDiamond(@Valid @RequestBody DiamondUpdateRequest request) {
         try {
             diamondService.updateDiamond(request);
             CommonResponse response = new CommonResponse();

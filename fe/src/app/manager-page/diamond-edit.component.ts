@@ -65,7 +65,8 @@ export class DiamondEditComponent implements OnInit {
       () => {
         this.toastrService.success('Diamond updated successfully');
         this.data.refreshList();
-      }
+      },
+      () => this.toastrService.error('Error updating diamond')
     )
   }
 }

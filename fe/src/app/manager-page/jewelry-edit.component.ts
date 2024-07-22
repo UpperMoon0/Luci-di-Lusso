@@ -36,12 +36,10 @@ export class JewelryEditComponent implements OnInit {
   ngOnInit(): void {
     this.managerService.getAllDiamonds().subscribe(response => {
       this.diamonds = response;
-      console.log("Diamonds " + this.diamonds);
-      console.log("Diamond data " + this.data.jewelry);
 
       // Set selected values using find
       this.initialDiamond = this.diamonds.find((diamond: any) => diamond.id === this.data.jewelry.diamond.id);
-      console.log("Initial diamond " + this.initialDiamond)
+
       // Update form controls with the found values
       this.jewelryEditForm.patchValue({
         diamond: this.initialDiamond,
@@ -85,7 +83,8 @@ export class JewelryEditComponent implements OnInit {
       () => {
         this.toastrService.success('Jewelry updated successfully');
         this.data.refreshList();
-      }
+      },
+      () => this.toastrService.error('Failed to update jewelry')
     )
   }
 }

@@ -6,7 +6,7 @@
 .conveyor-belt {
   display: flex;
   /* Adjust the animation duration as needed to control the speed */
-  animation: slide 20s linear infinite;
+  animation: slide 42s linear infinite;
 }
 
 @keyframes slide {
@@ -15,7 +15,7 @@
   }
   to {
     /* This needs to be dynamically calculated based on the total width of your items including clones */
-    transform: translateX(-108%);
+    transform: translateX(-220%);
   }
 }
 

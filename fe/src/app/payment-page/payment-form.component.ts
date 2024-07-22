@@ -48,7 +48,7 @@ export class PaymentFormComponent implements OnInit, OnDestroy {
   updateTotalPrice() {
     if (this.selectedVoucher !== 'None') {
       let voucher = this.vouchers.find(voucher => voucher.id == this.selectedVoucher);
-      this.totalPrice = this.basePrice * (1 - voucher.discount / 100);
+      this.totalPrice = Math.floor(this.basePrice * (1 - voucher.discount / 100));
     } else {
       this.totalPrice = this.basePrice;
     }

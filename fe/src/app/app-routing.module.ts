@@ -77,7 +77,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'warranty-page/:id',
+    path: 'warranty/:id',
     component: WarrantyPageComponent,
   },
 

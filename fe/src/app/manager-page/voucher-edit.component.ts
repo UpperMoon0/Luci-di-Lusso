@@ -46,7 +46,8 @@ export class VoucherEditComponent implements OnInit {
       () => {
         this.toastrService.success('Voucher updated successfully');
         this.data.refreshList();
-      }
+      },
+      () => this.toastrService.error('Voucher update failed')
     )
   }
 }

@@ -24,7 +24,7 @@
             {{item.jewelry.name}} x {{item.quantity}}
           </p>
         </td>
-        <td>{{ delivery.delivery.createAt }}</td>
+        <td>{{ delivery.delivery.createAt | date: 'medium' }}</td>
         <td>
           <button (click)="completeDelivery(delivery.delivery.id)">Complete</button>
         </td>
