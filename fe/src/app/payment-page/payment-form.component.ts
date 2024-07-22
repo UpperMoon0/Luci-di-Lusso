@@ -1,10 +1,25 @@
-import {Component, ViewChild, OnInit, OnDestroy} from '@angular/core';
+import {Component, ViewChild, OnInit, OnDestroy, inject} from '@angular/core';
 import { StripeService, StripeCardComponent } from 'ngx-stripe';
 import { PaymentService } from "../service/payment.service";
 import { CartService } from "../service/cart.service";
 import { Subscription } from 'rxjs';
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
+import {MatButtonModule} from '@angular/material/button';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle,
+} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {FormsModule} from "@angular/forms";
+import {VoucherWindowComponent} from "./voucher-window/voucher-window.component";
+import {VouchersService} from "../service/vouchers.service";
 
 @Component({
   selector: 'app-payment-form',
@@ -17,12 +32,17 @@ export class PaymentFormComponent implements OnInit, OnDestroy {
   totalPrice: number;
   private cartSubscription: Subscription;
 
+  vouchersList: any[] = []
+  chosenVoucher: any;
+
   constructor(
     private stripeService: StripeService,
     private paymentService: PaymentService,
     private cartService: CartService,
     private toastrService: ToastrService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog,
+    public vouchersService: VouchersService,
   ) { }
 
   ngOnInit() {
@@ -45,7 +65,7 @@ export class PaymentFormComponent implements OnInit, OnDestroy {
         .createToken(this.card.element, { name: this.customerName })
         .subscribe(result => {
           if (result.token) {
-            this.paymentService.createCharge(result.token.id)
+            this.paymentService.createCharge(result.token.id, this.chosenVoucher?.code)
               .subscribe({
                 next: () => {
                   this.toastrService.success("Payment successful!");
@@ -57,6 +77,28 @@ export class PaymentFormComponent implements OnInit, OnDestroy {
               });
           }
         });
+    }
+  }
+
+  getAllCustomerVouchers() {
+    this.vouchersService.getAllCustomerVouchers().subscribe({
+      next: (res) => { this.vouchersList = res.vouchers; }
+    })
+  }
+
+  openDialog(): void {
+    if (this.vouchersList.length > 0) {
+      const dialogRef = this.dialog.open(VoucherWindowComponent, {
+        width: '600px',
+        data: { vouchersList: this.vouchersList }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result !== undefined) {
+          this.chosenVoucher = result;
+        }
+      });
+    } else {
+      this.toastrService.error('No voucher found!');
     }
   }
 }

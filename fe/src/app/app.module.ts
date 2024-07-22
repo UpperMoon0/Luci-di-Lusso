@@ -77,6 +77,9 @@ import {MatCardModule} from "@angular/material/card";
 import {MatTableModule} from "@angular/material/table";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {VoucherWindowComponent} from "./payment-page/voucher-window/voucher-window.component";
+import { VouchersComponent } from './vouchers/vouchers.component';
+import { VouchersListComponent } from './vouchers/vouchers-list.component';
 
 @NgModule({
   declarations: [
@@ -156,6 +159,9 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 
     ListOfOrdersComponent,
     HomeBannerComponent,
+    VoucherWindowComponent,
+    VouchersComponent,
+    VouchersListComponent,
   ],
   imports: [
     BrowserModule,
