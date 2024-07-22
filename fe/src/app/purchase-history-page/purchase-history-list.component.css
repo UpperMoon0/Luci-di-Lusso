@@ -1,22 +1,31 @@
-.mat-elevation-z8 {
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+.purchase-history-container {
+  margin-top: 15rem;
+  min-height: 600px;
 }
 
-mat-header-cell, mat-cell {
-  padding: 8px;
+.purchase-list-container, .purchase-details-container {
+  border: 1px solid #000;
+  margin: 10px;
+  padding: 10px;
 }
 
-mat-row:hover {
-  background-color: #ddd;
+.purchase-list-container {
+  width: 30%;
+  text-align: center;
 }
 
-.purchase-history-wrapper {
-  margin-top: 200px;
-  margin-bottom: 400px;
+.purchase-details-container {
+  width: 70%;
 }
 
-.purchase-history-header h2 {
-  margin: 0;
-  padding: 16px;
-  background-color: #f5f5f5;
+.purchase-list {
+  padding: 0;
+}
+
+.purchase-list-item {
+  cursor: pointer;
+  border: 1px solid #000;
+  list-style-type: none;
+  padding: 5px;
+  margin-bottom: 5px;
 }

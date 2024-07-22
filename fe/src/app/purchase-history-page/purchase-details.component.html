@@ -1,34 +1,32 @@
-<div class="container mt-4">
-  <div class="card">
-    <div class="card-header">
-      <h4>Purchase Details</h4>
+<div *ngIf="order">
+  <div style="text-align: center;">
+    <h2>Purchase Details</h2>
+  </div>
+  <div style="display: flex; justify-content: center;">
+    <div style="width: 30%;">
+      <p>Customer name: {{order.order.customer.fullName}}</p>
+      <p>Order date: {{order.order.createAt | date: 'medium'}}</p>
     </div>
-    <div class="card-body">
-      <!-- Customer Information -->
-      <div class="mb-3">
-        <strong>Customer Name:</strong> {{ orderDetails.customerName }}
+    <div style="flex: 1; border: 1px solid #000; padding: 10px;">
+      <div style="text-align: center;">
+        <h3>Jewelries List</h3>
       </div>
-      <div class="mb-3">
-        <strong>Total Price:</strong> ${{ orderDetails.totalPrice.toFixed(2) }}
-      </div>
-      <div class="mb-3">
-        <strong>Order Date:</strong> {{ orderDetails.createAt }}
-      </div>
-
-      <!-- Product List -->
-      <h5>Product List</h5>
-      <ul class="list-group">
-        <li *ngFor="let product of productList" class="list-group-item">
-          <div class="d-flex align-items-center">
-            <img src="{{ product.imageUrl }}" alt="{{ product.name }}" class="product-image">
-            <div class="ml-3">
-              <span class="product-name">{{ product.name }}</span>
-              <span class="product-category">Size: {{ product.size }}</span>
-              <span class="product-category">Type: {{ product.type }}</span>
+      <ul style="padding: 0; list-style: none;">
+        <li *ngFor="let item of order.orderItems" style="border: 1px solid #000; padding: 5px; margin-bottom: 5px; display: flex;">
+          <div>
+            <img src="{{item.jewelry.imageUrl}}" alt="Jewelry Image" style="display: block; margin: auto; width: 400px; height: 400px;">
+          </div>
+          <div style="padding: 10px;">
+            <p>Name: {{item.jewelry.name}}</p>
+            <p>Type: {{item.jewelry.type.type}}</p>
+            <p>Size: {{item.jewelrySize.size}} {{item.jewelrySize.unit}}</p>
+            <p>Quantity: {{item.quantity}}</p>
+            <p>Price: {{item.price | currency}}</p>
+            <div>
+              <a href="/certificate/{{item.jewelry.diamond.id}}">GIA certificate</a>
             </div>
-            <div class="ml-auto">
-              <span class="product-price">${{ product.price.toFixed(2) }}</span>
-              <span class="product-quantity"> x {{ product.quantity }}</span>
+            <div>
+              <a href="/warranty/{{item.id}}">Warranty</a>
             </div>
           </div>
         </li>

@@ -1,0 +1,8 @@
+<app-header></app-header>
+<div style="margin: 10rem auto 15rem">
+  <h1 style="text-align: center">Jewelry collections</h1>
+  <div *ngFor="let collection of collections" style="margin: 5rem">
+    <app-collection-card [collection]="collection"></app-collection-card>
+  </div>
+</div>
+<app-footer></app-footer>

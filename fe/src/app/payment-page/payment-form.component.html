@@ -27,6 +27,11 @@
         [elementsOptions]="{ locale: 'en' }" class="form-control">
       </ngx-stripe-card>
     </div>
+    <label>Voucher</label>
+    <select [(ngModel)]="selectedVoucher" name="voucherSelect" class="form-control" (ngModelChange)="updateTotalPrice()">
+      <option value="None">None</option>
+      <option *ngFor="let voucher of vouchers" [value]="voucher.id">{{voucher.code}} -{{voucher.discount}}%</option>
+    </select>
     <h3>Total Price: ${{ totalPrice }}</h3>
     <button type="submit" class="btn btn-primary">Proceed</button>
   </form>

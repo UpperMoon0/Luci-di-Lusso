@@ -1,67 +1,46 @@
 package vn.fpt.diamond_shop.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import vn.fpt.diamond_shop.model.entity.CartItem;
-import vn.fpt.diamond_shop.model.entity.Jewelry;
-import vn.fpt.diamond_shop.model.entity.JewelrySize;
-import vn.fpt.diamond_shop.model.entity.User;
+import vn.fpt.diamond_shop.exception.InvalidJwtTokenException;
+import vn.fpt.diamond_shop.model.entity.*;
 import vn.fpt.diamond_shop.repository.ICartItemRepository;
 import vn.fpt.diamond_shop.repository.IJewelryRepository;
 import vn.fpt.diamond_shop.repository.IJewelrySizeRepository;
-import vn.fpt.diamond_shop.repository.IUserRepository;
+import vn.fpt.diamond_shop.repository.IAccountRepository;
 import vn.fpt.diamond_shop.security.JwtTokenProvider;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+@RequiredArgsConstructor
 @Service
 public class CartService implements ICartService {
     private final ICartItemRepository cartItemRepository;
     private final IJewelryRepository jewelryRepository;
-    private final IUserRepository userRepository;
     private final IJewelrySizeRepository jewelrySizeRepository;
-    private final JwtTokenProvider jwtTokenProvider;
-
-    @Autowired
-    public CartService(ICartItemRepository cartItemRepository,
-                       IJewelryRepository jewelryRepository,
-                       IUserRepository userRepository,
-                       IJewelrySizeRepository jewelrySizeRepository,
-                       JwtTokenProvider jwtTokenProvider) {
-        this.cartItemRepository = cartItemRepository;
-        this.jewelryRepository = jewelryRepository;
-        this.userRepository = userRepository;
-        this.jewelrySizeRepository = jewelrySizeRepository;
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
+    private final AccountService accountService;
 
     @Override
-    public void addToCart(String token, Long jewelryId, Integer quantity, Long sizeId) throws NoSuchElementException {
-        // Extract username from the token
-        boolean tokenValid = jwtTokenProvider.validateToken(token);
-
-        if (!tokenValid) {
-            throw new RuntimeException("Invalid token");
+    public void addToCart(String jwtToken, Long jewelryId, Integer quantity, Long sizeId) throws RuntimeException {
+        Account account = accountService.findAccountByToken(jwtToken).orElse(null);
+        if (account == null) {
+            throw new RuntimeException("Account not found");
         }
+        Customer customer = account.getCustomer();
 
-        // Extract username from the token
-        String username = jwtTokenProvider.getUsernameFromJWT(token);
-
-        // Find the user by username
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new NoSuchElementException("User not found"));
         // Find the Jewelry by jewelryId
         Jewelry jewelry = jewelryRepository.findById(jewelryId)
-                .orElseThrow(() -> new NoSuchElementException("Jewelry not found"));
+                .orElseThrow(() -> new RuntimeException("Jewelry not found"));
         // Find the JewelrySize by sizeId
         JewelrySize size = jewelrySizeRepository.findById(sizeId)
-                .orElseThrow(() -> new NoSuchElementException("Size not found"));
+                .orElseThrow(() -> new RuntimeException("Size not found"));
 
         // Check if CartItem exists for the given User and Jewelry
-        List<CartItem> existingCartItems = cartItemRepository.findByUserIdAndJewelryIdAndJewelrySizeId(user.getId(), jewelry.getId(), sizeId);
+        List<CartItem> existingCartItems = cartItemRepository.findByCustomerIdAndJewelryIdAndJewelrySizeId(customer.getId(), jewelry.getId(), sizeId);
 
         CartItem cartItem;
         if (!existingCartItems.isEmpty()) {
@@ -71,7 +50,7 @@ public class CartService implements ICartService {
         } else {
             // If does not exist, create a new CartItem and set its properties
             cartItem = new CartItem();
-            cartItem.setUser(user);
+            cartItem.setCustomer(customer);
             cartItem.setJewelry(jewelry);
             cartItem.setQuantity(quantity);
             cartItem.setJewelrySize(size);
@@ -83,47 +62,32 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public List<CartItem> getCartByUserId(String token) throws RuntimeException {
-        // Extract username from the token
-        boolean tokenValid = jwtTokenProvider.validateToken(token);
-
-        if (!tokenValid) {
-            throw new RuntimeException("Invalid token");
+    public List<CartItem> getCartByUserId(String jwtToken) throws RuntimeException {
+        Account account = accountService.findAccountByToken(jwtToken).orElse(null);
+        if (account == null) {
+            throw new RuntimeException("Account not found");
         }
-
-        String username = jwtTokenProvider.getUsernameFromJWT(token);
-
-        // Find the user by username
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new NoSuchElementException("User not found"));
+        Customer customer = account.getCustomer();
 
         // Return the cart items for the found user
-        return cartItemRepository.findAllByUserId(user.getId());
+        return cartItemRepository.findAllByCustomerId(customer.getId());
     }
 
     @Override
-    public void updateCartItem(String token, Long cartItemId, Integer quantity) {
-        // Extract username from the token
-        boolean tokenValid = jwtTokenProvider.validateToken(token);
-
-        if (!tokenValid) {
-            throw new RuntimeException("Invalid token");
+    public void updateCartItem(String jwtToken, Long cartItemId, Integer quantity) throws RuntimeException{
+        Account account = accountService.findAccountByToken(jwtToken).orElse(null);
+        if (account == null) {
+            throw new RuntimeException("Account not found");
         }
-
-        // Extract username from the token
-        String username = jwtTokenProvider.getUsernameFromJWT(token);
-
-        // Find the user by username
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new NoSuchElementException("User not found"));
+        Customer customer = account.getCustomer();
 
         // Find the CartItem by cartItemId
         CartItem cartItem = cartItemRepository.findById(cartItemId)
-                .orElseThrow(() -> new NoSuchElementException("Cart item not found"));
+                .orElseThrow(() -> new RuntimeException("Cart item not found"));
 
         // Check if the CartItem belongs to the user
-        if (!cartItem.getUser().getId().equals(user.getId())) {
-            throw new NoSuchElementException("Cart item not found");
+        if (!cartItem.getCustomer().getId().equals(customer.getId())) {
+            throw new RuntimeException("Cart item not found");
         }
 
         // Update the quantity of the CartItem
@@ -134,28 +98,20 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public void deleteCartItem(String token, Long cartItemId) {
-        // Extract username from the token
-        boolean tokenValid = jwtTokenProvider.validateToken(token);
-
-        if (!tokenValid) {
-            throw new RuntimeException("Invalid token");
+    public void deleteCartItem(String jwtToken, Long cartItemId) throws RuntimeException {
+        Account account = accountService.findAccountByToken(jwtToken).orElse(null);
+        if (account == null) {
+            throw new RuntimeException("Account not found");
         }
-
-        // Extract username from the token
-        String username = jwtTokenProvider.getUsernameFromJWT(token);
-
-        // Find the user by username
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new NoSuchElementException("User not found"));
+        Customer customer = account.getCustomer();
 
         // Find the CartItem by cartItemId
         CartItem cartItem = cartItemRepository.findById(cartItemId)
-                .orElseThrow(() -> new NoSuchElementException("Cart item not found"));
+                .orElseThrow(() -> new RuntimeException("Cart item not found"));
 
         // Check if the CartItem belongs to the user
-        if (!cartItem.getUser().getId().equals(user.getId())) {
-            throw new NoSuchElementException("Cart item not found");
+        if (!cartItem.getCustomer().getId().equals(customer.getId())) {
+            throw new RuntimeException("Cart item not found");
         }
 
         // Delete the CartItem from the database
@@ -164,22 +120,14 @@ public class CartService implements ICartService {
 
     @Transactional
     @Override
-    public void deleteAllCartItems(String token) {
-        // Extract username from the token
-        boolean tokenValid = jwtTokenProvider.validateToken(token);
-
-        if (!tokenValid) {
-            throw new RuntimeException("Invalid token");
+    public void deleteAllCartItems(String jwtToken) throws RuntimeException {
+        Account account = accountService.findAccountByToken(jwtToken).orElse(null);
+        if (account == null) {
+            throw new RuntimeException("Account not found");
         }
-
-        // Extract username from the token
-        String username = jwtTokenProvider.getUsernameFromJWT(token);
-
-        // Find the user by username
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new NoSuchElementException("User not found"));
+        Customer customer = account.getCustomer();
 
         // Delete all CartItems for the user
-        cartItemRepository.deleteAllByUserId(user.getId());
+        cartItemRepository.deleteAllByCustomerId(customer.getId());
     }
 }

@@ -5,10 +5,10 @@ import org.springframework.stereotype.Service;
 import vn.fpt.diamond_shop.constant.EOrderStatus;
 import vn.fpt.diamond_shop.model.entity.Delivery;
 import vn.fpt.diamond_shop.model.entity.Order;
-import vn.fpt.diamond_shop.model.entity.User;
+import vn.fpt.diamond_shop.model.entity.Account;
 import vn.fpt.diamond_shop.repository.IDeliveryRepository;
 import vn.fpt.diamond_shop.repository.IOrderRepository;
-import vn.fpt.diamond_shop.repository.IUserRepository;
+import vn.fpt.diamond_shop.repository.IAccountRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,17 +21,17 @@ public class DeliveryService implements IDeliveryService {
 
     private final IOrderRepository orderRepository;
 
-    private final IUserRepository userRepository;
+    private final IAccountRepository userRepository;
 
     @Autowired
-    public DeliveryService(IDeliveryRepository deliveryRepository, IOrderRepository orderRepository, IUserRepository userRepository) {
+    public DeliveryService(IDeliveryRepository deliveryRepository, IOrderRepository orderRepository, IAccountRepository userRepository) {
         this.deliveryRepository = deliveryRepository;
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
     }
 
     @Override
-    public List<Delivery> getDeliveriesByUser(Long delivererID) {
+    public List<Delivery> getDeliveriesByAccount(Long delivererID) {
         return deliveryRepository.findAllByDelivererId(delivererID);
     }
 
@@ -58,7 +58,7 @@ public class DeliveryService implements IDeliveryService {
     @Override
     public void assignDeliverer(Long deliveryID, Long delivererID) {
         Delivery delivery = deliveryRepository.getById(deliveryID);
-        User user = userRepository.getById(delivererID);
+        Account user = userRepository.getById(delivererID);
         delivery.setDeliverer(user);
         deliveryRepository.save(delivery);
     }

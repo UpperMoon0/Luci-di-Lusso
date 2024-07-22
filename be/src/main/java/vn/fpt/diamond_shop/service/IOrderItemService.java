@@ -11,4 +11,5 @@ public interface IOrderItemService {
     List<OrderItem> getOrderItemsByOrder(Order order);
     List<Integer> getSaleStatistics();
     List<Integer> getJewelriesSaleStatistics();
+    OrderItem getOrderItemById(Long orderItemId);
 }

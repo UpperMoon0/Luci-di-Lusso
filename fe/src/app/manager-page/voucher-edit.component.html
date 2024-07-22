@@ -1,0 +1,29 @@
+<div class="edit-diamond-container">
+  <div>
+    <h2>Edit voucher</h2>
+  </div>
+  <div>
+    <form [formGroup]="voucherEditForm" (ngSubmit)="onSubmit()" style="display: flex; flex-direction: column;">
+      <label>
+        Code:
+        <input type="text" formControlName="code">
+      </label>
+
+      <label>
+        Discount:
+        <input type="text" formControlName="discount">
+      </label>
+
+      <label>
+        Expiration date:
+        <input type="datetime-local" formControlName="expireAt">
+      </label>
+
+      <label>
+        Price:
+        <input type="text" formControlName="price">
+      </label>
+      <button type="submit">Save</button>
+    </form>
+  </div>
+</div>

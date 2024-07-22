@@ -1,0 +1,23 @@
+<div class="container" style="margin: 15rem auto 10rem">
+  <h1 style="text-align: center">Vouchers</h1>
+  <div>
+    <h2>My vouchers</h2>
+    <div *ngFor="let voucher of myVouchers" style="border: 1px solid black; padding: 1rem; margin: 1rem">
+      <h4>Code: {{voucher.code}}</h4>
+      <p>Discount: {{voucher.discount}}%</p>
+      <p>Expire time: {{voucher.expireAt | date: 'medium'}}</p>
+    </div>
+    <h3>Your points: {{customerPoints}}</h3>
+    <h2>Available vouchers</h2>
+    <div *ngFor="let voucher of vouchers" style="border: 1px solid black; padding: 1rem; margin: 1rem; display: flex">
+      <div>
+        <h4>Code: {{voucher.code}}</h4>
+        <p>Discount: {{voucher.discount}}%</p>
+        <p>Expire time: {{voucher.expireAt | date: 'medium'}}</p>
+        <h5>Price: {{voucher.price}} points</h5>
+      </div>
+      <button (click)="redeemVoucher(voucher.id)">Redeem</button>
+    </div>
+  </div>
+</div>
+

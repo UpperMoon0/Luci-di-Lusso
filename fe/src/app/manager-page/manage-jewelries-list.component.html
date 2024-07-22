@@ -1,104 +1,43 @@
-<div class="container" style="display: flex; flex-direction: row;">
-  <div style="display: flex; flex-direction: column;">
-    <h2>Jewelry Type</h2>
-    <div class="table-wrapper">
-      <table class="fl-table">
-        <thead>
-        <tr>
-          <td>Type ID</td>
-          <td>Type</td>
-        </tr>
-        </thead>
-        <tbody>
-        <ng-container *ngFor="let type of jewelryTypes">
-          <tr>
-            <td>{{type.id}}</td>
-            <td>{{type.type}}</td>
-          </tr>
-        </ng-container>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div style="display: flex; flex-direction: column;">
-    <h2>Diamond</h2>
-    <div class="table-wrapper">
-      <table class="fl-table">
-        <thead>
-        <tr>
-          <td>Diamond ID</td>
-          <td>Clarity</td>
-          <td>CUt</td>
-          <td>Color</td>
-          <td>Carat</td>
-          <td>Shape</td>
-        </tr>
-        </thead>
-        <tbody>
-        <ng-container *ngFor="let diamond of diamonds">
-          <tr>
-            <td>{{diamond.id}}</td>
-            <td>{{diamond.clarity.clarity}}</td>
-            <td>{{diamond.cut.cut}}</td>
-            <td>{{diamond.color.color}}</td>
-            <td>{{diamond.carat}}</td>
-            <td>{{diamond.shape.shape}}</td>
-          </tr>
-        </ng-container>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
 <div class="container">
-  <mat-card class="mat-elevation-z8">
-    <mat-card-content>
-      <div class="table-wrapper">
-        <table class="fl-table" mat-table [dataSource]="jewelries">
-          <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef>Jewelry ID</th>
-            <td mat-cell *matCellDef="let jewelry"> {{jewelry.id}} </td>
-          </ng-container>
-
-          <!-- Editable fields -->
-          <ng-container *ngFor="let column of editableColumns" [matColumnDef]="column.field">
-            <th mat-header-cell *matHeaderCellDef> {{column.header}} </th>
-            <td style="overflow: hidden;" mat-cell *matCellDef="let jewelry">
-              <div style="display: block;
-                          width: 100px;
-                          overflow: hidden;
-                          white-space: nowrap;
-                          text-overflow: ellipsis;" *ngIf="!jewelry.isEditMode; else editTemplate">
-                {{ jewelry[column.field] }}
-              </div>
-              <ng-template #editTemplate>
-                <input matInput [(ngModel)]="jewelry[column.field]">
-              </ng-template>
-            </td>
-          </ng-container>
-
-          <!-- Save Button Column -->
-          <ng-container matColumnDef="save">
-            <th mat-header-cell *matHeaderCellDef>Actions</th>
-            <td mat-cell *matCellDef="let jewelry">
-              <button mat-button *ngIf="jewelry.isEditMode" (click)="saveJewelry(jewelry)">Save</button>
-              <button mat-button *ngIf="!jewelry.isEditMode" (click)="editJewelry(jewelry)">Edit</button>
-            </td>
-          </ng-container>
-
-          <!-- Delete Button Column -->
-          <ng-container matColumnDef="delete">
-            <th mat-header-cell *matHeaderCellDef> </th>
-            <td mat-cell *matCellDef="let jewelry">
-              <button mat-button (click)="deleteJewelry(jewelry.id)">Delete</button>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-      </div>
-    </mat-card-content>
-  </mat-card>
+  <button (click)="addJewelry()">Add jewelry</button>
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Diamond</th>
+      <th>Type</th>
+      <th>Image</th>
+      <th>Setting price</th>
+      <th>Labor cost</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let element of jewelries">
+      <td>{{element.id}}</td>
+      <td>{{element.name}}</td>
+      <td>{{element.description}}</td>
+      <td>
+        <div>
+          <div>Color: {{element.diamond.color.color}}</div>
+          <div>Clarity: {{element.diamond.clarity.clarity}}</div>
+          <div>Cut: {{element.diamond.cut.cut}}</div>
+          <div>Carat: {{element.diamond.carat}}</div>
+          <div>Shape: {{element.diamond.shape.shape}}</div>
+        </div>
+      </td>
+      <td>{{element.type.type}}</td>
+      <td>
+        <img [src]="element.imageUrl" alt="image" width="100" height="100">
+      </td>
+      <td>{{element.settingPrice}}</td>
+      <td>{{element.laborCost}}</td>
+      <td>
+        <button (click)="openEditJewelryDialog(element)">Edit</button>
+        <button (click)="openDeleteConfirmDialog(element.id)">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>

@@ -1,10 +1,11 @@
 <div class="card shadow rounded product-card">
-  <a href="/product/{{product.id}}" aria-label="View product details">
-    <img src="{{product.imageUrl}}" class="card-img-top img-fluid product-image" alt="Product Image">
+  <a href="/product/{{product.jewelry.id}}" aria-label="View product details">
+    <img src="{{product.jewelry.imageUrl}}" class="card-img-top img-fluid product-image" alt="Product Image">
   </a>
   <div class="card-body text-center">
-    <h5 class="h5 mb-2">{{ product.name }}</h5>
+    <h5 class="h5 mb-2">{{ product.jewelry.name }}</h5>
     <h4 class="text-muted font-weight-bold">{{convertNumber(product.price)}} <span class="currency-type"></span></h4>
+    <h5 class="text-danger" *ngIf="!product.isInStock">Out of stock</h5>
   </div>
-  <div class="product-type-bubble" [style.background]="getTypeGradient(product.type)">{{ product.type }}</div>
+  <div class="product-type-bubble" [style.background]="getTypeGradient(product.jewelry.type.type)">{{ product.jewelry.type.type }}</div>
 </div>

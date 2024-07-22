@@ -28,15 +28,15 @@ export class ManagerService {
     return this.http.get(`${environment.beApiUrl}/product/get-diamond?id=` + diamondId, this.httpOptions);
   }
 
-  addDiamond(diamond: any): Observable<any> {
-    return this.http.post(`${environment.beApiUrl}/product/add-diamond`, diamond, this.httpOptions);
+  addDiamond(): Observable<any> {
+    return this.http.post(`${environment.beApiUrl}/product/add-diamond`, '',this.httpOptions);
   }
 
-  saveDiamond(diamond: any): Observable<any> {
+  updateDiamond(diamond: any): Observable<any> {
     return this.http.post(`${environment.beApiUrl}/product/update-diamond`, diamond, this.httpOptions);
   }
 
-  deleteDiamond(diamondId: any): Observable<any> {
+  deleteDiamond(diamondId: number): Observable<any> {
     return this.http.delete(`${environment.beApiUrl}/product/delete-diamond?id=` + diamondId, this.httpOptions);
   }
 
@@ -48,12 +48,16 @@ export class ManagerService {
     return this.http.get(`${environment.beApiUrl}/user/get-deliverers`, this.httpOptions);
   }
 
-  assignDelivery(request: any): Observable<any> {
-    return this.http.post(`${environment.beApiUrl}/delivery/add-delivery`, request, this.httpOptions);
+  assignDeliverer(request: any): Observable<any> {
+    return this.http.post(`${environment.beApiUrl}/delivery/assign-deliverer`, request, this.httpOptions);
   }
 
   getAllJeweleries(): Observable<any> {
-    return this.http.get<any>(`${environment.beApiUrl}/product/get-all-jewelries`, this.httpOptions);
+    return this.http.get(`${environment.beApiUrl}/product/get-all-jewelries`, this.httpOptions);
+  }
+
+  addJewelry(): Observable<any> {
+    return this.http.post(`${environment.beApiUrl}/product/add-jewelry`, '',this.httpOptions);
   }
 
   deleteJewelry(id: number): Observable<any> {
@@ -62,5 +66,21 @@ export class ManagerService {
 
   updateJewelry(request: any): Observable<any> {
     return this.http.post(`${environment.beApiUrl}/product/update-jewelry`, request, this.httpOptions);
+  }
+
+  getAllVouchers(): Observable<any> {
+    return this.http.get(`${environment.beApiUrl}/voucher/get-all-vouchers`, this.httpOptions);
+  }
+
+  addVoucher(): Observable<any> {
+    return this.http.post(`${environment.beApiUrl}/voucher/create-voucher`, '',this.httpOptions);
+  }
+
+  deleteVoucher(id: number): Observable<any> {
+    return this.http.delete(`${environment.beApiUrl}/voucher/delete-voucher?id=${id}`, this.httpOptions);
+  }
+
+  updateVoucher(request: any): Observable<any> {
+    return this.http.put(`${environment.beApiUrl}/voucher/update-voucher`, request, this.httpOptions);
   }
 }

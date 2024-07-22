@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { ManagerService } from "../service/manager.service";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatDialog } from "@angular/material/dialog";
+import { DiamondEditComponent } from "./diamond-edit.component";
+import {ToastrService} from "ngx-toastr";
+import {DeleteConfirmComponent} from "./delete-confirm.component";
 
 @Component({
   selector: 'app-diamond-list',
@@ -10,100 +12,67 @@ import { MatSnackBar } from "@angular/material/snack-bar";
   styleUrls: ['./manage-diamond-list.component.css']
 })
 export class ManageDiamondListComponent implements OnInit {
-  diamonds: any[] = [];
-  searchDiamondForm!: FormGroup;
-  editableColumns = [
-    { field: 'cut.id', header: 'Cut ID' },
-    { field: 'color.id', header: 'Color ID' },
-    { field: 'clarity.id', header: 'Clarity ID' },
-    { field: 'shape.id', header: 'Shape ID' },
-    { field: 'carat', header: 'Carat' },
-  ];
-
-  displayedColumns = ['id', ...this.editableColumns.map(c => c.field), 'save', 'delete'];
+  diamonds: { id: number, color: string, clarity: string, cut: string, shape: string, carat: number, quantity: number }[] = [];
 
   constructor(private managerService: ManagerService,
               private titleService: Title,
-              private fb: FormBuilder,
-              private snackBar: MatSnackBar) {}
+              private toastrService: ToastrService,
+              public dialog: MatDialog) {}
 
   ngOnInit() {
     this.getDiamonds();
     this.titleService.setTitle('Diamond List | Luci di Lusso');
-    this.searchDiamondForm = this.fb.group({
-      title: [null, [Validators.minLength(1)]]
-    });
   }
 
   getDiamonds(): void {
-    this.diamonds = [];
     this.managerService.getAllDiamonds().subscribe(response => {
-      this.diamonds = response.diamonds.map(d => ({ ...d, isEditMode: false }));
+      this.diamonds = response.map((item: { id: number; color: { color: string; }; clarity: { clarity: string; }; cut: { cut: string; }; shape: { shape: string; }; carat: number; quantity: number; }) => ({
+        id: item.id,
+        color: item.color.color,
+        clarity: item.clarity.clarity,
+        cut: item.cut.cut,
+        shape: item.shape.shape,
+        carat: item.carat,
+        quantity: item.quantity
+      }));
     });
   }
 
   deleteDiamond(diamondId: any) {
     this.managerService.deleteDiamond(diamondId).subscribe(response => {
-      if (response == null) {
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('showSnackbar', 'true');
-        }
-        window.location.reload();
-      } else {
-        this.snackBar.open(response.message, 'Close', {
-          duration: 5000,
-          panelClass: 'error-snackbar'
-        });
-      }
+      this.toastrService.success('Diamond deleted successfully');
+      this.getDiamonds();
     });
   }
 
-  editDiamond(diamond: any) {
-    this.diamonds = this.diamonds.map(d => {
-      if (d.id === diamond.id) {
-        return { ...d, isEditMode: true };
-      }
-      return d;
-    });
-  }
-
-  saveDiamond(editedDiamond: any) {
-    const diamondToSave = {
-      id: editedDiamond.id,
-      clarityId: editedDiamond.clarity.id,
-      cutId: editedDiamond.cut.id,
-      colorId: editedDiamond.color.id,
-      carat: editedDiamond.carat,
-      shapeId: editedDiamond.shape.id
-    };
-
-    this.managerService.saveDiamond(diamondToSave).subscribe({
-      next: (response) => {
-        this.snackBar.open('Diamond updated successfully', 'Close', {
-          duration: 5000,
-          panelClass: 'success-snackbar'
-        });
-        this.getDiamonds(); // Refresh the list
+  openEditDiamondDialog(diamond: any): void {
+    this.dialog.open(DiamondEditComponent, {
+      data: {
+        diamond: diamond,
+        refreshList: () => this.getDiamonds()
       },
-      error: () => {
-        this.snackBar.open('Error updating diamond', 'Close', {
-          duration: 5000,
-          panelClass: 'error-snackbar'
-        });
-      }
+      width: '400px',
     });
   }
 
-  getNestedProperty(obj: any, path: string): any {
-    return path.split('.').reduce((o, p) => o && o[p], obj);
+  openDeleteConfirmDialog(diamondId: any): void {
+    this.dialog.open(DeleteConfirmComponent, {
+      data: {
+        entity: 'diamond',
+        refreshList: () => this.getDiamonds(),
+        deleteEntity: () => this.deleteDiamond(diamondId),
+        closeDialog: () => this.dialog.closeAll()
+      },
+      width: '400px',
+    });
   }
 
-  setNestedProperty(obj: any, path: string, value: any): void {
-    const keys = path.split('.');
-    const lastKey = keys.pop();
-    const lastObj = keys.reduce((o, p) => o && o[p], obj);
-    if (lastObj && lastKey) {
-      lastObj[lastKey] = value;
-    }
+  addDiamond() {
+    this.managerService.addDiamond().subscribe(
+      () => {
+        this.toastrService.success('Diamond added successfully');
+        this.getDiamonds();
+      }
+    )
   }
 }

@@ -1,0 +1,57 @@
+<app-header></app-header>
+<div style="margin: 15rem auto 10rem">
+  <a href="/purchase-history" style="text-decoration: none; color: #563ba1; margin: 10px 20px 10px;">&lt; Back to Purchase History</a>
+  <div style="border: 2px solid #000; padding: 20px; margin: auto; width: 60%; background-color: #563ba1;">
+    <div style="display: flex;">
+      <div style="width: 30%; text-align: left;">
+        <img src="assets/images/luci-di-lusso-logo.png" alt="Logo" style="display: block; margin: auto; width: 100px; height: 100px;">
+      </div>
+      <div style="text-align: center; width: 40%; color: white">
+        <h1>Warranty</h1>
+      </div>
+      <div style="width: 30%; text-align: right;">
+        <img src="assets/images/warranty.png" alt="Logo" style="display: block; margin: auto; width: 100px; height: 100px;">
+      </div>
+    </div>
+    <div>
+      <div style="border: 2px solid #000; margin: 5px; padding: 6px 10px 6px; background-color: white;">
+        <p>Customer name: {{orderItem.order.customer.fullName}}</p>
+        <p>Phone number: {{orderItem.order.customer.phone}}</p>
+        <p>Address: {{orderItem.order.customer.address}}</p>
+        <p>Order ID: {{orderItem.order.id}}</p>
+        <p>Order date: {{orderItem.order.createAt | date: 'medium'}}</p>
+        <p>Warranty expiration date: {{ getWarrantyExpirationDate(orderItem.order.createAt) | date: 'medium' }}</p>
+      </div>
+      <div style="display: flex;">
+        <div style="width: 50%; border: 2px solid #000; margin: 5px; padding: 6px 10px 6px; background-color: white;">
+          <div style="text-align: center">
+            <h3>Jewelry</h3>
+          </div>
+          <p>Name: {{orderItem.jewelry.name}}</p>
+          <p>Type: {{orderItem.jewelry.type.type}}</p>
+          <p>Size: {{orderItem.jewelrySize.size}} {{orderItem.jewelrySize.unit}}</p>
+        </div>
+        <div style="width: 50%; border: 2px solid #000; margin: 5px; padding: 6px 10px 6px; background-color: white;">
+          <div style="text-align: center">
+            <h3>Diamond</h3>
+          </div>
+          <p>Color: {{orderItem.jewelry.diamond.color.color}}</p>
+          <p>Clarity: {{orderItem.jewelry.diamond.clarity.clarity}}</p>
+          <p>Cut: {{orderItem.jewelry.diamond.cut.cut}}</p>
+          <p>Carat: {{orderItem.jewelry.diamond.carat}}</p>
+          <p>Shape: {{orderItem.jewelry.diamond.shape.shape}}</p>
+        </div>
+      </div>
+      <div style="border: 2px solid #000; margin: 5px; padding: 6px 10px 6px; background-color: white;">
+        <p>Warranty Term:</p>
+        <p>This diamond jewelry item is covered by a limited warranty for a period of 5 years from the date of purchase. The warranty covers manufacturing defects and craftsmanship issues. During the warranty period, we will repair or replace the item at no cost to you.</p>
+        <p>Exclusions:</p>
+        <ul>
+          <li>Damage due to accidents, misuse, or normal wear and tear is not covered.</li>
+          <li>Any alterations or repairs performed by unauthorized jewelers will void the warranty.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

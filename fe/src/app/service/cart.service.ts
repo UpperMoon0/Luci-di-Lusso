@@ -31,7 +31,6 @@ export class CartService {
   });
 
   constructor(private http: HttpClient) {
-    this.getCartItems();
   }
 
   private get httpOptions() {
@@ -87,6 +86,7 @@ export class CartService {
   }
 
   getCartState(): Observable<CartState> {
+    this.getCartItems();
     return this.cartState.asObservable();
   }
 }

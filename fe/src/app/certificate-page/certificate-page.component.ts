@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from '../service/account.service';
 import {ProductService} from "../service/product.service";
@@ -10,16 +10,17 @@ import {ProductService} from "../service/product.service";
   styleUrls: ['./certificate-page.component.css']
 })
 export class CertificatePageComponent implements OnInit {
-  protected diamond;
-  // @ts-ignore
+  protected diamond: any;
+
   constructor(private productService: ProductService,
               private toastrService: ToastrService,
               private accountService: AccountService,
-              private router: Router) {
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.getSelectedTypes(1);
+    this.getSelectedTypes(+this.route.snapshot.paramMap.get('id'));
 
     const token = localStorage.getItem('accessToken');
     this.accountService.validateToken(token).subscribe({
@@ -43,3 +44,5 @@ export class CertificatePageComponent implements OnInit {
     });
   }
 }
+
+

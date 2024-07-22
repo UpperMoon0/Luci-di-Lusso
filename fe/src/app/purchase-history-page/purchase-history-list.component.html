@@ -1,43 +1,16 @@
-<div class="purchase-history-wrapper" style="margin-top: 200px; margin-bottom: 400px">
-  <section class="purchase-history">
-    <header class="purchase-history-header">
-      <h2>Your Orders</h2>
-    </header>
-    <mat-table [dataSource]="orders" class="mat-elevation-z8">
-
-      <!-- Product Name Column -->
-      <ng-container matColumnDef="productName">
-        <mat-header-cell *matHeaderCellDef> Product Name </mat-header-cell>
-        <mat-cell *matCellDef="let order"> {{order.firstProductName}} ({{order.firstProductSize}}) </mat-cell>
-      </ng-container>
-
-      <!-- Quantity Column -->
-      <ng-container matColumnDef="quantity">
-        <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
-        <mat-cell *matCellDef="let order"> x {{order.firstProductQuantity}} </mat-cell>
-      </ng-container>
-
-      <!-- Price Column -->
-      <ng-container matColumnDef="price">
-        <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
-        <mat-cell *matCellDef="let order"> ${{order.price}} </mat-cell>
-      </ng-container>
-
-      <!-- Order Time Column -->
-      <ng-container matColumnDef="orderTime">
-        <mat-header-cell *matHeaderCellDef> Order Time </mat-header-cell>
-        <mat-cell *matCellDef="let order"> {{order.timeAgo}} </mat-cell>
-      </ng-container>
-
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onOrderSelect(row.id)"></mat-row>
-
-    </mat-table>
-  </section>
-  <section class="order-details" *ngIf="selectedOrderId">
-    <header class="order-details-header">
-      <h2>Order Details</h2>
-    </header>
-    <app-purchase-details [orderDetails]="selectedOrderDetails" [productList]="selectedOrderProductList"></app-purchase-details>
-  </section>
+<div class="purchase-history-container">
+  <h1 style="text-align: center;">Purchase History</h1>
+  <div style="display: flex; min-height: 500px">
+    <div class="purchase-list-container">
+      <h4>Purchase List</h4>
+      <ul class="purchase-list">
+        <li *ngFor="let orderLabel of orderLabels" (click)="selectOrder(orderLabel.order)" class="purchase-list-item">
+          {{orderLabel.label}}
+        </li>
+      </ul>
+    </div>
+    <div class="purchase-details-container">
+      <app-purchase-details [order]="selectedOrder"></app-purchase-details>
+    </div>
+  </div>
 </div>

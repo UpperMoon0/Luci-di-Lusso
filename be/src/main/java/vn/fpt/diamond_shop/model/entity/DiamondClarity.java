@@ -6,7 +6,11 @@ import vn.fpt.diamond_shop.constant.EDiamondClarity;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "diamond_clarity")
 public class DiamondClarity {

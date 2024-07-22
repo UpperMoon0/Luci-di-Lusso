@@ -7,7 +7,7 @@ import vn.fpt.diamond_shop.model.entity.Diamond;
 import java.util.Optional;
 
 @Repository
-public interface IDiamondRepository extends JpaRepository<Diamond, Integer>{
+public interface IDiamondRepository extends JpaRepository<Diamond, Long>{
     Optional<Diamond> findById(Long id);
     Optional<Diamond> findFirstBy();
 }

@@ -1,10 +1,13 @@
 package vn.fpt.diamond_shop.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.fpt.diamond_shop.model.entity.CartItem;
+import vn.fpt.diamond_shop.model.entity.Diamond;
 import vn.fpt.diamond_shop.model.entity.Order;
 import vn.fpt.diamond_shop.model.entity.OrderItem;
+import vn.fpt.diamond_shop.repository.IDiamondRepository;
 import vn.fpt.diamond_shop.repository.IOrderItemRepository;
 
 import java.time.LocalDate;
@@ -14,14 +17,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@RequiredArgsConstructor
 @Service
 public class OrderItemService implements IOrderItemService {
     private final IOrderItemRepository orderItemRepository;
-
-    @Autowired
-    public OrderItemService(IOrderItemRepository orderItemRepository) {
-        this.orderItemRepository = orderItemRepository;
-    }
+    private final IDiamondRepository diamondRepository;
+    private final IJewelryService jewelryService;
 
     @Override
     public void createOrderItemsByCartItems(List<CartItem> cartItems, Order order) {
@@ -30,10 +31,14 @@ public class OrderItemService implements IOrderItemService {
             orderItem.setJewelry(cartItem.getJewelry());
             orderItem.setJewelrySize(cartItem.getJewelrySize());
             orderItem.setQuantity(cartItem.getQuantity());
-            orderItem.setPrice(cartItem.getJewelry().getSettingPrice());
+            orderItem.setPrice(jewelryService.calculateJewelryPriceWithSize(cartItem.getJewelry(), cartItem.getJewelrySize()));
             orderItem.setOrder(order);
             orderItem.setCreateAt(LocalDateTime.now());
             orderItemRepository.save(orderItem);
+
+            Diamond diamond = cartItem.getJewelry().getDiamond();
+            diamond.setQuantity(diamond.getQuantity() - cartItem.getQuantity());
+            diamondRepository.save(diamond);
         }
     }
 
@@ -80,5 +85,10 @@ public class OrderItemService implements IOrderItemService {
         }
 
         return saleStatistics;
+    }
+
+    @Override
+    public OrderItem getOrderItemById(Long orderItemId) {
+        return orderItemRepository.findById(orderItemId).orElse(null);
     }
 }

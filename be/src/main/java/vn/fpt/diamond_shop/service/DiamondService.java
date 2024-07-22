@@ -1,13 +1,11 @@
 package vn.fpt.diamond_shop.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import vn.fpt.diamond_shop.constant.EDiamondClarity;
 import vn.fpt.diamond_shop.constant.EDiamondColor;
 import vn.fpt.diamond_shop.constant.EDiamondCut;
 import vn.fpt.diamond_shop.constant.EDiamondShape;
-import vn.fpt.diamond_shop.model.dto.CommonResponse;
 import vn.fpt.diamond_shop.model.dto.DiamondUpdateRequest;
 import vn.fpt.diamond_shop.model.entity.*;
 import vn.fpt.diamond_shop.repository.*;
@@ -42,12 +40,12 @@ public class DiamondService implements IDiamondService {
     }
 
     @Override
-    public void deleteDiamondById(Integer id) {
+    public void deleteDiamondById(long id) {
         diamondRepository.deleteById(id);
     }
 
     @Override
-    public Diamond getDiamondById(Long id) {
+    public Diamond getDiamondById(long id) {
         return diamondRepository.findById(id).orElse(null);
     }
 
@@ -66,12 +64,13 @@ public class DiamondService implements IDiamondService {
         DiamondCut cut = diamondCutRepository.findById(request.getCutId()).orElse(null);
         DiamondColor color = diamondColorRepository.findById(request.getColorId()).orElse(null);
         DiamondClarity clarity = diamondClarityRepository.findById(request.getClarityId()).orElse(null);
-        Float carat = request.getCarat();
         DiamondShape shape = diamondShapeRepository.findById(request.getShapeId()).orElse(null);
         Diamond diamond = getDiamondById(request.getId());
+        float carat = request.getCarat();
+        int quantity = request.getQuantity();
 
         if (cut == null || color == null || clarity == null || shape == null || diamond == null) {
-            throw new IllegalArgumentException("Invalid diamond update request");
+            throw new RuntimeException("Invalid diamond update request");
         }
 
         diamond.setCut(cut);
@@ -79,6 +78,7 @@ public class DiamondService implements IDiamondService {
         diamond.setClarity(clarity);
         diamond.setCarat(carat);
         diamond.setShape(shape);
+        diamond.setQuantity(quantity);
         diamondRepository.save(diamond);
     }
 

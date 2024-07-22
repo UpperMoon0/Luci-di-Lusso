@@ -1,47 +1,36 @@
-<div class="container">
-  <mat-card class="mat-elevation-z8">
-    <mat-card-content>
-      <div class="table-wrapper">
-        <table class="fl-table" mat-table [dataSource]="diamonds">
-          <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef>Diamond ID</th>
-            <td mat-cell *matCellDef="let diamond"> {{diamond.id}} </td>
-          </ng-container>
-
-          <!-- Editable fields -->
-          <ng-container *ngFor="let column of editableColumns" [matColumnDef]="column.field">
-            <th mat-header-cell *matHeaderCellDef> {{column.header}} </th>
-            <td mat-cell *matCellDef="let diamond">
-              <div *ngIf="!diamond.isEditMode; else editTemplate">
-                {{ getNestedProperty(diamond, column.field) }}
-              </div>
-              <ng-template #editTemplate>
-                <input matInput [(ngModel)]="diamond[column.field]">
-              </ng-template>
-            </td>
-          </ng-container>
-
-          <!-- Save Button Column -->
-          <ng-container matColumnDef="save">
-            <th mat-header-cell *matHeaderCellDef>Actions</th>
-            <td mat-cell *matCellDef="let diamond">
-              <button mat-button *ngIf="diamond.isEditMode" (click)="saveDiamond(diamond)">Save</button>
-              <button mat-button *ngIf="!diamond.isEditMode" (click)="editDiamond(diamond)">Edit</button>
-            </td>
-          </ng-container>
-
-          <!-- Delete Button Column -->
-          <ng-container matColumnDef="delete">
-            <th mat-header-cell *matHeaderCellDef> </th>
-            <td mat-cell *matCellDef="let diamond">
-              <button mat-button (click)="deleteDiamond(diamond.id)">Delete</button>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-      </div>
-    </mat-card-content>
-  </mat-card>
+<div class="container" style="margin: 5rem auto 5rem">
+  <div style="display: flex; align-items: flex-start;">
+    <table style="border: 1px solid black;">
+      <thead style="text-align: center">
+        <tr>
+          <th>ID</th>
+          <th>Color</th>
+          <th>Clarity</th>
+          <th>Cut</th>
+          <th>Shape</th>
+          <th>Carat</th>
+          <th>Quantity</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let element of diamonds">
+          <td>{{element.id}}</td>
+          <td>{{element.color}}</td>
+          <td>{{element.clarity}}</td>
+          <td>{{element.cut}}</td>
+          <td>{{element.shape}}</td>
+          <td>{{element.carat}}</td>
+          <td>{{element.quantity}}</td>
+          <td>
+            <button (click)="openEditDiamondDialog(element)">Edit</button>
+            <button (click)="openDeleteConfirmDialog(element.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div>
+      <button (click)="addDiamond()" style="background-color: green; color: white;">Add</button>
+    </div>
+  </div>
 </div>

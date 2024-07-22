@@ -20,7 +20,7 @@ export class PaymentService {
     };
   }
 
-  createCharge(stripeToken: string): Observable<any> {
-    return this.http.post(`${environment.beApiUrl}/payment/create-charge`, { stripeToken: stripeToken }, this.httpOptions);
+  createCharge(request: any): Observable<any> {
+    return this.http.post(`${environment.beApiUrl}/payment/create-charge`, request, this.httpOptions);
   }
 }

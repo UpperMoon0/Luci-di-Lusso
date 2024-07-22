@@ -15,7 +15,7 @@ public class OrderService implements IOrderService {
     private final IOrderRepository orderRepository;
     private final ICartItemRepository cartItemRepository;
     private final IOrderItemService orderItemService;
-    private final IUserService userService;
+    private final IAccountService userService;
     private final IDeliveryService deliveryService;
     private final IJewelryService jewelryService;
 
@@ -23,7 +23,7 @@ public class OrderService implements IOrderService {
     public OrderService(IOrderRepository orderRepository,
                         ICartItemRepository cartItemRepository,
                         IOrderItemService orderItemService,
-                        IUserService userService,
+                        IAccountService userService,
                         IDeliveryService deliveryService,
                         IJewelryService jewelryService) {
         this.orderRepository = orderRepository;
@@ -35,16 +35,28 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public double createOrderFromJwtToken(String jwtToken) throws InvalidJwtTokenException {
-        User user = userService.getUserByToken(jwtToken);
+    public double createOrderFromJwtToken(String jwtToken) throws RuntimeException {
+        Account account = userService.findAccountByToken(jwtToken).orElse(null);
+        if (account == null) {
+            throw new InvalidJwtTokenException();
+        }
+        Customer customer = account.getCustomer();
 
         Order order = new Order();
-        order.setUser(user);
+        order.setCustomer(customer);
         order.setCreateAt(LocalDateTime.now());
         orderRepository.save(order);
 
         // Find all CartItems by userId
-        List<CartItem> cartItems = cartItemRepository.findAllByUserId(user.getId());
+        List<CartItem> cartItems = cartItemRepository.findAllByCustomerId(customer.getId());
+
+        // Check if any cart item is out of stock
+        for (CartItem cartItem : cartItems) {
+            if (cartItem.getQuantity() > cartItem.getJewelry().getDiamond().getQuantity()) {
+                throw new RuntimeException(cartItem.getJewelry().getName() + " is out of stock.");
+            }
+        }
+
         orderItemService.createOrderItemsByCartItems(cartItems, order);
 
         // Calculate total price
@@ -59,8 +71,8 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public List<Order> getOrdersByUser(Long userId) {
-        return orderRepository.findAllByUserId(userId);
+    public List<Order> getOrdersByCustomer(Long customerId) {
+        return orderRepository.findAllByCustomerId(customerId);
     }
 
     @Override

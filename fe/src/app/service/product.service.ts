@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import {BehaviorSubject, Observable} from "rxjs";
+import { BehaviorSubject, Observable} from "rxjs";
 import { environment } from "../../environments/environment";
-import {tap} from "rxjs/operators";
-import {ColorService} from "./color.service";
+import { tap } from "rxjs/operators";
+import { ColorService } from "./color.service";
 
 @Injectable({
   providedIn: 'root'
@@ -32,16 +32,12 @@ export class ProductService {
   }
 
   public getJewelries(request: any): Observable<any> {
-    // Get all jewelries by default
-    if (!request.types) {
-      return this.http.get(`${this.apiUrl}/product/get-all-jewelries`, this.httpOptions);
-    } else {
-      return this.http.post<any>(`${this.apiUrl}/product/get-jewelries`, request, this.httpOptions);
-    }
+    if (!request) request = {types: {}, minPrice: 0, maxPrice: 0, keyword: ''};
+    return this.http.post(`${this.apiUrl}/product/get-jewelry-list`, request, this.httpOptions);
   }
 
   public getAllTypes(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/product/get-all-jewelry-types`, this.httpOptions).pipe(
+    return this.http.get(`${this.apiUrl}/product/get-all-jewelry-types`, this.httpOptions).pipe(
       tap(response => {
         const types = response.types.map((item: any) => item.type);
         this.productTypes.next(types);
@@ -60,5 +56,17 @@ export class ProductService {
 
   public getProductTypes(): Observable<String[]> {
     return this.productTypes.asObservable();
+  }
+
+  public getAllDiamondProperties(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/product/get-all-diamond-properties`, this.httpOptions);
+  }
+
+  public getAllCollections(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/product/get-all-collections`);
+  }
+
+  public getCollection(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/product/get-collection?id=` + id);
   }
 }

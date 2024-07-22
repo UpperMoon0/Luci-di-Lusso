@@ -5,6 +5,7 @@
       <a (click)="setTab(0)">Diamonds</a>
       <a (click)="setTab(3)">Jewelries</a>
       <a (click)="setTab(1)">Deliveries</a>
+      <a (click)="setTab(4)">Vouchers</a>
       <a class="logout-button" style="color: white" (click)="logOut()">Logout</a>
     </div>
     <div  class="col-11 content" id="diamond-list">
@@ -12,6 +13,7 @@
       <app-manage-delivery-page *ngIf="tab == 1"></app-manage-delivery-page>
       <app-statistics *ngIf="tab == 2"></app-statistics>
       <app-manage-jewelries-list *ngIf="tab == 3"></app-manage-jewelries-list>
+      <app-manager-vouchers-list *ngIf="tab == 4"></app-manager-vouchers-list>
     </div>
   </div>
 </div>

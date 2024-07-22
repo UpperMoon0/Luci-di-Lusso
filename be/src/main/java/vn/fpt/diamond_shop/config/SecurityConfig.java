@@ -48,10 +48,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/auth/login",
                         "/auth/validate-token",
                         "/product/get-jewelry",
-                        "/product/get-jewelries",
-                        "/product/get-all-jewelries",
+                        "/product/get-jewelry-list",
                         "/product/get-diamond",
-                        "/product/get-all-jewelry-types")
+                        "/product/get-all-jewelry-types",
+                        "/product/get-all-collections",
+                        "/product/get-collection")
                 .permitAll()
             .anyRequest()
                 .authenticated()
