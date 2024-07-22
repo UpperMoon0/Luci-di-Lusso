@@ -2,23 +2,23 @@
   <table>
     <thead>
     <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Diamond</th>
-      <th>Type</th>
-      <th>Image</th>
-      <th>Setting price</th>
-      <th>Labor cost</th>
-      <th>Actions</th>
+      <th style="text-align: center ;width: 3%">ID</th>
+      <th style="text-align: center">Name</th>
+      <th style="text-align: center">Description</th>
+      <th style="text-align: center">Diamond</th>
+      <th style="text-align: center">Type</th>
+      <th style="text-align: center">Image</th>
+      <th style="text-align: center">Setting price</th>
+      <th style="text-align: center">Labor cost</th>
+      <th style="text-align: center;">Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let element of jewelries">
-      <td>{{element.id}}</td>
-      <td>{{element.name}}</td>
-      <td>{{element.description}}</td>
-      <td>
+      <td style="text-align: center">{{element.id}}</td>
+      <td style="text-align: center">{{element.name}}</td>
+      <td style="text-align: center">{{element.description}}</td>
+      <td style="text-align: center">
         <div>
           <div>Color: {{element.diamond.color.color}}</div>
           <div>Clarity: {{element.diamond.clarity.clarity}}</div>
@@ -27,18 +27,18 @@
           <div>Shape: {{element.diamond.shape.shape}}</div>
         </div>
       </td>
-      <td>{{element.type.type}}</td>
-      <td>
+      <td style="text-align: center">{{element.type.type}}</td>
+      <td style="text-align: center">
         <img [src]="element.imageUrl" alt="image" width="100" height="100">
       </td>
-      <td>{{element.settingPrice}}</td>
-      <td>{{element.laborCost}}</td>
-      <td style="display: flex">
-        <button (click)="openEditJewelryDialog(element)">Edit</button>
-        <button (click)="openDeleteConfirmDialog(element.id)">Delete</button>
+      <td style="text-align: center">{{element.settingPrice}}</td>
+      <td style="text-align: center">{{element.laborCost}}</td>
+      <td style="text-align: center ;display: flex">
+        <button (click)="openEditJewelryDialog(element)" style="background-color: #04AA6D; color: white;">Edit</button>
+        <button (click)="openDeleteConfirmDialog(element.id)" style="background-color: #04AA6D; color: white;">Delete</button>
       </td>
     </tr>
     </tbody>
   </table>
-  <button (click)="addJewelry()">Add jewelry</button>
+  <button (click)="addJewelry()" style="background-color: #04AA6D; color: white;">Add jewelry</button>
 </div>

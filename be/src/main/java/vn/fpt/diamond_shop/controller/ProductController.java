@@ -10,6 +10,7 @@ import vn.fpt.diamond_shop.model.entity.*;
 import vn.fpt.diamond_shop.service.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RequestMapping("/product")
@@ -50,9 +51,11 @@ public class ProductController {
         String keyword = request.getKeyword();
 
         List<Jewelry> filteredJewelries = jewelryService.getJewelriesByFilter(types, minPrice, maxPrice, keyword);
-        filteredJewelries.removeIf(j -> !j.getStatus().equals("ACTIVE") && !j.getDiamond().getStatus().equals("ACTIVE"));
+        List<Jewelry> activeJewelries = filteredJewelries.stream()
+                .filter(j -> "ACTIVE".equals(j.getStatus()) && "ACTIVE".equals(j.getDiamond().getStatus()))
+                .toList();
 
-        JewelryListResponse response = new JewelryListResponse(filteredJewelries, jewelryService);
+        JewelryListResponse response = new JewelryListResponse(activeJewelries, jewelryService);
         response.setMessage("Get jewelries successfully");
 
         return ResponseEntity.ok(response);
@@ -61,8 +64,11 @@ public class ProductController {
     @GetMapping("/get-all-jewelries")
     public ResponseEntity<List<Jewelry>> getAllJewelries() {
         List<Jewelry> jewelries = jewelryService.getAllJewelries();
-        jewelries.removeIf(j -> !j.getStatus().equals("ACTIVE") && !j.getDiamond().getStatus().equals("ACTIVE"));
-        return ResponseEntity.ok(jewelries);
+        List<Jewelry> activeJewelries = jewelries.stream()
+                .filter(j -> "ACTIVE".equals(j.getStatus()) && "ACTIVE".equals(j.getDiamond().getStatus()))
+                .toList();
+
+        return ResponseEntity.ok(activeJewelries);
     }
 
     @PostMapping("/add-jewelry")
@@ -121,8 +127,10 @@ public class ProductController {
     @GetMapping("/get-all-diamonds")
     public ResponseEntity<List<Diamond>> getAllDiamonds() {
         List<Diamond> diamonds = diamondService.getAllDiamonds();
-        diamonds.removeIf(d -> !d.getStatus().equals("ACTIVE"));
-        return ResponseEntity.ok(diamonds);
+        List<Diamond> activeDiamonds = diamonds.stream()
+                .filter(d -> "ACTIVE".equals(d.getStatus()))
+                .toList();
+        return ResponseEntity.ok(activeDiamonds);
     }
 
     @DeleteMapping("/delete-diamond")

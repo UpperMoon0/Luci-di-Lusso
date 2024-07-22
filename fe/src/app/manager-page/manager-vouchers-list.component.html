@@ -3,22 +3,22 @@
   <table>
     <thead>
     <tr>
-      <th>ID</th>
-      <th>Code</th>
-      <th>Discount</th>
-      <th>Expire time</th>
-      <th>Price</th>
-      <th>Actions</th>
+      <th style="text-align: center">ID</th>
+      <th style="text-align: center">Code</th>
+      <th style="text-align: center">Discount</th>
+      <th style="text-align: center">Expire time</th>
+      <th style="text-align: center">Price</th>
+      <th style="text-align: center">Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let voucher of vouchers">
-      <td>{{voucher.id}}</td>
-      <td>{{voucher.code}}</td>
-      <td>{{voucher.discount}}</td>
-      <td>{{voucher.expireAt | date: 'medium'}}</td>
-      <td>{{voucher.price}}</td>
-      <td>
+      <td style="text-align: center">{{voucher.id}}</td>
+      <td style="text-align: center">{{voucher.code}}</td>
+      <td style="text-align: center">{{voucher.discount}}</td>
+      <td style="text-align: center">{{voucher.expireAt | date: 'medium'}}</td>
+      <td style="text-align: center">{{voucher.price}}</td>
+      <td style="text-align: center">
         <button (click)="openEditVoucherDialog(voucher)">Edit</button>
         <button (click)="openDeleteConfirmDialog(voucher.id)">Delete</button>
       </td>

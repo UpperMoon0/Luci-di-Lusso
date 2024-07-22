@@ -26,15 +26,19 @@ public class VoucherController {
     @GetMapping("/get-all-vouchers")
     public ResponseEntity<List<Voucher>> getAllVouchers() {
         List<Voucher> vouchers = voucherService.getAllVouchers();
-        vouchers.removeIf(voucher -> !voucher.getStatus().equals("ACTIVE"));
-        return ResponseEntity.ok(vouchers);
+        List<Voucher> activeVouchers = vouchers.stream()
+                .filter(voucher -> "ACTIVE".equals(voucher.getStatus()))
+                .toList();
+        return ResponseEntity.ok(activeVouchers);
     }
 
     @GetMapping("/get-usable-vouchers")
     public ResponseEntity<List<Voucher>> getUsableVouchers() {
         List<Voucher> vouchers = voucherService.getAvailableVouchers();
-        vouchers.removeIf(voucher -> !voucher.getStatus().equals("ACTIVE"));
-        return ResponseEntity.ok(vouchers);
+        List<Voucher> activeVouchers = vouchers.stream()
+                .filter(voucher -> "ACTIVE".equals(voucher.getStatus()))
+                .toList();
+        return ResponseEntity.ok(activeVouchers);
     }
 
     @PostMapping("/create-voucher")
@@ -110,9 +114,11 @@ public class VoucherController {
 
             Customer customer = user.getCustomer();
             List<Voucher> vouchers = voucherService.getVouchersByCustomer(customer.getId());
-            vouchers.removeIf(voucher -> !voucher.getStatus().equals("ACTIVE"));
+            List<Voucher> activeVouchers = vouchers.stream()
+                    .filter(voucher -> "ACTIVE".equals(voucher.getStatus()))
+                    .toList();
 
-            return ResponseEntity.ok(vouchers);
+            return ResponseEntity.ok(activeVouchers);
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(null);
         }

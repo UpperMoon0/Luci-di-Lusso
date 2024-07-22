@@ -1,35 +1,44 @@
+.container {
+  margin: 5rem auto;
+  width: 90%;
+}
 
-.container table {
+table {
   width: 100%;
   border-collapse: collapse;
-  margin: 20px 0;
 }
 
-.container th, .container td {
+th, td {
   border: 1px solid #ddd;
+  text-align: center;
   padding: 8px;
-  text-align: left;
 }
 
-.container th {
+th {
+  background-color: #04AA6D;
+  color: white;
+}
+
+tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-.container img {
-  margin: 5px;
-  border-radius: 5px;
+tr:hover {
+  background-color: #ddd; /* Light grey background on hover */
 }
 
-.container button {
-  margin: 5px;
-  padding: 5px 10px;
-  background-color: #4CAF50;
-  color: white;
+button {
   border: none;
-  border-radius: 5px;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
   cursor: pointer;
 }
 
-.container button:hover {
-  background-color: #45a049;
+button:hover {
+  opacity: 0.8;
 }
