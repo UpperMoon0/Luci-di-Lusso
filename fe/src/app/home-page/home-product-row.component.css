@@ -1,3 +1,26 @@
-.container {
-  margin-top: 15rem;
+.conveyor-belt-wrapper {
+  overflow: hidden;
+  width: 100%;
+}
+
+.conveyor-belt {
+  display: flex;
+  /* Adjust the animation duration as needed to control the speed */
+  animation: slide 20s linear infinite;
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    /* This needs to be dynamically calculated based on the total width of your items including clones */
+    transform: translateX(-108%);
+  }
+}
+
+.product-card {
+  flex: 0 0 auto;
+  width: 200px;
+  margin-right: 100px;
 }

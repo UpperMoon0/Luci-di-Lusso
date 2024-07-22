@@ -24,6 +24,7 @@ public class ProductController {
     private final IDiamondClarityService diamondClarityService;
     private final IDiamondColorService diamondColorService;
     private final IDiamondShapeService diamondShapeService;
+    private final IJewelryCollectionService jewelryCollectionService;
 
     @GetMapping("/get-jewelry")
     public ResponseEntity<JewelryResponse> getJewelry(@RequestParam Long id) {
@@ -172,5 +173,11 @@ public class ProductController {
         response.setMessage("Get all diamond properties successfully");
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/get-all-collections")
+    public ResponseEntity<List<JewelryCollection>> getAllCollections() {
+        List<JewelryCollection> collections = jewelryCollectionService.getAllCollections();
+        return ResponseEntity.ok(collections);
     }
 }
