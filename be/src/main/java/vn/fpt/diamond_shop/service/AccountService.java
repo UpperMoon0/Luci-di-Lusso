@@ -139,4 +139,21 @@ public class AccountService implements IAccountService {
             customerRepository.save(customer);
         }
     }
+
+    @Override
+    public void addPoint(String jwtToken, double totalPrice) {
+        Account account = findAccountByToken(jwtToken).orElseThrow();
+        Customer customer = account.getCustomer();
+        customer.setPoint(customer.getPoint() + ((int) totalPrice * 10/100));
+        customerRepository.save(customer);
+    }
+
+    @Override
+    public int getCustomerPoints(Long customerId) {
+        return customerRepository.getById(customerId).getPoint();
+    }
+
+
+
+
 }

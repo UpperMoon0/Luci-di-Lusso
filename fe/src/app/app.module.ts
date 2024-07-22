@@ -87,6 +87,9 @@ import {CollectionPageComponent} from "./collection-page/collection-page.compone
 import {HomeCollectionRowComponent} from "./home-page/home-collection-row.component";
 import {VoucherEditComponent} from "./manager-page/voucher-edit.component";
 import {VouchersListComponent} from "./manager-page/vouchers-list.component";
+import {VoucherWindowComponent} from "./payment-page/voucher-window/voucher-window.component";
+import { VouchersComponent } from './vouchers/vouchers.component';
+import { VouchersListComponent } from './vouchers/vouchers-list.component';
 
 @NgModule({
   declarations: [
@@ -180,6 +183,9 @@ import {VouchersListComponent} from "./manager-page/vouchers-list.component";
     CollectionPageComponent,
 
     ListOfOrdersComponent,
+    VoucherWindowComponent,
+    VouchersComponent,
+    VouchersListComponent,
   ],
   imports: [
     BrowserModule,

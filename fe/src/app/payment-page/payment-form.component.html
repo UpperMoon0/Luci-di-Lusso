@@ -27,6 +27,7 @@
         [elementsOptions]="{ locale: 'en' }" class="form-control">
       </ngx-stripe-card>
     </div>
+    <button mat-button (click)="openDialog()">Choose Voucher</button>
     <h3>Total Price: ${{ totalPrice }}</h3>
     <button type="submit" class="btn btn-primary">Proceed</button>
   </form>
