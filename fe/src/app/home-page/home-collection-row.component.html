@@ -1,0 +1,10 @@
+<div class="container">
+  <div>
+    <h1>Collections</h1>
+  </div>
+  <div class="conveyor-belt-wrapper">
+    <div class="conveyor-belt">
+      <app-collection-card *ngFor="let collection of collections" [collection]="collection" class="collection-card"></app-collection-card>
+    </div>
+  </div>
+</div>

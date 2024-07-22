@@ -16,4 +16,9 @@ public class JewelryCollectionService implements IJewelryCollectionService {
     public List<JewelryCollection> getAllCollections() {
         return jewelryCollectionRepository.findAll();
     }
+
+    @Override
+    public JewelryCollection getCollectionById(Long id) {
+        return jewelryCollectionRepository.findById(id).orElse(null);
+    }
 }

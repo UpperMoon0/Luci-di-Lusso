@@ -80,6 +80,11 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {WarrantyPageComponent} from "./warranty/warranty-page.component";
 import {JewelryEditComponent} from "./manager-page/jewelry-edit.component";
 import {DeleteConfirmComponent} from "./manager-page/delete-confirm.component";
+import {DeliverySidebarComponent} from "./delivery-page/delivery-sidebar.component";
+import {CollectionListPageComponent} from "./collection-page/collection-list-page.component";
+import {CollectionCardComponent} from "./collection-page/collection-card.component";
+import {CollectionPageComponent} from "./collection-page/collection-page.component";
+import {HomeCollectionRowComponent} from "./home-page/home-collection-row.component";
 
 @NgModule({
   declarations: [
@@ -94,8 +99,11 @@ import {DeleteConfirmComponent} from "./manager-page/delete-confirm.component";
     FooterComponent,
 
     // Home page
+    HomeCollectionRowComponent,
     HomeProductRowComponent,
     HomePageComponent,
+    HomeBannerComponent,
+    HomeBlogComponent,
 
     // Login page
     LoginFormComponent,
@@ -127,7 +135,7 @@ import {DeleteConfirmComponent} from "./manager-page/delete-confirm.component";
     CustomerProfilePageComponent,
 
     // Delivery page
-    StaffSidebarComponent,
+    DeliverySidebarComponent,
     DeliveryTableComponent,
     DeliveryPageComponent,
 
@@ -139,6 +147,7 @@ import {DeleteConfirmComponent} from "./manager-page/delete-confirm.component";
     ManageJewelriesListComponent,
     DeleteConfirmComponent,
     ManageDiamondListComponent,
+    StaffSidebarComponent,
     ManagerPageComponent,
 
     // Blog page
@@ -159,11 +168,14 @@ import {DeleteConfirmComponent} from "./manager-page/delete-confirm.component";
     // Warranty page
     WarrantyPageComponent,
 
-    HomePageComponent,
-    HomeBlogComponent,
+    // Collection list page
+    CollectionCardComponent,
+    CollectionListPageComponent,
+
+    // Collection page
+    CollectionPageComponent,
 
     ListOfOrdersComponent,
-    HomeBannerComponent,
   ],
   imports: [
     BrowserModule,

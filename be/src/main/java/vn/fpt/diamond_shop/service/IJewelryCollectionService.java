@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IJewelryCollectionService {
     List<JewelryCollection> getAllCollections();
+    JewelryCollection getCollectionById(Long id);
 }

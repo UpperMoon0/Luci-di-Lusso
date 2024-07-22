@@ -15,10 +15,7 @@ export class HomeProductRowComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const types = [];
-    const minPrice = 0;
-    const maxPrice = 0;
-    const request = {types, minPrice, maxPrice};
+    let request = {types: [], minPrice: 0, maxPrice: 0, keyword: ''};
     this.productService.getJewelries(request).subscribe(res => {
       this.products = res.jewelries;
     })

@@ -19,6 +19,8 @@ import {Fashion02Component} from "./blog-page/blog/fashion02/fashion02.component
 import {Fashion01Component} from "./blog-page/blog/fashion01/fashion01.component";
 import {CertificatePageComponent} from "./certificate-page/certificate-page.component";
 import {WarrantyPageComponent} from "./warranty/warranty-page.component";
+import {CollectionListPageComponent} from "./collection-page/collection-list-page.component";
+import {CollectionPageComponent} from "./collection-page/collection-page.component";
 
 const routes: Routes = [
   { path: 'home', component: HomePageComponent },
@@ -75,6 +77,16 @@ const routes: Routes = [
   {
     path: 'warranty/:id',
     component: WarrantyPageComponent,
+  },
+
+  {
+    path: 'collection-list',
+    component: CollectionListPageComponent,
+  },
+
+  {
+    path: 'collection/:id',
+    component: CollectionPageComponent,
   },
 
   { path: '**', redirectTo: 'home' }

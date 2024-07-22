@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from "ngx-toastr";
 import { ProductService } from "../service/product.service";
-import { CartService } from "../service/cart.service";
 import {ColorService} from "../service/color.service";
 import {AccountService} from "../service/account.service";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-product-list-page-page',
+  selector: 'app-product-list-page',
   templateUrl: './product-list-page.component.html',
   styleUrls: ['./product-list-page.component.css']
 })
 export class ProductListPageComponent implements OnInit {
   public typeLists: string[] = [];
-  public priceRange: string[] = ["$ 0 - 100", "$ 100 - 500", "$ 500 - 1000", "$ 1000 - 4000", "More than $ 4000"];
+  public priceRange: string[] = ["$ 0 - 10000", "$ 10000 - 20000", "$ 20000 - 50000", "$ 50000 - 100000", "More than $100000"];
 
   isLoggedIn: boolean = false;
   selectedRangePrice: string = "";

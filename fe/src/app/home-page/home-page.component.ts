@@ -8,14 +8,12 @@ import {AccountService} from "../service/account.service";
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent implements OnInit {
-  isLoginUser:boolean = false;
 
   constructor(private router: Router,
               private accountService: AccountService) {
   }
 
   ngOnInit(): void {
-    this.isLoginUser = localStorage.getItem("user") != null;
     const token = localStorage.getItem('accessToken');
     this.accountService.validateToken(token).subscribe({
       next: (res) => {

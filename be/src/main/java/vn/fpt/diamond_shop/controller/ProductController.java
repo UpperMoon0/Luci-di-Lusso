@@ -180,4 +180,15 @@ public class ProductController {
         List<JewelryCollection> collections = jewelryCollectionService.getAllCollections();
         return ResponseEntity.ok(collections);
     }
+
+    @GetMapping("/get-collection")
+    public ResponseEntity<JewelryCollection> getCollection(@RequestParam Long id) {
+        JewelryCollection collection = jewelryCollectionService.getCollectionById(id);
+        if (collection != null) {
+            return ResponseEntity.ok(collection);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
 }

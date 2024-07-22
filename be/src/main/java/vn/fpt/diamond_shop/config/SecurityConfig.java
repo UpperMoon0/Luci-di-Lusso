@@ -50,7 +50,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/product/get-jewelry",
                         "/product/get-jewelry-list",
                         "/product/get-diamond",
-                        "/product/get-all-jewelry-types")
+                        "/product/get-all-jewelry-types",
+                        "/product/get-all-collections",
+                        "/product/get-collection")
                 .permitAll()
             .anyRequest()
                 .authenticated()
