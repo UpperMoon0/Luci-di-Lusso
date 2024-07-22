@@ -4,11 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.fpt.diamond_shop.exception.InvalidJwtTokenException;
-import vn.fpt.diamond_shop.model.dto.CommonResponse;
-import vn.fpt.diamond_shop.model.dto.DeliverersResponse;
-import vn.fpt.diamond_shop.model.dto.UserProfileResponse;
-import vn.fpt.diamond_shop.model.dto.UpdateCustomerProfileRequest;
+import vn.fpt.diamond_shop.model.dto.*;
 import vn.fpt.diamond_shop.model.entity.Account;
+import vn.fpt.diamond_shop.model.entity.Customer;
 import vn.fpt.diamond_shop.service.IAccountService;
 
 import javax.validation.Valid;
@@ -73,5 +71,25 @@ public class UserController {
         DeliverersResponse response = new DeliverersResponse(deliverers);
         response.setMessage("Deliverers retrieved successfully");
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/customer-points")
+    public ResponseEntity<GetCustomerPointsResponse> getCustomerPoints(@RequestHeader("Authorization") String authorizationHeader) {
+        try {
+            String jwtToken = authorizationHeader.substring(7);
+            Customer customer = userService.findAccountByToken(jwtToken).orElse(null).getCustomer();
+            GetCustomerPointsResponse response = new GetCustomerPointsResponse();
+            response.setMessage("Customer profile updated successfully");
+            response.setPoints(userService.getCustomerPoints(customer.getId()));
+            return ResponseEntity.ok(response);
+        } catch (InvalidJwtTokenException e) {
+            GetCustomerPointsResponse response = new GetCustomerPointsResponse();
+            response.setMessage("Invalid JWT token");
+            return ResponseEntity.badRequest().body(response);
+        } catch (RuntimeException e) {
+            GetCustomerPointsResponse response = new GetCustomerPointsResponse();
+            response.setMessage(e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
     }
 }
