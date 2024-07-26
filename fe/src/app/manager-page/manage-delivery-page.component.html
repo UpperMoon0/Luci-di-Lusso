@@ -19,7 +19,7 @@
       </td>
       <td style="text-align: center">{{delivery.delivery.order.customer.fullName}}</td>
       <td style="text-align: center">{{delivery.delivery.order.customer.address}}</td>
-      <td style="text-align: center">
+      <td>
         <form (submit)="assignDeliverer(delivery.delivery.id, delivererSelect.value)">
           <select #delivererSelect>
             <option value="None">None</option>

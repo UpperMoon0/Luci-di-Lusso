@@ -24,10 +24,6 @@ export class ManagerService {
     return this.http.get(`${environment.beApiUrl}/product/get-all-diamonds`, this.httpOptions);
   }
 
-  getDiamond(diamondId: any): Observable<any> {
-    return this.http.get(`${environment.beApiUrl}/product/get-diamond?id=` + diamondId, this.httpOptions);
-  }
-
   addDiamond(): Observable<any> {
     return this.http.post(`${environment.beApiUrl}/product/add-diamond`, '',this.httpOptions);
   }

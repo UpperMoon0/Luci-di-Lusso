@@ -1,27 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { Title } from "@angular/platform-browser";
 import { ManagerService } from "../service/manager.service";
 import { MatDialog } from "@angular/material/dialog";
 import { DiamondEditComponent } from "./diamond-edit.component";
 import {ToastrService} from "ngx-toastr";
 import {DeleteConfirmComponent} from "./delete-confirm.component";
+import {ProductService} from "../service/product.service";
 
 @Component({
   selector: 'app-diamond-list',
   templateUrl: './manage-diamond-list.component.html',
-  styleUrls: ['./manage-diamond-list.component.css']
+  styleUrls: ['./manage-diamond-list.component.css'],
+  encapsulation: ViewEncapsulation.ShadowDom
 })
 export class ManageDiamondListComponent implements OnInit {
-  diamonds: { id: number, color: string, clarity: string, cut: string, shape: string, carat: number, quantity: number }[] = [];
+  diamondColors: any[] = [];
+  diamondClarities: any[] = [];
+  diamondCuts: any[] = [];
+  diamondShapes: any[] = [];
+  diamonds: any[] = [];
+  protected tab = 0;
 
   constructor(private managerService: ManagerService,
               private titleService: Title,
               private toastrService: ToastrService,
+              private productService: ProductService,
               public dialog: MatDialog) {}
 
   ngOnInit() {
+    this.titleService.setTitle('Manage diamonds');
     this.getDiamonds();
-    this.titleService.setTitle('Diamond List | Luci di Lusso');
+    this.getDiamondProperties();
   }
 
   getDiamonds(): void {
@@ -35,6 +44,15 @@ export class ManageDiamondListComponent implements OnInit {
         carat: item.carat,
         quantity: item.quantity
       }));
+    });
+  }
+
+  getDiamondProperties(): void {
+    this.productService.getAllDiamondProperties().subscribe(response => {
+      this.diamondColors = response.colors;
+      this.diamondClarities = response.clarities;
+      this.diamondCuts = response.cuts;
+      this.diamondShapes = response.shapes;
     });
   }
 
@@ -74,5 +92,9 @@ export class ManageDiamondListComponent implements OnInit {
         this.getDiamonds();
       }
     )
+  }
+
+  setTab(tabIndex: number): void {
+    this.tab = tabIndex;
   }
 }

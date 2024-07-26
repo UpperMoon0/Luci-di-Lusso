@@ -1,16 +1,33 @@
-<div class="container" style="margin: 5rem auto 5rem">
-  <div style="display: flex; align-items: flex-start;">
+<div style="margin: 2rem 4rem 5rem">
+  <div style="display: flex; margin: 0 auto 2rem;">
+    <button (click)="setTab(0)">
+      Diamond
+    </button>
+    <button (click)="setTab(1)">
+      Diamond color
+    </button>
+    <button (click)="setTab(2)">
+      Diamond clarity
+    </button>
+    <button (click)="setTab(3)">
+      Diamond cut
+    </button>
+    <button (click)="setTab(4)">
+      Diamond shape
+    </button>
+  </div>
+  <div *ngIf="tab==0" style="display: flex; align-items: flex-start;">
     <table style="border: 1px solid black;">
-      <thead style="text-align: center">
+      <thead>
       <tr>
         <th>ID</th>
         <th>Color</th>
         <th>Clarity</th>
         <th>Cut</th>
-        <th style="text-align: center">Shape</th>
+        <th>Shape</th>
         <th>Carat</th>
         <th>Quantity</th>
-        <th style="text-align: center">Actions</th>
+        <th>Actions</th>
       </tr>
       </thead>
       <tbody>
@@ -19,7 +36,7 @@
         <td>{{element.color}}</td>
         <td>{{element.clarity}}</td>
         <td>{{element.cut}}</td>
-        <td style="text-align: center">{{element.shape}}</td>
+        <td>{{element.shape}}</td>
         <td>{{element.carat}}</td>
         <td>{{element.quantity}}</td>
         <td style="text-align: center">
@@ -29,8 +46,110 @@
       </tr>
       </tbody>
     </table>
-    <div>
-      <button (click)="addDiamond()" style="background-color: green; color: white;">Add</button>
-    </div>
+    <button (click)="addDiamond()" style="background-color: green; color: white;">Add</button>
+  </div>
+  <div *ngIf="tab==1" style="display: flex; align-items: flex-start;">
+    <table style="border: 1px solid black;">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Color</th>
+        <th>Price</th>
+        <th>Created at</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let element of diamondColors">
+        <td>{{element.id}}</td>
+        <td>{{element.color}}</td>
+        <td>{{element.price}}</td>
+        <td>{{element.createAt | date: 'medium'}}</td>
+        <td style="text-align: center">
+          <button (click)="openEditDiamondDialog(element)">Edit</button>
+          <button (click)="openDeleteConfirmDialog(element.id)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <button (click)="addDiamond()" style="background-color: green; color: white;">Add</button>
+  </div>
+  <div *ngIf="tab==2" style="display: flex; align-items: flex-start;">
+    <table style="border: 1px solid black;">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Clarity</th>
+        <th>Price</th>
+        <th>Created at</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let element of diamondClarities">
+        <td>{{element.id}}</td>
+        <td>{{element.clarity}}</td>
+        <td>{{element.price}}</td>
+        <td>{{element.createAt | date: 'medium'}}</td>
+        <td style="text-align: center">
+          <button (click)="openEditDiamondDialog(element)">Edit</button>
+          <button (click)="openDeleteConfirmDialog(element.id)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <button (click)="addDiamond()" style="background-color: green; color: white;">Add</button>
+  </div>
+  <div *ngIf="tab==3" style="display: flex; align-items: flex-start;">
+    <table style="border: 1px solid black;">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Cut</th>
+        <th>Price</th>
+        <th>Created at</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let element of diamondCuts">
+        <td>{{element.id}}</td>
+        <td>{{element.cut}}</td>
+        <td>{{element.price}}</td>
+        <td>{{element.createAt | date: 'medium'}}</td>
+        <td style="text-align: center">
+          <button (click)="openEditDiamondDialog(element)">Edit</button>
+          <button (click)="openDeleteConfirmDialog(element.id)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <button (click)="addDiamond()" style="background-color: green; color: white;">Add</button>
+  </div>
+  <div *ngIf="tab==4" style="display: flex; align-items: flex-start;">
+    <table style="border: 1px solid black;">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Shape</th>
+        <th>Price multiplier</th>
+        <th>Created at</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let element of diamondShapes">
+        <td>{{element.id}}</td>
+        <td>{{element.shape}}</td>
+        <td>{{element.priceMultiplier}}</td>
+        <td>{{element.createAt | date: 'medium'}}</td>
+        <td style="text-align: center">
+          <button (click)="openEditDiamondDialog(element)">Edit</button>
+          <button (click)="openDeleteConfirmDialog(element.id)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <button (click)="addDiamond()" style="background-color: green; color: white;">Add</button>
   </div>
 </div>

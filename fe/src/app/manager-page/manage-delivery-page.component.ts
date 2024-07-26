@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {ManagerService} from "../service/manager.service";
 import {Title} from "@angular/platform-browser";
 import {ToastrService} from "ngx-toastr";
@@ -6,7 +6,8 @@ import {ToastrService} from "ngx-toastr";
 @Component({
   selector: 'app-manage-delivery-page',
   templateUrl: './manage-delivery-page.component.html',
-  styleUrls: ['./manage-delivery-page.component.css']
+  styleUrls: ['./manage-delivery-page.component.css'],
+  encapsulation: ViewEncapsulation.ShadowDom
 })
 export class ManageDeliveryPageComponent implements OnInit{
   deliveries: any[] = [];
