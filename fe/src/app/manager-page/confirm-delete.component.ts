@@ -2,11 +2,11 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 
 @Component({
-  selector: 'app-delete-confirm',
-  templateUrl: './delete-confirm.component.html',
-  styleUrls: ['./delete-confirm.component.css']
+  selector: 'app-confirm-delete',
+  templateUrl: './confirm-delete.component.html',
+  styleUrls: ['./confirm-delete.component.css']
 })
-export class DeleteConfirmComponent implements OnInit {
+export class ConfirmDeleteComponent implements OnInit {
   protected entity: string = '';
 
   constructor(
@@ -23,7 +23,5 @@ export class DeleteConfirmComponent implements OnInit {
 
   onSubmit(): void {
     this.data.deleteEntity();
-    this.data.refreshList();
-    this.data.closeDialog();
   }
 }

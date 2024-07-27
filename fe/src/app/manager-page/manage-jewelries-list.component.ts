@@ -4,7 +4,7 @@ import {ManagerService} from "../service/manager.service";
 import {ToastrService} from "ngx-toastr";
 import {MatDialog} from "@angular/material/dialog";
 import {JewelryEditComponent} from "./jewelry-edit.component";
-import {DeleteConfirmComponent} from "./delete-confirm.component";
+import {ConfirmDeleteComponent} from "./confirm-delete.component";
 
 @Component({
   selector: 'app-manage-jewelries-list',
@@ -48,7 +48,7 @@ export class ManageJewelriesListComponent implements OnInit {
   }
 
   openDeleteConfirmDialog(jewelryId: any): void {
-    this.dialog.open(DeleteConfirmComponent, {
+    this.dialog.open(ConfirmDeleteComponent, {
       data: {
         entity: 'jewelry',
         refreshList: () => this.getJewelries(),

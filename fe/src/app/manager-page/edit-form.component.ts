@@ -25,9 +25,9 @@ export class EditFormComponent implements OnInit {
     this.formConfig = {
       fields: this.data.fields.map((field: any) => ({
         name: field.name,
+        label: field.label,
         type: field.type,
         value: field.value,
-        ...(field.displayedName && { displayedName: field.displayedName })
       }))
     };
 
@@ -39,7 +39,13 @@ export class EditFormComponent implements OnInit {
     this.editForm = new FormGroup(formGroup);
   }
 
-  onSubmit(): void {
-    // Handle form submission
+  save(): void {
+    // Create new object with only the values of the form
+    let obj = {};
+    this.formConfig.fields.forEach((field: any) => {
+      obj[field.name] = this.editForm.value[field.name];
+    });
+
+    this.data.save(obj);
   }
 }

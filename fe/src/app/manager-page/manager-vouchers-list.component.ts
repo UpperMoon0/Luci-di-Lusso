@@ -3,7 +3,7 @@ import {Title} from "@angular/platform-browser";
 import {ManagerService} from "../service/manager.service";
 import {ToastrService} from "ngx-toastr";
 import {MatDialog} from "@angular/material/dialog";
-import {DeleteConfirmComponent} from "./delete-confirm.component";
+import {ConfirmDeleteComponent} from "./confirm-delete.component";
 import {VoucherEditComponent} from "./voucher-edit.component";
 
 @Component({
@@ -48,7 +48,7 @@ export class ManagerVouchersListComponent implements OnInit {
   }
 
   openDeleteConfirmDialog(voucherId: any): void {
-    this.dialog.open(DeleteConfirmComponent, {
+    this.dialog.open(ConfirmDeleteComponent, {
       data: {
         entity: 'voucher',
         refreshList: () => this.getVouchers(),

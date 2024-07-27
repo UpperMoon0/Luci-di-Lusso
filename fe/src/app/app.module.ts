@@ -79,7 +79,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {WarrantyPageComponent} from "./warranty-page/warranty-page.component";
 import {JewelryEditComponent} from "./manager-page/jewelry-edit.component";
-import {DeleteConfirmComponent} from "./manager-page/delete-confirm.component";
+import {ConfirmDeleteComponent} from "./manager-page/confirm-delete.component";
 import {DeliverySidebarComponent} from "./delivery-page/delivery-sidebar.component";
 import {CollectionListPageComponent} from "./collection-page/collection-list-page.component";
 import {CollectionCardComponent} from "./collection-page/collection-card.component";
@@ -153,7 +153,7 @@ import {EditFormComponent} from "./manager-page/edit-form.component";
     ManageJewelriesListComponent,
     VoucherEditComponent,
     ManagerVouchersListComponent,
-    DeleteConfirmComponent,
+    ConfirmDeleteComponent,
     ManageDiamondListComponent,
     StaffSidebarComponent,
     ManagerPageComponent,

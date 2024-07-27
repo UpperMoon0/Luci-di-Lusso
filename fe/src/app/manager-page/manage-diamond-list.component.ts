@@ -4,9 +4,10 @@ import { ManagerService } from "../service/manager.service";
 import { MatDialog } from "@angular/material/dialog";
 import { DiamondEditComponent } from "./diamond-edit.component";
 import {ToastrService} from "ngx-toastr";
-import {DeleteConfirmComponent} from "./delete-confirm.component";
+import {ConfirmDeleteComponent} from "./confirm-delete.component";
 import {ProductService} from "../service/product.service";
 import {EditFormComponent} from "./edit-form.component";
+import {DiamondService} from "../service/diamond.service";
 
 @Component({
   selector: 'app-diamond-list',
@@ -26,6 +27,7 @@ export class ManageDiamondListComponent implements OnInit {
               private titleService: Title,
               private toastrService: ToastrService,
               private productService: ProductService,
+              private diamondService: DiamondService,
               public dialog: MatDialog) {}
 
   ngOnInit() {
@@ -74,8 +76,8 @@ export class ManageDiamondListComponent implements OnInit {
     });
   }
 
-  openDeleteConfirmDialog(diamondId: any): void {
-    this.dialog.open(DeleteConfirmComponent, {
+  openDiamondConfirmDeleteDialog(diamondId: any): void {
+    this.dialog.open(ConfirmDeleteComponent, {
       data: {
         entity: 'diamond',
         refreshList: () => this.getDiamonds(),
@@ -102,14 +104,15 @@ export class ManageDiamondListComponent implements OnInit {
   openDiamondColorDialog(diamondColor: any): void {
     // Set fields for the edit form
     let fields:any[] = [
-      {name: 'color', type: 'string', value: diamondColor.color},
-      {name: 'price', type: 'number', value: diamondColor.price}
+      {name: 'id', label: 'none', type: 'number', value: diamondColor.id},
+      {name: 'color', label: 'Color', type: 'string', value: diamondColor.color},
+      {name: 'price', label: 'Price', type: 'number', value: diamondColor.price}
     ];
 
     this.dialog.open(EditFormComponent, {
       data: {
         fields: fields,
-        refreshList: () => this.getDiamondProperties()
+        save: (diamondColor: any) => this.saveDiamondColor(diamondColor)
       },
       width: '400px',
     });
@@ -118,14 +121,15 @@ export class ManageDiamondListComponent implements OnInit {
   openDiamondClarityDialog(diamondClarity: any): void {
     // Set fields for the edit form
     let fields:any[] = [
-      {name: 'clarity', type: 'string', value: diamondClarity.clarity},
-      {name: 'price', type: 'number', value: diamondClarity.price}
+      {name: 'id', label: 'none', type: 'number', value: diamondClarity.id},
+      {name: 'clarity', label: 'Clarity', type: 'string', value: diamondClarity.clarity},
+      {name: 'price', label: 'Price', type: 'number', value: diamondClarity.price}
     ];
 
     this.dialog.open(EditFormComponent, {
       data: {
         fields: fields,
-        refreshList: () => this.getDiamondProperties()
+        save: (diamondClarity: any) => this.saveDiamondClarity(diamondClarity)
       },
       width: '400px',
     });
@@ -134,14 +138,15 @@ export class ManageDiamondListComponent implements OnInit {
   openDiamondCutDialog(diamondCut: any): void {
     // Set fields for the edit form
     let fields:any[] = [
-      {name: 'cut', type: 'string', value: diamondCut.cut},
-      {name: 'price', type: 'number', value: diamondCut.price}
+      {name: 'id', label: 'none', type: 'number', value: diamondCut.id},
+      {name: 'cut', label: 'Cut', type: 'string', value: diamondCut.cut},
+      {name: 'price', label: 'Price', type: 'number', value: diamondCut.price}
     ];
 
     this.dialog.open(EditFormComponent, {
       data: {
         fields: fields,
-        refreshList: () => this.getDiamondProperties()
+        save: (diamondCut: any) => this.saveDiamondCut(diamondCut)
       },
       width: '400px',
     });
@@ -150,16 +155,165 @@ export class ManageDiamondListComponent implements OnInit {
   openDiamondShapeDialog(diamondShape: any): void {
     // Set fields for the edit form
     let fields:any[] = [
-      {name: 'shape', type: 'string', value: diamondShape.shape},
-      {name: 'priceMultiplier', displayedName: 'Price multiplier', type: 'number', value: diamondShape.priceMultiplier}
+      {name: 'id', label: 'none', type: 'number', value: diamondShape.id},
+      {name: 'shape', label: 'Shape', type: 'string', value: diamondShape.shape},
+      {name: 'priceMultiplier', label: 'Price multiplier', type: 'number', value: diamondShape.priceMultiplier}
     ];
 
     this.dialog.open(EditFormComponent, {
       data: {
         fields: fields,
-        refreshList: () => this.getDiamondProperties()
+        save: (diamondShape: any) => this.saveDiamondShape(diamondShape)
       },
       width: '400px',
+    });
+  }
+
+  saveDiamondColor(diamondColor: any) {
+    this.diamondService.saveDiamondColor(diamondColor).subscribe({
+      next: () => {
+        this.toastrService.success('Diamond color saved successfully');
+        this.dialog.closeAll();
+        this.getDiamondProperties();
+      },
+      error: (error) => {
+        this.toastrService.error(error.message);
+      }
+    });
+  }
+
+  saveDiamondClarity(diamondClarity: any) {
+    this.diamondService.saveDiamondClarity(diamondClarity).subscribe({
+      next: () => {
+        this.toastrService.success('Diamond clarity saved successfully');
+        this.dialog.closeAll();
+        this.getDiamondProperties();
+      },
+      error: (error) => {
+        this.toastrService.error(error.message);
+      }
+    });
+  }
+
+  saveDiamondCut(diamondCut: any) {
+    this.diamondService.saveDiamondCut(diamondCut).subscribe({
+      next: () => {
+        this.toastrService.success('Diamond cut saved successfully');
+        this.dialog.closeAll();
+        this.getDiamondProperties();
+      },
+      error: (error) => {
+        this.toastrService.error(error.message);
+      }
+    });
+  }
+
+  saveDiamondShape(diamondShape: any) {
+    this.diamondService.saveDiamondShape(diamondShape).subscribe({
+      next: () => {
+        this.toastrService.success('Diamond shape saved successfully');
+        this.dialog.closeAll();
+        this.getDiamondProperties();
+      },
+      error: (error) => {
+        this.toastrService.error(error.message);
+      }
+    });
+  }
+
+  openDiamondColorConfirmDeleteDialog(diamondColorId: any): void {
+    this.dialog.open(ConfirmDeleteComponent, {
+      data: {
+        entity: 'diamond color',
+        deleteEntity: () => this.deleteDiamondColor(diamondColorId),
+        closeDialog: () => this.dialog.closeAll()
+      },
+      width: '400px',
+    });
+  }
+
+  openDiamondClarityConfirmDeleteDialog(diamondClarityId: any): void {
+    this.dialog.open(ConfirmDeleteComponent, {
+      data: {
+        entity: 'diamond clarity',
+        deleteEntity: () => this.deleteDiamondClarity(diamondClarityId),
+        closeDialog: () => this.dialog.closeAll()
+      },
+      width: '400px',
+    });
+  }
+
+  openDiamondCutConfirmDeleteDialog(diamondCutId: any): void {
+    this.dialog.open(ConfirmDeleteComponent, {
+      data: {
+        entity: 'diamond cut',
+        deleteEntity: () => this.deleteDiamondCut(diamondCutId),
+        closeDialog: () => this.dialog.closeAll()
+      },
+      width: '400px',
+    });
+  }
+
+  openDiamondShapeConfirmDeleteDialog(diamondShapeId: any): void {
+    this.dialog.open(ConfirmDeleteComponent, {
+      data: {
+        entity: 'diamond shape',
+        deleteEntity: () => this.deleteDiamondShape(diamondShapeId),
+        closeDialog: () => this.dialog.closeAll()
+      },
+      width: '400px',
+    });
+  }
+
+  deleteDiamondColor(diamondColorId: any) {
+    this.diamondService.deleteDiamondColor(diamondColorId).subscribe({
+      next: () => {
+        this.toastrService.success('Diamond color deleted successfully');
+        this.dialog.closeAll();
+        this.getDiamondProperties();
+      },
+      error: (error) => {
+        this.toastrService.error(error.message);
+      }
+    });
+  }
+
+  deleteDiamondClarity(diamondClarityId: any) {
+    this.diamondService.deleteDiamondClarity(diamondClarityId).subscribe({
+      next: () => {
+        this.toastrService.success('Diamond clarity deleted successfully');
+        this.dialog.closeAll();
+        this.getDiamondProperties();
+      },
+      error: (error) => {
+        this.toastrService.error(error.message);
+      }
+    });
+  }
+
+  deleteDiamondCut(diamondCutId: any) {
+    this.diamondService.deleteDiamondCut(diamondCutId).subscribe({
+      next: () => {
+        this.toastrService.success('Diamond cut deleted successfully');
+        this.dialog.closeAll();
+        this.getDiamondProperties();
+      },
+      error: (error) => {
+        this.toastrService.error(error.message);
+      }
+    });
+  }
+
+  deleteDiamondShape(diamondShapeId: any) {
+    this.diamondService.deleteDiamondShape(diamondShapeId).subscribe({
+      next: () => {
+        this.toastrService.success('Diamond shape deleted successfully');
+        this.dialog.closeAll();
+        this.getDiamondProperties();
+      },
+      error: (error) => {
+        this.toastrService.error(error.message);
+      }
     });
   }
 }

@@ -41,7 +41,7 @@
         <td>{{element.quantity}}</td>
         <td style="text-align: center">
           <button (click)="openEditDiamondDialog(element)">Edit</button>
-          <button (click)="openDeleteConfirmDialog(element.id)">Delete</button>
+          <button (click)="openDiamondConfirmDeleteDialog(element.id)">Delete</button>
         </td>
       </tr>
       </tbody>
@@ -67,7 +67,7 @@
         <td>{{element.createAt | date: 'medium'}}</td>
         <td style="text-align: center">
           <button (click)="openDiamondColorDialog(element)">Edit</button>
-          <button (click)="openDeleteConfirmDialog(element.id)">Delete</button>
+          <button (click)="openDiamondColorConfirmDeleteDialog(element.id)">Delete</button>
         </td>
       </tr>
       </tbody>
@@ -93,7 +93,7 @@
         <td>{{element.createAt | date: 'medium'}}</td>
         <td style="text-align: center">
           <button (click)="openDiamondClarityDialog(element)">Edit</button>
-          <button (click)="openDeleteConfirmDialog(element.id)">Delete</button>
+          <button (click)="openDiamondClarityConfirmDeleteDialog(element.id)">Delete</button>
         </td>
       </tr>
       </tbody>
@@ -119,7 +119,7 @@
         <td>{{element.createAt | date: 'medium'}}</td>
         <td style="text-align: center">
           <button (click)="openDiamondCutDialog(element)">Edit</button>
-          <button (click)="openDeleteConfirmDialog(element.id)">Delete</button>
+          <button (click)="openDiamondCutConfirmDeleteDialog(element.id)">Delete</button>
         </td>
       </tr>
       </tbody>
@@ -145,7 +145,7 @@
         <td>{{element.createAt | date: 'medium'}}</td>
         <td style="text-align: center">
           <button (click)="openDiamondShapeDialog(element)">Edit</button>
-          <button (click)="openDeleteConfirmDialog(element.id)">Delete</button>
+          <button (click)="openDiamondShapeConfirmDeleteDialog(element.id)">Delete</button>
         </td>
       </tr>
       </tbody>

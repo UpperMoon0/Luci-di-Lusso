@@ -3,12 +3,14 @@
     <h2>Edit jewelry</h2>
   </div>
   <div>
-    <form [formGroup]="editForm" (ngSubmit)="onSubmit()" style="display: flex; flex-direction: column;">
-      <label *ngFor="let field of formConfig.fields">
-        {{ field.displayedName || field.name | titlecase }}:
-        <input *ngIf="field.type === 'string'" type="text" [formControlName]="field.name">
-        <input *ngIf="field.type === 'number'" type="number" [formControlName]="field.name">
-      </label>
+    <form [formGroup]="editForm" (ngSubmit)="save()" style="display: flex; flex-direction: column;">
+      <ng-container *ngFor="let field of formConfig.fields">
+        <label *ngIf="field.label != 'none'">
+          {{ field.label }}:
+          <input *ngIf="field.type === 'string'" type="text" [formControlName]="field.name">
+          <input *ngIf="field.type === 'number'" type="number" [formControlName]="field.name">
+        </label>
+      </ng-container>
       <button type="submit">Save</button>
     </form>
   </div>
