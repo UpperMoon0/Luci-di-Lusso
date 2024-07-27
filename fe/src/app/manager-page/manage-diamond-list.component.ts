@@ -6,6 +6,7 @@ import { DiamondEditComponent } from "./diamond-edit.component";
 import {ToastrService} from "ngx-toastr";
 import {DeleteConfirmComponent} from "./delete-confirm.component";
 import {ProductService} from "../service/product.service";
+import {EditFormComponent} from "./edit-form.component";
 
 @Component({
   selector: 'app-diamond-list',
@@ -96,5 +97,69 @@ export class ManageDiamondListComponent implements OnInit {
 
   setTab(tabIndex: number): void {
     this.tab = tabIndex;
+  }
+
+  openDiamondColorDialog(diamondColor: any): void {
+    // Set fields for the edit form
+    let fields:any[] = [
+      {name: 'color', type: 'string', value: diamondColor.color},
+      {name: 'price', type: 'number', value: diamondColor.price}
+    ];
+
+    this.dialog.open(EditFormComponent, {
+      data: {
+        fields: fields,
+        refreshList: () => this.getDiamondProperties()
+      },
+      width: '400px',
+    });
+  }
+
+  openDiamondClarityDialog(diamondClarity: any): void {
+    // Set fields for the edit form
+    let fields:any[] = [
+      {name: 'clarity', type: 'string', value: diamondClarity.clarity},
+      {name: 'price', type: 'number', value: diamondClarity.price}
+    ];
+
+    this.dialog.open(EditFormComponent, {
+      data: {
+        fields: fields,
+        refreshList: () => this.getDiamondProperties()
+      },
+      width: '400px',
+    });
+  }
+
+  openDiamondCutDialog(diamondCut: any): void {
+    // Set fields for the edit form
+    let fields:any[] = [
+      {name: 'cut', type: 'string', value: diamondCut.cut},
+      {name: 'price', type: 'number', value: diamondCut.price}
+    ];
+
+    this.dialog.open(EditFormComponent, {
+      data: {
+        fields: fields,
+        refreshList: () => this.getDiamondProperties()
+      },
+      width: '400px',
+    });
+  }
+
+  openDiamondShapeDialog(diamondShape: any): void {
+    // Set fields for the edit form
+    let fields:any[] = [
+      {name: 'shape', type: 'string', value: diamondShape.shape},
+      {name: 'priceMultiplier', displayedName: 'Price multiplier', type: 'number', value: diamondShape.priceMultiplier}
+    ];
+
+    this.dialog.open(EditFormComponent, {
+      data: {
+        fields: fields,
+        refreshList: () => this.getDiamondProperties()
+      },
+      width: '400px',
+    });
   }
 }

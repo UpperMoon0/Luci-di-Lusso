@@ -1,0 +1,15 @@
+<div class="container">
+  <div>
+    <h2>Edit jewelry</h2>
+  </div>
+  <div>
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()" style="display: flex; flex-direction: column;">
+      <label *ngFor="let field of formConfig.fields">
+        {{ field.displayedName || field.name | titlecase }}:
+        <input *ngIf="field.type === 'string'" type="text" [formControlName]="field.name">
+        <input *ngIf="field.type === 'number'" type="number" [formControlName]="field.name">
+      </label>
+      <button type="submit">Save</button>
+    </form>
+  </div>
+</div>

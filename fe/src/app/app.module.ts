@@ -89,6 +89,7 @@ import {VoucherEditComponent} from "./manager-page/voucher-edit.component";
 import {ManagerVouchersListComponent} from "./manager-page/manager-vouchers-list.component";
 import { MyVouchersPageComponent } from './my-vouchers-page/my-vouchers-page.component';
 import { VouchersListComponent } from './my-vouchers-page/vouchers-list.component';
+import {EditFormComponent} from "./manager-page/edit-form.component";
 
 @NgModule({
   declarations: [
@@ -144,6 +145,7 @@ import { VouchersListComponent } from './my-vouchers-page/vouchers-list.componen
     DeliveryPageComponent,
 
     // Manager page
+    EditFormComponent,
     StatisticsComponent,
     DiamondEditComponent,
     ManageDeliveryPageComponent,

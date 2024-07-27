@@ -18,12 +18,14 @@ public class DiamondColor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "color", unique = true)
-    private EDiamondColor color;
+    private String color;
 
     @Column(name = "price")
     private Integer price;
+
+    @Column(name = "status")
+    private String status = "ACTIVE";
 
     @Column(name = "create_at")
     private LocalDateTime createAt;

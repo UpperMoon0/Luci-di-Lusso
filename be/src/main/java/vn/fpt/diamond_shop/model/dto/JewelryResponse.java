@@ -33,10 +33,10 @@ public class JewelryResponse extends CommonResponse {
         this.type = jewelry.getType().getType().getValue();
         this.diamondId = jewelry.getDiamond().getId();
         this.diamondCarat = jewelry.getDiamond().getCarat();
-        this.diamondCut = jewelry.getDiamond().getCut().getCut().getValue();
-        this.diamondClarity = jewelry.getDiamond().getClarity().getClarity().name();
-        this.diamondColor = jewelry.getDiamond().getColor().getColor().name();
-        this.diamondShape = jewelry.getDiamond().getShape().getShape().getValue();
+        this.diamondCut = jewelry.getDiamond().getCut().getCut();
+        this.diamondClarity = jewelry.getDiamond().getClarity().getClarity();
+        this.diamondColor = jewelry.getDiamond().getColor().getColor();
+        this.diamondShape = jewelry.getDiamond().getShape().getShape();
         List<SizeDTO> list = new ArrayList<>();
         for (JewelrySize size : sizes) {
             SizeDTO sizeDTO = new SizeDTO(size.getId(), size.getSize(), size.getUnit());
