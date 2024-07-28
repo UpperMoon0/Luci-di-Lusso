@@ -37,12 +37,19 @@ public class DiamondClarityService implements IDiamondClarityService {
     }
 
     @Override
-    public void delete(long id) {
+    public void toggleStatus(long id) {
         DiamondClarity diamondClarity = diamondClarityRepository.findById(id).orElse(null);
         if (diamondClarity == null) {
             throw new RuntimeException("Diamond Clarity not found");
         }
-        diamondClarity.setStatus("DISABLED");
+
+        if (diamondClarity.getStatus().equals("ACTIVE")) {
+            diamondClarity.setStatus("INACTIVE");
+        } else {
+            diamondClarity.setStatus("ACTIVE");
+        }
+
+
         diamondClarityRepository.save(diamondClarity);
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 public interface IVoucherService {
     List<Voucher> getAllVouchers();
     void updateVoucher(UpdateVoucherRequest request);
-    void deleteVoucher(Long id);
+    void toggleStatus(Long id);
     void createVoucher() throws SQLServerException;
     void redeemVoucher(Long voucherId, Long customerId);
     List<Voucher> getVouchersByCustomer(Long userId);

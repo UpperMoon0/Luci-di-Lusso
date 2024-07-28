@@ -11,7 +11,6 @@ import vn.fpt.diamond_shop.service.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RequestMapping("/product")
@@ -21,11 +20,6 @@ public class ProductController {
     private final IJewelryService jewelryService;
     private final IJewelrySizeService jewelrySizeService;
     private final IJewelryTypeService jewelryTypeService;
-    private final IDiamondService diamondService;
-    private final IDiamondCutService diamondCutService;
-    private final IDiamondClarityService diamondClarityService;
-    private final IDiamondColorService diamondColorService;
-    private final IDiamondShapeService diamondShapeService;
     private final IJewelryCollectionService jewelryCollectionService;
 
     @GetMapping("/get-jewelry")
@@ -103,7 +97,7 @@ public class ProductController {
     @DeleteMapping("/delete-jewelry")
     public ResponseEntity<CommonResponse> deleteJewelry(@RequestParam Long id) {
         try {
-            jewelryService.deleteJewelryById(id);
+            jewelryService.toggleStatus(id);
 
             CommonResponse response = new CommonResponse();
             response.setMessage("Jewelry deleted successfully");
@@ -122,81 +116,6 @@ public class ProductController {
         JewelryTypesResponse response = new JewelryTypesResponse();
         response.setTypes(types);
         response.setMessage("Get all jewelry types successfully");
-        return ResponseEntity.ok(response);
-    }
-
-    @GetMapping("/get-all-diamonds")
-    public ResponseEntity<List<Diamond>> getAllDiamonds() {
-        List<Diamond> diamonds = diamondService.getAllDiamonds();
-        List<Diamond> activeDiamonds = diamonds.stream()
-                .filter(d -> "ACTIVE".equals(d.getStatus()))
-                .toList();
-        return ResponseEntity.ok(activeDiamonds);
-    }
-
-    @DeleteMapping("/delete-diamond")
-    public ResponseEntity<CommonResponse> deleteDiamond(@RequestParam long id) {
-        try {
-            diamondService.deleteDiamondById(id);
-            CommonResponse response = new CommonResponse();
-            response.setMessage("Diamond deleted successfully");
-            return ResponseEntity.ok(response);
-        } catch (RuntimeException e) {
-            CommonResponse response = new CommonResponse();
-            response.setMessage(e.getMessage());
-            return ResponseEntity.badRequest().body(response);
-        }
-    }
-
-    @PostMapping("/update-diamond")
-    public ResponseEntity<CommonResponse> updateDiamond(@Valid @RequestBody DiamondUpdateRequest request) {
-        try {
-            diamondService.updateDiamond(request);
-            CommonResponse response = new CommonResponse();
-            response.setMessage("Diamond updated successfully");
-            return ResponseEntity.ok(response);
-        } catch (RuntimeException e) {
-            CommonResponse response = new CommonResponse();
-            response.setMessage(e.getMessage());
-            return ResponseEntity.badRequest().body(response);
-        }
-    }
-
-    @PostMapping("/add-diamond")
-    public ResponseEntity<CommonResponse> addDiamond() {
-        try {
-            diamondService.createNewDiamond();
-        } catch (RuntimeException e) {
-            CommonResponse response = new CommonResponse();
-            response.setMessage(e.getMessage());
-            return ResponseEntity.badRequest().body(response);
-        }
-
-        CommonResponse response = new CommonResponse();
-        response.setMessage("Diamond added successfully");
-        return ResponseEntity.ok(response);
-    }
-
-    @GetMapping("/get-diamond")
-    public ResponseEntity<Diamond> getDiamond(@RequestParam Long id) {
-        Diamond diamond = diamondService.getDiamondById(id);
-        if (diamond != null) {
-            return ResponseEntity.ok(diamond);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-    }
-
-    @GetMapping("/get-all-diamond-properties")
-    public ResponseEntity<DiamondPropertiesResponse> getAllDiamondProperties() {
-        List<DiamondCut> cuts = diamondCutService.findAll();
-        List<DiamondClarity> clarities = diamondClarityService.findAll();
-        List<DiamondColor> colors = diamondColorService.findAll();
-        List<DiamondShape> shapes = diamondShapeService.findAll();
-
-        DiamondPropertiesResponse response = new DiamondPropertiesResponse(cuts, clarities, colors, shapes);
-        response.setMessage("Get all diamond properties successfully");
-
         return ResponseEntity.ok(response);
     }
 

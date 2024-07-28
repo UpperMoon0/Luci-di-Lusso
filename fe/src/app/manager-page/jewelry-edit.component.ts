@@ -2,8 +2,9 @@ import {Component, Inject, OnInit} from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {ProductService} from "../service/product.service";
-import {ManagerService} from "../service/manager.service";
 import {ToastrService} from "ngx-toastr";
+import {DiamondService} from "../service/diamond.service";
+import {ManagerService} from "../service/manager.service";
 
 @Component({
   selector: 'app-jewelry-edit',
@@ -29,12 +30,13 @@ export class JewelryEditComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private productService: ProductService,
+    private diamondService: DiamondService,
     private managerService: ManagerService,
     private toastrService: ToastrService,
   ) { }
 
   ngOnInit(): void {
-    this.managerService.getAllDiamonds().subscribe(response => {
+    this.diamondService.getAllDiamonds().subscribe(response => {
       this.diamonds = response;
 
       // Set selected values using find
@@ -79,12 +81,14 @@ export class JewelryEditComponent implements OnInit {
       laborCost: this.jewelryEditForm.value.laborCost,
     };
 
-    this.managerService.updateJewelry(jewelry).subscribe(
-      () => {
-        this.toastrService.success('Jewelry updated successfully');
-        this.data.refreshList();
-      },
-      () => this.toastrService.error('Failed to update jewelry')
-    )
+    this.managerService.updateJewelry(jewelry).subscribe({
+        next: () => {
+          this.toastrService.success('Jewelry updated successfully');
+          this.data.refreshList();
+        },
+        error: () => {
+          this.toastrService.error('Failed to update jewelry');
+        }
+    });
   }
 }

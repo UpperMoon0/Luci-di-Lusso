@@ -13,7 +13,7 @@ public interface IJewelryService {
     List<Jewelry> getJewelriesByFilter(List<EJewelryType> types, Integer minPrice, Integer maxPrice, String keyword);
     Integer calculateJewelryPrice(Jewelry jewelry);
     Integer calculateJewelryPriceWithSize(Jewelry jewelry, JewelrySize size, int discount);
-    void deleteJewelryById(Long id);
+    void toggleStatus(Long id);
     void updateJewelry(JewelryUpdateRequest request);
     void createNewJewelry();
     boolean isJewelryInStock(Jewelry jewelry);

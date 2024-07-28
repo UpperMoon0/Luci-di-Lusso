@@ -98,14 +98,19 @@ public class JewelryService implements IJewelryService {
     }
 
     @Override
-    public void deleteJewelryById(Long id) {
+    public void toggleStatus(Long id) {
         Jewelry jewelry = jewelryRepository.findById(id).orElse(null);
 
         if (jewelry == null) {
             throw new IllegalArgumentException("Jewelry not found");
         }
 
-        jewelry.setStatus("DISABLED");
+        if (jewelry.getStatus().equals("ACTIVE")) {
+            jewelry.setStatus("INACTIVE");
+        } else {
+            jewelry.setStatus("ACTIVE");
+        }
+
         jewelryRepository.save(jewelry);
     }
 

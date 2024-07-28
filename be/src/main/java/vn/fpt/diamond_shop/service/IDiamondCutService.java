@@ -10,5 +10,5 @@ public interface IDiamondCutService {
 
     void save(DiamondCutRequest request);
 
-    void delete(long id);
+    void toggleStatus(long id);
 }

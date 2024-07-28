@@ -37,12 +37,18 @@ public class DiamondCutService implements IDiamondCutService {
     }
 
     @Override
-    public void delete(long id) {
+    public void toggleStatus(long id) {
         DiamondCut diamondCut = diamondCutRepository.findById(id).orElse(null);
         if (diamondCut == null) {
             throw new RuntimeException("Diamond Cut not found");
         }
-        diamondCut.setStatus("DISABLED");
+
+        if (diamondCut.getStatus().equals("ACTIVE")) {
+            diamondCut.setStatus("INACTIVE");
+        } else {
+            diamondCut.setStatus("ACTIVE");
+        }
+
         diamondCutRepository.save(diamondCut);
     }
 }

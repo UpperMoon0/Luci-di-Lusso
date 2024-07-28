@@ -28,5 +28,5 @@ public class DiamondColor {
     private String status = "ACTIVE";
 
     @Column(name = "create_at")
-    private LocalDateTime createAt;
+    private LocalDateTime createAt = LocalDateTime.now();
 }

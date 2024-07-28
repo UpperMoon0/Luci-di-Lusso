@@ -72,7 +72,7 @@ import { ListOfOrdersComponent } from './delivery-page/list-of-orders.component'
 import {CertificatePageComponent} from "./certificate-page/certificate-page.component";
 import { HomeBannerComponent} from "./home-page/home-banner.component";
 import {ImageSliderModule} from "./image-slider/image-slider.module";
-import {DiamondEditComponent} from "./manager-page/diamond-edit.component";
+import {DiamondEditFormComponent} from "./manager-page/diamond-edit-form.component";
 import {MatCardModule} from "@angular/material/card";
 import {MatTableModule} from "@angular/material/table";
 import {MatButtonModule} from "@angular/material/button";
@@ -147,7 +147,7 @@ import {EditFormComponent} from "./manager-page/edit-form.component";
     // Manager page
     EditFormComponent,
     StatisticsComponent,
-    DiamondEditComponent,
+    DiamondEditFormComponent,
     ManageDeliveryPageComponent,
     JewelryEditComponent,
     ManageJewelriesListComponent,

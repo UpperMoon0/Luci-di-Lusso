@@ -32,8 +32,8 @@ public class Delivery {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'PENDING'")
-    private EOrderStatus status;
+    private EOrderStatus status = EOrderStatus.PENDING;
 
     @Column(name = "create_at")
-    private LocalDateTime createAt;
+    private LocalDateTime createAt = LocalDateTime.now();
 }

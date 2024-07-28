@@ -34,7 +34,7 @@ public class Voucher {
     private Integer price;
 
     @Column
-    private LocalDateTime createAt;
+    private LocalDateTime createAt = LocalDateTime.now();
 
     @Column
     private LocalDateTime expireAt;
@@ -44,5 +44,5 @@ public class Voucher {
     private List<Customer> customers = new ArrayList<>();
 
     @Column(name = "status")
-    private String status;
+    private String status = "ACTIVE";
 }

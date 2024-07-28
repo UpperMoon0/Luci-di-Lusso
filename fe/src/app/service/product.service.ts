@@ -58,10 +58,6 @@ export class ProductService {
     return this.productTypes.asObservable();
   }
 
-  public getAllDiamondProperties(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/product/get-all-diamond-properties`, this.httpOptions);
-  }
-
   public getAllCollections(): Observable<any> {
     return this.http.get(`${this.apiUrl}/product/get-all-collections`);
   }

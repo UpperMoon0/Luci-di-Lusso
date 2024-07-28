@@ -2,15 +2,10 @@ package vn.fpt.diamond_shop.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vn.fpt.diamond_shop.constant.EDiamondClarity;
-import vn.fpt.diamond_shop.constant.EDiamondColor;
-import vn.fpt.diamond_shop.constant.EDiamondCut;
-import vn.fpt.diamond_shop.constant.EDiamondShape;
-import vn.fpt.diamond_shop.model.dto.DiamondUpdateRequest;
+import vn.fpt.diamond_shop.model.dto.SaveDiamondRequest;
 import vn.fpt.diamond_shop.model.entity.*;
 import vn.fpt.diamond_shop.repository.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -35,19 +30,19 @@ public class DiamondService implements IDiamondService {
     }
 
     @Override
-    public void saveDiamond(Diamond diamond) {
-        diamondRepository.save(diamond);
-    }
-
-    @Override
-    public void deleteDiamondById(long id) {
+    public void toggleStatus(long id) {
         Diamond diamond = diamondRepository.findById(id).orElse(null);
 
         if (diamond == null) {
             throw new RuntimeException("Diamond not found");
         }
 
-        diamond.setStatus("DISABLED");
+        if (diamond.getStatus().equals("ACTIVE")) {
+            diamond.setStatus("INACTIVE");
+        } else {
+            diamond.setStatus("ACTIVE");
+        }
+
         diamondRepository.save(diamond);
     }
 
@@ -62,54 +57,32 @@ public class DiamondService implements IDiamondService {
     }
 
     @Override
-    public Diamond findFirst() {
-        return diamondRepository.findFirstBy().orElse(null);
-    }
+    public void save(SaveDiamondRequest request) {
+        Diamond diamond;
+        if (request.getId() == 0) {
+            diamond = new Diamond();
+        } else {
+            diamond = getDiamondById(request.getId());
+            if (diamond == null) {
+                throw new RuntimeException("Diamond not found");
+            }
+        }
 
-    @Override
-    public void updateDiamond(DiamondUpdateRequest request) {
         DiamondCut cut = diamondCutRepository.findById(request.getCutId()).orElse(null);
         DiamondColor color = diamondColorRepository.findById(request.getColorId()).orElse(null);
         DiamondClarity clarity = diamondClarityRepository.findById(request.getClarityId()).orElse(null);
         DiamondShape shape = diamondShapeRepository.findById(request.getShapeId()).orElse(null);
-        Diamond diamond = getDiamondById(request.getId());
-        float carat = request.getCarat();
-        int quantity = request.getQuantity();
 
-        if (cut == null || color == null || clarity == null || shape == null || diamond == null) {
+        if (cut == null || color == null || clarity == null || shape == null) {
             throw new RuntimeException("Invalid diamond update request");
         }
 
         diamond.setCut(cut);
         diamond.setColor(color);
         diamond.setClarity(clarity);
-        diamond.setCarat(carat);
+        diamond.setCarat(request.getCarat());
         diamond.setShape(shape);
-        diamond.setQuantity(quantity);
-        diamondRepository.save(diamond);
-    }
-
-    @Override
-    public void createNewDiamond() {
-        Diamond diamond = new Diamond();
-        DiamondCut cut = diamondCutRepository.findByCut(EDiamondCut.EXCELLENT).orElse(null);
-        DiamondColor color = diamondColorRepository.findByColor(EDiamondColor.D).orElse(null);
-        DiamondClarity clarity = diamondClarityRepository.findByClarity(EDiamondClarity.IF).orElse(null);
-        DiamondShape shape = diamondShapeRepository.findByShape(EDiamondShape.ROUND).orElse(null);
-
-        if (cut == null || color == null || clarity == null || shape == null) {
-            throw new RuntimeException("Failed to create new diamond");
-        }
-
-        diamond.setCut(cut);
-        diamond.setColor(color);
-        diamond.setClarity(clarity);
-        diamond.setShape(shape);
-        diamond.setCarat(1.0f);
-        diamond.setCreateAt(LocalDateTime.now());
-        diamond.setQuantity(100);
-        diamond.setStatus("ACTIVE");
-
+        diamond.setQuantity(request.getQuantity());
         diamondRepository.save(diamond);
     }
 }

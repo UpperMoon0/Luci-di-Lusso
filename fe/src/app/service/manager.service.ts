@@ -20,22 +20,6 @@ export class ManagerService {
     };
   }
 
-  getAllDiamonds(): Observable<any> {
-    return this.http.get(`${environment.beApiUrl}/product/get-all-diamonds`, this.httpOptions);
-  }
-
-  addDiamond(): Observable<any> {
-    return this.http.post(`${environment.beApiUrl}/product/add-diamond`, '',this.httpOptions);
-  }
-
-  updateDiamond(diamond: any): Observable<any> {
-    return this.http.post(`${environment.beApiUrl}/product/update-diamond`, diamond, this.httpOptions);
-  }
-
-  deleteDiamond(diamondId: number): Observable<any> {
-    return this.http.delete(`${environment.beApiUrl}/product/delete-diamond?id=` + diamondId, this.httpOptions);
-  }
-
   getAllDeliveries(): Observable<any> {
     return this.http.get(`${environment.beApiUrl}/delivery/get-unassigned-deliveries`, this.httpOptions);
   }

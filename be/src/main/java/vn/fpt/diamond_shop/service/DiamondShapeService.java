@@ -37,12 +37,18 @@ public class DiamondShapeService implements IDiamondShapeService {
     }
 
     @Override
-    public void delete(long id) {
+    public void toggleStatus(long id) {
         DiamondShape diamondShape = diamondShapeRepository.findById(id).orElse(null);
         if (diamondShape == null) {
             throw new RuntimeException("Diamond Shape not found");
         }
-        diamondShape.setStatus("DISABLED");
+
+        if (diamondShape.getStatus().equals("ACTIVE")) {
+            diamondShape.setStatus("INACTIVE");
+        } else {
+            diamondShape.setStatus("ACTIVE");
+        }
+
         diamondShapeRepository.save(diamondShape);
     }
 }

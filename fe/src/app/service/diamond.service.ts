@@ -22,6 +22,14 @@ export class DiamondService {
     };
   }
 
+  public getAllDiamondProperties(): Observable<any> {
+    return this.http.get(`${environment.beApiUrl}/diamond/get-all-diamond-properties`, this.httpOptions);
+  }
+
+  getAllDiamonds(): Observable<any> {
+    return this.http.get(`${environment.beApiUrl}/diamond/get-all-diamonds`, this.httpOptions);
+  }
+
   public saveDiamondColor(request: any): Observable<any> {
     return this.http.post(`${environment.beApiUrl}/diamond/save-diamond-color`, request, this.httpOptions);
   }
@@ -38,19 +46,27 @@ export class DiamondService {
     return this.http.post(`${environment.beApiUrl}/diamond/save-diamond-shape`, request, this.httpOptions);
   }
 
-  public deleteDiamondColor(id: number): Observable<any> {
-    return this.http.delete(`${environment.beApiUrl}/diamond/delete-diamond-color?id=${id}`, this.httpOptions);
+  saveDiamond(diamond: any): Observable<any> {
+    return this.http.post(`${environment.beApiUrl}/diamond/save-diamond`, diamond, this.httpOptions);
   }
 
-  public deleteDiamondClarity(id: number): Observable<any> {
-    return this.http.delete(`${environment.beApiUrl}/diamond/delete-diamond-clarity?id=${id}`, this.httpOptions);
+  public toggleDiamondColorStatus(id: number): Observable<any> {
+    return this.http.post(`${environment.beApiUrl}/diamond/toggle-diamond-color-status?id=${id}`, '', this.httpOptions);
   }
 
-  public deleteDiamondCut(id: number): Observable<any> {
-    return this.http.delete(`${environment.beApiUrl}/diamond/delete-diamond-cut?id=${id}`, this.httpOptions);
+  public toggleDiamondClarityStatus(id: number): Observable<any> {
+    return this.http.post(`${environment.beApiUrl}/diamond/toggle-diamond-clarity-status?id=${id}`, '', this.httpOptions);
   }
 
-  public deleteDiamondShape(id: number): Observable<any> {
-    return this.http.delete(`${environment.beApiUrl}/diamond/delete-diamond-shape?id=${id}`, this.httpOptions);
+  public toggleDiamondCutStatus(id: number): Observable<any> {
+    return this.http.post(`${environment.beApiUrl}/diamond/toggle-diamond-cut-status?id=${id}`, '', this.httpOptions);
+  }
+
+  public toggleDiamondShapeStatus(id: number): Observable<any> {
+    return this.http.post(`${environment.beApiUrl}/diamond/toggle-diamond-shape-status?id=${id}`, '', this.httpOptions);
+  }
+
+  toggleDiamondStatus(diamondId: number): Observable<any> {
+    return this.http.post(`${environment.beApiUrl}/diamond/toggle-diamond-status?id=` + diamondId, '', this.httpOptions);
   }
 }

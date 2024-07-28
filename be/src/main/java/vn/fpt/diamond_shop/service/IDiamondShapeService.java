@@ -10,5 +10,5 @@ public interface IDiamondShapeService {
 
     void save(DiamondShapeRequest request);
 
-    void delete(long id);
+    void toggleStatus(long id);
 }

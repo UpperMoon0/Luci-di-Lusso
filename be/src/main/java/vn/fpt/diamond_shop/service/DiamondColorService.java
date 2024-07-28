@@ -37,12 +37,18 @@ public class DiamondColorService implements IDiamondColorService {
     }
 
     @Override
-    public void delete(long id) {
+    public void toggleStatus(long id) {
         DiamondColor diamondColor = diamondColorRepository.findById(id).orElse(null);
         if (diamondColor == null) {
             throw new RuntimeException("Diamond Color not found");
         }
-        diamondColor.setStatus("DISABLED");
+
+        if (diamondColor.getStatus().equals("ACTIVE")) {
+            diamondColor.setStatus("INACTIVE");
+        } else {
+            diamondColor.setStatus("ACTIVE");
+        }
+
         diamondColorRepository.save(diamondColor);
     }
 }

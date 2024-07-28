@@ -10,5 +10,5 @@ public interface IDiamondColorService {
 
     void save(DiamondColorRequest request);
 
-    void delete(long id);
+    void toggleStatus(long id);
 }

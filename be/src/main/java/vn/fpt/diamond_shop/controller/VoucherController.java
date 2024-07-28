@@ -55,7 +55,7 @@ public class VoucherController {
     @DeleteMapping("/delete-voucher")
     public ResponseEntity<Void> deleteVoucher(@RequestParam Long id) {
         try {
-            voucherService.deleteVoucher(id);
+            voucherService.toggleStatus(id);
             return ResponseEntity.ok().build();
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().build();

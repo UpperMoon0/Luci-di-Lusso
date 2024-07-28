@@ -40,14 +40,19 @@ public class VoucherService implements IVoucherService {
     }
 
     @Override
-    public void deleteVoucher(Long id) {
+    public void toggleStatus(Long id) {
         Voucher voucher = voucherRepository.findById(id).orElse(null);
 
         if (voucher == null) {
             throw new RuntimeException("Voucher not found");
         }
 
-        voucher.setStatus("DISABLED");
+        if (voucher.getStatus().equals("ACTIVE")) {
+            voucher.setStatus("INACTIVE");
+        } else {
+            voucher.setStatus("ACTIVE");
+        }
+
         voucherRepository.save(voucher);
     }
 

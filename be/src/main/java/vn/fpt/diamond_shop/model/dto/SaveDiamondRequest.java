@@ -3,7 +3,7 @@ package vn.fpt.diamond_shop.model.dto;
 import lombok.Data;
 
 @Data
-public class DiamondUpdateRequest {
+public class SaveDiamondRequest {
     private long id;
     private long clarityId;
     private long cutId;

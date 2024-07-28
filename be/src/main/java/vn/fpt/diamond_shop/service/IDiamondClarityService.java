@@ -10,5 +10,5 @@ public interface IDiamondClarityService {
 
     void save(DiamondClarityRequest request);
 
-    void delete(long id);
+    void toggleStatus(long id);
 }

@@ -3,7 +3,7 @@
     <h2>Edit diamond</h2>
   </div>
   <div *ngIf="diamondProperties">
-    <form [formGroup]="diamondEditForm" (ngSubmit)="onSubmit()" style="display: flex; flex-direction: column;">
+    <form [formGroup]="diamondEditForm" (ngSubmit)="save()" style="display: flex; flex-direction: column;">
       <label>
         Color:
         <select formControlName="color">

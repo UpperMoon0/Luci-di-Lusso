@@ -25,8 +25,8 @@ public class DiamondClarity {
     private Integer price;
 
     @Column(name = "status")
-    private String status;
+    private String status = "ACTIVE";
 
     @Column(name = "create_at")
-    private LocalDateTime createAt;
+    private LocalDateTime createAt = LocalDateTime.now();
 }
