@@ -8,10 +8,10 @@
     <a style="color: white; margin: 1rem auto 1rem;" (click)="logOut()">Logout</a>
   </div>
   <div style="width: 90%; overflow: auto;">
-    <app-diamond-list *ngIf="tab == 0"></app-diamond-list>
-    <app-manage-delivery-page *ngIf="tab == 1"></app-manage-delivery-page>
+    <app-manager-diamond-list *ngIf="tab == 0"></app-manager-diamond-list>
+    <app-manager-delivery-list *ngIf="tab == 1"></app-manager-delivery-list>
     <app-statistics *ngIf="tab == 2"></app-statistics>
-    <app-manage-jewelries-list *ngIf="tab == 3"></app-manage-jewelries-list>
-    <app-manager-vouchers-list *ngIf="tab == 4"></app-manager-vouchers-list>
+    <app-manager-jewelry-list *ngIf="tab == 3"></app-manager-jewelry-list>
+    <app-manager-voucher-list *ngIf="tab == 4"></app-manager-voucher-list>
   </div>
 </div>

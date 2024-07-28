@@ -3,16 +3,16 @@ import { Title } from "@angular/platform-browser";
 import { MatDialog } from "@angular/material/dialog";
 import { DiamondEditFormComponent } from "./diamond-edit-form.component";
 import {ToastrService} from "ngx-toastr";
-import {EditFormComponent} from "./edit-form.component";
-import {DiamondService} from "../service/diamond.service";
+import {EditFormComponent} from "../edit-form.component";
+import {DiamondService} from "../../service/diamond.service";
 
 @Component({
-  selector: 'app-diamond-list',
-  templateUrl: './manage-diamond-list.component.html',
-  styleUrls: ['./manage-diamond-list.component.css'],
+  selector: 'app-manager-diamond-list',
+  templateUrl: './manager-diamond-list.component.html',
+  styleUrls: ['./manager-diamond-list.component.css'],
   encapsulation: ViewEncapsulation.ShadowDom
 })
-export class ManageDiamondListComponent implements OnInit {
+export class ManagerDiamondListComponent implements OnInit {
   diamondColors: any[] = [];
   diamondClarities: any[] = [];
   diamondCuts: any[] = [];

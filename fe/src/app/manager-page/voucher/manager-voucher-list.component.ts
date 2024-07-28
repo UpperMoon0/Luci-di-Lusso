@@ -1,17 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {Title} from "@angular/platform-browser";
-import {ManagerService} from "../service/manager.service";
+import {ManagerService} from "../../service/manager.service";
 import {ToastrService} from "ngx-toastr";
 import {MatDialog} from "@angular/material/dialog";
-import {ConfirmDeleteComponent} from "./confirm-delete.component";
-import {VoucherEditComponent} from "./voucher-edit.component";
+import {ConfirmDeleteComponent} from "../confirm-delete.component";
+import {VoucherEditFormComponent} from "./voucher-edit-form.component";
 
 @Component({
-  selector: 'app-manager-vouchers-list',
-  templateUrl: './manager-vouchers-list.component.html',
-  styleUrls: ['./manager-vouchers-list.component.css']
+  selector: 'app-manager-voucher-list',
+  templateUrl: './manager-voucher-list.component.html',
+  styleUrls: ['./manager-voucher-list.component.css']
 })
-export class ManagerVouchersListComponent implements OnInit {
+export class ManagerVoucherListComponent implements OnInit {
   vouchers: any[] = [];
 
   constructor(private managerService: ManagerService,
@@ -38,7 +38,7 @@ export class ManagerVouchersListComponent implements OnInit {
   }
 
   openEditVoucherDialog(voucher: any): void {
-    this.dialog.open(VoucherEditComponent, {
+    this.dialog.open(VoucherEditFormComponent, {
       data: {
         voucher: voucher,
         refreshList: () => this.getVouchers()

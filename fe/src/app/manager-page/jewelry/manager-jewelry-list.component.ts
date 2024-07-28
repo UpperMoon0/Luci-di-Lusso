@@ -1,17 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {Title} from "@angular/platform-browser";
-import {ManagerService} from "../service/manager.service";
+import {ManagerService} from "../../service/manager.service";
 import {ToastrService} from "ngx-toastr";
 import {MatDialog} from "@angular/material/dialog";
-import {JewelryEditComponent} from "./jewelry-edit.component";
-import {ConfirmDeleteComponent} from "./confirm-delete.component";
+import {JewelryEditFormComponent} from "./jewelry-edit-form.component";
+import {ConfirmDeleteComponent} from "../confirm-delete.component";
 
 @Component({
-  selector: 'app-manage-jewelries-list',
-  templateUrl: './manage-jewelries-list.component.html',
-  styleUrls: ['./manage-jewelries-list.component.css']
+  selector: 'app-manager-jewelry-list',
+  templateUrl: './manager-jewelry-list.component.html',
+  styleUrls: ['./manager-jewelry-list.component.css']
 })
-export class ManageJewelriesListComponent implements OnInit {
+export class ManagerJewelryListComponent implements OnInit {
   jewelries: any[] = [];
 
   constructor(private managerService: ManagerService,
@@ -38,7 +38,7 @@ export class ManageJewelriesListComponent implements OnInit {
   }
 
   openEditJewelryDialog(jewelry: any): void {
-    this.dialog.open(JewelryEditComponent, {
+    this.dialog.open(JewelryEditFormComponent, {
       data: {
         jewelry: jewelry,
         refreshList: () => this.getJewelries()

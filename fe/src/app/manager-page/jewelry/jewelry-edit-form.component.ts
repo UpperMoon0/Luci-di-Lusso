@@ -1,17 +1,17 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
-import {ProductService} from "../service/product.service";
+import {ProductService} from "../../service/product.service";
 import {ToastrService} from "ngx-toastr";
-import {DiamondService} from "../service/diamond.service";
-import {ManagerService} from "../service/manager.service";
+import {DiamondService} from "../../service/diamond.service";
+import {ManagerService} from "../../service/manager.service";
 
 @Component({
-  selector: 'app-jewelry-edit',
-  templateUrl: './jewelry-edit.component.html',
-  styleUrls: ['./jewelry-edit.component.css']
+  selector: 'app-jewelry-edit-form',
+  templateUrl: './jewelry-edit-form.component.html',
+  styleUrls: ['./jewelry-edit-form.component.css']
 })
-export class JewelryEditComponent implements OnInit {
+export class JewelryEditFormComponent implements OnInit {
   protected jewelryTypes: any = {};
   protected diamonds: any = {};
   protected initialType: any = {};

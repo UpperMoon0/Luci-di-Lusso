@@ -41,7 +41,7 @@ import { StaffSidebarComponent } from './staff-sidebar/staff-sidebar.component';
 import { DeliveryTableComponent } from './delivery-page/delivery-table.component';
 import { DeliveryPageComponent } from './delivery-page/delivery-page.component';
 
-import {ManageDiamondListComponent} from "./manager-page/manage-diamond-list.component";
+import {ManagerDiamondListComponent} from "./manager-page/diamond/manager-diamond-list.component";
 import {ManagerPageComponent} from "./manager-page/manager-page.component";
 
 import {DiscoverComponent} from "./blog-page/blog/discover/discover.component";
@@ -64,29 +64,29 @@ import { HomeBlogComponent } from './home-page/home-blog.component';
 import {HomeProductRowComponent} from "./home-page/home-product-row.component";
 import {MatInputModule} from "@angular/material/input";
 import {DemoMaterialModule} from "./AngularMaterialModule";
-import { ManageDeliveryPageComponent } from './manager-page/manage-delivery-page.component';
+import { ManagerDeliveryListComponent } from './manager-page/delivery/manager-delivery-list.component';
 import { StatisticsComponent } from './manager-page/statistics.component';
 import {CanvasJSAngularChartsModule} from "@canvasjs/angular-charts";
-import { ManageJewelriesListComponent } from './manager-page/manage-jewelries-list.component';
+import { ManagerJewelryListComponent } from './manager-page/jewelry/manager-jewelry-list.component';
 import { ListOfOrdersComponent } from './delivery-page/list-of-orders.component';
 import {CertificatePageComponent} from "./certificate-page/certificate-page.component";
 import { HomeBannerComponent} from "./home-page/home-banner.component";
 import {ImageSliderModule} from "./image-slider/image-slider.module";
-import {DiamondEditFormComponent} from "./manager-page/diamond-edit-form.component";
+import {DiamondEditFormComponent} from "./manager-page/diamond/diamond-edit-form.component";
 import {MatCardModule} from "@angular/material/card";
 import {MatTableModule} from "@angular/material/table";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {WarrantyPageComponent} from "./warranty-page/warranty-page.component";
-import {JewelryEditComponent} from "./manager-page/jewelry-edit.component";
+import {JewelryEditFormComponent} from "./manager-page/jewelry/jewelry-edit-form.component";
 import {ConfirmDeleteComponent} from "./manager-page/confirm-delete.component";
 import {DeliverySidebarComponent} from "./delivery-page/delivery-sidebar.component";
 import {CollectionListPageComponent} from "./collection-page/collection-list-page.component";
 import {CollectionCardComponent} from "./collection-page/collection-card.component";
 import {CollectionPageComponent} from "./collection-page/collection-page.component";
 import {HomeCollectionRowComponent} from "./home-page/home-collection-row.component";
-import {VoucherEditComponent} from "./manager-page/voucher-edit.component";
-import {ManagerVouchersListComponent} from "./manager-page/manager-vouchers-list.component";
+import {VoucherEditFormComponent} from "./manager-page/voucher/voucher-edit-form.component";
+import {ManagerVoucherListComponent} from "./manager-page/voucher/manager-voucher-list.component";
 import { MyVouchersPageComponent } from './my-vouchers-page/my-vouchers-page.component';
 import { VouchersListComponent } from './my-vouchers-page/vouchers-list.component';
 import {EditFormComponent} from "./manager-page/edit-form.component";
@@ -148,13 +148,13 @@ import {EditFormComponent} from "./manager-page/edit-form.component";
     EditFormComponent,
     StatisticsComponent,
     DiamondEditFormComponent,
-    ManageDeliveryPageComponent,
-    JewelryEditComponent,
-    ManageJewelriesListComponent,
-    VoucherEditComponent,
-    ManagerVouchersListComponent,
+    ManagerDeliveryListComponent,
+    JewelryEditFormComponent,
+    ManagerJewelryListComponent,
+    VoucherEditFormComponent,
+    ManagerVoucherListComponent,
     ConfirmDeleteComponent,
-    ManageDiamondListComponent,
+    ManagerDiamondListComponent,
     StaffSidebarComponent,
     ManagerPageComponent,
 

@@ -1,15 +1,15 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
-import {ManagerService} from "../service/manager.service";
+import {ManagerService} from "../../service/manager.service";
 import {ToastrService} from "ngx-toastr";
 
 @Component({
-  selector: 'app-voucher-edit',
-  templateUrl: './voucher-edit.component.html',
-  styleUrls: ['./voucher-edit.component.css']
+  selector: 'app-voucher-edit-form',
+  templateUrl: './voucher-edit-form.component.html',
+  styleUrls: ['./voucher-edit-form.component.css']
 })
-export class VoucherEditComponent implements OnInit {
+export class VoucherEditFormComponent implements OnInit {
 
   voucherEditForm = new FormGroup({
     code: new FormControl(this.data.voucher.code),

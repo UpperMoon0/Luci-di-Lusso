@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {ToastrService} from "ngx-toastr";
-import {DiamondService} from "../service/diamond.service";
+import {DiamondService} from "../../service/diamond.service";
 
 @Component({
   selector: 'app-diamond-edit-form',
