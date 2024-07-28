@@ -30,7 +30,7 @@ public class JewelryResponse extends CommonResponse {
         this.description = jewelry.getDescription();
         this.imageUrl = jewelry.getImageUrl();
         this.price = jewelryService.calculateJewelryPrice(jewelry);
-        this.type = jewelry.getType().getType().getValue();
+        this.type = jewelry.getType().getType();
         this.diamondId = jewelry.getDiamond().getId();
         this.diamondCarat = jewelry.getDiamond().getCarat();
         this.diamondCut = jewelry.getDiamond().getCut().getCut();

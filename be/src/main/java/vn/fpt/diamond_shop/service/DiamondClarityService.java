@@ -2,7 +2,7 @@ package vn.fpt.diamond_shop.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import vn.fpt.diamond_shop.model.dto.DiamondClarityRequest;
+import vn.fpt.diamond_shop.model.dto.SaveDiamondClarityRequest;
 import vn.fpt.diamond_shop.model.entity.DiamondClarity;
 import vn.fpt.diamond_shop.repository.IDiamondClarityRepository;
 
@@ -19,7 +19,7 @@ public class DiamondClarityService implements IDiamondClarityService {
     }
 
     @Override
-    public void save(DiamondClarityRequest request) {
+    public void save(SaveDiamondClarityRequest request) {
         long id = request.getId();
 
         DiamondClarity diamondClarity;

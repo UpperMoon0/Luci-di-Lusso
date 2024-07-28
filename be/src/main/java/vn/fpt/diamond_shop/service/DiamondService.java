@@ -47,7 +47,7 @@ public class DiamondService implements IDiamondService {
     }
 
     @Override
-    public Diamond getDiamondById(long id) {
+    public Diamond findById(long id) {
         return diamondRepository.findById(id).orElse(null);
     }
 
@@ -62,7 +62,7 @@ public class DiamondService implements IDiamondService {
         if (request.getId() == 0) {
             diamond = new Diamond();
         } else {
-            diamond = getDiamondById(request.getId());
+            diamond = findById(request.getId());
             if (diamond == null) {
                 throw new RuntimeException("Diamond not found");
             }

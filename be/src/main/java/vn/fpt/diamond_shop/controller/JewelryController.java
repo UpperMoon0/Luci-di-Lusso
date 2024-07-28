@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vn.fpt.diamond_shop.constant.*;
 import vn.fpt.diamond_shop.model.dto.*;
 import vn.fpt.diamond_shop.model.entity.*;
 import vn.fpt.diamond_shop.service.*;
@@ -27,7 +26,7 @@ public class JewelryController {
         Jewelry jewelry = jewelryService.getJewelryById(id);
         if (jewelry != null) {
             JewelryType type = jewelry.getType();
-            List<JewelrySize> sizes = jewelrySizeService.getJewelrySizesByJewelryType(type);
+            List<JewelrySize> sizes = jewelrySizeService.getByJewelryType(type);
 
             JewelryResponse response = new JewelryResponse(jewelry, sizes, jewelryService);
             response.setMessage("Jewelry retrieved successfully");
@@ -40,7 +39,7 @@ public class JewelryController {
 
     @PostMapping("/get-jewelry-list")
     public ResponseEntity<JewelryListResponse> getJewelryList(@RequestBody JewelryListRequest request) {
-        List<EJewelryType> types = request.getTypes();
+        List<String> types = request.getTypes();
         Integer minPrice = request.getMinPrice();
         Integer maxPrice = request.getMaxPrice();
         String keyword = request.getKeyword();
@@ -64,7 +63,7 @@ public class JewelryController {
     }
 
     @PostMapping("/save-jewelry")
-    public ResponseEntity<CommonResponse> updateJewelry(@Valid @RequestBody JewelryUpdateRequest body) {
+    public ResponseEntity<CommonResponse> saveJewelry(@Valid @RequestBody SaveJewelryRequest body) {
         try {
             jewelryService.saveJewelry(body);
             CommonResponse response = new CommonResponse();
@@ -94,13 +93,73 @@ public class JewelryController {
     }
 
     @GetMapping("/get-all-jewelry-types")
-    public ResponseEntity<JewelryTypesResponse> getAllTypes() {
-        List<JewelryType> types = jewelryTypeService.getAll();
-        JewelryTypesResponse response = new JewelryTypesResponse();
-        response.setTypes(types);
-        response.setMessage("Get all jewelry types successfully");
-        return ResponseEntity.ok(response);
+    public ResponseEntity<List<JewelryType>> getAllJewelryTypes() {
+        List<JewelryType> types = jewelryTypeService.findAll();
+        return ResponseEntity.ok(types);
     }
+
+    @PostMapping("/save-jewelry-type")
+    public ResponseEntity<CommonResponse> saveJewelryType(@Valid @RequestBody SaveJewelryTypeRequest request) {
+        try {
+            jewelryTypeService.save(request);
+            CommonResponse response = new CommonResponse();
+            response.setMessage("Jewelry type saved successfully");
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            CommonResponse response = new CommonResponse();
+            response.setMessage(e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    @PostMapping("/toggle-jewelry-type-status")
+    public ResponseEntity<CommonResponse> toggleJewelryTypeStatus(@RequestParam Long id) {
+        try {
+            jewelryTypeService.toggleStatus(id);
+            CommonResponse response = new CommonResponse();
+            response.setMessage("Jewelry type status toggled successfully");
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            CommonResponse response = new CommonResponse();
+            response.setMessage(e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    @GetMapping("/get-all-jewelry-sizes")
+    public ResponseEntity<List<JewelrySize>> getAllJewelrySizes() {
+        List<JewelrySize> sizes = jewelrySizeService.findAll();
+        return ResponseEntity.ok(sizes);
+    }
+
+    @PostMapping("/save-jewelry-size")
+    public ResponseEntity<CommonResponse> saveJewelrySize(@Valid @RequestBody SaveJewelrySizeRequest request) {
+        try {
+            jewelrySizeService.save(request);
+            CommonResponse response = new CommonResponse();
+            response.setMessage("Jewelry size saved successfully");
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            CommonResponse response = new CommonResponse();
+            response.setMessage(e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    @PostMapping("/toggle-jewelry-size-status")
+    public ResponseEntity<CommonResponse> toggleJewelrySizeStatus(@RequestParam Long id) {
+        try {
+            jewelrySizeService.toggleStatus(id);
+            CommonResponse response = new CommonResponse();
+            response.setMessage("Jewelry size status toggled successfully");
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            CommonResponse response = new CommonResponse();
+            response.setMessage(e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
 
     @GetMapping("/get-all-collections")
     public ResponseEntity<List<JewelryCollection>> getAllCollections() {

@@ -29,7 +29,7 @@ export class ProductListPageComponent implements OnInit {
   ngOnInit(): void {
     this.isLoggedIn = localStorage.getItem("user") != null;
     // Subscribe to productTypes observable
-    this.productService.getProductTypes().subscribe({
+    this.productService.getJewelryTypesObservable().subscribe({
       next: (types: string[]) => {
         this.typeLists = types;
         this.getProducts();
@@ -93,7 +93,7 @@ export class ProductListPageComponent implements OnInit {
     const { minPrice, maxPrice } = this.getPriceRange();
     const keyword = this.searchText;
     const request = { types, minPrice, maxPrice, keyword };
-    this.productService.getJewelries(request).subscribe({
+    this.productService.getJewelryList(request).subscribe({
       next: (res) => this.productsList = res.jewelries,
       error: () => this.toastrService.error("Error in getting products list")
     });

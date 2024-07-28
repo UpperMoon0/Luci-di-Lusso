@@ -2,7 +2,7 @@ package vn.fpt.diamond_shop.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import vn.fpt.diamond_shop.model.dto.DiamondColorRequest;
+import vn.fpt.diamond_shop.model.dto.SaveDiamondColorRequest;
 import vn.fpt.diamond_shop.model.entity.DiamondColor;
 import vn.fpt.diamond_shop.repository.IDiamondColorRepository;
 
@@ -19,7 +19,7 @@ public class DiamondColorService implements IDiamondColorService {
     }
 
     @Override
-    public void save(DiamondColorRequest request) {
+    public void save(SaveDiamondColorRequest request) {
         long id = request.getId();
 
         DiamondColor diamondColor;

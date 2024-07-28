@@ -2,8 +2,7 @@ package vn.fpt.diamond_shop.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vn.fpt.diamond_shop.constant.EJewelryType;
-import vn.fpt.diamond_shop.model.dto.JewelryUpdateRequest;
+import vn.fpt.diamond_shop.model.dto.SaveJewelryRequest;
 import vn.fpt.diamond_shop.model.entity.Diamond;
 import vn.fpt.diamond_shop.model.entity.Jewelry;
 import vn.fpt.diamond_shop.model.entity.JewelrySize;
@@ -12,7 +11,6 @@ import vn.fpt.diamond_shop.repository.IDiamondRepository;
 import vn.fpt.diamond_shop.repository.IJewelryRepository;
 import vn.fpt.diamond_shop.repository.IJewelryTypeRepository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -45,7 +43,7 @@ public class JewelryService implements IJewelryService {
     }
 
     @Override
-    public List<Jewelry> getJewelriesByFilter(List<EJewelryType> types, Integer minPrice, Integer maxPrice, String keyword) {
+    public List<Jewelry> getJewelriesByFilter(List<String> types, Integer minPrice, Integer maxPrice, String keyword) {
         Stream<Jewelry> jewelryStream;
         if (types.isEmpty()) {
             // Initialize stream with all jewelries if type list is empty
@@ -115,7 +113,7 @@ public class JewelryService implements IJewelryService {
     }
 
     @Override
-    public void saveJewelry(JewelryUpdateRequest request) {
+    public void saveJewelry(SaveJewelryRequest request) {
         Jewelry jewelry;
         if (request.getId() == 0) {
             jewelry = new Jewelry();

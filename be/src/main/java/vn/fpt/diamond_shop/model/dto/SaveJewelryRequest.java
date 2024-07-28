@@ -3,7 +3,7 @@ package vn.fpt.diamond_shop.model.dto;
 import lombok.Data;
 
 @Data
-public class JewelryUpdateRequest {
+public class SaveJewelryRequest {
     private Long id;
     private String name;
     private String description;

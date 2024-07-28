@@ -27,7 +27,7 @@ export class CollectionPageComponent implements OnInit {
 
   getAllJewelries(callback: () => void): void {
     let request = {types: [], minPrice: 0, maxPrice: 0, keyword: ''};
-    this.productService.getJewelries(request).subscribe({
+    this.productService.getJewelryList(request).subscribe({
       next: (response: any) => {
         this.jewelries = response.jewelries;
         callback();

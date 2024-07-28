@@ -22,6 +22,10 @@ export class DiamondService {
     };
   }
 
+  public getDiamond(id: number): Observable<any> {
+    return this.http.get(`${environment.beApiUrl}/diamond/get-diamond?id=` + id, this.httpOptions);
+  }
+
   public getAllDiamondProperties(): Observable<any> {
     return this.http.get(`${environment.beApiUrl}/diamond/get-all-diamond-properties`, this.httpOptions);
   }

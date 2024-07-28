@@ -2,7 +2,7 @@ package vn.fpt.diamond_shop.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import vn.fpt.diamond_shop.model.dto.DiamondCutRequest;
+import vn.fpt.diamond_shop.model.dto.SaveDiamondCutRequest;
 import vn.fpt.diamond_shop.model.entity.DiamondCut;
 import vn.fpt.diamond_shop.repository.IDiamondCutRepository;
 
@@ -19,7 +19,7 @@ public class DiamondCutService implements IDiamondCutService {
     }
 
     @Override
-    public void save(DiamondCutRequest request) {
+    public void save(SaveDiamondCutRequest request) {
         long id = request.getId();
 
         DiamondCut diamondCut;

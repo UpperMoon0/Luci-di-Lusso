@@ -2,8 +2,6 @@ package vn.fpt.diamond_shop.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
-import vn.fpt.diamond_shop.constant.EAuthProvider;
-import vn.fpt.diamond_shop.constant.EUserRole;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -29,14 +27,12 @@ public class Account {
 
     @Column(name = "create_at")
     private LocalDateTime createAt;
-  
-    @Enumerated(EnumType.STRING)
-    @Column(name = "provider", nullable = false)
-    private EAuthProvider provider;
 
-    @Enumerated(EnumType.STRING)
+    @Column(name = "provider", nullable = false)
+    private String provider;
+
     @Column(name = "role", nullable = false)
-    private EUserRole role;
+    private String role;
 
     @JsonBackReference
     @OneToOne(mappedBy = "account")

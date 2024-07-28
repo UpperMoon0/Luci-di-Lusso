@@ -1,7 +1,6 @@
 package vn.fpt.diamond_shop.model.entity;
 
 import lombok.*;
-import vn.fpt.diamond_shop.constant.EDiamondClarity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

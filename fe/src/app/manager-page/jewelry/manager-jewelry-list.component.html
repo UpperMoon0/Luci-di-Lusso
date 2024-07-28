@@ -1,49 +1,133 @@
-<div class="container">
-  <table>
-    <thead>
-    <tr>
-      <th style="text-align: center ;width: 3%">ID</th>
-      <th style="text-align: center">Name</th>
-      <th style="text-align: center">Description</th>
-      <th style="text-align: center">Diamond</th>
-      <th style="text-align: center">Type</th>
-      <th style="text-align: center">Image</th>
-      <th style="text-align: center">Setting price</th>
-      <th style="text-align: center">Labor cost</th>
-      <th style="text-align: center">Created at</th>
-      <th style="text-align: center">Status</th>
-      <th style="text-align: center;">Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let element of jewelries">
-      <td style="text-align: center">{{element.id}}</td>
-      <td style="text-align: center">{{element.name}}</td>
-      <td style="text-align: center">{{element.description}}</td>
-      <td style="text-align: center">
-        <div>
-          <div>Color: {{element.diamond.color.color}}</div>
-          <div>Clarity: {{element.diamond.clarity.clarity}}</div>
-          <div>Cut: {{element.diamond.cut.cut}}</div>
-          <div>Carat: {{element.diamond.carat}}</div>
-          <div>Shape: {{element.diamond.shape.shape}}</div>
-        </div>
-      </td>
-      <td style="text-align: center">{{element.type.type}}</td>
-      <td style="text-align: center">
-        <img [src]="element.imageUrl" alt="image" width="100" height="100">
-      </td>
-      <td style="text-align: center">{{element.settingPrice}}</td>
-      <td style="text-align: center">{{element.laborCost}}</td>
-      <td style="text-align: center">{{element.createAt | date: 'medium'}}</td>
-      <td style="text-align: center">{{element.status}}</td>
-      <td style="text-align: center ;display: flex">
-        <button (click)="openJewelryDialog(element)" style="background-color: #04AA6D; color: white;">Edit</button>
-        <button *ngIf="element.status === 'ACTIVE'" (click)="toggleJewelryStatus(element.id)" style="background-color: #f44336; color: white;">Disable</button>
-        <button *ngIf="element.status === 'INACTIVE'" (click)="toggleJewelryStatus(element.id)" style="background-color: #04AA6D; color: white;">Enable</button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-  <button (click)="openJewelryDialog(null)" style="background-color: #04AA6D; color: white;">Add jewelry</button>
+<div style="margin: 2rem 4rem 5rem">
+  <div style="display: flex; margin: 0 auto 2rem;">
+    <button (click)="setTab(0)">
+      Jewelry
+    </button>
+    <button (click)="setTab(1)">
+      Jewelry Type
+    </button>
+    <button (click)="setTab(2)">
+      JewelrySize
+    </button>
+  </div>
+  <div *ngIf="tab==0">
+    <h1 style="text-align: center">Jewelries list</h1>
+    <div style="display: flex; align-items: flex-start;">
+      <table style="border: 1px solid black;">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Diamond</th>
+          <th>Type</th>
+          <th>Image</th>
+          <th>Setting price</th>
+          <th>Labor cost</th>
+          <th>Quantity</th>
+          <th>Created at</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let element of jewelries">
+          <td>{{element.id}}</td>
+          <td>{{element.name}}</td>
+          <td>{{element.description}}</td>
+          <td>
+            <div>
+              <div>Color: {{element.diamond.color.color}}</div>
+              <div>Clarity: {{element.diamond.clarity.clarity}}</div>
+              <div>Cut: {{element.diamond.cut.cut}}</div>
+              <div>Carat: {{element.diamond.carat}}</div>
+              <div>Shape: {{element.diamond.shape.shape}}</div>
+            </div>
+          </td>
+          <td>{{element.type.type}}</td>
+          <td>
+            <img [src]="element.imageUrl" alt="image" width="100" height="100">
+          </td>
+          <td>{{element.settingPrice}}</td>
+          <td>{{element.laborCost}}</td>
+          <td>{{element.diamond.quantity}}</td>
+          <td>{{element.createAt | date: 'medium'}}</td>
+          <td>{{element.status}}</td>
+          <td>
+            <button (click)="openJewelryDialog(element)" style="background-color: #04AA6D; color: white;">Edit</button>
+            <button *ngIf="element.status === 'ACTIVE'" (click)="toggleJewelryStatus(element.id)" style="background-color: #f44336; color: white;">Disable</button>
+            <button *ngIf="element.status === 'INACTIVE'" (click)="toggleJewelryStatus(element.id)" style="background-color: #04AA6D; color: white;">Enable</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <button (click)="openJewelryDialog(null)" style="background-color: green; color: white;">Add</button>
+    </div>
+  </div>
+  <div *ngIf="tab==1">
+    <h1 style="text-align: center">Jewelry types list</h1>
+    <div style="display: flex; align-items: flex-start;">
+      <table style="border: 1px solid black;">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Type</th>
+          <th>Created at</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let element of jewelryTypes">
+          <td>{{element.id}}</td>
+          <td>{{element.type}}</td>
+          <td>{{element.createAt | date: 'medium'}}</td>
+          <td>{{element.status}}</td>
+          <td>
+            <button (click)="openJewelryTypeDialog(element)" style="background-color: #04AA6D; color: white;">Edit</button>
+            <button *ngIf="element.status === 'ACTIVE'" (click)="toggleJewelryTypeStatus(element.id)" style="background-color: #f44336; color: white;">Disable</button>
+            <button *ngIf="element.status === 'INACTIVE'" (click)="toggleJewelryTypeStatus(element.id)" style="background-color: #04AA6D; color: white;">Enable</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <button (click)="openJewelryTypeDialog(null)" style="background-color: green; color: white;">Add</button>
+    </div>
+  </div>
+  <div *ngIf="tab==2">
+    <h1 style="text-align: center">Jewelry sizes list</h1>
+    <div style="display: flex; align-items: flex-start;">
+      <table style="border: 1px solid black;">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Jewelry type</th>
+          <th>Size</th>
+          <th>Unit</th>
+          <th>Price multiplier</th>
+          <th>Created at</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let element of jewelrySizes">
+          <td>{{element.id}}</td>
+          <td>{{element.type.type}}</td>
+          <td>{{element.size}}</td>
+          <td>{{element.unit}}</td>
+          <td>{{element.priceMultiplier}}</td>
+          <td>{{element.createAt | date: 'medium'}}</td>
+          <td>{{element.status}}</td>
+          <td>
+            <button (click)="openJewelrySizeDialog(element)" style="background-color: #04AA6D; color: white;">Edit</button>
+            <button *ngIf="element.status === 'ACTIVE'" (click)="toggleJewelrySizeStatus(element.id)" style="background-color: #f44336; color: white;">Disable</button>
+            <button *ngIf="element.status === 'INACTIVE'" (click)="toggleJewelrySizeStatus(element.id)" style="background-color: #04AA6D; color: white;">Enable</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <button (click)="openJewelrySizeDialog(null)" style="background-color: green; color: white;">Add</button>
+    </div>
+  </div>
 </div>

@@ -9,6 +9,9 @@
           {{ field.label }}:
           <input *ngIf="field.type === 'string'" type="text" [formControlName]="field.name">
           <input *ngIf="field.type === 'number'" type="number" [formControlName]="field.name">
+          <select *ngIf="field.type === 'array'" [formControlName]="field.name">
+            <option *ngFor="let option of field.value.values" [value]="option.value">{{ option.name }}</option>
+          </select>
         </label>
       </ng-container>
       <button type="submit">Save</button>

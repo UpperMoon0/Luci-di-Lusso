@@ -3,7 +3,6 @@ package vn.fpt.diamond_shop.model.dto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import vn.fpt.diamond_shop.constant.EAuthProvider;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -40,5 +39,5 @@ public class RegisterRequest {
     private LocalDate dob;
 
     @NotNull
-    private EAuthProvider provider;
+    private String provider;
 }

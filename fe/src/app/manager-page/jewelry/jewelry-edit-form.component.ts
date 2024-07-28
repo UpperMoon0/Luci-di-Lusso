@@ -4,7 +4,6 @@ import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {JewelryService} from "../../service/jewelry.service";
 import {ToastrService} from "ngx-toastr";
 import {DiamondService} from "../../service/diamond.service";
-import {ManagerService} from "../../service/manager.service";
 
 @Component({
   selector: 'app-jewelry-edit-form',
@@ -74,8 +73,8 @@ export class JewelryEditFormComponent implements OnInit {
       });
     });
 
-    this.jewelryService.getAllTypes().subscribe(response => {
-      this.jewelryTypes = response.types;
+    this.jewelryService.getAllJewelryTypes().subscribe(response => {
+      this.jewelryTypes = response;
 
       let initialType = this.jewelryTypes[0];
 

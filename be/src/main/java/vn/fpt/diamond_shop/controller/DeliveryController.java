@@ -34,7 +34,7 @@ public class DeliveryController {
         }
 
         List<Delivery> deliveries = deliveryService.getDeliveriesByAccount(user.getId());
-        deliveries.removeIf(temp -> temp.getStatus().name().equals("DONE"));
+        deliveries.removeIf(temp -> temp.getStatus().equals("COMPLETED"));
 
         MyDeliveriesResponse res = new MyDeliveriesResponse(deliveries, orderItemService);
 

@@ -3,8 +3,8 @@ package vn.fpt.diamond_shop.model.dto;
 import lombok.Data;
 
 @Data
-public class DiamondCutRequest {
+public class SaveDiamondClarityRequest {
     private Long id;
-    private String cut;
+    private String clarity;
     private Integer price;
 }

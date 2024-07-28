@@ -2,7 +2,6 @@ package vn.fpt.diamond_shop.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vn.fpt.diamond_shop.constant.EOrderStatus;
 import vn.fpt.diamond_shop.model.entity.Delivery;
 import vn.fpt.diamond_shop.model.entity.Order;
 import vn.fpt.diamond_shop.model.entity.Account;
@@ -38,7 +37,7 @@ public class DeliveryService implements IDeliveryService {
     @Override
     public void completeDelivery(Long deliveryID) {
         Delivery delivery = deliveryRepository.getById(deliveryID);
-        delivery.setStatus(EOrderStatus.DONE);
+        delivery.setStatus("COMPLETED");
         deliveryRepository.save(delivery);
     }
 
@@ -50,7 +49,7 @@ public class DeliveryService implements IDeliveryService {
 
         delivery.setOrder(order);
         delivery.setCreateAt(dateTime);
-        delivery.setStatus(EOrderStatus.PENDING);
+        delivery.setStatus("UNASSIGNED");
 
         deliveryRepository.save(delivery);
     }

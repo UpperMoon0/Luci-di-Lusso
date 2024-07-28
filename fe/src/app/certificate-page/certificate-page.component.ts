@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from '../service/account.service';
-import {JewelryService} from "../service/jewelry.service";
+import {DiamondService} from "../service/diamond.service";
 
 @Component({
   selector: 'app-certificate-page',
@@ -12,7 +12,7 @@ import {JewelryService} from "../service/jewelry.service";
 export class CertificatePageComponent implements OnInit {
   protected diamond: any;
 
-  constructor(private productService: JewelryService,
+  constructor(private diamondService: DiamondService,
               private toastrService: ToastrService,
               private accountService: AccountService,
               private router: Router,
@@ -36,7 +36,7 @@ export class CertificatePageComponent implements OnInit {
   }
 
   public getSelectedTypes(id: number): void {
-    this.productService.getDiamond(id).subscribe({
+    this.diamondService.getDiamond(id).subscribe({
       next: (diamond: any) => {
         this.diamond = diamond;
       },

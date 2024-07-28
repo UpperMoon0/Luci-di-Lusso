@@ -21,6 +21,12 @@ public class DiamondController {
     private final IDiamondShapeService diamondShapeService;
     private final IDiamondService diamondService;
 
+    @GetMapping("/get-diamond")
+    public ResponseEntity<Diamond> getDiamond(@RequestParam long id) {
+        Diamond diamond = diamondService.findById(id);
+        return ResponseEntity.ok(diamond);
+    }
+
     @GetMapping("/get-all-diamond-properties")
     public ResponseEntity<DiamondPropertiesResponse> getAllDiamondProperties() {
         List<DiamondCut> cuts = diamondCutService.findAll();
@@ -41,7 +47,7 @@ public class DiamondController {
     }
 
     @PostMapping("/save-diamond-color")
-    public ResponseEntity<CommonResponse> addDiamondColor(@Valid @RequestBody DiamondColorRequest request) {
+    public ResponseEntity<CommonResponse> addDiamondColor(@Valid @RequestBody SaveDiamondColorRequest request) {
         try {
             diamondColorService.save(request);
             CommonResponse response = new CommonResponse();
@@ -69,7 +75,7 @@ public class DiamondController {
     }
 
     @PostMapping("/save-diamond-cut")
-    public ResponseEntity<CommonResponse> addDiamondCut(@Valid @RequestBody DiamondCutRequest request) {
+    public ResponseEntity<CommonResponse> addDiamondCut(@Valid @RequestBody SaveDiamondCutRequest request) {
         try {
             diamondCutService.save(request);
             CommonResponse response = new CommonResponse();
@@ -97,7 +103,7 @@ public class DiamondController {
     }
 
     @PostMapping("/save-diamond-clarity")
-    public ResponseEntity<CommonResponse> addDiamondClarity(@Valid @RequestBody DiamondClarityRequest request) {
+    public ResponseEntity<CommonResponse> addDiamondClarity(@Valid @RequestBody SaveDiamondClarityRequest request) {
         try {
             diamondClarityService.save(request);
             CommonResponse response = new CommonResponse();
@@ -125,7 +131,7 @@ public class DiamondController {
     }
 
     @PostMapping("/save-diamond-shape")
-    public ResponseEntity<CommonResponse> addDiamondShape(@Valid @RequestBody DiamondShapeRequest request) {
+    public ResponseEntity<CommonResponse> addDiamondShape(@Valid @RequestBody SaveDiamondShapeRequest request) {
         try {
             diamondShapeService.save(request);
             CommonResponse response = new CommonResponse();

@@ -16,9 +16,6 @@ export class EditFormComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private productService: JewelryService,
-    private managerService: ManagerService,
-    private toastrService: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -33,7 +30,11 @@ export class EditFormComponent implements OnInit {
 
     let formGroup = {};
     this.formConfig.fields.forEach((field: any) => {
-      formGroup[field.name] = new FormControl(field.value);
+      if (field.type !== 'array') {
+        formGroup[field.name] = new FormControl(field.value);
+      } else {
+        formGroup[field.name] = new FormControl(field.value.initValue);
+      }
     });
 
     this.editForm = new FormGroup(formGroup);
