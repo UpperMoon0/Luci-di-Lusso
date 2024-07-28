@@ -32,22 +32,6 @@ export class ManagerService {
     return this.http.post(`${environment.beApiUrl}/delivery/assign-deliverer`, request, this.httpOptions);
   }
 
-  getAllJeweleries(): Observable<any> {
-    return this.http.get(`${environment.beApiUrl}/product/get-all-jewelries`, this.httpOptions);
-  }
-
-  addJewelry(): Observable<any> {
-    return this.http.post(`${environment.beApiUrl}/product/add-jewelry`, '',this.httpOptions);
-  }
-
-  deleteJewelry(id: number): Observable<any> {
-    return this.http.delete(`${environment.beApiUrl}/product/delete-jewelry?id=${id}`, this.httpOptions);
-  }
-
-  updateJewelry(request: any): Observable<any> {
-    return this.http.post(`${environment.beApiUrl}/product/update-jewelry`, request, this.httpOptions);
-  }
-
   getAllVouchers(): Observable<any> {
     return this.http.get(`${environment.beApiUrl}/voucher/get-all-vouchers`, this.httpOptions);
   }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from "ngx-toastr";
-import { ProductService } from "../service/product.service";
+import { JewelryService } from "../service/jewelry.service";
 import { ActivatedRoute } from "@angular/router";
 import {ColorService} from "../service/color.service";
 
@@ -14,7 +14,7 @@ export class CollectionPageComponent implements OnInit {
   private jewelries: any[] = [];
   protected jewelriesInCollection: any[] = [];
 
-  constructor(private productService: ProductService,
+  constructor(private productService: JewelryService,
               private toastrService: ToastrService,
               private route: ActivatedRoute,
               protected colorService: ColorService) {}

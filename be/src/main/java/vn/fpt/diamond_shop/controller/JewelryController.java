@@ -13,9 +13,9 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RequestMapping("/product")
+@RequestMapping("/jewelry")
 @RestController
-public class ProductController {
+public class JewelryController {
 
     private final IJewelryService jewelryService;
     private final IJewelrySizeService jewelrySizeService;
@@ -59,31 +59,14 @@ public class ProductController {
     @GetMapping("/get-all-jewelries")
     public ResponseEntity<List<Jewelry>> getAllJewelries() {
         List<Jewelry> jewelries = jewelryService.getAllJewelries();
-        List<Jewelry> activeJewelries = jewelries.stream()
-                .filter(j -> "ACTIVE".equals(j.getStatus()) && "ACTIVE".equals(j.getDiamond().getStatus()))
-                .toList();
 
-        return ResponseEntity.ok(activeJewelries);
+        return ResponseEntity.ok(jewelries);
     }
 
-    @PostMapping("/add-jewelry")
-    public ResponseEntity<CommonResponse> addJewelry() {
-        try {
-            jewelryService.createNewJewelry();
-            CommonResponse response = new CommonResponse();
-            response.setMessage("Jewelry added successfully");
-            return ResponseEntity.ok(response);
-        } catch (RuntimeException e) {
-            CommonResponse response = new CommonResponse();
-            response.setMessage(e.getMessage());
-            return ResponseEntity.badRequest().body(response);
-        }
-    }
-
-    @PostMapping("/update-jewelry")
+    @PostMapping("/save-jewelry")
     public ResponseEntity<CommonResponse> updateJewelry(@Valid @RequestBody JewelryUpdateRequest body) {
         try {
-            jewelryService.updateJewelry(body);
+            jewelryService.saveJewelry(body);
             CommonResponse response = new CommonResponse();
             response.setMessage("Jewelry updated successfully");
             return ResponseEntity.ok(response);
@@ -94,7 +77,7 @@ public class ProductController {
         }
     }
 
-    @DeleteMapping("/delete-jewelry")
+    @PostMapping("/toggle-jewelry-status")
     public ResponseEntity<CommonResponse> deleteJewelry(@RequestParam Long id) {
         try {
             jewelryService.toggleStatus(id);

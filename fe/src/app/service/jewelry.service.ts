@@ -8,10 +8,8 @@ import { ColorService } from "./color.service";
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class JewelryService {
   productTypes: BehaviorSubject<String[]> = new BehaviorSubject<String[]>([]);
-
-  private apiUrl = environment.beApiUrl;
 
   constructor(private http: HttpClient, private colorService: ColorService) {
     this.getAllTypes().subscribe();
@@ -28,16 +26,16 @@ export class ProductService {
   }
 
   getJewelry(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/product/get-jewelry?id=` + id, this.httpOptions);
+    return this.http.get(`${environment.beApiUrl}/jewelry/get-jewelry?id=` + id, this.httpOptions);
   }
 
   public getJewelries(request: any): Observable<any> {
     if (!request) request = {types: {}, minPrice: 0, maxPrice: 0, keyword: ''};
-    return this.http.post(`${this.apiUrl}/product/get-jewelry-list`, request, this.httpOptions);
+    return this.http.post(`${environment.beApiUrl}/jewelry/get-jewelry-list`, request, this.httpOptions);
   }
 
   public getAllTypes(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/product/get-all-jewelry-types`, this.httpOptions).pipe(
+    return this.http.get(`${environment.beApiUrl}/jewelry/get-all-jewelry-types`, this.httpOptions).pipe(
       tap(response => {
         const types = response.types.map((item: any) => item.type);
         this.productTypes.next(types);
@@ -46,12 +44,8 @@ export class ProductService {
     );
   }
 
-  public getTest(): Observable<any> {
-    return this.http.get<Object>(`${this.apiUrl}/api/product/test`, this.httpOptions);
-  }
-
   public getDiamond(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/product/get-diamond?id=` + id, this.httpOptions);
+    return this.http.get(`${environment.beApiUrl}/jewelry/get-diamond?id=` + id, this.httpOptions);
   }
 
   public getProductTypes(): Observable<String[]> {
@@ -59,10 +53,22 @@ export class ProductService {
   }
 
   public getAllCollections(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/product/get-all-collections`);
+    return this.http.get(`${environment.beApiUrl}/jewelry/get-all-collections`);
   }
 
   public getCollection(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/product/get-collection?id=` + id);
+    return this.http.get(`${environment.beApiUrl}/jewelry/get-collection?id=` + id);
+  }
+
+  getAllJeweleries(): Observable<any> {
+    return this.http.get(`${environment.beApiUrl}/jewelry/get-all-jewelries`, this.httpOptions);
+  }
+
+  toggleJewelryStatus(id: number): Observable<any> {
+    return this.http.post(`${environment.beApiUrl}/jewelry/toggle-jewelry-status?id=${id}`,'', this.httpOptions);
+  }
+
+  saveJewelry(request: any): Observable<any> {
+    return this.http.post(`${environment.beApiUrl}/jewelry/save-jewelry`, request, this.httpOptions);
   }
 }

@@ -3,7 +3,7 @@
     <h2>Edit jewelry</h2>
   </div>
   <div *ngIf="jewelryTypes && diamonds">
-    <form [formGroup]="jewelryEditForm" (ngSubmit)="onSubmit()" style="display: flex; flex-direction: column;">
+    <form [formGroup]="jewelryEditForm" (ngSubmit)="save()" style="display: flex; flex-direction: column;">
       <label>
         Name:
         <input type="text" formControlName="name">

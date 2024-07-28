@@ -5,6 +5,7 @@ import {ToastrService} from "ngx-toastr";
 import {MatDialog} from "@angular/material/dialog";
 import {JewelryEditFormComponent} from "./jewelry-edit-form.component";
 import {ConfirmDeleteComponent} from "../confirm-delete.component";
+import {JewelryService} from "../../service/jewelry.service";
 
 @Component({
   selector: 'app-manager-jewelry-list',
@@ -14,7 +15,7 @@ import {ConfirmDeleteComponent} from "../confirm-delete.component";
 export class ManagerJewelryListComponent implements OnInit {
   jewelries: any[] = [];
 
-  constructor(private managerService: ManagerService,
+  constructor(private jewelryService: JewelryService,
               private titleService: Title,
               private toastrService: ToastrService,
               public dialog: MatDialog) {}
@@ -25,19 +26,23 @@ export class ManagerJewelryListComponent implements OnInit {
   }
 
   getJewelries(): void {
-    this.managerService.getAllJeweleries().subscribe(response => {
+    this.jewelryService.getAllJeweleries().subscribe(response => {
       this.jewelries = response;
     });
+    this.dialog.closeAll();
   }
 
-  deleteJewelry(jewelryId: any) {
-    this.managerService.deleteJewelry(jewelryId).subscribe(response => {
-      this.toastrService.success('Jewelry deleted successfully');
-      this.getJewelries();
+  toggleJewelryStatus(jewelryId: any) {
+    this.jewelryService.toggleJewelryStatus(jewelryId).subscribe({
+      next: () => {
+        this.toastrService.success('Jewelry status updated successfully');
+        this.getJewelries();
+      },
+      error: () => this.toastrService.error('Failed to update jewelry status')
     });
   }
 
-  openEditJewelryDialog(jewelry: any): void {
+  openJewelryDialog(jewelry: any): void {
     this.dialog.open(JewelryEditFormComponent, {
       data: {
         jewelry: jewelry,
@@ -45,26 +50,5 @@ export class ManagerJewelryListComponent implements OnInit {
       },
       width: '400px',
     });
-  }
-
-  openDeleteConfirmDialog(jewelryId: any): void {
-    this.dialog.open(ConfirmDeleteComponent, {
-      data: {
-        entity: 'jewelry',
-        refreshList: () => this.getJewelries(),
-        deleteEntity: () => this.deleteJewelry(jewelryId),
-        closeDialog: () => this.dialog.closeAll()
-      },
-      width: '400',
-    });
-  }
-
-  addJewelry() {
-    this.managerService.addJewelry().subscribe(
-      () => {
-        this.toastrService.success('Jewelry added successfully');
-        this.getJewelries();
-      }
-    )
   }
 }

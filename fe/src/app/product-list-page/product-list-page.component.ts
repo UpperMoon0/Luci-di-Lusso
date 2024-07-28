@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from "ngx-toastr";
-import { ProductService } from "../service/product.service";
+import { JewelryService } from "../service/jewelry.service";
 import {ColorService} from "../service/color.service";
 import {AccountService} from "../service/account.service";
 import {Router} from "@angular/router";
@@ -20,7 +20,7 @@ export class ProductListPageComponent implements OnInit {
   selectedTypes: string[] = [];
   searchText: string = '';
 
-  constructor(private productService: ProductService,
+  constructor(private productService: JewelryService,
               private toastrService: ToastrService,
               protected colorService: ColorService,
               private accountService: AccountService,

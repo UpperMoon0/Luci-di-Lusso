@@ -14,7 +14,6 @@ public interface IJewelryService {
     Integer calculateJewelryPrice(Jewelry jewelry);
     Integer calculateJewelryPriceWithSize(Jewelry jewelry, JewelrySize size, int discount);
     void toggleStatus(Long id);
-    void updateJewelry(JewelryUpdateRequest request);
-    void createNewJewelry();
+    void saveJewelry(JewelryUpdateRequest request);
     boolean isJewelryInStock(Jewelry jewelry);
 }

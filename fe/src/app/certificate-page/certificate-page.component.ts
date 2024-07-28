@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from '../service/account.service';
-import {ProductService} from "../service/product.service";
+import {JewelryService} from "../service/jewelry.service";
 
 @Component({
   selector: 'app-certificate-page',
@@ -12,7 +12,7 @@ import {ProductService} from "../service/product.service";
 export class CertificatePageComponent implements OnInit {
   protected diamond: any;
 
-  constructor(private productService: ProductService,
+  constructor(private productService: JewelryService,
               private toastrService: ToastrService,
               private accountService: AccountService,
               private router: Router,

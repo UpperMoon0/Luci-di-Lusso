@@ -10,6 +10,8 @@
       <th style="text-align: center">Image</th>
       <th style="text-align: center">Setting price</th>
       <th style="text-align: center">Labor cost</th>
+      <th style="text-align: center">Created at</th>
+      <th style="text-align: center">Status</th>
       <th style="text-align: center;">Actions</th>
     </tr>
     </thead>
@@ -33,12 +35,15 @@
       </td>
       <td style="text-align: center">{{element.settingPrice}}</td>
       <td style="text-align: center">{{element.laborCost}}</td>
+      <td style="text-align: center">{{element.createAt | date: 'medium'}}</td>
+      <td style="text-align: center">{{element.status}}</td>
       <td style="text-align: center ;display: flex">
-        <button (click)="openEditJewelryDialog(element)" style="background-color: #04AA6D; color: white;">Edit</button>
-        <button (click)="openDeleteConfirmDialog(element.id)" style="background-color: #04AA6D; color: white;">Delete</button>
+        <button (click)="openJewelryDialog(element)" style="background-color: #04AA6D; color: white;">Edit</button>
+        <button *ngIf="element.status === 'ACTIVE'" (click)="toggleJewelryStatus(element.id)" style="background-color: #f44336; color: white;">Disable</button>
+        <button *ngIf="element.status === 'INACTIVE'" (click)="toggleJewelryStatus(element.id)" style="background-color: #04AA6D; color: white;">Enable</button>
       </td>
     </tr>
     </tbody>
   </table>
-  <button (click)="addJewelry()" style="background-color: #04AA6D; color: white;">Add jewelry</button>
+  <button (click)="openJewelryDialog(null)" style="background-color: #04AA6D; color: white;">Add jewelry</button>
 </div>
