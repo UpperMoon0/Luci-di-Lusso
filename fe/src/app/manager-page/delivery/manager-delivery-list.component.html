@@ -2,31 +2,32 @@
   <table>
     <thead>
     <tr>
-      <th style="text-align: center">ID</th>
-      <th style="text-align: center">Order</th>
-      <th style="text-align: center">Customer name</th>
-      <th style="text-align: center">Address</th>
-      <th style="text-align: center">Deliverer</th>
+      <th>ID</th>
+      <th>Customer's name</th>
+      <th>Address</th>
+      <th>Delivery staff</th>
+      <th>Status</th>
+      <th>Action</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let delivery of deliveries">
-      <td style="text-align: center">{{delivery.delivery.id}}</td>
-      <td style="text-align: center">
-        <p *ngFor="let item of delivery.orderItems">
-          {{item.jewelry.name}} x {{item.quantity}}
-        </p>
-      </td>
-      <td style="text-align: center">{{delivery.delivery.order.customer.fullName}}</td>
-      <td style="text-align: center">{{delivery.delivery.order.customer.address}}</td>
+      <td>{{delivery.delivery.id}}</td>
+      <td>{{delivery.delivery.order.customer.fullName}}</td>
+      <td>{{delivery.delivery.order.customer.address}}</td>
       <td>
         <form (submit)="assignDeliverer(delivery.delivery.id, delivererSelect.value)">
-          <select #delivererSelect>
-            <option value="None">None</option>
+          <select #delivererSelect [(ngModel)]="delivery.delivery.deliverer.id" name="delivererSelect">
+            <option value="None" [hidden]="true">None</option>
             <option *ngFor="let deliverer of deliverers" [value]="deliverer.id">{{deliverer.username}}</option>
           </select>
           <button type="submit">Assign</button>
         </form>
+        <button *ngIf="delivery.delivery.status === 'ASSIGNED'" (click)="unassignDeliverer(delivery.delivery.id)">Unassign</button>
+      </td>
+      <td>{{delivery.delivery.status}}</td>
+      <td>
+        <button (click)="openDeliveryDetailsDialog(delivery)">Details</button>
       </td>
     </tr>
     </tbody>

@@ -30,7 +30,7 @@ public class DeliveryService implements IDeliveryService {
     }
 
     @Override
-    public List<Delivery> getDeliveriesByAccount(Long delivererID) {
+    public List<Delivery> findByAccount(Long delivererID) {
         return deliveryRepository.findAllByDelivererId(delivererID);
     }
 
@@ -59,11 +59,20 @@ public class DeliveryService implements IDeliveryService {
         Delivery delivery = deliveryRepository.getById(deliveryID);
         Account user = userRepository.getById(delivererID);
         delivery.setDeliverer(user);
+        delivery.setStatus("ASSIGNED");
         deliveryRepository.save(delivery);
     }
 
     @Override
-    public List<Delivery> getUnassignedDeliveries() {
-        return deliveryRepository.findAllByDelivererIsNull();
+    public void unassignDeliverer(Long deliveryID) {
+        Delivery delivery = deliveryRepository.getById(deliveryID);
+        delivery.setDeliverer(null);
+        delivery.setStatus("UNASSIGNED");
+        deliveryRepository.save(delivery);
+    }
+
+    @Override
+    public List<Delivery> getAllDeliveries() {
+        return deliveryRepository.findAll();
     }
 }

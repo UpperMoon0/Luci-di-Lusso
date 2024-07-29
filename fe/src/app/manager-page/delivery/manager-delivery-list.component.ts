@@ -1,7 +1,9 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {ManagerService} from "../../service/manager.service";
 import {Title} from "@angular/platform-browser";
 import {ToastrService} from "ngx-toastr";
+import {DeliveryService} from "../../service/delivery.service";
+import {DeliveryDetailsComponent} from "./delivery-details.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-manager-delivery-list',
@@ -10,27 +12,33 @@ import {ToastrService} from "ngx-toastr";
   encapsulation: ViewEncapsulation.ShadowDom
 })
 export class ManagerDeliveryListComponent implements OnInit{
-  deliveries: any[] = [];
-  deliverers: any[] = [];
+  protected deliveries: any[] = [];
+  protected deliverers: any[] = [];
 
-  constructor(private managerService: ManagerService,
+  constructor(private deliveryService: DeliveryService,
               private titleService: Title,
-              private toastrService: ToastrService) {}
+              private toastrService: ToastrService,
+              private dialog: MatDialog) {}
 
   ngOnInit() {
     this.getDeliverers();
     this.getDeliveries();
-    this.titleService.setTitle('Delivery | Luci di Lusso');
+    this.titleService.setTitle('Deliveries list');
   }
 
   getDeliveries(): void {
-    this.managerService.getAllDeliveries().subscribe(response => {
-      this.deliveries = response.unassignedDeliveries;
+    this.deliveryService.getAllDeliveries().subscribe(response => {
+      this.deliveries = response.deliveries.map(delivery => {
+        if (!delivery.delivery.deliverer) {
+          delivery.delivery.deliverer = { id: 'None' };
+        }
+        return delivery;
+      });
     });
   }
 
   getDeliverers(): void {
-    this.managerService.getAllDeliverers().subscribe(response => {
+    this.deliveryService.getAllDeliverers().subscribe(response => {
       this.deliverers = response;
     });
   }
@@ -41,9 +49,25 @@ export class ManagerDeliveryListComponent implements OnInit{
     }
 
     let request = {deliveryId: deliveryId, delivererId: delivererId};
-    this.managerService.assignDeliverer(request).subscribe(response => {
+    this.deliveryService.assignDeliverer(request).subscribe(response => {
       this.getDeliveries();
       this.toastrService.success('Deliverer assigned successfully');
+    });
+  }
+
+  unassignDeliverer(deliveryId: number) {
+    this.deliveryService.unassignDeliverer(deliveryId).subscribe(response => {
+      this.getDeliveries();
+      this.toastrService.success('Deliverer unassigned successfully');
+    });
+  }
+
+  openDeliveryDetailsDialog(delivery: any): void {
+    this.dialog.open(DeliveryDetailsComponent, {
+      data: {
+        delivery: delivery
+      },
+      width: '800px',
     });
   }
 }

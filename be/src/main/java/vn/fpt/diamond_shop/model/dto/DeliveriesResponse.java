@@ -11,17 +11,17 @@ import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class UnassignedDeliveriesResponse extends CommonResponse {
-    private List<UnassignedDeliveryDTO> unassignedDeliveries = new ArrayList<>();
+public class DeliveriesResponse extends CommonResponse {
+    private List<DeliveryDTO> deliveries = new ArrayList<>();
 
-    public UnassignedDeliveriesResponse(List<Delivery> deliveries, IOrderItemService orderItemService) {
+    public DeliveriesResponse(List<Delivery> deliveries, IOrderItemService orderItemService) {
         for (Delivery delivery : deliveries) {
             List<OrderItem> orderItems = orderItemService.getOrderItemsByOrder(delivery.getOrder());
-            UnassignedDeliveryDTO unassignedDeliveryDTO = new UnassignedDeliveryDTO(delivery, orderItems);
-            this.unassignedDeliveries.add(unassignedDeliveryDTO);
+            DeliveryDTO unassignedDeliveryDTO = new DeliveryDTO(delivery, orderItems);
+            this.deliveries.add(unassignedDeliveryDTO);
         }
     }
 }
 
-record UnassignedDeliveryDTO(Delivery delivery, List<OrderItem> orderItems) {
+record DeliveryDTO(Delivery delivery, List<OrderItem> orderItems) {
 }

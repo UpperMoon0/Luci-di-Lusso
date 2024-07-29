@@ -5,7 +5,6 @@ import { CartService } from "../service/cart.service";
 import { Subscription } from 'rxjs';
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
-import {ManagerService} from "../service/manager.service";
 import {VoucherService} from "../service/voucher.service";
 
 @Component({

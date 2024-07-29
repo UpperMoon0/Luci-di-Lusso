@@ -1,10 +1,8 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Title} from "@angular/platform-browser";
-import {ManagerService} from "../../service/manager.service";
 import {ToastrService} from "ngx-toastr";
 import {MatDialog} from "@angular/material/dialog";
 import {JewelryEditFormComponent} from "./jewelry-edit-form.component";
-import {ConfirmDeleteComponent} from "../confirm-delete.component";
 import {JewelryService} from "../../service/jewelry.service";
 import {EditFormComponent} from "../edit-form.component";
 
