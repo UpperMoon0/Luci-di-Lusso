@@ -37,7 +37,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CustomerProfileFormComponent } from "./customer-profile-page/customer-profile-form.component";
 import { CustomerProfilePageComponent } from './customer-profile-page/customer-profile-page.component';
 
-import { StaffSidebarComponent } from './staff-sidebar/staff-sidebar.component';
 import { DeliveryTableComponent } from './delivery-page/delivery-table.component';
 import { DeliveryPageComponent } from './delivery-page/delivery-page.component';
 
@@ -68,7 +67,6 @@ import { ManagerDeliveryListComponent } from './manager-page/delivery/manager-de
 import { StatisticsComponent } from './manager-page/statistics.component';
 import {CanvasJSAngularChartsModule} from "@canvasjs/angular-charts";
 import { ManagerJewelryListComponent } from './manager-page/jewelry/manager-jewelry-list.component';
-import { ListOfOrdersComponent } from './delivery-page/list-of-orders.component';
 import {CertificatePageComponent} from "./certificate-page/certificate-page.component";
 import { HomeBannerComponent} from "./home-page/home-banner.component";
 import {ImageSliderModule} from "./image-slider/image-slider.module";
@@ -89,6 +87,7 @@ import {ManagerVoucherListComponent} from "./manager-page/voucher/manager-vouche
 import { MyVouchersPageComponent } from './my-vouchers-page/my-vouchers-page.component';
 import { VouchersListComponent } from './my-vouchers-page/vouchers-list.component';
 import {EditFormComponent} from "./manager-page/edit-form.component";
+import {CompleteDeliveryConfirmComponent} from "./delivery-page/complete-delivery-confirm.component";
 
 @NgModule({
   declarations: [
@@ -139,6 +138,7 @@ import {EditFormComponent} from "./manager-page/edit-form.component";
     CustomerProfilePageComponent,
 
     // Delivery page
+    CompleteDeliveryConfirmComponent,
     DeliverySidebarComponent,
     DeliveryTableComponent,
     DeliveryPageComponent,
@@ -153,7 +153,6 @@ import {EditFormComponent} from "./manager-page/edit-form.component";
     ManagerVoucherListComponent,
     DeliveryDetailsComponent,
     ManagerDiamondListComponent,
-    StaffSidebarComponent,
     ManagerPageComponent,
 
     // Blog page
@@ -181,7 +180,6 @@ import {EditFormComponent} from "./manager-page/edit-form.component";
     // Collection page
     CollectionPageComponent,
 
-    ListOfOrdersComponent,
     MyVouchersPageComponent,
     VouchersListComponent,
   ],

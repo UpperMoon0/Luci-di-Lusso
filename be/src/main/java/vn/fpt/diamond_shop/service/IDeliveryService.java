@@ -16,6 +16,6 @@ public interface IDeliveryService {
 
     void unassignDeliverer(Long deliveryID);
 
-    List<Delivery> getAllDeliveries();
+    List<Delivery> findAll();
 
 }

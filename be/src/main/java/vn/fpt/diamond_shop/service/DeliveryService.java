@@ -72,7 +72,7 @@ public class DeliveryService implements IDeliveryService {
     }
 
     @Override
-    public List<Delivery> getAllDeliveries() {
+    public List<Delivery> findAll() {
         return deliveryRepository.findAll();
     }
 }

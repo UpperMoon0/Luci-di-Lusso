@@ -26,7 +26,7 @@ export class ManagerDiamondListComponent implements OnInit {
               public dialog: MatDialog) {}
 
   ngOnInit() {
-    this.titleService.setTitle('Diamonds list');
+    this.titleService.setTitle('Diamond list');
     this.getDiamonds();
     this.getDiamondProperties();
   }

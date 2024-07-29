@@ -21,7 +21,7 @@ export class ManagerVoucherListComponent implements OnInit {
 
   ngOnInit() {
     this.getVouchers();
-    this.titleService.setTitle('Vouchers list');
+    this.titleService.setTitle('Voucher list');
   }
 
   getVouchers(): void {

@@ -23,7 +23,7 @@ export class ManagerDeliveryListComponent implements OnInit{
   ngOnInit() {
     this.getDeliverers();
     this.getDeliveries();
-    this.titleService.setTitle('Deliveries list');
+    this.titleService.setTitle('Order list');
   }
 
   getDeliveries(): void {
@@ -51,14 +51,14 @@ export class ManagerDeliveryListComponent implements OnInit{
     let request = {deliveryId: deliveryId, delivererId: delivererId};
     this.deliveryService.assignDeliverer(request).subscribe(response => {
       this.getDeliveries();
-      this.toastrService.success('Deliverer assigned successfully');
+      this.toastrService.success('Delivery staff assigned successfully');
     });
   }
 
   unassignDeliverer(deliveryId: number) {
     this.deliveryService.unassignDeliverer(deliveryId).subscribe(response => {
       this.getDeliveries();
-      this.toastrService.success('Deliverer unassigned successfully');
+      this.toastrService.success('Delivery staff unassigned successfully');
     });
   }
 

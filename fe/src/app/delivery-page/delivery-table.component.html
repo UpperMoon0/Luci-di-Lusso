@@ -1,33 +1,27 @@
-<div class="table-wrapper">
-  <table class="fl-table">
+<div class="container">
+  <h1>My delivery list</h1>
+  <table>
     <thead>
     <tr>
       <th>ID</th>
-      <th>Customer Name</th>
-      <th>Phone</th>
-      <th>Email</th>
+      <th>Customer's name</th>
       <th>Address</th>
-      <th>Order</th>
-      <th>Created At</th>
-      <th>Actions</th>
+      <th>Phone number</th>
+      <th>Delivery status</th>
+      <th>Action</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let delivery of deliveries">
-        <td>{{ delivery.delivery.id }}</td>
-        <td>{{ delivery.delivery.order.customer.fullName }}</td>
-        <td>{{ delivery.delivery.order.customer.phone }}</td>
-        <td>{{ delivery.delivery.order.customer.email }}</td>
-        <td>{{ delivery.delivery.order.customer.address }}</td>
-        <td>
-          <p *ngFor="let item of delivery.orderItems">
-            {{item.jewelry.name}} x {{item.quantity}}
-          </p>
-        </td>
-        <td>{{ delivery.delivery.createAt | date: 'medium' }}</td>
-        <td>
-          <button (click)="completeDelivery(delivery.delivery.id)">Complete</button>
-        </td>
+      <td>{{delivery.delivery.id}}</td>
+      <td>{{delivery.delivery.order.customer.fullName}}</td>
+      <td>{{delivery.delivery.order.customer.address}}</td>
+      <td>{{delivery.delivery.order.customer.phone}}</td>
+      <td>{{delivery.delivery.status}}</td>
+      <td>
+        <button (click)="openDeliveryDetailsDialog(delivery)">Details</button>
+        <button *ngIf="delivery.delivery.status === 'ASSIGNED'" (click)="openCompleteDeliveryConfirmDialog(delivery.delivery.id)">Complete</button>
+      </td>
     </tr>
     </tbody>
   </table>

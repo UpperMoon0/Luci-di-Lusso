@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface IDeliveryRepository extends JpaRepository<Delivery, Long> {
-    public List<Delivery> findAllByDelivererId(Long id);
-    public List<Delivery> findAllByDelivererIsNull();
+    List<Delivery> findAllByDelivererId(Long id);
 }

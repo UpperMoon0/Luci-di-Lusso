@@ -29,7 +29,7 @@ export class ManagerJewelryListComponent implements OnInit {
               public dialog: MatDialog) {}
 
   ngOnInit() {
-    this.titleService.setTitle('Jewelries list');
+    this.titleService.setTitle('Jewelry list');
     this.getJewelries();
     this.getJewelryTypes();
     this.getJewelrySizes();
