@@ -1,9 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { JewelryService } from '../service/jewelry.service';
-import { ManagerService } from '../service/manager.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-form',
@@ -30,7 +27,9 @@ export class EditFormComponent implements OnInit {
 
     let formGroup = {};
     this.formConfig.fields.forEach((field: any) => {
-      if (field.type !== 'array') {
+      if (field.type === 'datetime') {
+        formGroup[field.name] = new FormControl(this.formatDateTime(field.value));
+      } else if (field.type !== 'array') {
         formGroup[field.name] = new FormControl(field.value);
       } else {
         formGroup[field.name] = new FormControl(field.value.initValue);
@@ -38,6 +37,16 @@ export class EditFormComponent implements OnInit {
     });
 
     this.editForm = new FormGroup(formGroup);
+
+    // Print name and value of each field
+    this.formConfig.fields.forEach((field: any) => {
+      console.log(field.name, field.value);
+    });
+  }
+
+  formatDateTime(date: Date): string {
+    const pad = (n: number) => n < 10 ? '0' + n : n;
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
   }
 
   save(): void {

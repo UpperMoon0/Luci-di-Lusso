@@ -35,4 +35,16 @@ export class VoucherService {
   redeemVoucher(voucherId: number): Observable<any> {
     return this.http.post<any[]>(`${environment.beApiUrl}/voucher/redeem-voucher`, voucherId, this.httpOptions);
   }
+
+  getAllVouchers(): Observable<any> {
+    return this.http.get(`${environment.beApiUrl}/voucher/get-all-vouchers`, this.httpOptions);
+  }
+
+  toggleVoucherStatus(id: number): Observable<any> {
+    return this.http.delete(`${environment.beApiUrl}/voucher/toggle-voucher-status?id=${id}`, this.httpOptions);
+  }
+
+  saveVoucher(request: any): Observable<any> {
+    return this.http.put(`${environment.beApiUrl}/voucher/save-voucher`, request, this.httpOptions);
+  }
 }

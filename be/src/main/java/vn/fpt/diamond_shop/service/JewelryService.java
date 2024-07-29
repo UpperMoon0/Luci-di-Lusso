@@ -113,7 +113,7 @@ public class JewelryService implements IJewelryService {
     }
 
     @Override
-    public void saveJewelry(SaveJewelryRequest request) {
+    public void save(SaveJewelryRequest request) {
         Jewelry jewelry;
         if (request.getId() == 0) {
             jewelry = new Jewelry();

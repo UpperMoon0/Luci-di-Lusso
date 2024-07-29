@@ -85,7 +85,6 @@ import {CollectionListPageComponent} from "./collection-page/collection-list-pag
 import {CollectionCardComponent} from "./collection-page/collection-card.component";
 import {CollectionPageComponent} from "./collection-page/collection-page.component";
 import {HomeCollectionRowComponent} from "./home-page/home-collection-row.component";
-import {VoucherEditFormComponent} from "./manager-page/voucher/voucher-edit-form.component";
 import {ManagerVoucherListComponent} from "./manager-page/voucher/manager-voucher-list.component";
 import { MyVouchersPageComponent } from './my-vouchers-page/my-vouchers-page.component';
 import { VouchersListComponent } from './my-vouchers-page/vouchers-list.component';
@@ -151,7 +150,6 @@ import {EditFormComponent} from "./manager-page/edit-form.component";
     ManagerDeliveryListComponent,
     JewelryEditFormComponent,
     ManagerJewelryListComponent,
-    VoucherEditFormComponent,
     ManagerVoucherListComponent,
     ConfirmDeleteComponent,
     ManagerDiamondListComponent,

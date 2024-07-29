@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Data
-public class UpdateVoucherRequest {
+public class SaveVoucherRequest {
     @NotNull
     Long id;
     @NotBlank

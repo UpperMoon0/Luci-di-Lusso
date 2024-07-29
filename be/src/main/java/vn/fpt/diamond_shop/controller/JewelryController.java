@@ -65,7 +65,7 @@ public class JewelryController {
     @PostMapping("/save-jewelry")
     public ResponseEntity<CommonResponse> saveJewelry(@Valid @RequestBody SaveJewelryRequest body) {
         try {
-            jewelryService.saveJewelry(body);
+            jewelryService.save(body);
             CommonResponse response = new CommonResponse();
             response.setMessage("Jewelry updated successfully");
             return ResponseEntity.ok(response);

@@ -31,20 +31,4 @@ export class ManagerService {
   assignDeliverer(request: any): Observable<any> {
     return this.http.post(`${environment.beApiUrl}/delivery/assign-deliverer`, request, this.httpOptions);
   }
-
-  getAllVouchers(): Observable<any> {
-    return this.http.get(`${environment.beApiUrl}/voucher/get-all-vouchers`, this.httpOptions);
-  }
-
-  addVoucher(): Observable<any> {
-    return this.http.post(`${environment.beApiUrl}/voucher/create-voucher`, '',this.httpOptions);
-  }
-
-  deleteVoucher(id: number): Observable<any> {
-    return this.http.delete(`${environment.beApiUrl}/voucher/delete-voucher?id=${id}`, this.httpOptions);
-  }
-
-  updateVoucher(request: any): Observable<any> {
-    return this.http.put(`${environment.beApiUrl}/voucher/update-voucher`, request, this.httpOptions);
-  }
 }
