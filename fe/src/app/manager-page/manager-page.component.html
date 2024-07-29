@@ -1,19 +1,17 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="sidebar">
-      <a (click)="setTab(2)">Statistics</a>
-      <a (click)="setTab(0)">Diamonds</a>
-      <a (click)="setTab(3)">Jewelries</a>
-      <a (click)="setTab(1)">Deliveries</a>
-      <a (click)="setTab(4)">Vouchers</a>
-      <a class="logout-button" style="color: white" (click)="logOut()">Logout</a>
-    </div>
-    <div  class="col-11 content" id="diamond-list">
-      <app-diamond-list *ngIf="tab == 0"></app-diamond-list>
-      <app-manage-delivery-page *ngIf="tab == 1"></app-manage-delivery-page>
-      <app-statistics *ngIf="tab == 2"></app-statistics>
-      <app-manage-jewelries-list *ngIf="tab == 3"></app-manage-jewelries-list>
-      <app-manager-vouchers-list *ngIf="tab == 4"></app-manager-vouchers-list>
-    </div>
+<div style="display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%;">
+  <div style="width: 10%; display: flex; flex-direction: column; background-color: #0c84ff; text-align: center">
+    <a style="color: white; margin: 1rem auto 1rem;" (click)="setTab(2)">Statistics</a>
+    <a style="color: white; margin: 1rem auto 1rem;" (click)="setTab(0)">Diamonds</a>
+    <a style="color: white; margin: 1rem auto 1rem;" (click)="setTab(3)">Jewelries</a>
+    <a style="color: white; margin: 1rem auto 1rem;" (click)="setTab(1)">Orders</a>
+    <a style="color: white; margin: 1rem auto 1rem;" (click)="setTab(4)">Vouchers</a>
+    <a style="color: white; margin: 1rem auto 1rem;" (click)="logOut()">Logout</a>
+  </div>
+  <div style="width: 90%; overflow: auto;">
+    <app-manager-diamond-list *ngIf="tab == 0"></app-manager-diamond-list>
+    <app-manager-delivery-list *ngIf="tab == 1"></app-manager-delivery-list>
+    <app-statistics *ngIf="tab == 2"></app-statistics>
+    <app-manager-jewelry-list *ngIf="tab == 3"></app-manager-jewelry-list>
+    <app-manager-voucher-list *ngIf="tab == 4"></app-manager-voucher-list>
   </div>
 </div>

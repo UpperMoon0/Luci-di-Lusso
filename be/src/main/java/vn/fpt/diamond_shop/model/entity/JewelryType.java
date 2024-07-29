@@ -1,7 +1,6 @@
 package vn.fpt.diamond_shop.model.entity;
 
 import lombok.*;
-import vn.fpt.diamond_shop.constant.EJewelryType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,10 +17,12 @@ public class JewelryType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "type", unique = true)
-    private EJewelryType type;
+    private String type;
 
     @Column(name = "create_at")
-    private LocalDateTime createAt;
+    private LocalDateTime createAt = LocalDateTime.now();
+
+    @Column(name = "status")
+    private String status = "ACTIVE";
 }

@@ -3,10 +3,9 @@ package vn.fpt.diamond_shop.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vn.fpt.diamond_shop.model.dto.UnassignedDeliveriesResponse;
+import vn.fpt.diamond_shop.model.dto.DeliveriesResponse;
 import vn.fpt.diamond_shop.model.dto.CommonResponse;
 import vn.fpt.diamond_shop.model.dto.AssignDelivererRequest;
-import vn.fpt.diamond_shop.model.dto.MyDeliveriesResponse;
 import vn.fpt.diamond_shop.model.entity.Delivery;
 import vn.fpt.diamond_shop.model.entity.Account;
 import vn.fpt.diamond_shop.service.IDeliveryService;
@@ -25,7 +24,7 @@ public class DeliveryController {
     private final IOrderItemService orderItemService;
 
     @GetMapping("/get-my-deliveries")
-    public ResponseEntity<MyDeliveriesResponse> getMyDeliveries(@RequestHeader("Authorization") String authorizationHeader) {
+    public ResponseEntity<DeliveriesResponse> getMyDeliveries(@RequestHeader("Authorization") String authorizationHeader) {
         String jwt = authorizationHeader.substring(7);
 
         Account user = userService.findAccountByToken(jwt).orElse(null);
@@ -33,10 +32,9 @@ public class DeliveryController {
             return ResponseEntity.badRequest().body(null);
         }
 
-        List<Delivery> deliveries = deliveryService.getDeliveriesByAccount(user.getId());
-        deliveries.removeIf(temp -> temp.getStatus().name().equals("DONE"));
+        List<Delivery> deliveries = deliveryService.findByAccount(user.getId());
 
-        MyDeliveriesResponse res = new MyDeliveriesResponse(deliveries, orderItemService);
+        DeliveriesResponse res = new DeliveriesResponse(deliveries, orderItemService);
 
         return ResponseEntity.ok(res);
     }
@@ -50,7 +48,7 @@ public class DeliveryController {
     }
 
     @PostMapping("assign-deliverer")
-    public ResponseEntity<CommonResponse> assignDelivery(@RequestBody AssignDelivererRequest request) {
+    public ResponseEntity<CommonResponse> assignDeliverer(@RequestBody AssignDelivererRequest request) {
         System.out.println(request.getDeliveryId());
         System.out.println(request.getDelivererId());
         try {
@@ -65,11 +63,25 @@ public class DeliveryController {
         }
     }
 
-    @GetMapping("/get-unassigned-deliveries")
-    public ResponseEntity<UnassignedDeliveriesResponse> getUnassignedDeliveries() {
-        List<Delivery> deliveries = deliveryService.getUnassignedDeliveries();
-        UnassignedDeliveriesResponse res = new UnassignedDeliveriesResponse(deliveries, orderItemService);
-        res.setMessage("Unassigned deliveries retrieved successfully");
+    @PutMapping("unassign-deliverer")
+    public ResponseEntity<CommonResponse> unassignDeliverer(@RequestParam Long deliveryId) {
+        try {
+            deliveryService.unassignDeliverer(deliveryId);
+            CommonResponse res = new CommonResponse();
+            res.setMessage("Successfully unassign deliverer!");
+            return ResponseEntity.ok(res);
+        } catch (Exception e) {
+            CommonResponse res = new CommonResponse();
+            res.setMessage("Something wrong while unassigning deliverer");
+            return ResponseEntity.ok(res);
+        }
+    }
+
+    @GetMapping("/get-all-deliveries")
+    public ResponseEntity<DeliveriesResponse> getAllDeliveries() {
+        List<Delivery> deliveries = deliveryService.findAll();
+        DeliveriesResponse res = new DeliveriesResponse(deliveries, orderItemService);
+        res.setMessage("All deliveries retrieved successfully");
         return ResponseEntity.ok(res);
     }
 }

@@ -1,8 +1,6 @@
 package vn.fpt.diamond_shop.model.entity;
 
 import lombok.*;
-import vn.fpt.diamond_shop.constant.EDiamondCut;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -18,13 +16,15 @@ public class DiamondCut {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "cut", unique = true)
-    private EDiamondCut cut;
+    private String cut;
 
     @Column(name = "price")
     private Integer price;
 
+    @Column(name = "status")
+    private String status = "ACTIVE";
+
     @Column(name = "create_at")
-    private LocalDateTime createAt;
+    private LocalDateTime createAt = LocalDateTime.now();
 }

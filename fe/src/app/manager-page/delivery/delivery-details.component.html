@@ -1,0 +1,36 @@
+<div class="edit-diamond-container" style="background-color: #f2f2f2; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+  <h1 style="text-align: center">Delivery details</h1>
+  <div>
+    <p>Customer's name: {{delivery.delivery.order.customer.fullName}}</p>
+    <p>Address: {{delivery.delivery.order.customer.address}}</p>
+    <p>Email: {{delivery.delivery.order.customer.email}}</p>
+    <p>Phone number: {{delivery.delivery.order.customer.phone}}</p>
+    <p>Order date:{{delivery.delivery.order.createAt | date: 'medium'}}</p>
+    <h4>Products list ({{totalItems}}):</h4>
+    <table style="border: 1px solid black;">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Size</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total price</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let product of delivery.orderItems">
+        <td>{{product.jewelry.id}}</td>
+        <td>{{product.jewelry.name}}</td>
+        <td>{{product.jewelry.type.type}}</td>
+        <td>{{product.jewelrySize.size}} {{product.jewelrySize.unit}} </td>
+        <td>${{product.price}}</td>
+        <td>{{product.quantity}}</td>
+        <td>${{product.price * product.quantity}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <h4>Total price: ${{totalPrice}}</h4>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from "ngx-toastr";
-import { ProductService } from "../service/product.service";
+import { JewelryService } from "../service/jewelry.service";
 import {ColorService} from "../service/color.service";
 
 @Component({
@@ -11,7 +11,7 @@ import {ColorService} from "../service/color.service";
 export class CollectionListPageComponent implements OnInit {
   protected collections: any[] = [];
 
-  constructor(private productService: ProductService,
+  constructor(private productService: JewelryService,
               private toastrService: ToastrService) {}
 
   ngOnInit(): void {

@@ -1,0 +1,47 @@
+<div class="edit-diamond-container">
+  <div>
+    <h2>Edit diamond</h2>
+  </div>
+  <div *ngIf="diamondProperties">
+    <form [formGroup]="diamondEditForm" (ngSubmit)="save()" style="display: flex; flex-direction: column;">
+      <label>
+        Color:
+        <select formControlName="color">
+          <option *ngFor="let colorOption of diamondProperties.colors" [ngValue]="colorOption">{{colorOption.color}}</option>
+        </select>
+      </label>
+
+      <label>
+        Clarity:
+        <select formControlName="clarity">
+          <option *ngFor="let clarityOption of diamondProperties.clarities" [ngValue]="clarityOption">{{clarityOption.clarity}}</option>
+        </select>
+      </label>
+
+      <label>
+        Cut:
+        <select formControlName="cut">
+          <option *ngFor="let cutOption of diamondProperties.cuts" [ngValue]="cutOption">{{cutOption.cut}}</option>
+        </select>
+      </label>
+
+      <label>
+        Shape:
+        <select formControlName="shape">
+          <option *ngFor="let shapeOption of diamondProperties.shapes" [ngValue]="shapeOption">{{shapeOption.shape}}</option>
+        </select>
+      </label>
+
+      <label>
+        Carat:
+        <input type="text" formControlName="carat">
+      </label>
+
+      <label>
+        Quantity:
+        <input type="text" formControlName="quantity">
+      </label>
+      <button type="submit">Save</button>
+    </form>
+  </div>
+</div>

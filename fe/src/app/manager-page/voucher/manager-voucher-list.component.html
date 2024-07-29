@@ -1,0 +1,38 @@
+<div style="margin: 2rem 4rem 5rem">
+  <div>
+    <h1 style="text-align: center">Voucher list</h1>
+    <div style="display: flex; align-items: flex-start;">
+      <table style="border: 1px solid black;">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Code</th>
+          <th>Discount</th>
+          <th>Price</th>
+          <th>Created at</th>
+          <th>Expire at</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let element of vouchers">
+          <td>{{element.id}}</td>
+          <td>{{element.code}}</td>
+          <td>{{element.discount}}</td>
+          <td>{{element.price}}</td>
+          <td>{{element.createAt | date: 'medium'}}</td>
+          <td>{{element.expireAt | date: 'medium'}}</td>
+          <td>{{element.status}}</td>
+          <td>
+            <button (click)="openVoucherDialog(element)" style="background-color: #04AA6D; color: white;">Edit</button>
+            <button *ngIf="element.status === 'ACTIVE'" (click)="toggleVoucherStatus(element.id)" style="background-color: #f44336; color: white;">Disable</button>
+            <button *ngIf="element.status === 'INACTIVE'" (click)="toggleVoucherStatus(element.id)" style="background-color: #04AA6D; color: white;">Enable</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <button (click)="openVoucherDialog(null)" style="background-color: green; color: white;">Add</button>
+    </div>
+  </div>
+</div>

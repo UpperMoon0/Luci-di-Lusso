@@ -1,0 +1,21 @@
+<div class="container">
+  <div>
+    <h2>Edit jewelry</h2>
+  </div>
+  <div>
+    <form [formGroup]="editForm" (ngSubmit)="save()" style="display: flex; flex-direction: column;">
+      <ng-container *ngFor="let field of formConfig.fields">
+        <label *ngIf="field.label != 'none'">
+          {{ field.label }}:
+          <input *ngIf="field.type === 'string'" type="text" [formControlName]="field.name">
+          <input *ngIf="field.type === 'number'" type="number" [formControlName]="field.name">
+          <select *ngIf="field.type === 'array'" [formControlName]="field.name">
+            <option *ngFor="let option of field.value.values" [value]="option.value">{{ option.name }}</option>
+          </select>
+          <input *ngIf="field.type === 'datetime'" type="datetime-local" [formControlName]="field.name">
+        </label>
+      </ng-container>
+      <button type="submit">Save</button>
+    </form>
+  </div>
+</div>

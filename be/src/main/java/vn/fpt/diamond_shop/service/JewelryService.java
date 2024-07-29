@@ -2,8 +2,7 @@ package vn.fpt.diamond_shop.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vn.fpt.diamond_shop.constant.EJewelryType;
-import vn.fpt.diamond_shop.model.dto.JewelryUpdateRequest;
+import vn.fpt.diamond_shop.model.dto.SaveJewelryRequest;
 import vn.fpt.diamond_shop.model.entity.Diamond;
 import vn.fpt.diamond_shop.model.entity.Jewelry;
 import vn.fpt.diamond_shop.model.entity.JewelrySize;
@@ -12,7 +11,6 @@ import vn.fpt.diamond_shop.repository.IDiamondRepository;
 import vn.fpt.diamond_shop.repository.IJewelryRepository;
 import vn.fpt.diamond_shop.repository.IJewelryTypeRepository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -45,7 +43,7 @@ public class JewelryService implements IJewelryService {
     }
 
     @Override
-    public List<Jewelry> getJewelriesByFilter(List<EJewelryType> types, Integer minPrice, Integer maxPrice, String keyword) {
+    public List<Jewelry> getJewelriesByFilter(List<String> types, Integer minPrice, Integer maxPrice, String keyword) {
         Stream<Jewelry> jewelryStream;
         if (types.isEmpty()) {
             // Initialize stream with all jewelries if type list is empty
@@ -98,24 +96,38 @@ public class JewelryService implements IJewelryService {
     }
 
     @Override
-    public void deleteJewelryById(Long id) {
+    public void toggleStatus(Long id) {
         Jewelry jewelry = jewelryRepository.findById(id).orElse(null);
 
         if (jewelry == null) {
             throw new IllegalArgumentException("Jewelry not found");
         }
 
-        jewelry.setStatus("DISABLED");
+        if (jewelry.getStatus().equals("ACTIVE")) {
+            jewelry.setStatus("INACTIVE");
+        } else {
+            jewelry.setStatus("ACTIVE");
+        }
+
         jewelryRepository.save(jewelry);
     }
 
     @Override
-    public void updateJewelry(JewelryUpdateRequest request) {
-        Jewelry jewelry = jewelryRepository.findById(request.getId()).orElse(null);
+    public void save(SaveJewelryRequest request) {
+        Jewelry jewelry;
+        if (request.getId() == 0) {
+            jewelry = new Jewelry();
+        } else {
+            jewelry = jewelryRepository.findById(request.getId()).orElse(null);
+            if (jewelry == null) {
+                throw new IllegalArgumentException("Jewelry not found");
+            }
+        }
+
         JewelryType type = jewelryTypeRepo.findById(request.getTypeId()).orElse(null);
         Diamond diamond = diamondRepository.findById(request.getDiamondId()).orElse(null);
 
-        if (jewelry == null || type == null || diamond == null) {
+        if (type == null || diamond == null) {
             throw new IllegalArgumentException("Invalid jewelry update request");
         }
 
@@ -126,26 +138,6 @@ public class JewelryService implements IJewelryService {
         jewelry.setLaborCost(request.getLaborCost());
         jewelry.setDescription(request.getDescription());
         jewelry.setImageUrl(request.getImageUrl());
-        jewelryRepository.save(jewelry);
-    }
-
-    @Override
-    public void createNewJewelry() {
-        Jewelry jewelry = new Jewelry();
-        jewelry.setName("New Jewelry");
-        jewelry.setSettingPrice(1000);
-        jewelry.setLaborCost(500);
-        Diamond diamond = diamondRepository.findFirstBy().orElse(null);
-        JewelryType type = jewelryTypeRepo.findFirstBy().orElse(null);
-        if (diamond == null && type == null) {
-            throw new RuntimeException("Cannot create new jewelry without diamond, size, and type");
-        }
-        jewelry.setDiamond(diamond);
-        jewelry.setType(type);
-        jewelry.setDescription("New Jewelry Description");
-        jewelry.setImageUrl("");
-        jewelry.setCreateAt(LocalDateTime.now());
-        jewelry.setStatus("ACTIVE");
         jewelryRepository.save(jewelry);
     }
 

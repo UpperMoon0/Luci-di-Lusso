@@ -1,12 +1,11 @@
 package vn.fpt.diamond_shop.controller;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.fpt.diamond_shop.exception.InvalidJwtTokenException;
 import vn.fpt.diamond_shop.model.dto.CommonResponse;
-import vn.fpt.diamond_shop.model.dto.UpdateVoucherRequest;
+import vn.fpt.diamond_shop.model.dto.SaveVoucherRequest;
 import vn.fpt.diamond_shop.model.entity.Account;
 import vn.fpt.diamond_shop.model.entity.Customer;
 import vn.fpt.diamond_shop.model.entity.Voucher;
@@ -26,46 +25,29 @@ public class VoucherController {
     @GetMapping("/get-all-vouchers")
     public ResponseEntity<List<Voucher>> getAllVouchers() {
         List<Voucher> vouchers = voucherService.getAllVouchers();
-        List<Voucher> activeVouchers = vouchers.stream()
-                .filter(voucher -> "ACTIVE".equals(voucher.getStatus()))
-                .toList();
-        return ResponseEntity.ok(activeVouchers);
+        return ResponseEntity.ok(vouchers);
     }
 
     @GetMapping("/get-usable-vouchers")
     public ResponseEntity<List<Voucher>> getUsableVouchers() {
         List<Voucher> vouchers = voucherService.getAvailableVouchers();
-        List<Voucher> activeVouchers = vouchers.stream()
-                .filter(voucher -> "ACTIVE".equals(voucher.getStatus()))
-                .toList();
-        return ResponseEntity.ok(activeVouchers);
+        return ResponseEntity.ok(vouchers);
     }
 
-    @PostMapping("/create-voucher")
-    public ResponseEntity<Void> createVoucher() {
+    @DeleteMapping("/toggle-voucher-status")
+    public ResponseEntity<Void> toggleVoucherStatus(@RequestParam Long id) {
         try {
-            voucherService.createVoucher();
-            return ResponseEntity.ok().build();
-        } catch (SQLServerException e) {
-            return ResponseEntity.badRequest().build();
-        }
-
-    }
-
-    @DeleteMapping("/delete-voucher")
-    public ResponseEntity<Void> deleteVoucher(@RequestParam Long id) {
-        try {
-            voucherService.deleteVoucher(id);
+            voucherService.toggleStatus(id);
             return ResponseEntity.ok().build();
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().build();
         }
     }
 
-    @PutMapping("/update-voucher")
-    public ResponseEntity<Void> updateVoucher(@Valid @RequestBody UpdateVoucherRequest request) {
+    @PutMapping("/save-voucher")
+    public ResponseEntity<Void> saveVoucher(@Valid @RequestBody SaveVoucherRequest request) {
         try {
-            voucherService.updateVoucher(request);
+            voucherService.save(request);
             return ResponseEntity.ok().build();
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().build();
@@ -73,8 +55,8 @@ public class VoucherController {
     }
 
     @PostMapping("/redeem-voucher")
-    public ResponseEntity<CommonResponse> addVoucherToCustomer(@RequestHeader("Authorization") String authorizationHeader,
-                                                               @RequestBody Long voucherId) {
+    public ResponseEntity<CommonResponse> redeemVoucher(@RequestHeader("Authorization") String authorizationHeader,
+                                                        @RequestBody Long voucherId) {
         try {
             String jwtToken = authorizationHeader.substring(7);
             Account user = userService.findAccountByToken(jwtToken).orElse(null);

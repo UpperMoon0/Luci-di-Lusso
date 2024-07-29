@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {AccountService} from "../service/account.service";
 import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-manager-page',
   templateUrl: './manager-page.component.html',
-  styleUrls: ['./manager-page.component.css']
+  styleUrls: ['./manager-page.component.css'],
 })
 export class ManagerPageComponent implements OnInit {
 

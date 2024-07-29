@@ -41,8 +41,8 @@ public class Jewelry {
     private String imageUrl;
 
     @Column(name = "create_at")
-    private LocalDateTime createAt;
+    private LocalDateTime createAt = LocalDateTime.now();
 
     @Column(name = "status")
-    private String status;
+    private String status = "ACTIVE";
 }

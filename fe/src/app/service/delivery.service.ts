@@ -26,4 +26,20 @@ export class DeliveryService {
   public completeDelivery(id: number) {
     return this.http.put(`${environment.beApiUrl}/delivery/complete-delivery?id=${id}`, '', this.httpOptions);
   }
+
+  public getAllDeliveries(): Observable<any> {
+    return this.http.get(`${environment.beApiUrl}/delivery/get-all-deliveries`, this.httpOptions);
+  }
+
+  public getAllDeliverers(): Observable<any> {
+    return this.http.get(`${environment.beApiUrl}/user/get-deliverers`, this.httpOptions);
+  }
+
+  public assignDeliverer(request: any): Observable<any> {
+    return this.http.post(`${environment.beApiUrl}/delivery/assign-deliverer`, request, this.httpOptions);
+  }
+
+  public unassignDeliverer(deliveryId: number): Observable<any> {
+    return this.http.put(`${environment.beApiUrl}/delivery/unassign-deliverer?deliveryId=${deliveryId}`, '', this.httpOptions);
+  }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from "ngx-toastr";
-import { ProductService } from "../service/product.service";
+import { JewelryService } from "../service/jewelry.service";
 import { ActivatedRoute } from "@angular/router";
 import {ColorService} from "../service/color.service";
 
@@ -14,7 +14,7 @@ export class CollectionPageComponent implements OnInit {
   private jewelries: any[] = [];
   protected jewelriesInCollection: any[] = [];
 
-  constructor(private productService: ProductService,
+  constructor(private productService: JewelryService,
               private toastrService: ToastrService,
               private route: ActivatedRoute,
               protected colorService: ColorService) {}
@@ -27,7 +27,7 @@ export class CollectionPageComponent implements OnInit {
 
   getAllJewelries(callback: () => void): void {
     let request = {types: [], minPrice: 0, maxPrice: 0, keyword: ''};
-    this.productService.getJewelries(request).subscribe({
+    this.productService.getJewelryList(request).subscribe({
       next: (response: any) => {
         this.jewelries = response.jewelries;
         callback();

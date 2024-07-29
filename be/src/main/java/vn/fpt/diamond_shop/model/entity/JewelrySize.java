@@ -19,9 +19,6 @@ public class JewelrySize {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "size_index")
-    private Integer sizeIndex;
-
     @Column(name = "size")
     private Float size;
 
@@ -37,5 +34,8 @@ public class JewelrySize {
     private String unit;
 
     @Column(name = "create_at")
-    private LocalDateTime createAt;
+    private LocalDateTime createAt = LocalDateTime.now();
+
+    @Column(name = "status")
+    private String status = "ACTIVE";
 }

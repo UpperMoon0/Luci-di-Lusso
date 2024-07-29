@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ProductService} from "../service/product.service";
+import {JewelryService} from "../service/jewelry.service";
 
 @Component({
   selector: 'app-home-collection-row',
@@ -9,7 +9,7 @@ import {ProductService} from "../service/product.service";
 export class HomeCollectionRowComponent implements OnInit {
   collections: any[] = [];
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: JewelryService) {
   }
 
   ngOnInit(): void {

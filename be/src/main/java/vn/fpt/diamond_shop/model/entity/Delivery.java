@@ -3,7 +3,6 @@ package vn.fpt.diamond_shop.model.entity;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import vn.fpt.diamond_shop.constant.EOrderStatus;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -30,10 +29,9 @@ public class Delivery {
     @JoinColumn(name = "deliverer_id")
     private Account deliverer;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'PENDING'")
-    private EOrderStatus status;
+    private String status = "UNASSIGNED";
 
     @Column(name = "create_at")
-    private LocalDateTime createAt;
+    private LocalDateTime createAt = LocalDateTime.now();
 }

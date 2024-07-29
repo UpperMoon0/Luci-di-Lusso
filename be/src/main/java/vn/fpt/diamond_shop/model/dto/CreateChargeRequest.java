@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class CreateChargeRequest {
     private String stripeToken;
-    private long voucherId;
+    private Long voucherId;
 }

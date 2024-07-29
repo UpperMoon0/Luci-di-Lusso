@@ -1,7 +1,6 @@
 package vn.fpt.diamond_shop.model.dto;
 
 import lombok.Data;
-import vn.fpt.diamond_shop.constant.*;
 
 import javax.validation.constraints.NotBlank;
 
@@ -15,7 +14,7 @@ public class JewelryRequest {
     private String name;
 
     @NotBlank
-    private EJewelryType jewelryType;
+    private String jewelryType;
 
     @NotBlank
     private String description;
@@ -28,6 +27,4 @@ public class JewelryRequest {
 
     @NotBlank
     private Long diamondId;
-
-
 }

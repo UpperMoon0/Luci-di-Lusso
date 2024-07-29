@@ -2,7 +2,6 @@ package vn.fpt.diamond_shop.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vn.fpt.diamond_shop.constant.EOrderStatus;
 import vn.fpt.diamond_shop.model.entity.Delivery;
 import vn.fpt.diamond_shop.model.entity.Order;
 import vn.fpt.diamond_shop.model.entity.Account;
@@ -31,14 +30,14 @@ public class DeliveryService implements IDeliveryService {
     }
 
     @Override
-    public List<Delivery> getDeliveriesByAccount(Long delivererID) {
+    public List<Delivery> findByAccount(Long delivererID) {
         return deliveryRepository.findAllByDelivererId(delivererID);
     }
 
     @Override
     public void completeDelivery(Long deliveryID) {
         Delivery delivery = deliveryRepository.getById(deliveryID);
-        delivery.setStatus(EOrderStatus.DONE);
+        delivery.setStatus("COMPLETED");
         deliveryRepository.save(delivery);
     }
 
@@ -50,7 +49,7 @@ public class DeliveryService implements IDeliveryService {
 
         delivery.setOrder(order);
         delivery.setCreateAt(dateTime);
-        delivery.setStatus(EOrderStatus.PENDING);
+        delivery.setStatus("UNASSIGNED");
 
         deliveryRepository.save(delivery);
     }
@@ -60,11 +59,20 @@ public class DeliveryService implements IDeliveryService {
         Delivery delivery = deliveryRepository.getById(deliveryID);
         Account user = userRepository.getById(delivererID);
         delivery.setDeliverer(user);
+        delivery.setStatus("ASSIGNED");
         deliveryRepository.save(delivery);
     }
 
     @Override
-    public List<Delivery> getUnassignedDeliveries() {
-        return deliveryRepository.findAllByDelivererIsNull();
+    public void unassignDeliverer(Long deliveryID) {
+        Delivery delivery = deliveryRepository.getById(deliveryID);
+        delivery.setDeliverer(null);
+        delivery.setStatus("UNASSIGNED");
+        deliveryRepository.save(delivery);
+    }
+
+    @Override
+    public List<Delivery> findAll() {
+        return deliveryRepository.findAll();
     }
 }

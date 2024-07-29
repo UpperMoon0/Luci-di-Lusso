@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from "../service/product.service";
+import { JewelryService } from "../service/jewelry.service";
 import { AccountService } from "../service/account.service";
 import { ActivatedRoute } from "@angular/router";
 import { CartService } from "../service/cart.service";
@@ -34,7 +34,7 @@ export class ProductDetailsComponent implements OnInit {
   activeTab: string = 'description';
 
   constructor(
-    private productService: ProductService,
+    private productService: JewelryService,
     private cartService: CartService,
     private accountService: AccountService,
     private route: ActivatedRoute

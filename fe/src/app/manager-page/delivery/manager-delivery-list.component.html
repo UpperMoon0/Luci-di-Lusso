@@ -1,0 +1,36 @@
+<div class="container">
+  <h1>Order list</h1>
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Customer's name</th>
+      <th>Address</th>
+      <th>Delivery staff</th>
+      <th>Delivery status</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let delivery of deliveries">
+      <td>{{delivery.delivery.id}}</td>
+      <td>{{delivery.delivery.order.customer.fullName}}</td>
+      <td>{{delivery.delivery.order.customer.address}}</td>
+      <td>
+        <form (submit)="assignDeliverer(delivery.delivery.id, delivererSelect.value)">
+          <select #delivererSelect [(ngModel)]="delivery.delivery.deliverer.id" name="delivererSelect">
+            <option value="None" [hidden]="true">None</option>
+            <option *ngFor="let deliverer of deliverers" [value]="deliverer.id">{{deliverer.username}}</option>
+          </select>
+          <button type="submit">Assign</button>
+        </form>
+        <button *ngIf="delivery.delivery.status === 'ASSIGNED'" (click)="unassignDeliverer(delivery.delivery.id)">Unassign</button>
+      </td>
+      <td>{{delivery.delivery.status}}</td>
+      <td>
+        <button (click)="openDeliveryDetailsDialog(delivery)">Details</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

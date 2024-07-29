@@ -7,7 +7,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import vn.fpt.diamond_shop.constant.EUserRole;
 import vn.fpt.diamond_shop.exception.InvalidJwtTokenException;
 import vn.fpt.diamond_shop.model.dto.LoginRequest;
 import vn.fpt.diamond_shop.model.dto.RegisterRequest;
@@ -85,7 +84,7 @@ public class AccountService implements IAccountService {
     @Override
     public List<Integer> findCustomerCreationStatistics() {
         // Fetch users with CUSTOMER role created in the last 30 days
-        List<Account> users = userRepository.findAllByRoleAndCreateAtBetween(EUserRole.CUSTOMER, LocalDateTime.now().minusDays(30), LocalDateTime.now());
+        List<Account> users = userRepository.findAllByRoleAndCreateAtBetween("CUSTOMER", LocalDateTime.now().minusDays(30), LocalDateTime.now());
         Map<LocalDate, Integer> dailyUserCreations = new HashMap<>();
 
         for (Account user : users) {
@@ -104,7 +103,7 @@ public class AccountService implements IAccountService {
 
     @Override
     public List<Account> findAllDeliverers() {
-        return userRepository.findAllByRole(EUserRole.DELIVERER);
+        return userRepository.findAllByRole("DELIVERER");
     }
 
     public void register(RegisterRequest registerRequest) throws RuntimeException {
@@ -120,7 +119,7 @@ public class AccountService implements IAccountService {
                     .username(username)
                     .password(passwordEncoder.encode(registerRequest.getPassword()))
                     .provider(registerRequest.getProvider())
-                    .role(EUserRole.CUSTOMER)
+                    .role("CUSTOMER")
                     .createAt(LocalDateTime.now())
                     .build();
 

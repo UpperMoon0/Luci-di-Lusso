@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IDeliveryService {
 
-    List<Delivery> getDeliveriesByAccount(Long delivererID);
+    List<Delivery> findByAccount(Long delivererID);
 
     void completeDelivery(Long deliveryID);
 
@@ -14,6 +14,8 @@ public interface IDeliveryService {
 
     void assignDeliverer(Long deliveryID, Long deliverer);
 
-    List<Delivery> getUnassignedDeliveries();
+    void unassignDeliverer(Long deliveryID);
+
+    List<Delivery> findAll();
 
 }

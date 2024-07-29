@@ -55,7 +55,7 @@ public class AuthController {
             return ResponseEntity.badRequest().body(loginResponse);
         }
         loginResponse.setAccessToken(jwt);
-        loginResponse.setRole(account.getRole().name());
+        loginResponse.setRole(account.getRole());
         loginResponse.setMessage("Login successfully");
 
         return ResponseEntity.ok(loginResponse);
@@ -72,7 +72,7 @@ public class AuthController {
                 return ResponseEntity.badRequest().body(cr);
             }
 
-            String role = user.getRole().name();
+            String role = user.getRole();
             cr.setMessage(role);
         } else {
             cr.setMessage("Invalid token");
