@@ -62,7 +62,7 @@ public class AuthController {
     }
 
     @PostMapping("/validate-token")
-    public ResponseEntity<CommonResponse> ping(@RequestBody String jwt) {
+    public ResponseEntity<CommonResponse> validateToken(@RequestBody String jwt) {
         CommonResponse cr = new CommonResponse();
         if (tokenProvider.validateToken(jwt)) {
             Account user = accountService.findAccountByToken(jwt).orElse(null);

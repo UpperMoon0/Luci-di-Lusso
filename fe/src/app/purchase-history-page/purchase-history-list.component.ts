@@ -28,8 +28,8 @@ export class PurchaseHistoryListComponent implements OnInit {
           let totalPrice: number = 0;
           let itemCount: number = 0;
           for (let orderItem of order.orderItems) {
-            totalPrice += orderItem.price;
-            itemCount++;
+            totalPrice += orderItem.price * orderItem.quantity;
+            itemCount += orderItem.quantity;
           }
 
           // Calculate time ago

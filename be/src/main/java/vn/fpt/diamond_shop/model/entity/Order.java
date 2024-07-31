@@ -22,5 +22,5 @@ public class Order {
     private Customer customer;
 
     @Column(name = "create_at")
-    private LocalDateTime createAt;
+    private LocalDateTime createAt = LocalDateTime.now();
 }

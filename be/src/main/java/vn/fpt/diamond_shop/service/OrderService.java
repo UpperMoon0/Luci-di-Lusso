@@ -42,11 +42,6 @@ public class OrderService implements IOrderService {
         }
         Customer customer = account.getCustomer();
 
-        Order order = new Order();
-        order.setCustomer(customer);
-        order.setCreateAt(LocalDateTime.now());
-        orderRepository.save(order);
-
         // Find all CartItems by userId
         List<CartItem> cartItems = cartItemRepository.findAllByCustomerId(customer.getId());
 
@@ -57,7 +52,11 @@ public class OrderService implements IOrderService {
             }
         }
 
-        orderItemService.createOrderItemsByCartItems(cartItems, order, discount);
+        Order order = orderItemService.createOrderItemsByCartItems(cartItems, customer, discount);
+
+        if (order == null) {
+            throw new RuntimeException("Cart is empty.");
+        }
 
         // Calculate total price
         int totalPrice = 0;

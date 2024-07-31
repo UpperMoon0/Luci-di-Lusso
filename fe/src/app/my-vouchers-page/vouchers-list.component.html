@@ -14,9 +14,9 @@
         <h4>Code: {{voucher.code}}</h4>
         <p>Discount: {{voucher.discount}}%</p>
         <p>Expire time: {{voucher.expireAt | date: 'medium'}}</p>
-        <h5>Price: {{voucher.price}} points</h5>
+        <h3>Price: {{voucher.price}} points</h3>
       </div>
-      <button (click)="redeemVoucher(voucher.id)">Redeem</button>
+      <button (click)="redeemVoucher(voucher.id)" style="text-align: center; width: 100px; height: 40px; margin: 0 1rem 0">Redeem</button>
     </div>
   </div>
 </div>

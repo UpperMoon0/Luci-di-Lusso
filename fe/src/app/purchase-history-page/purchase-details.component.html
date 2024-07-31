@@ -6,10 +6,11 @@
     <div style="width: 30%;">
       <p>Customer name: {{order.order.customer.fullName}}</p>
       <p>Order date: {{order.order.createAt | date: 'medium'}}</p>
+      <p>Total price: ${{getTotalPrice(order)}}</p>
     </div>
     <div style="flex: 1; border: 1px solid #000; padding: 10px;">
       <div style="text-align: center;">
-        <h3>Jewelries List</h3>
+        <h3>Jewelries List ({{getItemCount(order)}})</h3>
       </div>
       <ul style="padding: 0; list-style: none;">
         <li *ngFor="let item of order.orderItems" style="border: 1px solid #000; padding: 5px; margin-bottom: 5px; display: flex;">
@@ -21,7 +22,7 @@
             <p>Type: {{item.jewelry.type.type}}</p>
             <p>Size: {{item.jewelrySize.size}} {{item.jewelrySize.unit}}</p>
             <p>Quantity: {{item.quantity}}</p>
-            <p>Price: {{item.price | currency}}</p>
+            <p>Price: ${{item.price}}</p>
             <div>
               <a href="/certificate/{{item.jewelry.diamond.id}}" style="color: #007bff; text-decoration: underline;">GIA certificate</a>
             </div>

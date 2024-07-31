@@ -1,24 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { JewelryService } from "../service/jewelry.service";
-import { AccountService } from "../service/account.service";
-import { ActivatedRoute } from "@angular/router";
-import { CartService } from "../service/cart.service";
-
-interface ProductDetailsDTO {
-  id: number;
-  name: string;
-  price: number;
-  description: string;
-  imageUrl: string;
-  type: string;
-  diamondId: number;
-  diamondCarat: number;
-  diamondShape: string;
-  diamondCut: string;
-  diamondColor: string;
-  diamondClarity: string;
-  sizes: Array<{ id: number, size: number, unit: string }>;
-}
+import {Component, OnInit} from '@angular/core';
+import {JewelryService} from "../service/jewelry.service";
+import {AccountService} from "../service/account.service";
+import {ActivatedRoute} from "@angular/router";
+import {CartService} from "../service/cart.service";
 
 @Component({
   selector: 'app-product-details',
@@ -26,19 +10,37 @@ interface ProductDetailsDTO {
   styleUrls: ['./product-details.component.css']
 })
 export class ProductDetailsComponent implements OnInit {
-  product: ProductDetailsDTO = {} as ProductDetailsDTO;
-  isLoggedIn: boolean;
-  selectedSize: string;
-  selectedSizeId: number;
-  selectedQuantity: number = 1;
-  activeTab: string = 'description';
+  protected jewelry: { id: number,
+                       name: string,
+                       type: any,
+                       description: string,
+                       settingPrice: number,
+                       laborCost: number,
+                       imageUrl: string,
+                       diamond: any};
+  protected sizes: any[] = [];
+  protected isLoggedIn: boolean;
+  protected selectedSize: any;
+  protected selectedQuantity: number = 1;
+  protected activeTab: string = 'description';
 
   constructor(
     private productService: JewelryService,
     private cartService: CartService,
     private accountService: AccountService,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    this.jewelry = {
+      id: 0,
+      name: '',
+      type: {},
+      description: '',
+      settingPrice: 0,
+      laborCost: 0,
+      imageUrl: '',
+      diamond: {}
+    };
+  }
 
   ngOnInit(): void {
     const id = +this.route.snapshot.paramMap.get('id');
@@ -52,12 +54,9 @@ export class ProductDetailsComponent implements OnInit {
   getJewelry(id: number) {
     this.productService.getJewelry(id).subscribe({
       next: (res) => {
-        this.product = res;
-        if (this.product.sizes && this.product.sizes.length > 0) {
-          const firstSize = this.product.sizes[0];
-          this.selectedSize = `${firstSize.size} ${firstSize.unit}`;
-          this.selectedSizeId = firstSize.id;
-        }
+        this.jewelry = res.jewelry;
+        this.sizes = res.sizes;
+        this.selectedSize = this.sizes[0];
       },
       error: (err) => {
         console.log("Error: ", err);
@@ -66,7 +65,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addToCart() {
-    this.cartService.addToCart(this.product.id, this.selectedQuantity, this.selectedSizeId).subscribe({
+    this.cartService.addToCart(this.jewelry.id, this.selectedQuantity, this.selectedSize.id).subscribe({
       next: (response) => {
         console.log('Product added to cart:', response);
       },
@@ -74,11 +73,6 @@ export class ProductDetailsComponent implements OnInit {
         console.error(error);
       }
     });
-  }
-
-  selectSize(size: { id: number; size: number; unit: string }): void {
-    this.selectedSize = `${size.size} ${size.unit}`;
-    this.selectedSizeId = size.id;
   }
 
   incrementQuantity(): void {
@@ -93,5 +87,17 @@ export class ProductDetailsComponent implements OnInit {
 
   changeTab(tabName: string): void {
     this.activeTab = tabName;
+  }
+
+  calculatePrice(): number {
+    let diamond = this.jewelry.diamond;
+    let diamondColorPrice = diamond.color? diamond.color.price : 0;
+    let diamondClarityPrice = diamond.clarity? diamond.clarity.price : 0;
+    let diamondCutPrice = diamond.cut? diamond.cut.price : 0;
+    let diamondShapePriceMultiplier = diamond.shape? diamond.shape.priceMultiplier : 0;
+    let selectedSizePriceMultiplier = this.selectedSize? this.selectedSize.priceMultiplier : 0;
+
+    let diamondPrice = (diamondColorPrice + diamondClarityPrice + diamondCutPrice) * diamond.carat * diamondShapePriceMultiplier;
+    return this.jewelry.settingPrice * selectedSizePriceMultiplier + this.jewelry.laborCost + diamondPrice;
   }
 }

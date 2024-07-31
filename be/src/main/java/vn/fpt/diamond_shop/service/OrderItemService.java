@@ -3,12 +3,10 @@ package vn.fpt.diamond_shop.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vn.fpt.diamond_shop.model.entity.CartItem;
-import vn.fpt.diamond_shop.model.entity.Diamond;
-import vn.fpt.diamond_shop.model.entity.Order;
-import vn.fpt.diamond_shop.model.entity.OrderItem;
+import vn.fpt.diamond_shop.model.entity.*;
 import vn.fpt.diamond_shop.repository.IDiamondRepository;
 import vn.fpt.diamond_shop.repository.IOrderItemRepository;
+import vn.fpt.diamond_shop.repository.IOrderRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,9 +21,18 @@ public class OrderItemService implements IOrderItemService {
     private final IOrderItemRepository orderItemRepository;
     private final IDiamondRepository diamondRepository;
     private final IJewelryService jewelryService;
+    private final IOrderRepository orderRepository;
 
     @Override
-    public void createOrderItemsByCartItems(List<CartItem> cartItems, Order order, int discount) {
+    public Order createOrderItemsByCartItems(List<CartItem> cartItems, Customer customer, int discount) {
+        if (cartItems.isEmpty()) {
+            return null;
+        }
+
+        Order order = new Order();
+        order.setCustomer(customer);
+        orderRepository.save(order);
+
         for (CartItem cartItem : cartItems) {
             OrderItem orderItem = new OrderItem();
             orderItem.setJewelry(cartItem.getJewelry());
@@ -40,6 +47,8 @@ public class OrderItemService implements IOrderItemService {
             diamond.setQuantity(diamond.getQuantity() - cartItem.getQuantity());
             diamondRepository.save(diamond);
         }
+
+        return order;
     }
 
     @Override
