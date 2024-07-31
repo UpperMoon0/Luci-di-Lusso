@@ -2,26 +2,23 @@
   <div class="additional-info border rounded shadow p-4">
     <div class="row">
       <div class="col-md-6">
-        <img src="{{product.imageUrl}}" class="img-fluid rounded" alt="Product Image">
+        <img src="{{jewelry.imageUrl}}" class="img-fluid rounded" alt="Product Image">
       </div>
       <div class="col-md-6">
         <div class="product-info">
-          <h2 class="product-name">{{product.name}}</h2>
-          <h2 class="price text-dark">${{product.price}}</h2>
-          <p class="type">Type: {{product.type}}</p>
+          <h2 class="product-name">{{jewelry.name}}</h2>
+          <h2 class="price text-dark">${{calculatePrice()}}</h2>
+          <p class="type">Type: {{jewelry.type.type}}</p>
           <div class="dropdown d-flex align-items-center my-3">
             <span class="mr-2">Size:</span>
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {{selectedSize}}
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" *ngFor="let size of product.sizes" (click)="selectSize(size)">{{size.size}} {{size.unit}}</a>
-            </div>
+            <select *ngIf="sizes.length > 0" [(ngModel)]="selectedSize">
+              <option *ngFor="let size of sizes" [ngValue]="size">{{size.size}} {{size.unit}}</option>
+            </select>
           </div>
           <p class="text-info">
             Don't know which size to choose? <a href="/blog">See this</a>.
           </p>
-          <a href="/certificate/{{product.diamondId}}" style="margin: 1rem auto 0rem">GIA certificate</a>
+          <a href="/certificate/{{jewelry.diamond.id}}" style="margin: 1rem auto 0rem">GIA certificate</a>
           <div style="display: flex; align-items: center; margin: 1rem auto 1rem;">
             <img src="assets/images/zalo.png" alt="Zalo" class="img-fluid" width="40" height="40">
             <p style="margin-left: 1rem;">
@@ -43,14 +40,14 @@
           </ul>
           <div>
             <div *ngIf="activeTab === 'description'">
-              <p>{{product.description}}</p>
+              <p>{{jewelry.description}}</p>
             </div>
             <div *ngIf="activeTab === 'diamond-properties'">
-              <p>Carat: {{product.diamondCarat}}</p>
-              <p>Color: {{product.diamondColor}}</p>
-              <p>Clarity: {{product.diamondClarity}}</p>
-              <p>Cut: {{product.diamondCut}}</p>
-              <p>Shape: {{product.diamondShape}}</p>
+              <p>Carat: {{jewelry.diamond.carat}}</p>
+              <p>Color: {{jewelry.diamond.color.color}}</p>
+              <p>Clarity: {{jewelry.diamond.clarity.clarity}}</p>
+              <p>Cut: {{jewelry.diamond.cut.cut}}</p>
+              <p>Shape: {{jewelry.diamond.shape.shape}}</p>
             </div>
           </div>
           <button *ngIf="isLoggedIn" class="btn btn-primary my-3" (click)="addToCart()">Add to Cart</button>

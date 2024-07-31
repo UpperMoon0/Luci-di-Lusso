@@ -1,5 +1,7 @@
 package vn.fpt.diamond_shop.model.dto;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import vn.fpt.diamond_shop.model.entity.Jewelry;
 import vn.fpt.diamond_shop.model.entity.JewelrySize;
@@ -8,42 +10,9 @@ import vn.fpt.diamond_shop.service.IJewelryService;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class JewelryResponse extends CommonResponse {
-    private final long id;
-    private final String name;
-    private final String description;
-    private final String imageUrl;
-    private final int price;
-    private final String type;
-    private final float diamondCarat;
-    private final long diamondId;
-    private final String diamondCut;
-    private final String diamondClarity;
-    private final String diamondColor;
-    private final String diamondShape;
-    private final List<SizeDTO> sizes;
-
-    public JewelryResponse(Jewelry jewelry, List<JewelrySize> sizes, IJewelryService jewelryService) {
-        this.id = jewelry.getId();
-        this.name = jewelry.getName();
-        this.description = jewelry.getDescription();
-        this.imageUrl = jewelry.getImageUrl();
-        this.price = jewelryService.calculateJewelryPrice(jewelry);
-        this.type = jewelry.getType().getType();
-        this.diamondId = jewelry.getDiamond().getId();
-        this.diamondCarat = jewelry.getDiamond().getCarat();
-        this.diamondCut = jewelry.getDiamond().getCut().getCut();
-        this.diamondClarity = jewelry.getDiamond().getClarity().getClarity();
-        this.diamondColor = jewelry.getDiamond().getColor().getColor();
-        this.diamondShape = jewelry.getDiamond().getShape().getShape();
-        List<SizeDTO> list = new ArrayList<>();
-        for (JewelrySize size : sizes) {
-            SizeDTO sizeDTO = new SizeDTO(size.getId(), size.getSize(), size.getUnit());
-            list.add(sizeDTO);
-        }
-        this.sizes = list;
-    }
+    private final Jewelry jewelry;
+    private final List<JewelrySize> sizes;
 }
-
-record SizeDTO(Long id, Float size, String unit) {}

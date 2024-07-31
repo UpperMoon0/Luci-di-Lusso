@@ -11,7 +11,10 @@ export class ProductPageComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    const token = localStorage.getItem('accessToken');
+    let token = localStorage.getItem('accessToken');
+    if (token == null) {
+      token = "noToken";
+    }
     this.accountService.validateToken(token).subscribe({
       next: (res) => {
         if (res.message == "MANAGER") {

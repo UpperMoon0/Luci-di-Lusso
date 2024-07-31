@@ -28,7 +28,7 @@ public class JewelryController {
             JewelryType type = jewelry.getType();
             List<JewelrySize> sizes = jewelrySizeService.getByJewelryType(type);
 
-            JewelryResponse response = new JewelryResponse(jewelry, sizes, jewelryService);
+            JewelryResponse response = new JewelryResponse(jewelry, sizes);
             response.setMessage("Jewelry retrieved successfully");
 
             return ResponseEntity.ok(response);

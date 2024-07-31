@@ -50,6 +50,7 @@ export class VouchersListComponent implements OnInit {
       next: (res) => {
         this.toastrService.success(res.message)
         this.getMyVouchers();
+        this.getCustomerPoints();
       }
     })
   }
