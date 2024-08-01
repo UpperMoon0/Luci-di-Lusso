@@ -3,6 +3,7 @@ import {JewelryService} from "../service/jewelry.service";
 import {AccountService} from "../service/account.service";
 import {ActivatedRoute} from "@angular/router";
 import {CartService} from "../service/cart.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-product-details',
@@ -28,7 +29,8 @@ export class ProductDetailsComponent implements OnInit {
     private productService: JewelryService,
     private cartService: CartService,
     private accountService: AccountService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastrService: ToastrService
   ) {
     this.jewelry = {
       id: 0,
@@ -57,20 +59,17 @@ export class ProductDetailsComponent implements OnInit {
         this.jewelry = res.jewelry;
         this.sizes = res.sizes;
         this.selectedSize = this.sizes[0];
-      },
-      error: (err) => {
-        console.log("Error: ", err);
       }
     });
   }
 
   addToCart() {
     this.cartService.addToCart(this.jewelry.id, this.selectedQuantity, this.selectedSize.id).subscribe({
-      next: (response) => {
-        console.log('Product added to cart:', response);
+      next: () => {
+        this.toastrService.success('Added to cart');
       },
-      error: (error) => {
-        console.error(error);
+      error: (res) => {
+        this.toastrService.error(res.error.message);
       }
     });
   }

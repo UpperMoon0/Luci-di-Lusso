@@ -3,7 +3,7 @@
     <h2>Purchase Details</h2>
   </div>
   <div style="display: flex; justify-content: center;">
-    <div style="width: 30%;">
+    <div style="width: 30%; padding: 0 2rem 0;">
       <p>Customer name: {{order.order.customer.fullName}}</p>
       <p>Order date: {{order.order.createAt | date: 'medium'}}</p>
       <p>Total price: ${{getTotalPrice(order)}}</p>
@@ -22,12 +22,14 @@
             <p>Type: {{item.jewelry.type.type}}</p>
             <p>Size: {{item.jewelrySize.size}} {{item.jewelrySize.unit}}</p>
             <p>Quantity: {{item.quantity}}</p>
-            <p>Price: ${{item.price}}</p>
-            <div>
+            <div style="margin-bottom: 1rem">
               <a href="/certificate/{{item.jewelry.diamond.id}}" style="color: #007bff; text-decoration: underline;">GIA certificate</a>
             </div>
-            <div>
+            <div style="margin-bottom: 1rem">
               <a href="/warranty/{{item.id}}" style="color: #007bff; text-decoration: underline;">Warranty</a>
+            </div>
+            <div style="margin-bottom: 1rem">
+              <a *ngIf="order.order.receiptUrl" href="{{order.order.receiptUrl}}" style="color: #007bff; text-decoration: underline;">Receipt</a>
             </div>
           </div>
         </li>

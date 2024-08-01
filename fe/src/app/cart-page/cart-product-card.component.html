@@ -12,7 +12,7 @@
         <p class="card-text">Size: {{product.size}}</p>
         <div class="d-flex align-items-center">
           <button (click)="decreaseQuantity()" class="btn btn-secondary btn-sm">-</button>
-          <span class="mx-2">{{product.quantity}}</span>
+          <input type="number" [(ngModel)]="product.quantity" (blur)="updateQuantity()" style="text-align: center; width: 150px;">
           <button (click)="increaseQuantity()" class="btn btn-secondary btn-sm">+</button>
           <button (click)="remove()" class="btn btn-danger btn-sm ml-2">
             <i class="fa fa-trash"></i>

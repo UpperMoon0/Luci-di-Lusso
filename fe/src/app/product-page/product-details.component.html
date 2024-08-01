@@ -15,10 +15,14 @@
               <option *ngFor="let size of sizes" [ngValue]="size">{{size.size}} {{size.unit}}</option>
             </select>
           </div>
-          <p class="text-info">
-            Don't know which size to choose? <a href="/blog">See this</a>.
-          </p>
-          <a href="/certificate/{{jewelry.diamond.id}}" style="margin: 1rem auto 0rem">GIA certificate</a>
+          <p>Quantity in stock: {{jewelry.diamond.quantity}}</p>
+          <div style="display: flex">
+            <p style="margin-right: 2px">Don't know which size to choose?</p>
+            <p class="text-info">
+              <a href="/bracelet-and-ring-size-guide">See this</a>.
+            </p>
+          </div>
+          <a href="/certificate/{{jewelry.diamond.id}}" style="margin: 1rem auto 0">GIA certificate</a>
           <div style="display: flex; align-items: center; margin: 1rem auto 1rem;">
             <img src="assets/images/zalo.png" alt="Zalo" class="img-fluid" width="40" height="40">
             <p style="margin-left: 1rem;">

@@ -35,7 +35,7 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public int createOrderFromJwtToken(String jwtToken, int discount) throws RuntimeException {
+    public Order createOrderFromJwtToken(String jwtToken, int discount) throws RuntimeException {
         Account account = userService.findAccountByToken(jwtToken).orElse(null);
         if (account == null) {
             throw new InvalidJwtTokenException();
@@ -58,15 +58,9 @@ public class OrderService implements IOrderService {
             throw new RuntimeException("Cart is empty.");
         }
 
-        // Calculate total price
-        int totalPrice = 0;
-        for (CartItem cartItem : cartItems) {
-            totalPrice += jewelryService.calculateJewelryPriceWithSize(cartItem.getJewelry(), cartItem.getJewelrySize(), discount) * cartItem.getQuantity();
-        }
-
         deliveryService.createDelivery(order.getId());
 
-        return totalPrice;
+        return order;
     }
 
     @Override

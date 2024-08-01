@@ -1,16 +1,18 @@
 package vn.fpt.diamond_shop.controller;
 
 import com.stripe.exception.StripeException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.fpt.diamond_shop.model.dto.CommonResponse;
 import vn.fpt.diamond_shop.model.dto.CreateChargeRequest;
-import vn.fpt.diamond_shop.model.entity.Account;
-import vn.fpt.diamond_shop.model.entity.Customer;
-import vn.fpt.diamond_shop.model.entity.Voucher;
+import vn.fpt.diamond_shop.model.entity.*;
 import vn.fpt.diamond_shop.service.*;
 
+import java.util.List;
+
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/payment")
 public class PaymentController {
@@ -20,20 +22,8 @@ public class PaymentController {
     private final IAccountService accountService;
     private final IVoucherService voucherService;
     private final IAccountService userService;
-
-    @Autowired
-    public PaymentController(IPaymentService paymentService,
-                             IOrderService orderService, CartService cartService,
-                             IAccountService accountService,
-                             IVoucherService voucherService,
-                             IAccountService userService) {
-        this.paymentService = paymentService;
-        this.orderService = orderService;
-        this.cartService = cartService;
-        this.accountService = accountService;
-        this.voucherService = voucherService;
-        this.userService = userService;
-    }
+    private final OrderItemService orderItemService;
+    private final IJewelryService jewelryService;
 
     @PostMapping("/create-charge")
     public ResponseEntity<CommonResponse> createCharge(@RequestHeader("Authorization") String authorizationHeader,
@@ -58,12 +48,19 @@ public class PaymentController {
                 discount = voucher.getDiscount();
             }
 
-            int totalPrice = orderService.createOrderFromJwtToken(jwtToken, discount);
+            Order order = orderService.createOrderFromJwtToken(jwtToken, discount);
+            List<OrderItem> orderItems = orderItemService.getOrderItemsByOrder(order);
+
+            // Calculate total price
+            int totalPrice = 0;
+            for (OrderItem orderItem : orderItems) {
+                totalPrice += jewelryService.calculateJewelryPriceWithSize(orderItem.getJewelry(), orderItem.getJewelrySize(), discount) * orderItem.getQuantity();
+            }
 
             // Add point
             accountService.addPoint(customer, totalPrice);
 
-            paymentService.createCharge(stripeToken, totalPrice * 100);
+            paymentService.createCharge(stripeToken, totalPrice * 100, order);
             cartService.deleteAllCartItems(jwtToken);
 
             CommonResponse cr = new CommonResponse();
