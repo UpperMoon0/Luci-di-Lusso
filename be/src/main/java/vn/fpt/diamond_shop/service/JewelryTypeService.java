@@ -6,6 +6,7 @@ import vn.fpt.diamond_shop.model.dto.SaveJewelryTypeRequest;
 import vn.fpt.diamond_shop.model.entity.JewelryType;
 import vn.fpt.diamond_shop.repository.IJewelryTypeRepository;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -26,19 +27,23 @@ public class JewelryTypeService implements IJewelryTypeService {
         } else {
             jewelryType = jewelryTypeRepository.findById(request.getId()).orElse(null);
             if (jewelryType == null) {
-                throw new IllegalArgumentException("Jewelry Type not found");
+                throw new RuntimeException("Jewelry type not found");
             }
         }
 
         jewelryType.setType(request.getType());
-        jewelryTypeRepository.save(jewelryType);
+        try {
+            jewelryTypeRepository.save(jewelryType);
+        } catch (Exception e) {
+            throw new RuntimeException("Jewelry type already exists");
+        }
     }
 
     @Override
     public void toggleStatus(Long id) {
         JewelryType jewelryType = jewelryTypeRepository.findById(id).orElse(null);
         if (jewelryType == null) {
-            throw new IllegalArgumentException("Jewelry Type not found");
+            throw new IllegalArgumentException("Jewelry type not found");
         }
 
         if ("ACTIVE".equals(jewelryType.getStatus())) {

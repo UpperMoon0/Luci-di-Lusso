@@ -42,6 +42,11 @@ public class CartService implements ICartService {
         // Check if CartItem exists for the given User and Jewelry
         List<CartItem> existingCartItems = cartItemRepository.findByCustomerIdAndJewelryIdAndJewelrySizeId(customer.getId(), jewelry.getId(), sizeId);
 
+        // Check if jewelries are in stock
+        if (jewelry.getDiamond().getQuantity() < quantity) {
+            throw new RuntimeException("Not enough jewelry in stock");
+        }
+
         CartItem cartItem;
         if (!existingCartItems.isEmpty()) {
             // If exists, update the quantity of the existing CartItem

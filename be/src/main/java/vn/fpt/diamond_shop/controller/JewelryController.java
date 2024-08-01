@@ -50,7 +50,7 @@ public class JewelryController {
                 .toList();
 
         JewelryListResponse response = new JewelryListResponse(activeJewelries, jewelryService);
-        response.setMessage("Get jewelries successfully");
+        response.setMessage("Jewelry list retrieved successfully");
 
         return ResponseEntity.ok(response);
     }
@@ -77,7 +77,7 @@ public class JewelryController {
     }
 
     @PostMapping("/toggle-jewelry-status")
-    public ResponseEntity<CommonResponse> deleteJewelry(@RequestParam Long id) {
+    public ResponseEntity<CommonResponse> toggleJewelryStatus(@RequestParam Long id) {
         try {
             jewelryService.toggleStatus(id);
 
@@ -159,7 +159,6 @@ public class JewelryController {
             return ResponseEntity.badRequest().body(response);
         }
     }
-
 
     @GetMapping("/get-all-collections")
     public ResponseEntity<List<JewelryCollection>> getAllCollections() {

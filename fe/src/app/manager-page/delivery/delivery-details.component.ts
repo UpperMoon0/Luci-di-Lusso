@@ -1,10 +1,11 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-delivery-details',
   templateUrl: './delivery-details.component.html',
-  styleUrls: ['./delivery-details.component.css']
+  styleUrls: ['./delivery-details.component.css'],
+  encapsulation: ViewEncapsulation.ShadowDom
 })
 export class DeliveryDetailsComponent implements OnInit {
   protected delivery: any;

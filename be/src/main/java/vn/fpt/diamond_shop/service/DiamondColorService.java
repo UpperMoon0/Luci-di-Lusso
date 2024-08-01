@@ -6,6 +6,7 @@ import vn.fpt.diamond_shop.model.dto.SaveDiamondColorRequest;
 import vn.fpt.diamond_shop.model.entity.DiamondColor;
 import vn.fpt.diamond_shop.repository.IDiamondColorRepository;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -28,12 +29,16 @@ public class DiamondColorService implements IDiamondColorService {
         } else {
             diamondColor = diamondColorRepository.findById(id).orElse(null);
             if (diamondColor == null) {
-                throw new RuntimeException("Diamond Color not found");
+                throw new RuntimeException("Diamond color not found");
             }
         }
         diamondColor.setColor(request.getColor());
         diamondColor.setPrice(request.getPrice());
-        diamondColorRepository.save(diamondColor);
+        try {
+            diamondColorRepository.save(diamondColor);
+        } catch (Exception e) {
+            throw new RuntimeException("Diamond color already exists");
+        }
     }
 
     @Override

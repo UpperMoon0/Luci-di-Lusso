@@ -1,4 +1,4 @@
-import {Component, ViewChild, OnInit, OnDestroy, inject} from '@angular/core';
+import {Component, ViewChild, OnInit, OnDestroy} from '@angular/core';
 import { StripeService, StripeCardComponent } from 'ngx-stripe';
 import { PaymentService } from "../service/payment.service";
 import { CartService } from "../service/cart.service";
@@ -79,8 +79,8 @@ export class PaymentFormComponent implements OnInit, OnDestroy {
                   this.router.navigate(['/home']).then(r => {
                   });
                 },
-                error: () => {
-                  this.toastrService.error('Payment failed!');
+                error: (res) => {
+                  this.toastrService.error(res.error.message);
                 }
               });
           }

@@ -104,12 +104,13 @@ export class ManagerJewelryListComponent implements OnInit {
 
   saveJewelryType(jewelryTypeId: any) {
     this.jewelryService.saveJewelryType(jewelryTypeId).subscribe({
-      next: () => {
+      next: (res) => {
         this.toastrService.success('Jewelry type saved successfully');
         this.getJewelryTypes();
       },
-      error: (error) => {
-        this.toastrService.error(error.message);
+      error: (res) => {
+        console.log(res);
+        this.toastrService.error(res.error.message);
       }
     });
   }
@@ -120,8 +121,8 @@ export class ManagerJewelryListComponent implements OnInit {
         this.toastrService.success('Jewelry type status updated successfully');
         this.getJewelryTypes();
       },
-      error: (error: { message: string; }) => {
-        this.toastrService.error(error.message);
+      error: (res) => {
+        this.toastrService.error(res.error.message);
       }
     });
   }
@@ -169,8 +170,8 @@ export class ManagerJewelryListComponent implements OnInit {
         this.toastrService.success('Jewelry size saved successfully');
         this.getJewelrySizes();
       },
-      error: (error) => {
-        this.toastrService.error(error.message);
+      error: (res) => {
+        this.toastrService.error(res.error.message);
       }
     });
   }
@@ -181,8 +182,8 @@ export class ManagerJewelryListComponent implements OnInit {
         this.toastrService.success('Jewelry size status updated successfully');
         this.getJewelrySizes();
       },
-      error: (error: { message: string; }) => {
-        this.toastrService.error(error.message);
+      error: (res) => {
+        this.toastrService.error(res.error.message);
       }
     });
   }

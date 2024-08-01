@@ -23,4 +23,7 @@ public class Order {
 
     @Column(name = "create_at")
     private LocalDateTime createAt = LocalDateTime.now();
+
+    @Column(name = "receipt_url")
+    private String receiptUrl;
 }

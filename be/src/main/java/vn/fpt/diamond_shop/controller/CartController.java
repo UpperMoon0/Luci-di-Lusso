@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vn.fpt.diamond_shop.exception.InvalidJwtTokenException;
 import vn.fpt.diamond_shop.model.dto.AddToCartRequest;
 import vn.fpt.diamond_shop.model.dto.CommonResponse;
 import vn.fpt.diamond_shop.model.dto.GetCartResponse;
@@ -16,7 +15,6 @@ import vn.fpt.diamond_shop.service.IJewelryService;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/cart")

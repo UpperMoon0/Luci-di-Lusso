@@ -51,6 +51,9 @@ export class VouchersListComponent implements OnInit {
         this.toastrService.success(res.message)
         this.getMyVouchers();
         this.getCustomerPoints();
+      },
+      error: (error) => {
+        this.toastrService.error(error.error.message)
       }
     })
   }
