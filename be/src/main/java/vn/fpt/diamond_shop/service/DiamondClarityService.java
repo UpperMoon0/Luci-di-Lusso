@@ -6,6 +6,7 @@ import vn.fpt.diamond_shop.model.dto.SaveDiamondClarityRequest;
 import vn.fpt.diamond_shop.model.entity.DiamondClarity;
 import vn.fpt.diamond_shop.repository.IDiamondClarityRepository;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -28,12 +29,16 @@ public class DiamondClarityService implements IDiamondClarityService {
         } else {
             diamondClarity = diamondClarityRepository.findById(id).orElse(null);
             if (diamondClarity == null) {
-                throw new RuntimeException("Diamond Clarity not found");
+                throw new RuntimeException("Diamond clarity not found");
             }
         }
         diamondClarity.setClarity(request.getClarity());
         diamondClarity.setPrice(request.getPrice());
-        diamondClarityRepository.save(diamondClarity);
+        try {
+            diamondClarityRepository.save(diamondClarity);
+        } catch (Exception e) {
+            throw new RuntimeException("Diamond clarity already exists");
+        }
     }
 
     @Override

@@ -6,6 +6,7 @@ import vn.fpt.diamond_shop.model.dto.SaveDiamondShapeRequest;
 import vn.fpt.diamond_shop.model.entity.DiamondShape;
 import vn.fpt.diamond_shop.repository.IDiamondShapeRepository;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -28,12 +29,16 @@ public class DiamondShapeService implements IDiamondShapeService {
         } else {
             diamondShape = diamondShapeRepository.findById(id).orElse(null);
             if (diamondShape == null) {
-                throw new RuntimeException("Diamond Shape not found");
+                throw new RuntimeException("Diamond shape not found");
             }
         }
         diamondShape.setShape(request.getShape());
         diamondShape.setPriceMultiplier(request.getPriceMultiplier());
-        diamondShapeRepository.save(diamondShape);
+        try {
+            diamondShapeRepository.save(diamondShape);
+        } catch (Exception e) {
+            throw new RuntimeException("Diamond shape already exists");
+        }
     }
 
     @Override

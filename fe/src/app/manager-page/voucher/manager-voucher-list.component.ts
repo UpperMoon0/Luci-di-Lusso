@@ -37,7 +37,7 @@ export class ManagerVoucherListComponent implements OnInit {
         this.toastrService.success('Voucher status updated successfully');
         this.getVouchers();
       },
-      error: () => this.toastrService.error('Failed to update voucher status')
+      error: (res) => this.toastrService.error(res.error.message)
     });
   }
 
@@ -75,7 +75,7 @@ export class ManagerVoucherListComponent implements OnInit {
         this.toastrService.success('Voucher saved successfully');
         this.getVouchers();
       },
-      error: () => this.toastrService.error('Failed to save voucher')
+      error: (res) => this.toastrService.error(res.error.message)
     });
   }
 }

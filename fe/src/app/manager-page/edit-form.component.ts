@@ -37,11 +37,6 @@ export class EditFormComponent implements OnInit {
     });
 
     this.editForm = new FormGroup(formGroup);
-
-    // Print name and value of each field
-    this.formConfig.fields.forEach((field: any) => {
-      console.log(field.name, field.value);
-    });
   }
 
   formatDateTime(date: Date): string {

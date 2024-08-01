@@ -30,15 +30,24 @@ public class VoucherService implements IVoucherService {
         } else {
             voucher = voucherRepository.findById(request.getId()).orElse(null);
             if (voucher == null) {
-                throw new IllegalArgumentException("Voucher not found");
+                throw new RuntimeException("Voucher not found");
             }
+        }
+
+        // Voucher expiration date must be after today
+        if (request.getExpireAt().isBefore(LocalDateTime.now())) {
+            throw new RuntimeException("Voucher expiration date must be after today");
         }
 
         voucher.setCode(request.getCode());
         voucher.setDiscount(request.getDiscount());
         voucher.setExpireAt(request.getExpireAt());
         voucher.setPrice(request.getPrice());
-        voucherRepository.save(voucher);
+        try {
+            voucherRepository.save(voucher);
+        } catch (Exception e) {
+            throw new RuntimeException("Voucher already exists");
+        }
     }
 
     @Override
@@ -66,7 +75,17 @@ public class VoucherService implements IVoucherService {
             throw new RuntimeException("Voucher not found");
         }
 
+        // Check if voucher is expired
+        if (voucher.getExpireAt().isBefore(LocalDateTime.now())) {
+            throw new RuntimeException("Voucher is expired");
+        }
+
         Customer customer = customerRepository.getById(customerId);
+
+        // Check if customer has enough points
+        if (customer.getPoint() < voucher.getPrice()) {
+            throw new RuntimeException("Not enough points");
+        }
 
         customer.setPoint(customer.getPoint() - voucher.getPrice());
 

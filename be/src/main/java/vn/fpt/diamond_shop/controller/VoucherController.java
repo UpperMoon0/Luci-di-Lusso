@@ -45,12 +45,16 @@ public class VoucherController {
     }
 
     @PutMapping("/save-voucher")
-    public ResponseEntity<Void> saveVoucher(@Valid @RequestBody SaveVoucherRequest request) {
+    public ResponseEntity<CommonResponse> saveVoucher(@Valid @RequestBody SaveVoucherRequest request) {
         try {
             voucherService.save(request);
-            return ResponseEntity.ok().build();
+            CommonResponse response = new CommonResponse();
+            response.setMessage("Voucher saved successfully");
+            return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().build();
+            CommonResponse response = new CommonResponse();
+            response.setMessage(e.getMessage());
+            return ResponseEntity.badRequest().body(response);
         }
     }
 
@@ -70,7 +74,7 @@ public class VoucherController {
             Customer customer = user.getCustomer();
             voucherService.redeemVoucher(voucherId, customer.getId());
             CommonResponse response = new CommonResponse();
-            response.setMessage("Redeem voucher success!");
+            response.setMessage("Redeem voucher success");
 
             return ResponseEntity.ok(response);
         } catch (InvalidJwtTokenException e) {

@@ -182,8 +182,8 @@ export class ManagerDiamondListComponent implements OnInit {
         this.toastrService.success('Diamond color saved successfully');
         this.getDiamondProperties();
       },
-      error: (error) => {
-        this.toastrService.error(error.message);
+      error: (res) => {
+        this.toastrService.error(res.error.message);
       }
     });
   }
@@ -194,8 +194,8 @@ export class ManagerDiamondListComponent implements OnInit {
         this.toastrService.success('Diamond clarity saved successfully');
         this.getDiamondProperties();
       },
-      error: (error) => {
-        this.toastrService.error(error.message);
+      error: (res) => {
+        this.toastrService.error(res.error.message);
       }
     });
   }
@@ -206,8 +206,8 @@ export class ManagerDiamondListComponent implements OnInit {
         this.toastrService.success('Diamond cut saved successfully');
         this.getDiamondProperties();
       },
-      error: (error) => {
-        this.toastrService.error(error.message);
+      error: (res) => {
+        this.toastrService.error(res.error.message);
       }
     });
   }
@@ -218,8 +218,8 @@ export class ManagerDiamondListComponent implements OnInit {
         this.toastrService.success('Diamond shape saved successfully');
         this.getDiamondProperties();
       },
-      error: (error) => {
-        this.toastrService.error(error.message);
+      error: (res) => {
+        this.toastrService.error(res.error.message);
       }
     });
   }
@@ -230,8 +230,8 @@ export class ManagerDiamondListComponent implements OnInit {
         this.toastrService.success('Diamond deleted successfully');
         this.getDiamonds();
       },
-      error: (error) => {
-        this.toastrService.error(error.message);
+      error: (res) => {
+        this.toastrService.error(res.error.message);
       }
     });
   }
@@ -242,8 +242,8 @@ export class ManagerDiamondListComponent implements OnInit {
         this.toastrService.success('Diamond color deleted successfully');
         this.getDiamondProperties();
       },
-      error: (error) => {
-        this.toastrService.error(error.message);
+      error: (res) => {
+        this.toastrService.error(res.error.message);
       }
     });
   }
@@ -254,8 +254,8 @@ export class ManagerDiamondListComponent implements OnInit {
         this.toastrService.success('Diamond clarity deleted successfully');
         this.getDiamondProperties();
       },
-      error: (error) => {
-        this.toastrService.error(error.message);
+      error: (res) => {
+        this.toastrService.error(res.error.message);
       }
     });
   }
@@ -266,8 +266,8 @@ export class ManagerDiamondListComponent implements OnInit {
         this.toastrService.success('Diamond cut deleted successfully');
         this.getDiamondProperties();
       },
-      error: (error) => {
-        this.toastrService.error(error.message);
+      error: (res) => {
+        this.toastrService.error(res.error.message);
       }
     });
   }
@@ -278,8 +278,8 @@ export class ManagerDiamondListComponent implements OnInit {
         this.toastrService.success('Diamond shape deleted successfully');
         this.getDiamondProperties();
       },
-      error: (error) => {
-        this.toastrService.error(error.message);
+      error: (res) => {
+        this.toastrService.error(res.error.message);
       }
     });
   }

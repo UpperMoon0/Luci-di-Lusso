@@ -6,6 +6,7 @@ import vn.fpt.diamond_shop.model.dto.SaveDiamondCutRequest;
 import vn.fpt.diamond_shop.model.entity.DiamondCut;
 import vn.fpt.diamond_shop.repository.IDiamondCutRepository;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -28,12 +29,16 @@ public class DiamondCutService implements IDiamondCutService {
         } else {
             diamondCut = diamondCutRepository.findById(id).orElse(null);
             if (diamondCut == null) {
-                throw new RuntimeException("Diamond Cut not found");
+                throw new RuntimeException("Diamond cut not found");
             }
         }
         diamondCut.setCut(request.getCut());
         diamondCut.setPrice(request.getPrice());
-        diamondCutRepository.save(diamondCut);
+        try {
+            diamondCutRepository.save(diamondCut);
+        } catch (Exception e) {
+            throw new RuntimeException("Diamond cut already exists");
+        }
     }
 
     @Override
